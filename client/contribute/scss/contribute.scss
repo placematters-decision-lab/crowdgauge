@@ -1,0 +1,81 @@
+$cellWidth: 80px;
+$cellHeight: 30px;
+$rowTitleW: 180px;
+$iconSize: 28px;
+@mixin titleLabel {
+  font-size: 12px;
+}
+
+@mixin ellipsisText {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+@mixin bob($d) {
+  background-color: #8b0000;
+  margin-left: $d;
+  margin-right: $d;
+  margin-top: $d;
+}
+
+.dialogLabel {
+  font-size: 0.85em;
+  width: 100px;
+}
+
+.pColumnHeader {
+  display: inline-block;
+  font-size: 0.85em;
+  width: $cellWidth;
+}
+
+.pHeaderRow {
+  margin-left: $rowTitleW;
+}
+
+.pRowHeader {
+  width: $rowTitleW;
+  display: inline-block;
+}
+
+.pRowTitle {
+  @include titleLabel;
+  @include ellipsisText;
+  display: inline-block;
+  vertical-align: top;
+  margin-top: 4px;
+  margin-left: 6px;
+  width: $rowTitleW - $iconSize * 2.5;
+}
+
+.pColTitle {
+  @include titleLabel;
+}
+
+.inlineBtn {
+  display: inline-block;
+  margin: 2px;
+}
+
+.mRow {
+
+}
+
+.gCell {
+  display: inline-block;
+  width: $cellWidth;
+  height: $cellHeight;
+  background-color: #ffc0cb;
+  border: 1px solid #708090;
+}
+
+.contLenLbl {
+  @include titleLabel;
+  vertical-align: top;
+}
+
+textarea {
+  width: 100%;
+  height: 200px;
+}
