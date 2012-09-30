@@ -1,2 +1,2 @@
-digimocracy
+crowdgauge
 ===========
