@@ -11,10 +11,16 @@
         var _self = this;
 
         //region private fields and methods
+        var _getUID = function () {
+            var msSince2012 = new Date().getTime()-1325376000000;
+            return msSince2012 + "-" + Math.floor(Math.random()*10000);
+        };
+
         var _defaults = {
             title: "",
             description: "",
-            nickname: ""
+            nickname: "",
+            uid: "p"+_getUID()
         };
         var _settings = $.extend({}, _defaults, data);
         //endregion
@@ -37,6 +43,9 @@
 
         /** @type {String} a shorter version of the title to help identify this priotity in the UI */
         this.nickname = _settings.nickname;
+
+        /** @type {String} unique id*/
+        this.uid = _settings.uid;
         //endregion
     }
 })();

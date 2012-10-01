@@ -1,7 +1,7 @@
 var http = require("http");
 var url = require("url");
-var io = require("socket.io");
 var qs = require('querystring');
+var io = require("socket.io");
 var app;
 
 function start(route, prehandle, handle, staticServer) {
@@ -29,7 +29,7 @@ function start(route, prehandle, handle, staticServer) {
     }
 
     app = http.createServer(onRequest);
-    app.listen(8888, '127.0.0.1');
+    app.listen(8888);//, '127.0.0.1');
     console.log('Server running at http://127.0.0.1:8888/');
 }
 

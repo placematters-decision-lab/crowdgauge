@@ -1,7 +1,9 @@
 //region includes
 var fs = require("fs");
 var url = require('url');
+
 var nano = require('nano')('http://localhost:5984');
+
 var images_db = nano.db.use('images');
 //endregion
 
@@ -19,6 +21,7 @@ ImageDataHandler = function () {
         _createViews();
     };
 
+    //TODO add a super-class for datahandlers that includes db urls, utils functions etc.
     var _addOrUpdate = function (doc, docId) {
         images_db.head(docId, function (err, _, headers) {
             if (err) {

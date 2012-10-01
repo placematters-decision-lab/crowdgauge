@@ -1,14 +1,3 @@
-//var path = require('path');
-//var jqFileUpload = require("./modules/jqFileUpload");
-//var client = path.resolve(__dirname, "../client");
-//
-//jqFileUpload.setOptions({
-//    tmpDir:__dirname + '/tmp',//note: __dirname is specific the the directory containing THIS file
-//    uploadDir:__dirname + '/tmp',
-//    publicDir:client
-//});
-//require('http').createServer(jqFileUpload.serve).listen(8888);
-
 var path = require('path');
 var nodeStatic = require('node-static');
 
