@@ -2,7 +2,8 @@
 var fs = require("fs");
 var url = require('url');
 
-var nano = require('nano')('http://localhost:5984');
+var config = require("../config");
+var nano = require('nano')(config.couchURL);
 
 var images_db = nano.db.use('images');
 //endregion

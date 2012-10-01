@@ -4,7 +4,7 @@
  * Time: 9:33 AM
  */
 //region includes
-var config = require("../../config");
+var config = require("../config");
 
 var db_name = "contribute";
 var nano = require('nano')(config.couchURL);
