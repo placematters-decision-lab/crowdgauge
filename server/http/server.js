@@ -33,8 +33,6 @@ function start(route, prehandle, handle, staticServer) {
     console.log('Server running at http://127.0.0.1:8888/');
 }
 
-
-
 function startSockets(onConnect) {
     io = io.listen(app);
     io.sockets.on('connection', function (socket) {
