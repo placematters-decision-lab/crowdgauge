@@ -22,11 +22,46 @@
         var _$description;
         var _$nickname;
 
+        var _$imagePane;
+
         var _buildContent = function ($dlg) {
             var $inputsDiv = $("<div></div>").appendTo($dlg);
             _$title = $("<input type='text' />").val(_priority.title).appendTo($("<label>Title:</label>").addClass("dialogLabel").appendTo($("<div>").appendTo($inputsDiv)));
             _$description = $("<input type='text' />").val(_priority.description).appendTo($("<label>Description:</label>").addClass("dialogLabel").appendTo($("<div>").appendTo($inputsDiv)));
             _$nickname = $("<input type='text' />").val(_priority.nickname).appendTo($("<label>Nickname:</label>").addClass("dialogLabel").appendTo($("<div>").appendTo($inputsDiv)));
+            _$imagePane = $("<div class='panel'>").appendTo($inputsDiv);
+            _addImagePane();
+        };
+
+        var _drawRow = function (file) {
+            var $row = $("<div>").appendTo(_$imagePane);
+            $('<img src="' + file.thumbnail_url + '?color=black"}">').appendTo($row);
+            $('<img src="' + file.thumbnail_url + '?color=crimson"}">').appendTo($row);
+            $('<span/>').text(file.name).appendTo($row);
+            $('<button/>').text("delete").appendTo($row).click(function() {
+                $.post('/deletefile/', {groupId:_priority.uid, name:file.name}, function() {
+                    $row.remove();
+                });
+            });
+        };
+
+        var _addImagePane = function () {
+            var $chooseFilesBtn = $('<input type="file" data-url="/fileupload">').appendTo(_$imagePane);
+            $chooseFilesBtn.attr("name", _priority.uid);
+
+            $.getJSON('/listfiles/' + _priority.uid, function (data) {
+                $.each(data, function (index, file) {
+                    _drawRow(file);
+                });
+            });
+            $chooseFilesBtn.fileupload({
+                dataType:'json',
+                done:function (e, data) {
+                    $.each(data.result, function (index, file) {
+                        _drawRow(file);
+                    });
+                }
+            });
         };
 
         var _applyChanges = function () {

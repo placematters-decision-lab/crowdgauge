@@ -8,18 +8,22 @@ var fileUploader = require("./fileUploader");
 
 /** @type ImageDataHandler */
 var dataHandler = require("./imageDataHandler.js");
+
+/** @type SVGHandler */
+var svgHandler = require("./svgHandler");
 //endregion
 
 /**
  @module fileManager
  @class FileManager
  */
-FileManager = function () {
+var FileManager = function () {
     var _self = this;
 
     var _options = {
-        imageTypes:/\.(gif|jpe?g|png)$/i,
-        imageVersions:{
+        bitmapTypes:/\.(gif|jpe?g|png)$/i,
+        vectorImageTypes:/\.(svg)$/i,
+        bitmapVersions:{
             'thumbnail':{//--make sure to (manually) create a folder for each of these in temp
                 width:120,
                 height:120
@@ -33,16 +37,19 @@ FileManager = function () {
             allowOrigin:'*',
             allowMethods:'OPTIONS, HEAD, GET, POST, PUT, DELETE'
         },
-        uploadDir: ""
+        uploadDir:""
     };
 
     var _handleResult = function (req, res, result) {
+        var ct = req.headers.accept.indexOf('application/json') !== -1 ? 'application/json' : 'text/plain';
+        _returnData(req, res, ct, JSON.stringify(result));
+    };
+
+    var _returnData = function (req, res, contentType, data) {
         res.writeHead(200, {
-            'Content-Type':req.headers.accept
-                .indexOf('application/json') !== -1 ?
-                'application/json' : 'text/plain'
+            'Content-Type':contentType
         });
-        res.end(JSON.stringify(result));
+        res.end(data);
     };
 
     //region public API
@@ -53,8 +60,8 @@ FileManager = function () {
 
     this.deletefile = function (req, res, postData) {
         var name = postData.name;
-        console.log("DELETE: "+name);
-        dataHandler.deleteFile(postData.groupId, postData.name, function(success) {
+        console.log("DELETE: " + name);
+        dataHandler.deleteFile(postData.groupId, postData.name, function (success) {
             return _handleResult(req, res, "OK");
         });
     };
@@ -65,9 +72,10 @@ FileManager = function () {
         dataHandler.listFiles(groupId, function (files) {
             var list = [];
             files.forEach(function (file, i) {
+                var thumbnailPath = _options.bitmapTypes.test(file.filename) ? 'thumbnail/' : 'main/';
                 list.push({
                     name:file.filename,
-                    thumbnail_url:"/files/thumbnail/" + file.filename
+                    thumbnail_url:"/files/" + thumbnailPath + file.filename
                 });
             });
             _handleResult(req, res, list);
@@ -81,14 +89,23 @@ FileManager = function () {
      * @param postData
      */
     this.serveFile = function (req, res, postData) {
-        var pathname = url.parse(req.url).pathname;
+        var urlObj = url.parse(req.url, true);
+        var pathname = urlObj.pathname;
         var file = pathname.substr(pathname.indexOf("/", 1) + 1);
         var sepPos = file.indexOf("/");
-        if (sepPos < 0) {
-            dataHandler.serveAttachment(file, 'panel', req, res);
-        } else {
-            dataHandler.serveAttachment(file.substring(sepPos + 1), file.substring(0, sepPos), req, res);
+        var filename = (sepPos < 0) ? file : file.substring(sepPos + 1);
+        var version = (sepPos < 0) ? 'panel' : file.substring(0, sepPos);
+        if (_options.vectorImageTypes.test(file)) {
+            var color = urlObj.query["color"];
+            if (color && color !== "black") {
+                dataHandler.loadAttachment(filename, version, function (body) {
+                    var data = svgHandler.applyFillColor(body.toString(), color);
+                    _returnData(req, res, "image/svg+xml", data);
+                });
+                return;
+            }
         }
+        dataHandler.serveAttachment(filename, version, req, res);
     };
 
     this.options = function (options) {

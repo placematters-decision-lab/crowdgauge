@@ -20,26 +20,32 @@
         var _content = content;
         var _$description;
         var _$paletteSelection;
+        var _$scoreSelection;
 
         var _buildContent = function ($dlg) {
             var $inputsDiv = $("<div></div>").appendTo($dlg);
             var status = _content.status || Enums.STATUS_DRAFT;
             if (status == Enums.STATUS_NEW) status = Enums.STATUS_DRAFT;//always default to 'draft' status
             var statusOpts = [Enums.STATUS_NEW, Enums.STATUS_DRAFT, Enums.STATUS_REVIEW, Enums.STATUS_APPROVED];
+            var scoreOpts = ['N/A', '-2', '-1', '0', '1', '2'];
+            var cellDef = new SAS.CellDef(_content.data);
+
             $('<label for="status_sel">Status:</label>').addClass("dialogLabel").appendTo($inputsDiv);
             _$paletteSelection = $('<select id="status_sel"></select>').appendTo($inputsDiv);
             SAS.controlUtilsInstance.populateSelectList(_$paletteSelection, null, statusOpts, status);
-
-            var val = _content.data || "";
+            $('<label for="score_sel">Score:</label>').addClass("dialogLabel").appendTo($inputsDiv);
+            _$scoreSelection = $('<select id="score_sel"></select>').appendTo($inputsDiv);
+            SAS.controlUtilsInstance.populateSelectList(_$scoreSelection, null, scoreOpts, cellDef.score);
             var $descDiv = $('<div>').appendTo($inputsDiv);
             $('<label for="description_txt">Description:</label>').addClass("dialogLabel").appendTo($descDiv);
-            _$description = $('<textarea id="description_txt"></textarea>').val(val).appendTo($('<div>').appendTo($descDiv));
+            _$description = $('<textarea id="description_txt"></textarea>').val(cellDef.description).appendTo($('<div>').appendTo($descDiv));
             //_$description.wysiwyg();
         };
 
         var _applyChanges = function () {
-            _content.data = _$description.val();
-            _content.status = (_content.data === "") ? Enums.STATUS_NEW : _$paletteSelection.val();
+            var cellDef = new SAS.CellDef({description:_$description.val(), score:_$scoreSelection.val()});
+            _content.data = cellDef;
+            _content.status = (cellDef.isEmpty()) ? Enums.STATUS_NEW : _$paletteSelection.val();
         };
 
         var _showDialog = function (onAccept, onCancel) {

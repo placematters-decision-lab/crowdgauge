@@ -30,6 +30,15 @@ $iconSize: 28px;
   width: $cellWidth;
 }
 
+.pColIcon {
+  height: 50px;
+  margin-top: 10px;
+}
+
+.pColIconImg {
+  width: $cellWidth * 0.8;
+}
+
 .pHeaderRow {
   margin-left: $rowTitleW;
 }
@@ -66,7 +75,7 @@ $iconSize: 28px;
   display: inline-block;
   width: $cellWidth;
   height: $cellHeight;
-  background-color: #ffc0cb;
+  //background-color: #ffc0cb;
   border: 1px solid #708090;
 }
 

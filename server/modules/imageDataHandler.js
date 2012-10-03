@@ -1,12 +1,19 @@
-//region includes
+//region nodejs core
 var fs = require("fs");
 var url = require('url');
+//endregion
+//region dependencies
 
+//endregion
+//region modules
 var config = require("../config");
+var logger = require("./logger");
+//endregion
+
 var nano = require('nano')(config.couchURL);
 
 var images_db = nano.db.use('images');
-//endregion
+
 
 /**
  @class ImageDataHandler
@@ -61,9 +68,9 @@ ImageDataHandler = function () {
 
     function _logResponse(err, body) {
         if (err) {
-            console.log("error: " + err.description);
+            logger.log("error: " + err.description);
         } else {
-            console.log(body);
+            logger.log(body);
         }
     }
 
@@ -100,12 +107,12 @@ ImageDataHandler = function () {
                 if (body.rows && body.rows.length > 0) {
                     var doc = body.rows[0].value;
                     console.log("DELETE DOC ID: " + doc._id);
-                    images_db.destroy(doc._id, doc._rev, function(err, body) {
+                    images_db.destroy(doc._id, doc._rev, function (err, body) {
                         callback(!err);
                     });
                 }
             } else {
-                console.log("Problem serving image: " + err.description);
+                console.log("Problem removing image: " + err.description);
                 callback(false);
             }
         });
@@ -122,14 +129,15 @@ ImageDataHandler = function () {
         }
     };
 
-    var _saveAttachment = function (docId, version, path, callback) {
-        console.log("_saveAttachment for: " + docId);
+    var _saveAttachment = function (docId, version, contentType, path, callback) {
+        logger.log("_saveAttachment for: " + docId);
         fs.readFile(path, function (err, data) {
             if (!err) {
                 //console.log("get head for: " + docId);
                 _withLatestRev(docId, function (revId) {
                     console.log("insert: " + docId + " : " + revId + " : " + version);
-                    images_db.attachment.insert(docId, version, data, 'image/jpeg', { rev:revId },
+
+                    images_db.attachment.insert(docId, version, data, contentType, { rev:revId },
                         function (err, body) {
                             if (!err) {
                                 _updateRevision(body.id, body.rev);
@@ -153,16 +161,39 @@ ImageDataHandler = function () {
     };
 
     var _serveAttachment = function (filename, version, req, res) {
+        logger.log("_serveAttachment: " + filename, 1);
         //--how do we identify unique images (since they could have the same file name?)
         images_db.view('views', 'byFilename', {"key":filename}, function (err, body) {
             if (!err) {
                 if (body.rows && body.rows.length > 0) {
                     var docId = body.rows[0].value;
-                    console.log("Serving image: " + docId + " : " + filename + " : " + version);
+                    logger.log("Serving image: " + docId + " : " + filename + " : " + version, 1);
                     images_db.attachment.get(docId, version).pipe(res);
                 }
             } else {
-                console.log("Problem serving image: " + err.description);
+                logger.log("Problem serving image: " + err.description);
+            }
+        });
+        //res.writeHead(200, {'Content-Type': 'text/html','Content-Length': stat.size});
+    };
+
+    var _loadAttachment = function (filename, version, callback) {
+        logger.log("_loadAttachment: " + filename, 1);
+        //--how do we identify unique images (since they could have the same file name?)
+        images_db.view('views', 'byFilename', {"key":filename}, function (err, body) {
+            if (err) {
+                logger.log("Problem serving image: " + err.description);
+                return;
+            }
+            if (body.rows && body.rows.length > 0) {
+                var docId = body.rows[0].value;
+                images_db.attachment.get(docId, version, function (err, body) {
+                    if (err) {
+                        logger.log("Problem fetching attachment: " + err.description);
+                        return;
+                    }
+                    callback(body);
+                });
             }
         });
         //res.writeHead(200, {'Content-Type': 'text/html','Content-Length': stat.size});
@@ -182,8 +213,8 @@ ImageDataHandler = function () {
     };
 
     //region public API
-    this.saveAttachment = function (docId, version, path, callback) {
-        _saveAttachment(docId, version, path, callback);
+    this.saveAttachment = function (docId, version, contentType, path, callback) {
+        _saveAttachment(docId, version, contentType, path, callback);
     };
 
     this.saveDocument = function (doc, callback) {
@@ -192,6 +223,10 @@ ImageDataHandler = function () {
 
     this.serveAttachment = function (filename, version, req, res) {
         _serveAttachment(filename, version, req, res);
+    };
+
+    this.loadAttachment = function (filename, version, callback) {
+        _loadAttachment(filename, version, callback);
     };
 
     this.listFiles = function (groupId, callback) {

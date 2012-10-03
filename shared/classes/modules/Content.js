@@ -28,7 +28,7 @@ if (typeof(require) !== "undefined") var Enums = require('./Enums');
         this.contentType = Enums.CTYPE_CELL;
         /** @type {{mechanism:String, priority:String}} */
         this.structureId = {};
-        /** @type {SAS.PriorityDef|SAS.MechanismDef|String} */
+        /** @type {SAS.PriorityDef|SAS.MechanismDef|SAS.CellDef} */
         this.data = null;
         //endregion
     };

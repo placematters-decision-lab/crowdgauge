@@ -7,7 +7,7 @@
     /**
      * @class SAS.ImageList
      **/
-    SAS.ImageList = function ($parent, groupId) {
+    SAS.ImageList = function ($parent, groupId, multiple) {
         var _self = this;
 
         //region private fields and methods
@@ -25,7 +25,13 @@
         };
 
         var _init = function () {
-            var $chooseFilesBtn = $('<input type="file" data-url="/fileupload" multiple>').appendTo($parent);
+
+            var $chooseFilesBtn;
+            if (multiple) {
+                $chooseFilesBtn = $('<input type="file" data-url="/fileupload" multiple>').appendTo($parent);
+            } else {
+                $chooseFilesBtn = $('<input type="file" data-url="/fileupload">').appendTo($parent);
+            }
             $chooseFilesBtn.attr("name", groupId);
             _$filepanel = $("<div>").appendTo($parent);
 

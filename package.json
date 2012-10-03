@@ -4,13 +4,14 @@
   "scripts": {
     "start": "index.js"
   },
-  "version": "0.0.0-6",
+  "version": "0.0.0-16",
   "dependencies": {
     "socket.io": "0.9.x",
     "imagemagick": "0.1.x",
     "formidable": "1.0.x",
     "nano": "3.x.x",
-    "node-static": "0.6.x"
+    "node-static": "0.6.x",
+    "loggly": "0.3.x"
   },
   "engines": {
     "node": "0.8.x"

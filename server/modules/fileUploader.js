@@ -1,17 +1,17 @@
-//region includes
+//region nodejs core
 var fs = require("fs");
 var url = require('url');
 var path = require('path');
-
+var util = require('util');
+//endregion
+//region dependencies
 var imageMagick = require('imagemagick');
 var formidable = require('formidable');
-
+//endregion
+//region modules
 /** @type ImageDataHandler */
 var dataHandler = require("./imageDataHandler");
-var fileUploader = require("./fileUploader");
-
-//temp
-var util = require('util');
+var logger = require("./logger");
 //endregion
 
 /**
@@ -28,6 +28,8 @@ FileUploader = function (options) {
     var _req;
 
     var _handleUpload = function () {
+        //logger.log("(NOT) HANDLING UPLOAD uploadDir:" + _options.uploadDir);
+        //return;
 //        var form = new formidable.IncomingForm();
 //        form.parse(_req, function(err, fields, files) {
 //            _res.writeHead(200, {'content-type': 'text/plain'});
@@ -36,18 +38,18 @@ FileUploader = function (options) {
 //        });
         var form = new formidable.IncomingForm();
         form.uploadDir = _options.uploadDir;
-        console.log("uploadDir:" + _options.uploadDir);
+        logger.log("HANDLING UPLOAD uploadDir:" + _options.uploadDir);
         form.on('fileBegin', _frmFileBegin)
             .on('field', _frmField)
             .on('file', _frmFile)
             .on('aborted', function () {
-                console.log("aborted");
+                logger.log("UPLOAD aborted", 1);
             })
             .on('error', function (e) {
-                console.log("error" + e);
+                logger.log("UPLOAD error" + e, 1);
             })
             .on('progress', function (bytesReceived, bytesExpected) {
-                //console.log("received:" + bytesReceived);
+                logger.log("UPLOAD received:" + bytesReceived, 2);
             })
             .on('end', function () {
                 _fileUploadEnded = true;
@@ -56,8 +58,8 @@ FileUploader = function (options) {
         form.parse(_req);
     };
 
-    var _saveVersion = function (docId, version, path, callback) {
-        dataHandler.saveAttachment(docId, version, path, function (success) {
+    var _saveVersion = function (docId, version, contentType, path, callback) {
+        dataHandler.saveAttachment(docId, version, contentType, path, function (success) {
             if (success) {
                 fs.unlink(path, function (err) {
                     if (callback) callback(err === null);
@@ -71,10 +73,12 @@ FileUploader = function (options) {
         if (!_fileUploadEnded) return;
         if (!_filesStored) return;
         var list = [];
+        //TODO centralize with fileManager.js
         _files.forEach(function (file, i) {
+            var thumbnailPath = _options.bitmapTypes.test(file.name) ? 'thumbnail/' : 'main/';
             list.push({
                 name:file.name,
-                thumbnail_url:"/files/thumbnail/" + file.name
+                thumbnail_url:"/files/" + thumbnailPath + file.name
             });
         });
         _handleResult(list);
@@ -109,22 +113,31 @@ FileUploader = function (options) {
     };
 
     var _frmFileBegin = function (name, file) {
+        logger.log("UPLOAD _frmFileBegin", 1);
         _files.push(file);
     };
     var _frmField = function (name, file) {
-
+        logger.log("UPLOAD _frmField", 1);
     };
     var _frmFile = function (name, file) {
         var filename = file.name;
-        if (_options.imageTypes.test(filename)) {
-            console.log("File Added: " + filename);
+        logger.log("UPLOAD File Added: " + filename);
+        if (_options.vectorImageTypes.test(filename)) {
             dataHandler.saveDocument({groupId:name, filename:filename}, function (docId) {
-                console.log("couch doc added: " + docId);
+                logger.log("couch doc added: " + docId);
+                _saveVersion(docId, "main", _getContentType(file.path), file.path, function () {
+                    _filesStored = true;
+                    _finish();
+                });
+            });
+        } else if (_options.bitmapTypes.test(filename)) {
+            dataHandler.saveDocument({groupId:name, filename:filename}, function (docId) {
+                logger.log("couch doc added: " + docId);
                 var vCnt = 0;
-                Object.keys(_options.imageVersions).forEach(function (version) {
+                Object.keys(_options.bitmapVersions).forEach(function (version) {
                     vCnt += 1;
                     console.log("counter++ " + vCnt);
-                    var opts = _options.imageVersions[version];
+                    var opts = _options.bitmapVersions[version];
                     var outputFile = _options.uploadDir + '/' + version + '/' + filename;
                     console.log("Converting: " + file.path + " to " + outputFile);
                     imageMagick.resize({
@@ -135,7 +148,7 @@ FileUploader = function (options) {
                     }, function (err, stdout, stderr) {
                         if (err) throw err;
                         //--add image to couch as attachment
-                        _saveVersion(docId, version, outputFile, function () {
+                        _saveVersion(docId, version, 'image/jpeg', outputFile, function () {
                             vCnt -= 1;
                             console.log("counter-- " + vCnt);
                             if (vCnt == 0) {
@@ -152,6 +165,10 @@ FileUploader = function (options) {
                 });
             });
         }
+    };
+
+    var _getContentType = function (path) {
+        return "image/svg+xml";
     };
 
     //region public API

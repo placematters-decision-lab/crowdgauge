@@ -26,6 +26,7 @@ ServerDataHandler = function () {
 
     var _filename = "test1";
 
+    //region private fields and methods
     var _init = function () {
         _createViews();
     };
@@ -96,10 +97,6 @@ ServerDataHandler = function () {
             callback();
         });
     };
-
-    //region private fields and methods
-    //todo search for db and replace all w/ nano equiv below this line...
-
     var _saveContent = function (/**Content*/c, callback) {
         c.filename = _filename;
         _addOrUpdate(c, c._id, callback);

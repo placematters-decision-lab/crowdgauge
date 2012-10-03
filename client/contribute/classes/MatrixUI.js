@@ -4,11 +4,20 @@
  * Time: 12:14 PM
  */
 (function () { // self-invoking function
-    var bgColors = {};
-    bgColors[Enums.STATUS_APPROVED] = "#c3f0f7";
-    bgColors[Enums.STATUS_DRAFT] = "#ffe87a";
-    bgColors[Enums.STATUS_NEW] = "#f9f9db";
-    bgColors[Enums.STATUS_REVIEW] = "#ea93ea";
+    var _bgColors = {};
+    _bgColors[Enums.STATUS_APPROVED] = "#c3f0f7";
+    _bgColors[Enums.STATUS_DRAFT] = "#ffe87a";
+    _bgColors[Enums.STATUS_NEW] = "#f9f9db";
+    _bgColors[Enums.STATUS_REVIEW] = "#ea93ea";
+
+    var _scoreColors = {};//todo move to config
+    _scoreColors['N/A'] = '#EEEEEE';
+    _scoreColors['-2'] = '#EC7623';
+    _scoreColors['-1'] = '#FBC917';
+    _scoreColors['0'] = '#EAD9C4';
+    _scoreColors['1'] = '#CAE8DE';
+    _scoreColors['2'] = '#2BBEC5';
+
     /**
      * @class SAS.MatrixUI
      **/
@@ -102,6 +111,12 @@
                         });
                     });
                     $("<div>").addClass("pColTitle").html(priorityObj.data.getNickname()).appendTo($pcolHdr);
+                    var $pIcon = $("<div>").addClass("pColIcon").appendTo($pcolHdr);
+                    $.getJSON('/listfiles/' + pId, function (data) {
+                        $.each(data, function (index, file) {
+                            $('<img src="' + file.thumbnail_url + '?color=gainsboro"}">').addClass("pColIconImg").appendTo($pIcon);
+                        });
+                    });
                 });
                 $.each(mechIds, function (i, mId) {
                     var mechObj = mechLookup[mId];
@@ -126,18 +141,22 @@
                         var $cell = $("<div>").addClass("gCell").appendTo($mRow);
                         var content = contentLookup[mId + "_" + pId];
                         if (!content) return true;//continue
+                        var $btn = _makeUIBtn(20, editIcon);
                         if (content && content.status) {
-                            $cell.css({backgroundColor:bgColors[content.status]});
+                            $btn.css({background:_bgColors[content.status]});
                         }
-                        _makeUIBtn(20, editIcon).appendTo($cell).click(function () {
+                        $btn.appendTo($cell).click(function () {
                             _editContent(content, function() {
-                                $cell.css({backgroundColor:bgColors[content.status]});
-                                _dataHandler.updateContent(content);
-                                _updateGrid();
+                                $btn.css({background:_bgColors[content.status]});
+                                _dataHandler.updateContent(content, function() {
+                                    _updateGrid();
+                                });
                             });
                         });
-                        if (content.data && content.data.length > 0) {
-                            $('<span>').addClass("contLenLbl").html(content.data.length.toString()).appendTo($cell);
+                        var cellDef = new SAS.CellDef(content.data);
+                        if (!cellDef.isEmpty()) {
+                            $cell.css({backgroundColor:_scoreColors[cellDef.score]});
+                            $('<span>').addClass("contLenLbl").html(cellDef.description.length.toString()).appendTo($cell);
                         }
                     });
                 });

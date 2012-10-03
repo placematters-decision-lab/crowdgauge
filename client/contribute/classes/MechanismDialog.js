@@ -34,7 +34,7 @@
             _$gerund = $("<input type='text' />").val(_mechanism.gerund).appendTo($("<label>Gerund form of title:</label>").addClass("dialogLabel").appendTo($("<div>").appendTo($inputsDiv)));
             _$description = $("<input type='text' />").val(_mechanism.description).appendTo($("<label>Description:</label>").addClass("dialogLabel").appendTo($("<div>").appendTo($inputsDiv)));
             _$nickname = $("<input type='text' />").val(_mechanism.nickname).appendTo($("<label>Nickname:</label>").addClass("dialogLabel").appendTo($("<div>").appendTo($inputsDiv)));
-            new SAS.ImageList($("<div class='panel'>").appendTo($inputsDiv), _mechanism.uid);
+            new SAS.ImageList($("<div class='panel'>").appendTo($inputsDiv), _mechanism.uid, true);
         };
 
         var _applyChanges = function () {
