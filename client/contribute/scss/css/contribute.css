@@ -3,9 +3,20 @@
   width: 100px; }
 
 .pColumnHeader {
+  width: 80px;
+  border-right: 1px solid #d2dde3;
+  margin-right: 5px;
+  height: 200px;
   display: inline-block;
   font-size: 0.85em;
-  width: 80px; }
+  vertical-align: top; }
+
+.gCell {
+  width: 80px;
+  border-right: 1px solid #d2dde3;
+  margin-right: 5px;
+  display: inline-block;
+  height: 30px; }
 
 .pColIcon {
   height: 50px;
@@ -15,7 +26,8 @@
   width: 64px; }
 
 .pHeaderRow {
-  margin-left: 180px; }
+  margin-left: 180px;
+  height: 160px; }
 
 .pRowHeader {
   width: 180px;
@@ -38,12 +50,6 @@
 .inlineBtn {
   display: inline-block;
   margin: 2px; }
-
-.gCell {
-  display: inline-block;
-  width: 80px;
-  height: 30px;
-  border: 1px solid #708090; }
 
 .contLenLbl {
   font-size: 12px;

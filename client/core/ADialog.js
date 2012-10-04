@@ -18,7 +18,7 @@
         //region private fields and methods
         var _dlg;
         var _dialogId;
-        var _onClose = function (manual) { };
+        var _onClose = function (manual, dialog) { };
         var _onShown = function () { };
         var _mIsShowing;
         var _closedManually;

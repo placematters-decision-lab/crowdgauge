@@ -5,19 +5,22 @@
  */
 (function () { // self-invoking function
     /**
-     * @class SAS.MechanismDialog
+     * @class SAS.CellContentDialog
      * @extends SAS.ADialog
      **/
-    SAS.CellContentDialog = function (/**Content*/ content) {
+    SAS.CellContentDialog = function (/**Content*/ content, title) {
         var _self = this;
         /** @type SAS.ADialog */
         var _super = SAS.Inheritance.Extend(this, new SAS.ADialog());
-        var DIALOG_ID = "mechanism_dialog";
+        var DIALOG_ID = "cellcontent_dialog";
         _super._init(DIALOG_ID);
 
         //region private fields and methods
         /** @type Content */
         var _content = content;
+        var _title = title;
+        var _hasChanges = false;
+
         var _$description;
         var _$paletteSelection;
         var _$scoreSelection;
@@ -27,7 +30,7 @@
             var status = _content.status || Enums.STATUS_DRAFT;
             if (status == Enums.STATUS_NEW) status = Enums.STATUS_DRAFT;//always default to 'draft' status
             var statusOpts = [Enums.STATUS_NEW, Enums.STATUS_DRAFT, Enums.STATUS_REVIEW, Enums.STATUS_APPROVED];
-            var scoreOpts = ['N/A', '-2', '-1', '0', '1', '2'];
+            var scoreOpts = ['N/A', '-2', '-1', '0', '+1', '+2'];
             var cellDef = new SAS.CellDef(_content.data);
 
             $('<label for="status_sel">Status:</label>').addClass("dialogLabel").appendTo($inputsDiv);
@@ -46,12 +49,12 @@
             var cellDef = new SAS.CellDef({description:_$description.val(), score:_$scoreSelection.val()});
             _content.data = cellDef;
             _content.status = (cellDef.isEmpty()) ? Enums.STATUS_NEW : _$paletteSelection.val();
+            _hasChanges = true;
         };
 
         var _showDialog = function (onAccept, onCancel) {
             var $dlg = _super._prepareToShowDialog();
             _buildContent($dlg);
-            var title = "Edit Content";
             var buttons = { "Cancel":function () {
                 _super._closeDialog();
                 if (onCancel) onCancel();
@@ -60,15 +63,15 @@
                 onAccept();
                 _super._closeDialog();
             }};
-            _super._dialog(title, {modal:true, buttons:buttons, width:700, defaultButtonNum:1 });
+            _super._dialog(_title, {modal:true, buttons:buttons, width:700, defaultButtonNum:1 });
         };
         //endregion
 
-        //region protected fields and methods (use '_' to differentiate).
-        //this._getFoo = function() { ...
-        //endregion
-
         //region public API
+        this.hasChanges = function () {
+            return _hasChanges;
+        };
+
         /**
          * @param {Function} [onAccept] callback to run if user accepts changes
          * @param {Function} [onCancel] callback to run if user cancels

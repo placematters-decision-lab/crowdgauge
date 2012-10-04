@@ -49,7 +49,7 @@ FileUploader = function (options) {
                 logger.log("UPLOAD error" + e, 1);
             })
             .on('progress', function (bytesReceived, bytesExpected) {
-                logger.log("UPLOAD received:" + bytesReceived, 2);
+                logger.log("UPLOAD received:" + bytesReceived, 3);
             })
             .on('end', function () {
                 _fileUploadEnded = true;

@@ -10,7 +10,7 @@
  */
 (function () { // self-invoking function
     /**
-     * @class SAS.CellContentDialog
+     * @class SAS.MechanismDialog
      * @extends SAS.ADialog
      **/
     SAS.MechanismDialog = function (/**SAS.MechanismDef*/ mechanism) {

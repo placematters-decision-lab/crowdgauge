@@ -2,6 +2,9 @@ $cellWidth: 80px;
 $cellHeight: 30px;
 $rowTitleW: 180px;
 $iconSize: 28px;
+$borderGap: 1px;
+$columnGap: 5px;
+$borderColor: #d2dde3;
 @mixin titleLabel {
   font-size: 12px;
 }
@@ -24,10 +27,25 @@ $iconSize: 28px;
   width: 100px;
 }
 
+@mixin column {
+  width: $cellWidth;// + $borderGap;
+  border-right: $borderGap solid $borderColor;
+  margin-right: $columnGap;
+}
+
 .pColumnHeader {
+  @include column;
+  height: 200px;
   display: inline-block;
   font-size: 0.85em;
-  width: $cellWidth;
+  vertical-align: top;
+}
+
+
+.gCell {
+  @include column;
+  display: inline-block;
+  height: $cellHeight;
 }
 
 .pColIcon {
@@ -41,6 +59,7 @@ $iconSize: 28px;
 
 .pHeaderRow {
   margin-left: $rowTitleW;
+  height: 160px;
 }
 
 .pRowHeader {
@@ -70,15 +89,6 @@ $iconSize: 28px;
 .mRow {
 
 }
-
-.gCell {
-  display: inline-block;
-  width: $cellWidth;
-  height: $cellHeight;
-  //background-color: #ffc0cb;
-  border: 1px solid #708090;
-}
-
 .contLenLbl {
   @include titleLabel;
   vertical-align: top;

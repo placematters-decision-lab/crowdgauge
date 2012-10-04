@@ -20,6 +20,35 @@
 
         //region public API
         /**
+         * works with @see ServerDataHandler.takeLock
+         * @param {String} userId
+         * @param {Boolean} force setting this to true lets you steal the lock
+         * @param {Content} c
+         * @param {Function} [successFn]
+         * @param {Function} [failFn]
+         */
+        this.takeLock = function (userId, force, c, successFn, failFn) {
+            $.post("/takeLock", {structureId:JSON.stringify(c.structureId), force:force, user:userId},
+                function (allowed) {
+                    if (allowed && successFn) successFn();
+                    if (!allowed && failFn) failFn();
+                });
+        };
+
+        /**
+         * works with @see ServerDataHandler.releaseLock
+         * @param {String} userId
+         * @param {Content} c
+         * @param {Function} [callback]
+         */
+        this.releaseLock = function (userId, c, callback) {
+            $.post("/releaseLock", {structureId:JSON.stringify(c.structureId), user:userId},
+                function (data) {
+                    if (callback) callback(data);
+                });
+        };
+
+        /**
          * works with @see ServerDataHandler.addPriority
          * @param {SAS.PriorityDef} p
          * @param {Function} [callback]
@@ -70,10 +99,11 @@
         /**
          * works with @see ServerDataHandler.updateContent
          * @param {Content} c
+         * @param {Boolean} releaseLock
          * @param {Function} [callback]
          */
-        this.updateContent = function (c, callback) {
-            $.post("/updateContent", {data:JSON.stringify(c)},
+        this.updateContent = function (c, releaseLock, callback) {
+            $.post("/updateContent", {data:JSON.stringify(c), releaseLock:releaseLock},
                 function (data) {
                     if (callback) callback(data);
                 });
@@ -84,7 +114,7 @@
          * @param {function(Array.<Content>)} callback
          */
         this.getAllContent = function (callback) {
-            $.get('/getAllContent?filename='+encodeURIComponent(_filename), function(data) {
+            $.get('/getAllContent?filename=' + encodeURIComponent(_filename), function (data) {
                 callback(data);
             });
         };
