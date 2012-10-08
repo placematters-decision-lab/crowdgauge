@@ -49,10 +49,8 @@
             var $chooseFilesBtn = $('<input type="file" data-url="/fileupload">').appendTo(_$imagePane);
             $chooseFilesBtn.attr("name", _priority.uid);
 
-            $.getJSON('/listfiles/' + _priority.uid, function (data) {
-                $.each(data, function (index, file) {
-                    _drawRow(file);
-                });
+            $.getJSON('/getImage/' + _priority.uid, function (file) {
+                _drawRow(file);
             });
             $chooseFilesBtn.fileupload({
                 dataType:'json',

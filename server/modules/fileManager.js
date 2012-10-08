@@ -6,9 +6,6 @@ var formidable = require('formidable');
 
 var fileUploader = require("./fileUploader");
 
-/** @type ImageDataHandler */
-var dataHandler = require("./imageDataHandler.js");
-
 /** @type SVGHandler */
 var svgHandler = require("./svgHandler");
 //endregion
@@ -19,6 +16,8 @@ var svgHandler = require("./svgHandler");
  */
 var FileManager = function () {
     var _self = this;
+
+    var _imageDataHandler;
 
     var _options = {
         bitmapTypes:/\.(gif|jpe?g|png)$/i,
@@ -61,7 +60,7 @@ var FileManager = function () {
     this.deletefile = function (req, res, postData) {
         var name = postData.name;
         console.log("DELETE: " + name);
-        dataHandler.deleteFile(postData.groupId, postData.name, function (success) {
+        _imageDataHandler.deleteFile(postData.groupId, postData.name, function (success) {
             return _handleResult(req, res, "OK");
         });
     };
@@ -69,7 +68,7 @@ var FileManager = function () {
     this.listFiles = function (req, res, postData) {
         var pathname = url.parse(req.url).pathname;
         var groupId = pathname.substr(pathname.lastIndexOf("/") + 1);
-        dataHandler.listFiles(groupId, function (files) {
+        _imageDataHandler.listFiles(groupId, function (files) {
             var list = [];
             files.forEach(function (file, i) {
                 var thumbnailPath = _options.bitmapTypes.test(file.filename) ? 'thumbnail/' : 'main/';
@@ -79,6 +78,24 @@ var FileManager = function () {
                 });
             });
             _handleResult(req, res, list);
+        });
+    };
+
+    this.getImage = function (req, res, postData) {
+        //return only the first matching image (not all files)
+        var pathname = url.parse(req.url).pathname;
+        var groupId = pathname.substr(pathname.lastIndexOf("/") + 1);
+        _imageDataHandler.listFiles(groupId, function (files) {
+            var ans = null;
+            files.forEach(function (file, i) {
+                if (ans) return;
+                var thumbnailPath = _options.bitmapTypes.test(file.filename) ? 'thumbnail/' : 'main/';
+                ans = {
+                    name:file.filename,
+                    thumbnail_url:"/files/" + thumbnailPath + file.filename
+                };
+                _handleResult(req, res, ans);
+            });
         });
     };
 
@@ -94,24 +111,29 @@ var FileManager = function () {
         var file = pathname.substr(pathname.indexOf("/", 1) + 1);
         var sepPos = file.indexOf("/");
         var filename = (sepPos < 0) ? file : file.substring(sepPos + 1);
-        var version = (sepPos < 0) ? 'panel' : file.substring(0, sepPos);
+        var version = (sepPos < 0) ? (_options.bitmapTypes.test(filename) ? 'panel' : 'main')
+            : file.substring(0, sepPos);
         if (_options.vectorImageTypes.test(file)) {
             var color = urlObj.query["color"];
             if (color && color !== "black") {
-                dataHandler.loadAttachment(filename, version, function (body) {
+                _imageDataHandler.loadAttachment(filename, version, function (body) {
                     var data = svgHandler.applyFillColor(body.toString(), color);
                     _returnData(req, res, "image/svg+xml", data);
-                });
+                });//else fall through to straight-up serveAttachment below
                 return;
             }
         }
-        dataHandler.serveAttachment(filename, version, req, res);
+        _imageDataHandler.serveAttachment(filename, version, req, res);
     };
 
     this.options = function (options) {
         Object.keys(options).forEach(function (k) {
             _options[k] = options[k];
         });
+    };
+
+    this.setHandlers = function (imageDataHandler) {
+        _imageDataHandler = imageDataHandler;
     };
     //endregion
 

@@ -1,0 +1,61 @@
+//This file is used to defined structural layout of elements
+//please make all graphical changes to the same classes in 'theme.scss'
+
+body {
+  //position: fixed;
+}
+
+.tabTitle {
+  cursor: pointer;
+  display: inline-block;
+}
+
+.sliderPanel {
+  float: left;
+  padding: 5px;
+  padding-left: 8px;
+  padding-top: 7px;
+}
+
+.sliderDiv {
+  float: left;
+  width: 150px;
+  margin-top: 4px;
+  margin-left: 6px;
+}
+
+.sliderTitle {
+  font-size: 0.8em;
+  margin-bottom: 2px;
+  margin-left: 8px;
+  vertical-align: middle;
+  float: left;
+  margin-top: 5px;
+}
+
+.sliderGrp {
+  margin-top: 5px;
+  height: 25px;
+  vertical-align: middle;
+  clear: left;
+}
+
+#chart {
+  display: block;
+  left: 510px;
+  position: absolute;
+  top: 80px;
+}
+
+#starsLeft {
+  padding-left: 30px;
+  height: 40px;
+  position: absolute;
+}
+
+#itemsLeft {
+  position: absolute;
+  margin-left: 10px;
+  width: 500px;
+  height: 45px;
+}

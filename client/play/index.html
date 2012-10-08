@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title></title>
+    <link type="text/css" href="../lib/jquery-ui/jquery-ui-1.8.23.custom.css" rel="stylesheet"/>
+    <link type="text/css" href="../lib/jquery-tipsy/tipsy.css" rel="stylesheet" />
+    <link type="text/css" href="scss/css/main.css" rel="stylesheet"/>
+    <link type="text/css" href="scss/css/theme.css" rel="stylesheet"/>
+
+    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.1/jquery.min.js"></script>
+    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.23/jquery-ui.min.js"></script>
+
+    <script type="text/javascript" src="../lib/d3/d3.min.js"></script>
+    <script type="text/javascript" src="../lib/d3/d3.layout.min.js"></script>
+    <script type="text/javascript" src="../lib/jquery-tipsy/jquery.tipsy.js"></script>
+    <script type="text/javascript" src="../lib/jquery-raty/jquery.raty.min.js"></script>
+
+    <script type="text/javascript" src="../core/SAS.js?v=1"></script>
+    <script type="text/javascript" src="../core/ControlUtils.js?v=1"></script>
+    <script type="text/javascript" src="../core/JsonRestWS.js?v=1"></script>
+    <script type="text/javascript" src="../core/Inheritance.js?v=1"></script>
+
+    <script type="text/javascript" src="classes/framework/ACompareList.js"></script>
+    <script type="text/javascript" src="classes/framework/DataManager.js"></script>
+    <script type="text/javascript" src="classes/framework/Layout.js"></script>
+    <script type="text/javascript" src="classes/framework/MechanismList.js"></script>
+    <script type="text/javascript" src="classes/framework/Pages.js"></script>
+    <script type="text/javascript" src="classes/framework/BubbleChart.js"></script>
+    <script type="text/javascript" src="classes/framework/InfoWindow.js"></script>
+    <script type="text/javascript" src="classes/Instructions.js"></script>
+    <script type="text/javascript" src="classes/framework/MiniBubbleChart.js"></script>
+    <script type="text/javascript" src="classes/framework/MechanismScorer.js"></script>
+    <script type="text/javascript" src="classes/framework/PriorityList.js"></script>
+    <script type="text/javascript" src="classes/IntroPage.js"></script>
+    <script type="text/javascript" src="classes/Config.js/"></script>
+</head>
+<body>
+
+<div id="header">
+    <div id="tabs">
+        <div id="tab_intro" class="tabTitle">Introduction</div>
+        <div id="tab_priorities" class="tabTitle">Priorities</div>
+        <div id="tab_impacts" class="tabTitle">Impacts</div>
+        <div id="tab_money" class="tabTitle">Plan a Scenario</div>
+    </div>
+</div>
+<div id="footer">
+    <a href="http://www.sasaki.com" target="_blank">
+        <div id="footer_sasaki" class="footerImg"></div>
+    </a>
+    <a href="http://thetomorrowplan.com/" target="_blank">
+        <div id="footer_ttp" class="footerImg"></div>
+    </a>
+</div>
+<div id="titleBar" class="titleImg"></div>
+<div id="intro">
+    <div class="introTxt">
+        <p>Use this interactive game to tell us your
+            priorities for the future and see how different regional projects and policies might affect what you
+            want.</p>
+
+        <p><i>While your responses from this point won't be used directly to define the "People's Choice" scenario, playing the game still matters. We will still look at results as they come in and they will be used to test and influence the final plan. That plan wraps up in February - so you're not too late.</i></p>
+
+    </div>
+    <div id="introFrm" class="introFrm">
+
+    </div>
+
+</div>
+<div id="leftPanel">
+    <div id="mainTitle"></div>
+    <div id="priorityList"></div>
+    <div id="mechanismList"></div>
+    <div id="compareList"></div>
+</div>
+<div id="chart"></div>
+<div id="moreInfo"></div>
+<div id="itemsLeft">
+    <div id="starsLeft"></div>
+    <div id="coinsLeft"></div>
+    <div id="clickInstr" class="clickTheIcon">Click the Design Profile icons for explanations</div>
+</div>
+<div id="colorRampLegend" class="colorRamp"></div>
+<button class="bigButton" id="btnNext">NEXT</button>
+<div id="reshowInstr">Show Instructions Again</div>
+<div id="dialog"></div>
+<script type="text/javascript" src="classes/Main.js/"></script>
+</body>
+</html>

@@ -37,7 +37,7 @@
          * @param {String|Object} selId (the JQuery selector string or preselected JQuery object)
          * @param {String} promptStr
          * @param {Array} arr
-         * @param {String} selectedValue
+         * @param {String} [selectedValue]
          */
         this.populateSelectList = function(selId, promptStr, arr, selectedValue) {
             var selJq = $(selId);

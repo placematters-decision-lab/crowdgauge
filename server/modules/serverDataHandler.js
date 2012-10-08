@@ -27,6 +27,9 @@ ServerDataHandler = function () {
     var _filename = "test1";
     var _socketHandler;
 
+    /** @type ImageDataHandler */
+    var _imageDataHandler;
+
     //region private fields and methods
     var _init = function () {
         _createViews();
@@ -60,6 +63,16 @@ ServerDataHandler = function () {
                 files:{
                     map:function (/**Content*/doc) {
                         if (doc.filename) emit(doc.filename, doc);
+                    }
+                },
+                mechanismsByFilename:{
+                    map:function (/**Content*/doc) {
+                        if (doc.contentType == "mech_def") emit(doc.filename, doc);
+                    }
+                },
+                prioritiesByFilename:{
+                    map:function (/**Content*/doc) {
+                        if (doc.contentType == "priority_def") emit(doc.filename, doc);
                     }
                 },
                 mechIds:{
@@ -199,12 +212,50 @@ ServerDataHandler = function () {
         });
     };
 
-    var _getAllContent = function (req, res) {
+    var _returnFilenameViewResults = function (req, res, view) {
         var url_parts = url.parse(req.url, true);
         var query = url_parts.query;
-        db.view('views', 'files', { key:query.filename }, function (err, body) {
+        db.view('views', view, { key:query.filename }, function (err, body) {
             _returnResults(res, body);
         });
+    };
+
+    var _getAllContent = function (req, res) {
+        _returnFilenameViewResults(req, res, 'files');
+    };
+
+    var _getPriorities = function (req, res) {
+        var url_parts = url.parse(req.url, true);
+        var query = url_parts.query;
+        db.view('views', 'prioritiesByFilename', { key:query.filename }, function (err, body) {
+            if (body) {
+                var pObjs = [];
+                var ans = [];
+                body.rows.forEach(function (row, i) {
+                    var doc = row.value;
+                    var pDef = doc.data;
+                    var pObj = {data:pDef};
+                    pObjs.push(pObj);
+                });
+                pObjs.forEach(function (pObj, i) {
+                    _imageDataHandler.listFiles(pObj.data.uid, function(files) {
+                        if (files && files.length > 0) {
+                            pObj.svgPath = files[0].filename;
+                        } else {
+                            pObj.svgPath = "";
+                        }
+                        ans.push(pObj);
+                        if (ans.length == pObjs.length) {//since file lists are returned async, this is how we tell that we're finished
+                            _returnJsonObj(res, ans);
+                        }
+                    });
+                });
+            }
+        });
+    };
+
+    var _getMechanisms = function (req, res) {
+        _returnFilenameViewResults(req, res, 'mechanismsByFilename');
     };
 
     var _deleteAllResults = function (res, body) {
@@ -219,11 +270,16 @@ ServerDataHandler = function () {
         _returnBasicSuccess(res);
     };
 
-    function _returnResults(res, body) {
+
+    function _returnResults(res, body, fn) {
         var ans = [];
         if (body) {
             body.rows.forEach(function (row, i) {
-                ans.push(row.value);
+                if (fn) {
+                    ans.push(fn(row.value));
+                } else {
+                    ans.push(row.value);
+                }
             });
         }
         _returnJsonObj(res, ans);
@@ -242,6 +298,7 @@ ServerDataHandler = function () {
 
     //region public API
     //--these are routed through index.js (any new methods must be specified there)
+    //=========== CONTRIBUTE ==================
     /** @see SAS.DataHandler.takeLock */
     this.takeLock = function (req, res, postData) {
         var user = postData.user;
@@ -284,8 +341,20 @@ ServerDataHandler = function () {
         _getAllContent(req, res);
     };
 
-    this.setSocketHandler = function (socketHandler) {
+    //=========== PLAY ==================
+    this.getPriorities = function (req, res, postData) {
+        _getPriorities(req, res);
+    };
+
+    this.getMechanisms = function (req, res, postData) {
+        _getMechanisms(req, res);
+    };
+    //====================================
+
+
+    this.setHandlers = function (socketHandler, imageDataHandler) {
         _socketHandler = socketHandler;
+        _imageDataHandler = imageDataHandler;
     };
     //endregion
 
