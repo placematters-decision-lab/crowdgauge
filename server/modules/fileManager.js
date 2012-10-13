@@ -111,6 +111,7 @@ var FileManager = function () {
         var file = pathname.substr(pathname.indexOf("/", 1) + 1);
         var sepPos = file.indexOf("/");
         var filename = (sepPos < 0) ? file : file.substring(sepPos + 1);
+        filename = decodeURI(filename);
         var version = (sepPos < 0) ? (_options.bitmapTypes.test(filename) ? 'panel' : 'main')
             : file.substring(0, sepPos);
         if (_options.vectorImageTypes.test(file)) {

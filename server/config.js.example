@@ -1,3 +1,11 @@
-var config = {};
-config.couchURL = 'http://localhost:5984';
-module.exports = config;
+module.exports.couchURL = 'http://localhost:5984';
+module.exports.verbosity = 0;
+module.exports.redis = {
+    host:'foo.redistogo.com',
+    port:9859,
+    key:'yOuRkeY'
+};
+module.exports.loggly = {
+    conf:{ subdomain:'yourdomain' },
+    key:'your-key'
+};

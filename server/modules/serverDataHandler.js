@@ -237,6 +237,7 @@ ServerDataHandler = function () {
                     var pObj = {data:pDef};
                     pObjs.push(pObj);
                 });
+                //--find the associated SVG for each priority (this could alternatively be done earlier - when the image is assigned)
                 pObjs.forEach(function (pObj, i) {
                     _imageDataHandler.listFiles(pObj.data.uid, function(files) {
                         if (files && files.length > 0) {
@@ -255,7 +256,20 @@ ServerDataHandler = function () {
     };
 
     var _getMechanisms = function (req, res) {
-        _returnFilenameViewResults(req, res, 'mechanismsByFilename');
+        var url_parts = url.parse(req.url, true);
+        var query = url_parts.query;
+        db.view('views', 'mechanismsByFilename', { key:query.filename }, function (err, body) {
+            if (body) {
+                var mObjs = [];
+                body.rows.forEach(function (row, i) {
+                    var doc = row.value;
+                    var mDef = doc.data;
+                    var mObj = {data:mDef};
+                    mObjs.push(mObj);
+                });
+                _returnJsonObj(res, mObjs);
+            }
+        });
     };
 
     var _deleteAllResults = function (res, body) {

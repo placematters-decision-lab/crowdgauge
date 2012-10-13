@@ -11,30 +11,56 @@ var logger = require("../modules/logger");
 //endregion
 var app;
 
-function start(route, prehandle, handle, staticServer) {
+var _pathMatch = function (pathname, securePaths) {
+    return securePaths.some(function (p, i) {//--use 'some' function to determine if *any* path matches
+        return (pathname.indexOf(p) == 0);
+    });
+};
 
-    function onRequest(request, response) {
+/**
+ * @param req
+ * @param pathname
+ * @param securePaths
+ * @param {PersistentStore} persistentStore
+ * @param {Function} callback
+ * @private
+ */
+var _checkAuthorization = function (req, pathname, securePaths, persistentStore, callback) {
+    if (_pathMatch(pathname, securePaths)) {
+        persistentStore.checkAuthorization(req, function(success) {
+            if (callback) callback(success);
+        });
+    } else {
+        callback(true);
+    }
+};
+
+function start(route, securePaths, prehandle, handle, staticServer, persistentStore) {
+
+    function onRequest(req, res) {
         var postDataStr = "";
-        var pathname = url.parse(request.url).pathname;
-        //console.log("Request for " + pathname + " received.");
+        var pathname = url.parse(req.url).pathname;
         logger.log('Request for ' + pathname + ' received.');
+        if (route(prehandle, pathname, req, res, {})) return;
 
-        if (route(prehandle, pathname, request, response, {})) return;
-
-        request.setEncoding("utf8");
-
-        request.addListener("data", function (postDataChunk) {
+        req.setEncoding("utf8");
+        req.addListener("data", function (postDataChunk) {
             postDataStr += postDataChunk;
-//            console.log("Received POST data chunk '"+postDataChunk + "'.");
         });
-
-        request.addListener("end", function () {
+        req.addListener("end", function () {
             var postData = qs.parse(postDataStr);
-            if (!route(handle, pathname, request, response, postData)) {
-                staticServer.serve(request, response);
-            }
+            _checkAuthorization(req, pathname, securePaths, persistentStore, function (success) {
+                if (success) {
+                    //TODO create test to ensure that all possible routes that resolve in 'route' function are checked by securePaths
+                    if (!route(handle, pathname, req, res, postData)) {
+                        staticServer.serve(req, res);
+                    }
+                } else {
+                    res.writeHead(403);
+                    res.end('Sorry you are not authorized.');
+                }
+            });
         });
-
     }
 
     app = http.createServer(onRequest);

@@ -122,7 +122,7 @@
         var _recalcMoney = function (mechanism, micon) {
             var scores = {};
             var coinsUsed = 0;
-            $.each(_super._mechanisms().children, function (i, mechanism) {
+            $.each(_super._mechanisms(), function (i, mechanism) {
                 var micons = _moneyIcons[mechanism.id];
                 if (micons == null) return true;//continue
                 $.each(micons, function (j, micon) {
@@ -158,7 +158,7 @@
 
             _super._addCatDivs(["Project", "Policy"]);
 
-            $.each(_super._mechanisms().children, function (i, mechanism) {
+            $.each(_super._mechanisms(), function (i, mechanism) {
                 _addMechListItem(mechanism);
                 if (mechanism.id == "BASELINE") {
                     _super._setActiveMechanism(mechanism);
@@ -205,7 +205,7 @@
         this.getVotes = function () {
             var votes = {};
             if (_moneyIcons == null) return votes;
-            $.each(_super._mechanisms().children, function (i, mechanism) {
+            $.each(_super._mechanisms(), function (i, mechanism) {
                 var micons = _moneyIcons[mechanism.id];
                 if (micons == null) return true;//continue
                 $.each(micons, function (j, micon) {
@@ -240,7 +240,7 @@
             _super._showBubbleCharts(false);
             if (_moneyIcons == null) {
                 _moneyIcons = {};
-                $.each(_super._mechanisms().children, function (i, mechanism) {
+                $.each(_super._mechanisms(), function (i, mechanism) {
                     _addMoneyAndVotes(mechanism);
                 });
                 _recalcMoney();

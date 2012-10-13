@@ -12,6 +12,7 @@ var formidable = require('formidable');
 /** @type ImageDataHandler */
 var dataHandler = require("./imageDataHandler");
 var logger = require("./logger");
+var persistentStore = require("./persistentStore");
 //endregion
 
 /**
@@ -26,6 +27,7 @@ FileUploader = function (options) {
     var _filesStored = false;
     var _res;
     var _req;
+    var _persistentStore = new persistentStore.PersistentStore();
 
     var _handleUpload = function () {
         //logger.log("(NOT) HANDLING UPLOAD uploadDir:" + _options.uploadDir);
@@ -58,70 +60,8 @@ FileUploader = function (options) {
         form.parse(_req);
     };
 
-    var _saveVersion = function (docId, version, contentType, path, callback) {
-        dataHandler.saveAttachment(docId, version, contentType, path, function (success) {
-            if (success) {
-                fs.unlink(path, function (err) {
-                    if (callback) callback(err === null);
-                });
-                //fs.unlinkSync(path);//delete the file once successfully stored in couchDB
-            }
-        });
-    };
-
-    var _finish = function () {
-        if (!_fileUploadEnded) return;
-        if (!_filesStored) return;
-        var list = [];
-        //TODO centralize with fileManager.js
-        _files.forEach(function (file, i) {
-            var thumbnailPath = _options.bitmapTypes.test(file.name) ? 'thumbnail/' : 'main/';
-            list.push({
-                name:file.name,
-                thumbnail_url:"/files/" + thumbnailPath + file.name
-            });
-        });
-        _handleResult(list);
-    };
-
-    var _setNoCacheHeaders = function () {
-        _res.setHeader('Pragma', 'no-cache');
-        _res.setHeader('Cache-Control', 'no-store, no-cache, must-revalidate');
-        _res.setHeader('Content-Disposition', 'inline; filename="files.json"');
-    };
-
-    var _setAccessHeaders = function () {
-        _res.setHeader(
-            'Access-Control-Allow-Origin',
-            options.accessControl.allowOrigin
-        );
-        _res.setHeader(
-            'Access-Control-Allow-Methods',
-            options.accessControl.allowMethods
-        );
-    };
-
-    var _handleResult = function (result) {
-        _setAccessHeaders();
-        _setNoCacheHeaders();
-        _res.writeHead(200, {
-            'Content-Type':_req.headers.accept
-                .indexOf('application/json') !== -1 ?
-                'application/json' : 'text/plain'
-        });
-        _res.end(JSON.stringify(result));
-    };
-
-    var _frmFileBegin = function (name, file) {
-        logger.log("UPLOAD _frmFileBegin", 1);
-        _files.push(file);
-    };
-    var _frmField = function (name, file) {
-        logger.log("UPLOAD _frmField", 1);
-    };
-    var _frmFile = function (name, file) {
+    var _processFile = function (name, file) {
         var filename = file.name;
-        logger.log("UPLOAD File Added: " + filename);
         if (_options.vectorImageTypes.test(filename)) {
             dataHandler.saveDocument({groupId:name, filename:filename}, function (docId) {
                 logger.log("couch doc added: " + docId);
@@ -165,6 +105,85 @@ FileUploader = function (options) {
                 });
             });
         }
+    };
+
+    var _saveVersion = function (docId, version, contentType, path, callback) {
+        dataHandler.saveAttachment(docId, version, contentType, path, function (success) {
+            if (success) {
+                fs.unlink(path, function (err) {
+                    if (callback) callback(err === null);
+                });
+                //fs.unlinkSync(path);//delete the file once successfully stored in couchDB
+            }
+        });
+    };
+
+    var _finish = function () {
+        if (!_fileUploadEnded) return;
+        if (!_filesStored) return;
+        var list = [];
+        //TODO centralize with fileManager.js
+        _files.forEach(function (file, i) {
+            var thumbnailPath = _options.bitmapTypes.test(file.name) ? 'thumbnail/' : 'main/';
+            list.push({
+                name:file.name,
+                thumbnail_url:"/files/" + thumbnailPath + file.name
+            });
+        });
+        _handleResult(list);
+    };
+
+    var _setNoCacheHeaders = function () {
+        _res.setHeader('Pragma', 'no-cache');
+        _res.setHeader('Cache-Control', 'no-store, no-cache, must-revalidate');
+        //_res.setHeader('Content-Disposition', 'inline; filename="files.json"');
+    };
+
+    var _setAccessHeaders = function () {
+        _res.setHeader(
+            'Access-Control-Allow-Origin',
+            options.accessControl.allowOrigin
+        );
+        _res.setHeader(
+            'Access-Control-Allow-Methods',
+            options.accessControl.allowMethods
+        );
+    };
+
+    var _handleResult = function (result) {
+        _setAccessHeaders();
+        _setNoCacheHeaders();
+        _res.writeHead(200, {
+            'Content-Type':_req.headers.accept
+                .indexOf('application/json') !== -1 ?
+                'application/json' : 'text/plain'
+        });
+        _res.end(JSON.stringify(result));
+    };
+
+    var _frmFileBegin = function (name, file) {
+        logger.log("UPLOAD _frmFileBegin", 1);
+        _files.push(file);
+    };
+    var _frmField = function (name, file) {
+        logger.log("UPLOAD _frmField", 1);
+    };
+    var _frmFile = function (name, file) {
+        //--it would be good to check authorization before this point, but it seems tricky because our auth check is async
+        _persistentStore.checkAuthorization(_req, function (success) {
+            if (success) {
+                logger.log("UPLOAD File Added: " + file.name);
+                _processFile(name, file);
+            } else {
+                logger.log("UPLOAD File - Access Denied: " + file.name);
+                fs.unlink(file.path, function (err) {
+                    if (err) throw err;
+                    _res.writeHead(403);
+                    _res.end('Sorry you are not authorized.');
+                });
+            }
+        });
+
     };
 
     var _getContentType = function (path) {

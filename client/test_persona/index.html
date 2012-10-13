@@ -1,0 +1,63 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+        "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+    <title>GrowdGauge Login</title>
+    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.1/jquery.min.js"></script>
+    <script src="https://login.persona.org/include.js" type="text/javascript"></script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('#signin').click(function () {
+                navigator.id.request();
+            });
+            $('#signout').hide().click(function () {
+                navigator.id.logout();
+            });
+            navigator.id.watch({
+                loggedInUser:null,
+                onlogin:function (assertion) {
+                    // A user has logged in! Here you need to:
+                    // 1. Send the assertion to your backend for verification and to create a session.
+                    // 2. Update your UI.
+                    $.ajax({ /* <-- This example uses jQuery, but you can use whatever you'd like */
+                        type:'POST',
+                        url:'/persona_login', // This is a URL on your website.
+                        data:{assertion:assertion},
+                        success:function (res, status, xhr) {
+                            if (res.status == "okay") {
+                                $('#username').html("Welcome: " + res.email);
+                                $('#signin').html('Change User');
+                                $('#signout').show();
+                            } else {
+                                $('#username').html("Not able to log in: " + res.reason);
+                            }
+                        },
+                        error:function (res, status, xhr) { alert("login failure" + res); }
+                    });
+                },
+                onlogout:function () {
+                    // A user has logged out! Here you need to:
+                    // Tear down the user's session by redirecting the user or making a call to your backend.
+                    // Also, make sure loggedInUser will get set to null on the next page load.
+                    // (That's a literal JavaScript null. Not false, 0, or undefined. null.)
+                    $.ajax({
+                        type:'POST',
+                        url:'/persona_logout', // This is a URL on your website.
+                        success:function (res, status, xhr) {
+                            $('#username').html("Logged out: " +res.status);
+                            $('#signin').html('Sign In');
+                            $('#signout').hide();
+                        },
+                        error:function (res, status, xhr) { alert("logout failure" + res); }
+                    });
+                }
+            });
+        });
+    </script>
+</head>
+<body>
+<div id="username">Not signed in</div>
+<button id="signin">Sign In</button>
+<button id="signout">Sign Out</button>
+</body>
+</html>

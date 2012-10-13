@@ -258,7 +258,7 @@
 
             _imageIcons = bubbles.append("image")
                 .attr("class", "bubbleIcon")
-                .attr("transform", "scale(0.707)")//scale down to fit square SVG icons within circles (multiply the diameter by 1/sqrt(2))
+                .attr("transform", "scale(0.65)")//scale down to fit square SVG icons within circles (multiply the diameter by 1/sqrt(2) = 0.707) + inset from the edge a little
                 .attr("x", -100).attr("y", -100)
                 .attr("width", 200).attr("height", 200)
                 .attr("xlink:href", function (d) {

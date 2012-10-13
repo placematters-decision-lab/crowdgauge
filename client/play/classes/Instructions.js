@@ -56,7 +56,7 @@
 
         var _printImage = function (url) {
             var mywindow = window.open('', '_blank', 'height=800,width=800');
-            mywindow.document.write('<html><head><title>My Design Profile</title>');
+            mywindow.document.write('<html><head><title>CrowdGauge</title>');
             /*optional stylesheet*/ //mywindow.document.write('<link rel="stylesheet" href="main.css" type="text/css" />');
             mywindow.document.write('</head><body >');
             mywindow.document.write('<img src="' + url + '" width="1000" height="1000">');
@@ -86,7 +86,7 @@
             $('<input type="hidden" name="img" value="'+bubbleStr+'">').appendTo(form);
             $('<input type="hidden" name="entry_id" value="'+entryId+'">').appendTo(form);
             var emailBtn = $('<input type="submit" value="Send">').appendTo(form);
-            messageTb.val("I created my Design Profile on 'Design My DSM'.");
+            messageTb.val("I created my priority chart on CrowdGauge.");
             messageTb.css("font-size", "0.85em");
             $('<input type="button" name="cancel" value="Cancel" />').appendTo(form).click(function () {
                 $(sel).slideUp(400);
@@ -122,7 +122,7 @@
                 _self.showStarsDialog(numStars);
             };
             var txt = "<p>Use the stars to rate how important each value is to you. You can allocate up to " + numStars + " stars.</p>";
-            txt += "<p>Watch your <b>Design Profile</b> change as you indicate your highest priorities.</p>";
+            txt += "<p>Watch your priority chart change as you indicate your highest priorities.</p>";
             _showInstructionDialog(txt);
         };
 
@@ -134,7 +134,7 @@
             var txtAbove = $("<div></div>").appendTo("#dialog");
             $("<p>Ever wonder how planning affects you?</p><p>Click through the <b>list of actions on the left</b> to see how different projects and policies might affect your priorities.</p>").appendTo(txtAbove);
             $("<div class='clickTheIcon' style='height:40px'>Then click on any of the bubbles to open up an explanation.</div>").appendTo(txtAbove);
-            $("<p>The colors of your <b>Design Profile</b> show how each project or policy impacts your priorities, in a <span style='background-color: #2BBEC5'>positive</span> , <span style='background-color: #EAD9C4'>neutral</span>, or <span style='background-color: #ec7623'>negative</span> way.</p>").appendTo(txtAbove);
+            $("<p>The colors of your priority chart show how each project or policy impacts your priorities, in a <span style='background-color: #2BBEC5'>positive</span> , <span style='background-color: #EAD9C4'>neutral</span>, or <span style='background-color: #ec7623'>negative</span> way.</p>").appendTo(txtAbove);
             $("<p>Look for actions that make your biggest bubbles turn blue. To get started, we've picked the action that appears to have the greatest positive impact on your priorities:</p>.").appendTo(txtAbove);
 
             var mechDivIns = $("<div class='mechGrp' style='min-height: 30px'></div>").appendTo("#dialog");
@@ -162,7 +162,7 @@
                 _self.showMoneyDialog(numCoins);
             };
             var txt = "<p>Put your money where your 'mouse' is!</p>";
-            txt += "<p>You have " + numCoins + " coins in your budget. You may choose as many policies as you want and as many projects as you can afford. See how the colors change in your Design Profile to show how well the options you select help achieve your priorities.</p>";
+            txt += "<p>You have " + numCoins + " coins in your budget. You may choose as many policies as you want and as many projects as you can afford. See how the colors change in your priority chart to show how well the options you select help achieve your priorities.</p>";
             txt += "<p>When you are satisfied with your choices, click the button to submit your responses. Your feedback, along with the feedback from other participants, will be used to create the “People’s Choice” scenario for development in Greater Des Moines.</p>";
             _showInstructionDialog(txt);
         };
@@ -179,7 +179,7 @@
             var url = _ashxPath + "BubbleChartImage.ashx";
             //url += '?icons=' + bubbleStr;
 
-            $("<p>"+header+"What would you like to do with your <b>Design Profile</b>?</p>").appendTo(mainDiv);
+            $("<p>"+header+"What would you like to do with your priority chart?</p>").appendTo(mainDiv);
 
             var wrapper = $("<div class='right_wrapper'>").appendTo(mainDiv);
             var right = $("<div class='share_right'>").appendTo(wrapper);

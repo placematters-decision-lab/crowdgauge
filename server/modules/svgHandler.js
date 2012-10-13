@@ -14,7 +14,7 @@
 SVGHandler = function () {
     var _self = this;
 
-    var _basicSVG = ["path", "rect", "polygon", "circle", "ellipse"];
+    var _basicSVG = ["path", "rect", "polygon", "polyline", "circle", "ellipse"];
 
     //region private fields and methods
     var _init = function () {
