@@ -36,7 +36,7 @@
         var _setupClicksForActiveMech = function (activeMech) {
             $("#moreInfo").html("");
             if (activeMech != null) {
-                $("<a href='#'>See all explanations for <b>" + activeMech.ingText.toLowerCase() + "</b></a>").appendTo("#moreInfo").click(function () {
+                $("<a href='#'>See all explanations for <b>" + activeMech.data.gerund.toLowerCase() + "</b></a>").appendTo("#moreInfo").click(function () {
                     new SAS.InfoWindow().createMechanismWindow(activeMech, _priorityList.getPriorities());
                 });
                 _bubbleChart.colorForMechanism(activeMech);

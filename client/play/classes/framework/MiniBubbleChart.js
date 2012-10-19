@@ -25,8 +25,9 @@
 
             _circlesById = {};
             _getMainCirclesFromBig().each(function (d, i) {
+                var score = (values[d.id]) ? values[d.id] : "na";
                 _circlesById[d.id] = grp.append("circle")
-                    .attr("class", "score_" + values[d.id].score)
+                    .attr("class", "score_" + score)
                     .attr("r", d.r)
                     .attr("transform", "translate(" + d.x + "," + d.y + ")");
             });

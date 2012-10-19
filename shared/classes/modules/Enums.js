@@ -6,6 +6,7 @@ var Enums = {
     STATUS_APPROVED:"approved",
     CTYPE_CELL:"cell",
     CTYPE_PRIORITY:"priority_def",
-    CTYPE_MECH:"mech_def"
+    CTYPE_MECH:"mech_def",
+    NA:"N/A"
 };
 if (typeof(module) !== "undefined") module.exports = Enums;

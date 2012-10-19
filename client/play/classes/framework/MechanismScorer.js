@@ -17,7 +17,7 @@
             var numValid = 0;
             var tot = 0;
             $.each(priorities.children, function (i, priority) {
-                var str_val = _mechanism.values[priority.id].score;
+                var str_val = (_mechanism.values[priority.id]) ? _mechanism.values[priority.id] : "na";
                 if (str_val == "na") return true;//continue
                 var val = parseFloat(str_val);
                 numValid += 1;

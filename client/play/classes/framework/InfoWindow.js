@@ -35,7 +35,7 @@
             rt_hdr.html(priority.title);
             var rd_bdy = $("<div class='info_body'>").appendTo(right);
             var infoText = mechMeetsPriority.infoText;
-            if (infoText == "") infoText = "It is unlikely that " + mechanism.ingText + " will have a great contribution to creating a Greater Des Moine where " + priority.title;
+            if (infoText == "") infoText = "It is unlikely that " + mechanism.data.gerund + " will have a great contribution to creating a Greater Des Moine where " + priority.title;
             rd_bdy.html(infoText);
         };
 
@@ -48,7 +48,7 @@
 
             $("<div class='info_hdr info_hdr_top'>").appendTo(headerDiv);
             var lt_hdr = $("<div class='info_left_title'>").appendTo(headerDiv);
-            lt_hdr.html(mechanism.ingText);
+            lt_hdr.html(mechanism.data.gerund);
             $("<div class='info_hdr info_hdr_below'>").appendTo(headerDiv);
 
             var wrapper = $("<div class='right_wrapper'>").appendTo(mainDiv);
@@ -66,23 +66,17 @@
                 });
             }
 
-            var mindeMixerText = "In many cases, it is difficult to determine how a project or policy might affect a community. Do you agree or disagree with some of the explanations? Join the discussion with <span id='mindMixerLink'>MindMixer</span>, The Tomorrow Plan’s community forum.";
-            $("<div class='info_mind'>").html(mindeMixerText).appendTo(right);
-            $("#mindMixerLink").click(function () {
-                window.open("http://ideas.thetomorrowplan.com","_blank");
-            });
-
             var left = $("<div class='info_left'>").appendTo(mainDiv);
 
             var lt_box = $("<div class='info_left_box'>").appendTo(left);
 
             var lt_def = $("<div class='info_defin'>").appendTo(lt_box);
-            lt_def.html(mechanism.definition);
+            lt_def.html(mechanism.data.description);
 
             $.each(mechanism.pictures, function (i, pic) {
                 var img = $("<img>").appendTo(lt_box);
-                img.attr("src", "rpsd/moreInfoPics/" + pic.filename);
-                img.attr("alt", pic.alttext);
+                img.attr("src", "/files/panel/" + pic.filename);
+                img.attr("alt", pic.filename);
                 var cap = $("<div class='info_caption'>").appendTo(lt_box);
                 cap.html(pic.caption);
             });

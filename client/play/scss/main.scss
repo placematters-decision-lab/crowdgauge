@@ -40,6 +40,21 @@ body {
   clear: left;
 }
 
+.mechGrp {
+  margin: 5px;
+  padding: 5px;
+}
+
+.mechGrpBtn {
+  cursor: pointer;
+  padding: 5px 4px 4px 5px;
+}
+
+.mechIcon {
+  float: left;
+  clear: left;
+}
+
 #chart {
   display: block;
   left: 510px;

@@ -65,6 +65,7 @@
                 /** @type SAS.PriorityDef */
                 var pDef = priority.data;
                 priority.score = 0;
+                priority.id = priority.data.uid;//alias for use as 'd.id' in d3 functions
                 priority.value = _starAsPerc(priority.score);
                 var div = $("<div class='sliderGrp'></div>").appendTo("#priorityList");
 //                var img = $("<img class='sliderIcon' src='" + priority.icon + ".png' width='26' height='26'>").appendTo(div);

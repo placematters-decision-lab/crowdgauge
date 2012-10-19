@@ -60,6 +60,7 @@ handle["/getImage"] = fileManager.getImage;
 
 handle["/getPriorities"] = dataHandler.getPriorities;
 handle["/getMechanisms"] = dataHandler.getMechanisms;
+handle["/getMechanismInfo"] = dataHandler.getMechanismInfo;
 
 handle["/persona_login"] = ps.login;
 handle["/persona_logout"] = ps.logout;

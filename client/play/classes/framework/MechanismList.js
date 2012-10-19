@@ -66,13 +66,6 @@
         };
 
         var _radioClick = function (mechanism, clickedIcon) {
-            if (mechanism.category == "Policy") {
-                if (mechanism.id == "14") _moneyIcons["15"][0].setOn(false);
-                if (mechanism.id == "15") _moneyIcons["14"][0].setOn(false);
-                if (mechanism.id == "20") _moneyIcons["21"][0].setOn(false);
-                if (mechanism.id == "21") _moneyIcons["20"][0].setOn(false);
-                return;
-            }
             $.each(_moneyIcons[mechanism.id], function (i, micon) {
                 if (clickedIcon != micon) {
                     if (clickedIcon.isOn()) {
@@ -137,13 +130,15 @@
         };
 
         var _addMechListItem = function (mechanism) {
+            mechanism.id = mechanism.data.uid;
+            mechanism.category = "main";
             if (!_super._getCatDiv(mechanism.category)) return;
             var mechDiv = $("<div class='mechGrp'></div>").appendTo(_super._getCatDiv(mechanism.category));
             mechDiv.attr("id", "mech" + mechanism.id);
             _mechIconDivsById[mechanism.id] = $("<div class='mechIcon'></div>").appendTo(mechDiv);
             _mechIconDivsById[mechanism.id].attr("id", "mechIcon" + mechanism.id);
             var titleTxt = $("<div class='mechText'></div>").appendTo(mechDiv);
-            titleTxt.html(mechanism.text);
+            titleTxt.html(mechanism.data.title);
             _mechSubDivsById[mechanism.id] = $("<div class='mechSub'></div>").appendTo(mechDiv);
             mechDiv.click(function () {
                 if (_mode == IMPACTS) {
@@ -156,7 +151,7 @@
             $("#mechanismList").html("");
             _super._mechPanel($("<div class='mechPanel'></div>").appendTo("#mechanismList"));
 
-            _super._addCatDivs(["Project", "Policy"]);
+            _super._addCatDivs(["main"]);
 
             $.each(_super._mechanisms(), function (i, mechanism) {
                 _addMechListItem(mechanism);

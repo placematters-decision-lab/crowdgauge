@@ -75,6 +75,11 @@ ServerDataHandler = function () {
                         if (doc.contentType == "priority_def") emit(doc.filename, doc);
                     }
                 },
+                cellsByMechanismId:{
+                    map:function (/**Content*/doc) {
+                        if (doc.contentType == "cell" && doc.structureId.mechanism && doc.structureId.mechanism !== "") emit(doc.structureId.mechanism, doc);
+                    }
+                },
                 mechIds:{
                     map:function (/**Content*/doc) {
                         if (doc.contentType == "mech_def") emit(doc.filename, doc.structureId.mechanism);
@@ -93,6 +98,16 @@ ServerDataHandler = function () {
                 byMechanismIds:{
                     map:function (/**Content*/doc) {
                         if (doc.structureId.mechanism && doc.structureId.mechanism !== "") emit(doc.structureId.mechanism, doc);
+                    }
+                },
+                byTypeAndStructureId:{
+                    map:function (/**Content*/doc) {
+                        if (doc.structureId) emit([doc.contentType, doc.structureId.priority, doc.structureId.mechanism], doc);
+                    }
+                },
+                byTypeAndMechId:{
+                    map:function (/**Content*/doc) {
+                        if (doc.structureId) emit([doc.contentType, doc.structureId.mechanism], doc);
                     }
                 },
                 byFullStructureId:{
@@ -239,7 +254,7 @@ ServerDataHandler = function () {
                 });
                 //--find the associated SVG for each priority (this could alternatively be done earlier - when the image is assigned)
                 pObjs.forEach(function (pObj, i) {
-                    _imageDataHandler.listFiles(pObj.data.uid, function(files) {
+                    _imageDataHandler.listFiles(pObj.data.uid, function (files) {
                         if (files && files.length > 0) {
                             pObj.svgPath = files[0].filename;
                         } else {
@@ -255,25 +270,84 @@ ServerDataHandler = function () {
         });
     };
 
-    var _getMechanisms = function (req, res) {
+    var _getMechValues = function (body) {
+        var NA = "na";
+        var vals = {};
+        if (!body || !body.rows) return vals;
+        body.rows.forEach(function (row, i) {
+            /** @type Content */
+            var doc = row.value;
+            vals[doc.structureId.priority] = NA;
+            if (doc.data && doc.data.score) {
+                var score = doc.data.score;
+                if (score.indexOf('+') == 0) score = score.substr(1);//strip of the '+' character at the front since its not CSS-friendly
+                if (score != Enums.NA) vals[doc.structureId.priority] = score;
+            }
+        });
+        return vals;
+    };
+
+    var _getQuery = function (req) {
         var url_parts = url.parse(req.url, true);
-        var query = url_parts.query;
+        return url_parts.query;
+    };
+
+    var _getMechanismInfo = function (req, res) {
+        var query = _getQuery(req);
+        var mObj = {};
+        var mechId = query.mechId;
+        var priorityId = query.priorityId;
+        var view = (priorityId) ? 'byTypeAndStructureId' : 'byTypeAndMechId';
+        var keys = (priorityId) ? ['cell', priorityId, mechId] : ['cell', mechId];
+
+        //if priorityId is not specified, we need to get ALL priorities, so we can just use 'null'
+        db.view('views', view, { key:keys }, function (err, body) {
+            if (!(body && body.rows)) {
+                mObj.cells = [];
+            } else {
+                mObj.cells = body.rows.map(function (row) {
+                    return {pId:row.value.structureId.priority, data:row.value.data};
+                });
+            }
+            if (mObj.pictures && mObj.cells) {
+                _returnJsonObj(res, mObj);
+            }
+        });
+        _imageDataHandler.listFiles(mechId, function (files) {
+            mObj.pictures = files;
+            if (mObj.pictures && mObj.cells) {
+                _returnJsonObj(res, mObj);
+            }
+        });
+
+    };
+
+    var _getMechanisms = function (req, res) {
+        //TODO return error code if query.filename is null or no results found
+        var query = _getQuery(req);
         db.view('views', 'mechanismsByFilename', { key:query.filename }, function (err, body) {
-            if (body) {
+            if (body && body.rows) {
+                var numRows = body.rows.length;
                 var mObjs = [];
                 body.rows.forEach(function (row, i) {
+                    /** @type Content */
                     var doc = row.value;
                     var mDef = doc.data;
                     var mObj = {data:mDef};
-                    mObjs.push(mObj);
+                    db.view('views', 'cellsByMechanismId', { key:doc.structureId.mechanism }, function (err, cellBody) {
+                        mObj.values = _getMechValues(cellBody);
+                        mObjs.push(mObj);
+                        if (mObjs.length == numRows) {//we have all results and can return
+                            _returnJsonObj(res, mObjs);
+                        }
+                    });
                 });
-                _returnJsonObj(res, mObjs);
             }
         });
     };
 
     var _deleteAllResults = function (res, body) {
-        if (body) {
+        if (body && body.rows) {
             body.rows.forEach(function (row, i) {
                 var doc = row.value;
                 db.destroy(doc._id, doc._rev, function (err, body) {
@@ -284,20 +358,16 @@ ServerDataHandler = function () {
         _returnBasicSuccess(res);
     };
 
-
-    function _returnResults(res, body, fn) {
-        var ans = [];
-        if (body) {
-            body.rows.forEach(function (row, i) {
-                if (fn) {
-                    ans.push(fn(row.value));
-                } else {
-                    ans.push(row.value);
-                }
-            });
+    var _returnResults = function (res, body, fn) {
+        if (!(body && body.rows)) {
+            _returnJsonObj(res, []);
+            return;
         }
-        _returnJsonObj(res, ans);
-    }
+        _returnJsonObj(res, body.rows.map(function (row) {
+            if (fn) return fn(row.value);
+            return row.value;
+        }));
+    };
 
     var _returnJsonObj = function (res, obj) {
         res.writeHeader(200, {"Content-Type":"application/json"});
@@ -362,6 +432,10 @@ ServerDataHandler = function () {
 
     this.getMechanisms = function (req, res, postData) {
         _getMechanisms(req, res);
+    };
+
+    this.getMechanismInfo = function (req, res, postData) {
+        _getMechanismInfo(req, res);
     };
     //====================================
 

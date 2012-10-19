@@ -141,7 +141,7 @@
             $("<div class='mechIcon'></div>").appendTo(mechDivIns).attr("id", "mechInsExample");
             new SAS.MiniBubbleChart(bubblechart).addMiniBubbleChart("#mechInsExample", topScorer.values);
             var insTxt = $("<div class='mechText' style='font-size: 1em;'></div>").appendTo(mechDivIns);
-            insTxt.html(topScorer.text);
+            insTxt.html(topScorer.data.title);
 
             mechDivIns.click(function () {
                 _closeDialog();

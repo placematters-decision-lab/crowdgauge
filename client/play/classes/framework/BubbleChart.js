@@ -41,7 +41,7 @@
                 .style("fill", null)
                 .attr("class", function (d) {
                     if (mechanism != null) {
-                        return "score_" + mechanism.values[d.id].score;
+                        return "score_" + mechanism.values[d.id];
                     }
                     return "";
                 });
@@ -83,12 +83,12 @@
                         return 2.5 * 100 / d.r;//emulate NonScalingStroke (which is not supported in FF or IE)
                     })
                     .style("stroke-opacity", function (d) {
-                        if (mechanism != null && _scoreCounts(mechanism.values[d.id].score)) return 0.25;
+                        if (mechanism != null && _scoreCounts(mechanism.values[d.id])) return 0.25;
                         return 0;
                     })
                     .attr("class", function (d) {
                         if (mechanism != null) {
-                            var score = mechanism.values[d.id].score;
+                            var score = mechanism.values[d.id];
                             if (_scoreCounts(score)) return "score_" + score;
                             return "nofill";
                         }
@@ -125,12 +125,12 @@
                         return 2.5 * 100 / d.r;//emulate NonScalingStroke (which is not supported in FF or IE)
                     })
                     .style("stroke-opacity", function (d) {
-                        if (mechanism != null && _scoreCounts(mechanism.values[d.id].score)) return 0.25;
+                        if (mechanism != null && _scoreCounts(mechanism.values[d.id])) return 0.25;
                         return 0;
                     })
                     .attr("class", function (d) {
                         if (mechanism != null) {
-                            var score = mechanism.values[d.id].score;
+                            var score = mechanism.values[d.id];
                             if (_scoreCounts(score)) return "score_" + score;
                             return "nofill";
                         }

@@ -54,7 +54,7 @@
         var _getHighestScoringMechanism = function (mechanisms, priorities) {
             var maxMech = null;
             var maxVal = 0;
-            $.each(mechanisms.children, function (i, mechanism) {
+            $.each(mechanisms, function (i, mechanism) {
                 var score = new SAS.MechanismScorer(mechanism).getScoreForPriorities(priorities);
                 if (score > maxVal) {
                     maxVal = score;
@@ -97,7 +97,7 @@
         this._ensureShowMiniBubbleCharts = function () {
             if (_miniCharts == null) {
                 _miniCharts = [];
-                $.each(_mechanisms.children, function (i, mechanism) {
+                $.each(_mechanisms, function (i, mechanism) {
                     _addMiniBubbleChart(mechanism);
                 });
                 return true;

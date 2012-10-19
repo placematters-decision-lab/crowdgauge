@@ -12,3 +12,20 @@ body {
 .sliderTitle {
   color: #654A3F;
 }
+
+.mechGrpBtn {
+  background: white;
+  border-right: 1px solid #D1C4B3;
+  border-bottom: 1px solid #D1C4B3;
+}
+
+.mechText {
+  font-size: 0.75em;
+  margin-left: 42px;
+  color: #654A3F;
+  font-weight: bold;
+}
+
+.selected {//--the selected mechanism
+  border: 2px solid black;
+}
