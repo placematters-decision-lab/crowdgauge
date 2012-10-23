@@ -6,12 +6,14 @@
 (function () { // self-invoking function
     /**
      * @class SAS.DataHandler - works with server-side @see ServerDataHandler
+     * @constructor
      **/
-    SAS.DataHandler = function (filename) {
+    SAS.DataHandler = function (userId, filename) {
         var _self = this;
 
         //region private fields and methods
         var _filename = filename;
+        var _userId = userId;
         //endregion
 
         //region protected fields and methods (use '_' to differentiate).
@@ -21,14 +23,13 @@
         //region public API
         /**
          * works with @see ServerDataHandler.takeLock
-         * @param {String} userId
          * @param {Boolean} force setting this to true lets you steal the lock
          * @param {Content} c
          * @param {Function} [successFn]
          * @param {Function} [failFn]
          */
-        this.takeLock = function (userId, force, c, successFn, failFn) {
-            $.post("/takeLock", {structureId:JSON.stringify(c.structureId), force:force, user:userId},
+        this.takeLock = function (force, c, successFn, failFn) {
+            $.post("/takeLock", {structureId:JSON.stringify(c.structureId), force:force, user:_userId},
                 function (allowed) {
                     if (allowed && successFn) successFn();
                     if (!allowed && failFn) failFn();
@@ -37,12 +38,11 @@
 
         /**
          * works with @see ServerDataHandler.releaseLock
-         * @param {String} userId
          * @param {Content} c
          * @param {Function} [callback]
          */
-        this.releaseLock = function (userId, c, callback) {
-            $.post("/releaseLock", {structureId:JSON.stringify(c.structureId), user:userId},
+        this.releaseLock = function (c, callback) {
+            $.post("/releaseLock", {structureId:JSON.stringify(c.structureId), user:_userId},
                 function (data) {
                     if (callback) callback(data);
                 });
@@ -55,6 +55,18 @@
          */
         this.addPriority = function (p, callback) {
             $.post("/addPriority", {data:JSON.stringify(p)},
+                function (data) {
+                    if (callback) callback(data);
+                });
+        };
+
+        /**
+         * works with @see ServerDataHandler.addAction
+         * @param {SAS.ActionDef} a
+         * @param {Function} [callback]
+         */
+        this.addAction = function (a, callback) {
+            $.post("/addAction", {data:JSON.stringify(a)},
                 function (data) {
                     if (callback) callback(data);
                 });
@@ -85,7 +97,19 @@
         };
 
         /**
-         * works with @see ServerDataHandler.addMechanism
+         * works with @see ServerDataHandler.deleteAction
+         * @param {String} aId
+         * @param {Function} [callback]
+         */
+        this.deleteAction = function (aId, callback) {
+            $.post("/deleteAction", {id:aId},
+                function (data) {
+                    if (callback) callback(data);
+                });
+        };
+
+        /**
+         * works with @see ServerDataHandler.deletePriority
          * @param {String} pId
          * @param {Function} [callback]
          */

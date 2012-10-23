@@ -93,9 +93,19 @@ ServerDataHandler = function () {
                         if (doc.contentType == "priority_def") emit(doc.filename, doc.structureId.priority);
                     }
                 },
+                actionIds:{
+                    map:function (/**Content*/doc) {
+                        if (doc.contentType == "priority_def") emit(doc.filename, doc.structureId.priority);
+                    }
+                },
                 byPriorityIds:{
                     map:function (/**Content*/doc) {
                         if (doc.structureId.priority && doc.structureId.priority !== "") emit(doc.structureId.priority, doc);
+                    }
+                },
+                byActionIds:{
+                    map:function (/**Content*/doc) {
+                        if (doc.structureId.action && doc.structureId.action !== "") emit(doc.structureId.action, doc);
                     }
                 },
                 byMechanismIds:{
@@ -157,6 +167,24 @@ ServerDataHandler = function () {
         });
     };
 
+    var _addAction = function (/**SAS.ActionDef*/a, res) {
+        //--add ActionDef
+        var actionId = a.uid;
+        var content = new Content();
+        content.structureId.action = actionId;
+        content.contentType = Enums.CTYPE_ACTION;
+        content.data = a;
+        _saveContent(content);
+        //--loop through all mech def IDs and add a content cell for each
+        _withViewData("mechIds", function (mId) {
+            var content = new Content();
+            content.structureId = {action:actionId, mechanism:mId};
+            _saveContent(content);
+        }, function () {
+            _returnBasicSuccess(res);
+        });
+    };
+
     var _takeLock = function (user, force, structureId, res) {
         db.view('views', 'byFullStructureId', { key:[structureId.priority, structureId.mechanism] }, function (err, body) {
             if (body && body.rows.length > 0) {
@@ -205,8 +233,16 @@ ServerDataHandler = function () {
             content.structureId = {priority:pId, mechanism:mechId};
             _saveContent(content);
         }, function () {
-            _returnBasicSuccess(res);
+            //--loop through all action def IDs and add a content cell for each
+            _withViewData("actionIds", function (aId) {
+                var content = new Content();
+                content.structureId = {action:aId, mechanism:mechId};
+                _saveContent(content);
+            }, function () {
+                _returnBasicSuccess(res);
+            });
         });
+
     };
 
     var _updateContent = function (/**Content*/content, releaseLock, req, res) {
@@ -219,6 +255,13 @@ ServerDataHandler = function () {
     var _deletePriority = function (priorityId, req, res) {
         //--remove all content types with structureId.priority == id
         db.view('views', 'byPriorityIds', { key:priorityId }, function (err, body) {
+            _deleteAllResults(res, body);
+        });
+    };
+
+    var _deleteAction = function (actionId, req, res) {
+        //--remove all content types (cells and definitions) with structureId.priority == id
+        db.view('views', 'byActionIds', { key:actionId }, function (err, body) {
             _deleteAllResults(res, body);
         });
     };
@@ -450,6 +493,11 @@ ServerDataHandler = function () {
         var dataObj = JSON.parse(postData.data);
         _addPriority(dataObj, res);
     };
+    /** @see SAS.DataHandler.addAction */
+    this.addAction = function (req, res, postData) {
+        var dataObj = JSON.parse(postData.data);
+        _addAction(dataObj, res);
+    };
     /** @see SAS.DataHandler.addMechanism */
     this.addMechanism = function (req, res, postData) {
         var dataObj = JSON.parse(postData.data);
@@ -458,6 +506,10 @@ ServerDataHandler = function () {
     /** @see SAS.DataHandler.deletePriority */
     this.deletePriority = function (req, res, postData) {
         _deletePriority(postData.id, req, res);
+    };
+    /** @see SAS.DataHandler.deleteAction */
+    this.deleteAction = function (req, res, postData) {
+        _deleteAction(postData.id, req, res);
     };
     /** @see SAS.DataHandler.deleteMechanism */
     this.deleteMechanism = function (req, res, postData) {

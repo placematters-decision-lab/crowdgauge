@@ -32,10 +32,12 @@ var prehandle = {};
 prehandle["/fileupload"] = fileManager.handleUpload;
 
 var securePaths = [
-    "/addPriority",
     "/takeLock",
     "/releaseLock",
+    "/addPriority",
     "/addMechanism",
+    "/addAction",
+    "/deleteAction",
     "/deletePriority",
     "/deleteMechanism",
     "/updateContent",
@@ -45,10 +47,12 @@ var securePaths = [
 
 var handle = {};
 handle["/addPriority"] = dataHandler.addPriority;
+handle["/addAction"] = dataHandler.addAction;
 handle["/addMechanism"] = dataHandler.addMechanism;
 handle["/takeLock"] = dataHandler.takeLock;
 handle["/releaseLock"] = dataHandler.releaseLock;
 handle["/deletePriority"] = dataHandler.deletePriority;
+handle["/deleteAction"] = dataHandler.deleteAction;
 handle["/deleteMechanism"] = dataHandler.deleteMechanism;
 handle["/getAllContent"] = dataHandler.getAllContent;
 handle["/updateContent"] = dataHandler.updateContent;

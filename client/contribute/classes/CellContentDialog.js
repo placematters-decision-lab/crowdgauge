@@ -7,8 +7,9 @@
     /**
      * @class SAS.CellContentDialog
      * @extends SAS.ADialog
+     * @constructor
      **/
-    SAS.CellContentDialog = function (/**Content*/ content, title) {
+    SAS.CellContentDialog = function (/**Content*/ content, title, scoreOpts) {
         var _self = this;
         /** @type SAS.ADialog */
         var _super = SAS.Inheritance.Extend(this, new SAS.ADialog());
@@ -21,6 +22,7 @@
         /** @type SAS.CellDef */
         var _cellDef = new SAS.CellDef(_content.data);
         var _title = title;
+        var _scoreOpts = scoreOpts;
         var _hasChanges = false;
 
         var _$description;
@@ -32,14 +34,15 @@
             var status = _content.status || Enums.STATUS_DRAFT;
             if (status == Enums.STATUS_NEW) status = Enums.STATUS_DRAFT;//always default to 'draft' status
             var statusOpts = [Enums.STATUS_NEW, Enums.STATUS_DRAFT, Enums.STATUS_REVIEW, Enums.STATUS_APPROVED];
-            var scoreOpts = ['N/A', '-2', '-1', '0', '+1', '+2'];
 
             $('<label for="status_sel">Status:</label>').addClass("dialogLabel").appendTo($inputsDiv);
             _$paletteSelection = $('<select id="status_sel"></select>').appendTo($inputsDiv);
             SAS.controlUtilsInstance.populateSelectList(_$paletteSelection, null, statusOpts, status);
-            $('<label for="score_sel">Score:</label>').addClass("dialogLabel").appendTo($inputsDiv);
-            _$scoreSelection = $('<select id="score_sel"></select>').appendTo($inputsDiv);
-            SAS.controlUtilsInstance.populateSelectList(_$scoreSelection, null, scoreOpts, _cellDef.score);
+            if (_scoreOpts) {
+                $('<label for="score_sel">Score:</label>').addClass("dialogLabel").appendTo($inputsDiv);
+                _$scoreSelection = $('<select id="score_sel"></select>').appendTo($inputsDiv);
+                SAS.controlUtilsInstance.populateSelectList(_$scoreSelection, null, _scoreOpts, _cellDef.score);
+            }
             var $descDiv = $('<div>').appendTo($inputsDiv);
             $('<label for="description_txt">Description:</label>').addClass("dialogLabel").appendTo($descDiv);
             _$description = $('<textarea id="description_txt"></textarea>').val(SAS.localizr.get(_cellDef.description)).appendTo($('<div>').appendTo($descDiv));

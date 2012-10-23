@@ -6,6 +6,7 @@
 (function () { // self-invoking function
     /**
      * @class SAS.ImageList
+     * @constructor
      **/
     SAS.ImageList = function ($parent, groupId, multiple) {
         var _self = this;

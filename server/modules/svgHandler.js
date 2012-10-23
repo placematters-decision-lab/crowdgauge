@@ -23,6 +23,11 @@ SVGHandler = function () {
     //endregion
 
     //region public API
+    /**
+     * @param data
+     * @param {String} color the named color or rgb color (hash colors e.g. #330000 not yet supported)
+     * @return {*}
+     */
     this.applyFillColor = function (data, color) {
         //var etree = et.parse(data);
         _basicSVG.forEach(function (name, i) {

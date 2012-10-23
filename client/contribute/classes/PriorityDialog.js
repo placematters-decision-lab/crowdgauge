@@ -7,6 +7,7 @@
     /**
      * @class SAS.PriorityDialog
      * @extends SAS.ADialog
+     * @constructor
      **/
     SAS.PriorityDialog = function (/**SAS.PriorityDef*/ priority) {
         var _self = this;

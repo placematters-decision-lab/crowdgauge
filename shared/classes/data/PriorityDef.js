@@ -41,7 +41,7 @@
         /** @type {String} full descriptive text*/
         this.description = _settings.description;
 
-        /** @type {String} a shorter version of the title to help identify this priotity in the UI */
+        /** @type {String} an optional, shorter version of the title to help identify this priority in the UI */
         this.nickname = _settings.nickname;
 
         /** @type {String} unique id*/

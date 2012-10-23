@@ -1,6 +1,6 @@
 $cellWidth: 80px;
 $cellHeight: 30px;
-$rowTitleW: 180px;
+$rowTitleW: 220px;
 $iconSize: 28px;
 $borderGap: 1px;
 $columnGap: 5px;
@@ -28,7 +28,8 @@ $borderColor: #d2dde3;
 }
 
 @mixin column {
-  width: $cellWidth;// + $borderGap;
+  width: $cellWidth;
+// + $borderGap;
   border-right: $borderGap solid $borderColor;
   margin-right: $columnGap;
 }
@@ -40,7 +41,6 @@ $borderColor: #d2dde3;
   font-size: 0.85em;
   vertical-align: top;
 }
-
 
 .gCell {
   @include column;
@@ -89,12 +89,32 @@ $borderColor: #d2dde3;
 .mRow {
 
 }
+
 .contLenLbl {
   @include titleLabel;
   vertical-align: top;
 }
 
+.langSel {
+  float: right;
+}
+
+.tabContent {
+  background-color: rgba(255, 255, 255, 0.5);
+  padding: 10px;
+  overflow-x: scroll;
+}
+
 textarea {
   width: 100%;
   height: 200px;
+}
+
+#toolbar {
+  padding: 5px;
+}
+
+//jquery UI customizations
+.ui-tabs .ui-tabs-panel {
+  padding: 0;
 }

@@ -12,6 +12,7 @@
     /**
      * @class SAS.MechanismDialog
      * @extends SAS.ADialog
+     * @constructor
      **/
     SAS.MechanismDialog = function (/**SAS.MechanismDef*/ mechanism) {
         var _self = this;
