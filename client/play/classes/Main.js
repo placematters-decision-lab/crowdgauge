@@ -9,6 +9,7 @@
 
         //region private fields and methods
         var _map;
+        /** @type SAS.PriorityList */
         var _priorityList;
         var _bubbleChart;
         var _mechanismList;
@@ -36,11 +37,24 @@
         var _setupClicksForActiveMech = function (activeMech) {
             $("#moreInfo").html("");
             if (activeMech != null) {
-                $("<a href='#'>See all explanations for <b>" + activeMech.data.gerund.toLowerCase() + "</b></a>").appendTo("#moreInfo").click(function () {
+                var $link = $("<a href='#'>See all explanations for </a>").appendTo("#moreInfo").click(function () {
                     new SAS.InfoWindow().createMechanismWindow(activeMech, _priorityList.getPriorities());
+                });
+                var $boldSpan = $('<span>').appendTo($link);
+                SAS.localizr.live(activeMech.data.gerund, function(str) {
+                    $boldSpan.html(str.toLowerCase());
                 });
                 _bubbleChart.colorForMechanism(activeMech);
             }
+        };
+
+        var _addLangBtn = function ($holder) {
+            var $langSel = $("<select></select>").appendTo($holder);
+
+            SAS.controlUtilsInstance.populateSelectList($langSel, null, ['en', 'af'], 'en');
+            $langSel.change(function() {
+                SAS.localizr.setActiveLang($(this).val());
+            });
         };
 
         var _initialize = function () {
@@ -55,6 +69,8 @@
             _bubbleChart = new SAS.BubbleChart(_priorityList);
             _mechanismList = new SAS.MechanismList(_bubbleChart);
             _pages = new SAS.Pages(_layout, _priorityList, _mechanismList, _bubbleChart, _map, _dataManager);
+
+            _addLangBtn($('#langSel'));
 
             _priorityList.onLoad(function () {
                 _bubbleChart.createBubbles();
@@ -85,14 +101,22 @@
             return _pages;
         };
 
-        /** @type SAS.BubbleChart */
+        /** @return {SAS.BubbleChart} */
         this.getBubbleChart = function() {
             return _bubbleChart;
         };
 
-        /** @type SAS.DataManager */
+        /** @return {SAS.DataManager} */
         this.getDataManager = function () {
             return _dataManager;
+        };
+
+        /**
+         * @param {String} pId
+         * @return {SAS.PriorityDef}
+         */
+        this.getPriorityDef = function (pId) {
+            return _priorityList.getPriorityDef(pId);
         };
 
         this.initialize = function () {

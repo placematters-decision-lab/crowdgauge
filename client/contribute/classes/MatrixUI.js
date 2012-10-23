@@ -139,7 +139,7 @@
                     var content = priorityObj.content;
                     var $pcolHdr = $("<div>").addClass("pColumnHeader").appendTo($pRow);
                     _makeUIBtn(20, ICON_DELETE).appendTo($pcolHdr).click(function () {
-                        if (confirm("Are you sure you want to erase " + priorityObj.data.title)) {
+                        if (confirm("Are you sure you want to erase " + SAS.localizr.get(priorityObj.data.title))) {
                             _dataHandler.deletePriority(pId, function () {
                                 _callUpdateGrid();
                             });
@@ -153,7 +153,7 @@
                             });
                         });
                     });
-                    $("<div>").addClass("pColTitle").html(priorityObj.data.getNickname()).appendTo($pcolHdr);
+                    $("<div>").addClass("pColTitle").html(SAS.localizr.get(priorityObj.data.getNickname())).appendTo($pcolHdr);
                     var $pIcon = $("<div>").addClass("pColIcon").appendTo($pcolHdr);
                     $.getJSON('/listfiles/' + pId, function (data) {
                         $.each(data, function (index, file) {
@@ -168,7 +168,7 @@
                     var $mRow = $("<div>").addClass("mRow").appendTo(_$grid);
                     var $pRowHeader = $("<div>").addClass("pRowHeader").appendTo($mRow);
                     _makeUIBtn(20, ICON_DELETE).appendTo($pRowHeader).click(function () {
-                        if (confirm("Are you sure you want to erase " + mechObj.data.title)) {
+                        if (confirm("Are you sure you want to erase " + SAS.localizr.get(mechObj.data.title))) {
                             _dataHandler.deleteMechanism(mId, function () {
                                 _callUpdateGrid();
                             });
@@ -182,7 +182,7 @@
                             });
                         });
                     });
-                    $("<div>").addClass("pRowTitle").html(_mechLookup[mId].data.getNickname()).appendTo($pRowHeader);
+                    $("<div>").addClass("pRowTitle").html(SAS.localizr.get(_mechLookup[mId].data.getNickname())).appendTo($pRowHeader);
                     $.each(_priorityIds, function (i, pId) {
                         _cellLookup[mId + "_" + pId] = $("<div>").addClass("gCell").appendTo($mRow);
                     });
@@ -206,7 +206,7 @@
                     if (content && content.status) {
                         $btn.css({background:_bgColors[content.status]});
                     }
-                    var title = mechObj.data.getNickname() + " : " + priorityObj.data.getNickname();
+                    var title = SAS.localizr.get(mechObj.data.getNickname()) + " : " + SAS.localizr.get(priorityObj.data.getNickname());
                     $btn.appendTo($cell).click(function () {
                         _editContent(content, title, function () {
                             //$btn.css({background:_bgColors[content.status]});
@@ -218,7 +218,7 @@
                     var cellDef = new SAS.CellDef(content.data);
                     if (!cellDef.isEmpty()) {
                         $cell.css({backgroundColor:_scoreColors[cellDef.score]});
-                        $('<span>').addClass("contLenLbl").html(cellDef.description.length.toString()).appendTo($cell);
+                        $('<span>').addClass("contLenLbl").html(SAS.localizr.getLength(cellDef.description).toString()).appendTo($cell);
                     }
                 });
             });
@@ -270,6 +270,13 @@
         var _buildUI = function () {
             var $addPBtn = $("<button>ADD P</button>").appendTo($holder);
             var $addMBtn = $("<button>ADD M</button>").appendTo($holder);
+            var $langSel = $("<select></select>").appendTo($holder);
+
+            SAS.controlUtilsInstance.populateSelectList($langSel, null, ['en', 'af'], 'en');
+            $langSel.change(function() {
+                SAS.localizr.setActiveLang($(this).val());
+                _getAllContent();
+            });
 
             _$grid = $("<div>").appendTo($holder);
 

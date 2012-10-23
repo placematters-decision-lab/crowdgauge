@@ -9,8 +9,7 @@
 
         //region private fields and methods
         var _iconSize = 50;
-        var _addPriority = function (priority, right, mechanism) {
-            var mechMeetsPriority = mechanism.values[priority.id];
+        var _addPriority = function (pId, /*SAS.CellDef*/cell, right, mechanism) {
             var titleDiv = $("<div class='info_right_title_grp'>").appendTo(right);
             var iconDiv = $("<div class='info_icon'>").appendTo(titleDiv);
             var iconSvg = d3.select(iconDiv[0]).append("svg")
@@ -18,24 +17,28 @@
                 .attr("height", _iconSize + 2);//--add 2px for chrome silliness
 
             var grp = iconSvg.append("g")
-                .attr("transform", "scale(" + _iconSize/200 + ") translate(100, 100)");
+                .attr("transform", "scale(" + _iconSize / 200 + ") translate(100, 100)");
 
             grp.append("circle")
-                .attr("class", "score_" + mechMeetsPriority.score)
+                .attr("class", "score_" + cell.score)
                 .attr("r", "100");
 
+            var pDef = SAS.mainInstance.getPriorityDef(pId);
+
+            var imgScale = 0.65;//scale down to fit square SVG icons within circles (multiply the diameter by 1/sqrt(2) = 0.707) + inset from the edge a little
+            var siz = 200 * imgScale;
             grp.append("image")
-                .attr("x", -100)
-                .attr("y", -100)
-                .attr("width", 200)
-                .attr("height", 200)
-                .attr("xlink:href", "rpsd/icons-white/"+priority.id+".svg");
+                .attr("x", -siz / 2)
+                .attr("y", -siz / 2)
+                .attr("width", siz)
+                .attr("height", siz)
+                .attr("xlink:href", "/files/" + pDef.svgPath + "?color=white");
 
             var rt_hdr = $("<div class='info_right_title'>").appendTo(titleDiv);
-            rt_hdr.html(priority.title);
+            rt_hdr.html(SAS.localizr.get(pDef.title));
             var rd_bdy = $("<div class='info_body'>").appendTo(right);
-            var infoText = mechMeetsPriority.infoText;
-            if (infoText == "") infoText = "It is unlikely that " + mechanism.data.gerund + " will have a great contribution to creating a Greater Des Moine where " + priority.title;
+            var infoText = SAS.localizr.get(cell.description);
+            if (infoText == "") infoText = "It is unlikely that " + SAS.localizr.get(mechanism.data.gerund) + " will have a great contribution to creating a Greater Des Moine where " + SAS.localizr.get(pDef.title);
             rd_bdy.html(infoText);
         };
 
@@ -48,38 +51,47 @@
 
             $("<div class='info_hdr info_hdr_top'>").appendTo(headerDiv);
             var lt_hdr = $("<div class='info_left_title'>").appendTo(headerDiv);
-            lt_hdr.html(mechanism.data.gerund);
+            lt_hdr.html(SAS.localizr.get(mechanism.data.gerund));
             $("<div class='info_hdr info_hdr_below'>").appendTo(headerDiv);
 
             var wrapper = $("<div class='right_wrapper'>").appendTo(mainDiv);
             var right = $("<div class='info_right'>").appendTo(wrapper);
-            if (priorityId != null) {
-                var priorityLookup = d3.nest().key(
-                    function (d) { return d.id; }).map(priorities.children);
-                var priority = priorityLookup[priorityId][0];
-                _addPriority(priority, right, mechanism);
-            } else {
-                $.each(priorities.children, function (k, priority) {
-                    if (mechanism.values[priority.id].infoText != "") {
-                        _addPriority(priority, right, mechanism);
-                    }
-                });
-            }
+//            if (priorityId != null) {
+//                var priorityLookup = d3.nest().key(
+//                    function (d) { return d.id; }).map(priorities.children);
+//                var priority = priorityLookup[priorityId][0];
+//                _addPriority(priority, right, mechanism);
+//            } else {
+//                $.each(priorities.children, function (k, priority) {
+//                    if (mechanism.values[priority.id].infoText != "") {
+//                        _addPriority(priority, right, mechanism);
+//                    }
+//                });
+//            }
 
             var left = $("<div class='info_left'>").appendTo(mainDiv);
 
             var lt_box = $("<div class='info_left_box'>").appendTo(left);
 
             var lt_def = $("<div class='info_defin'>").appendTo(lt_box);
-            lt_def.html(mechanism.data.description);
+            lt_def.html(SAS.localizr.get(mechanism.data.description));
 
-            $.each(mechanism.pictures, function (i, pic) {
-                var img = $("<img>").appendTo(lt_box);
-                img.attr("src", "/files/panel/" + pic.filename);
-                img.attr("alt", pic.filename);
-                var cap = $("<div class='info_caption'>").appendTo(lt_box);
-                cap.html(pic.caption);
+            d3.json('/getMechanismInfo?mechId=' + mechanism.id + ((priorityId) ? "&priorityId=" + priorityId : ""), function (data) {
+                $.each(data.pictures, function (i, pic) {
+                    var img = $("<img>").appendTo(lt_box);
+                    img.attr("src", "/files/panel/" + pic.filename);
+                    img.attr("alt", pic.filename);
+                    var cap = $("<div class='info_caption'>").appendTo(lt_box);
+                    cap.html(pic.caption);
+                });
+                $.each(data.cells, function (k, cell) {
+                    if (cell.data && SAS.localizr.get(cell.data.description)) {
+                        _addPriority(cell.pId, cell.data, right, mechanism);
+                    }
+                });
             });
+
+
         };
 
         var _createMechanismWindow = function (mechanism, priorities, priorityId) {
@@ -99,7 +111,7 @@
                 minWidth:600,
                 maxHeight:$(window).height() - 80,
                 position:[10, 20],
-                dialogClass: 'noTitle'
+                dialogClass:'noTitle'
             });
         };
         //endregion

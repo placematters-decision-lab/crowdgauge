@@ -26,9 +26,9 @@
 
         var _buildContent = function ($dlg) {
             var $inputsDiv = $("<div></div>").appendTo($dlg);
-            _$title = $("<input type='text' />").val(_priority.title).appendTo($("<label>Title:</label>").addClass("dialogLabel").appendTo($("<div>").appendTo($inputsDiv)));
-            _$description = $("<input type='text' />").val(_priority.description).appendTo($("<label>Description:</label>").addClass("dialogLabel").appendTo($("<div>").appendTo($inputsDiv)));
-            _$nickname = $("<input type='text' />").val(_priority.nickname).appendTo($("<label>Nickname:</label>").addClass("dialogLabel").appendTo($("<div>").appendTo($inputsDiv)));
+            _$title = $("<input type='text' />").val(SAS.localizr.get(_priority.title)).appendTo($("<label>Title:</label>").addClass("dialogLabel").appendTo($("<div>").appendTo($inputsDiv)));
+            _$description = $("<input type='text' />").val(SAS.localizr.get(_priority.description)).appendTo($("<label>Description:</label>").addClass("dialogLabel").appendTo($("<div>").appendTo($inputsDiv)));
+            _$nickname = $("<input type='text' />").val(SAS.localizr.get(_priority.nickname)).appendTo($("<label>Nickname:</label>").addClass("dialogLabel").appendTo($("<div>").appendTo($inputsDiv)));
             _$imagePane = $("<div class='panel'>").appendTo($inputsDiv);
             _addImagePane();
         };
@@ -63,9 +63,11 @@
         };
 
         var _applyChanges = function () {
-            _priority.title = _$title.val();
-            _priority.description = _$description.val();
-            _priority.nickname = _$nickname.val();
+            var vals = {};
+            vals.title = _$title.val();
+            vals.description = _$description.val();
+            vals.nickname = _$nickname.val();
+            SAS.localizr.set(_priority, vals);
         };
 
         var _showDialog = function (onAccept, onCancel) {

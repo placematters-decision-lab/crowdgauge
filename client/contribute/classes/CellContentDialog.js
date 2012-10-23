@@ -18,6 +18,8 @@
         //region private fields and methods
         /** @type Content */
         var _content = content;
+        /** @type SAS.CellDef */
+        var _cellDef = new SAS.CellDef(_content.data);
         var _title = title;
         var _hasChanges = false;
 
@@ -31,24 +33,24 @@
             if (status == Enums.STATUS_NEW) status = Enums.STATUS_DRAFT;//always default to 'draft' status
             var statusOpts = [Enums.STATUS_NEW, Enums.STATUS_DRAFT, Enums.STATUS_REVIEW, Enums.STATUS_APPROVED];
             var scoreOpts = ['N/A', '-2', '-1', '0', '+1', '+2'];
-            var cellDef = new SAS.CellDef(_content.data);
 
             $('<label for="status_sel">Status:</label>').addClass("dialogLabel").appendTo($inputsDiv);
             _$paletteSelection = $('<select id="status_sel"></select>').appendTo($inputsDiv);
             SAS.controlUtilsInstance.populateSelectList(_$paletteSelection, null, statusOpts, status);
             $('<label for="score_sel">Score:</label>').addClass("dialogLabel").appendTo($inputsDiv);
             _$scoreSelection = $('<select id="score_sel"></select>').appendTo($inputsDiv);
-            SAS.controlUtilsInstance.populateSelectList(_$scoreSelection, null, scoreOpts, cellDef.score);
+            SAS.controlUtilsInstance.populateSelectList(_$scoreSelection, null, scoreOpts, _cellDef.score);
             var $descDiv = $('<div>').appendTo($inputsDiv);
             $('<label for="description_txt">Description:</label>').addClass("dialogLabel").appendTo($descDiv);
-            _$description = $('<textarea id="description_txt"></textarea>').val(cellDef.description).appendTo($('<div>').appendTo($descDiv));
+            _$description = $('<textarea id="description_txt"></textarea>').val(SAS.localizr.get(_cellDef.description)).appendTo($('<div>').appendTo($descDiv));
             //_$description.wysiwyg();
         };
 
         var _applyChanges = function () {
-            var cellDef = new SAS.CellDef({description:_$description.val(), score:_$scoreSelection.val()});
-            _content.data = cellDef;
-            _content.status = (cellDef.isEmpty()) ? Enums.STATUS_NEW : _$paletteSelection.val();
+            _cellDef.score = _$scoreSelection.val();
+            SAS.localizr.set(_cellDef, {description:_$description.val()});
+            _content.data = _cellDef;
+            _content.status = (_cellDef.isEmpty()) ? Enums.STATUS_NEW : _$paletteSelection.val();
             _hasChanges = true;
         };
 

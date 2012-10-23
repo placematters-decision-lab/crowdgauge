@@ -137,8 +137,10 @@
             mechDiv.attr("id", "mech" + mechanism.id);
             _mechIconDivsById[mechanism.id] = $("<div class='mechIcon'></div>").appendTo(mechDiv);
             _mechIconDivsById[mechanism.id].attr("id", "mechIcon" + mechanism.id);
-            var titleTxt = $("<div class='mechText'></div>").appendTo(mechDiv);
-            titleTxt.html(mechanism.data.title);
+            var $titleTxt = $("<div class='mechText'></div>").appendTo(mechDiv);
+            SAS.localizr.live(mechanism.data.title, function(val) {
+                $titleTxt.html(val);
+            });
             _mechSubDivsById[mechanism.id] = $("<div class='mechSub'></div>").appendTo(mechDiv);
             mechDiv.click(function () {
                 if (_mode == IMPACTS) {

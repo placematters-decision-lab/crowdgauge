@@ -46,6 +46,9 @@
 
         /** @type {String} unique id*/
         this.uid = _settings.uid;
+
+        /** @type {String} svgPath*/
+        this.svgPath = _settings.svgPath;
         //endregion
     }
 })();

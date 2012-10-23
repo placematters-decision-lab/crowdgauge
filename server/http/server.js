@@ -26,6 +26,8 @@ var _pathMatch = function (pathname, securePaths) {
  * @private
  */
 var _checkAuthorization = function (req, pathname, securePaths, persistentStore, callback) {
+    callback(true);//REDISTOGO outage!!!
+    return;
     if (_pathMatch(pathname, securePaths)) {
         persistentStore.checkAuthorization(req, function(success) {
             if (callback) callback(success);

@@ -61,18 +61,21 @@
             $("#leftPanel").addClass("sliderPanel");
             $("#priorityList").html("");
             $.each(_priorities, function (i, priority) {
-                _priorityLookup[i] = priority;
                 /** @type SAS.PriorityDef */
                 var pDef = priority.data;
+                var uid = priority.data.uid;
+                _priorityLookup[uid] = priority;
                 priority.score = 0;
-                priority.id = priority.data.uid;//alias for use as 'd.id' in d3 functions
+                priority.id = uid;//alias for use as 'd.id' in d3 functions
                 priority.value = _starAsPerc(priority.score);
                 var div = $("<div class='sliderGrp'></div>").appendTo("#priorityList");
 //                var img = $("<img class='sliderIcon' src='" + priority.icon + ".png' width='26' height='26'>").appendTo(div);
                 var ratingDiv = $("<div class='sliderDiv id='slider" + i + "'></div>").appendTo(div);
                 priority.ratingDiv = ratingDiv;
-                var titleTxt = $("<div class='sliderTitle'></div>").appendTo(div);
-                titleTxt.html(pDef.title);
+                var $titleTxt = $("<div class='sliderTitle'></div>").appendTo(div);
+                SAS.localizr.live(pDef.title, function(val) {
+                    $titleTxt.html(val);
+                });
                 ratingDiv.raty({
                     path:'img/raty-img',
                     cancel:true,
@@ -114,6 +117,11 @@
 
         this.getTotalStars = function () {
             return _totalStars;
+        };
+
+        /** @type SAS.PriorityDef */
+        this.getPriorityDef = function (pId) {
+            return _priorityLookup[pId].data;
         };
 
         this.getPriorities = function () {

@@ -20,6 +20,7 @@
     <script type="text/javascript" src="../core/ControlUtils.js?v=1"></script>
     <script type="text/javascript" src="../core/JsonRestWS.js?v=1"></script>
     <script type="text/javascript" src="../core/Inheritance.js?v=1"></script>
+    <script type="text/javascript" src="../core/Localizer.js?v=1"></script>
 
     <script type="text/javascript" src="classes/framework/ACompareList.js"></script>
     <script type="text/javascript" src="classes/framework/DataManager.js"></script>
@@ -28,10 +29,11 @@
     <script type="text/javascript" src="classes/framework/Pages.js"></script>
     <script type="text/javascript" src="classes/framework/BubbleChart.js"></script>
     <script type="text/javascript" src="classes/framework/InfoWindow.js"></script>
-    <script type="text/javascript" src="classes/Instructions.js"></script>
     <script type="text/javascript" src="classes/framework/MiniBubbleChart.js"></script>
     <script type="text/javascript" src="classes/framework/MechanismScorer.js"></script>
     <script type="text/javascript" src="classes/framework/PriorityList.js"></script>
+
+    <script type="text/javascript" src="classes/Instructions.js"></script>
     <script type="text/javascript" src="classes/IntroPage.js"></script>
     <script type="text/javascript" src="classes/Config.js/"></script>
 </head>
@@ -82,7 +84,8 @@
     <div id="clickInstr" class="clickTheIcon">Click the icons for explanations</div>
 </div>
 <div id="colorRampLegend" class="colorRamp"></div>
-<button class="bigButton" id="btnNext">NEXT</button>
+<div id="langSel"></div>
+<button class="bigButton" id="btnNext" data-localize="buttons.next">NEXT</button>
 <div id="reshowInstr">Show Instructions Again</div>
 <div id="dialog"></div>
 <script type="text/javascript" src="classes/Main.js/"></script>

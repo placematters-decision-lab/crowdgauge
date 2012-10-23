@@ -65,6 +65,8 @@ handle["/getMechanismInfo"] = dataHandler.getMechanismInfo;
 handle["/persona_login"] = ps.login;
 handle["/persona_logout"] = ps.logout;
 
+//handle["/TEMP_fixLangs"] = dataHandler.TEMP_fixLangs();
+
 //handle["/upload"] = requestHandlers.upload;
 server.start(router.route, securePaths, prehandle, handle, file, persist);
 server.startSockets(socketHandler.onConnect);

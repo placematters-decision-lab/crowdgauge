@@ -54,7 +54,39 @@ body {
   float: left;
   clear: left;
 }
-
+//===========Info Window===============
+.right_wrapper {
+  float: left;
+  width: 100%;
+}
+.info_left {
+  width: 362px;
+  display: block;
+  padding: 2px;
+  float: left;
+  margin-right: 5px;
+  margin-left: -100%;
+}
+.info_left_box > img {
+  max-width: 360px;
+}
+.info_right {
+  margin-left: 375px;
+  display: block;
+  margin-top: 28px;
+}
+.info_icon {
+  display: inline-block;
+  float: left;
+  margin-right: 8px;
+  margin-top: 2px;
+}
+.info_right_title {
+  font-weight: bold;
+  font-size: 1.3em;
+  margin-top: 12px;
+}
+//=====================================
 #chart {
   display: block;
   left: 510px;

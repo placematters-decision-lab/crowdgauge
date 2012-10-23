@@ -17,6 +17,9 @@ var Enums = require('../../shared/classes/modules/Enums');
 var Content = require('../../shared/classes/modules/Content');
 //endregion
 
+//region includes
+var NA = "na";
+//constants
 /**
  Server-side data handler - works with client-side @see SAS.DataHandler
  @class ServerDataHandler
@@ -256,9 +259,9 @@ ServerDataHandler = function () {
                 pObjs.forEach(function (pObj, i) {
                     _imageDataHandler.listFiles(pObj.data.uid, function (files) {
                         if (files && files.length > 0) {
-                            pObj.svgPath = files[0].filename;
+                            pObj.data.svgPath = files[0].filename;
                         } else {
-                            pObj.svgPath = "";
+                            pObj.data.svgPath = "";
                         }
                         ans.push(pObj);
                         if (ans.length == pObjs.length) {//since file lists are returned async, this is how we tell that we're finished
@@ -270,8 +273,21 @@ ServerDataHandler = function () {
         });
     };
 
+    /**
+     * provide a way to convert the scores that are inserted on the user end (e.g. +1, +2 etc into more CSS friendly strings)
+     * @param score
+     * @return {*}
+     * @private
+     */
+    var _cleanUpScore = function (score) {
+        //TODO replace this code with a settings file that defines localizable score options and maps options to css class suffixes.
+        if (score == Enums.NA) return NA;
+        if (score.indexOf('+') == 0) score = score.substr(1);//strip of the '+' character at the front since its not CSS-friendly
+        return score;
+    };
+
     var _getMechValues = function (body) {
-        var NA = "na";
+
         var vals = {};
         if (!body || !body.rows) return vals;
         body.rows.forEach(function (row, i) {
@@ -279,9 +295,7 @@ ServerDataHandler = function () {
             var doc = row.value;
             vals[doc.structureId.priority] = NA;
             if (doc.data && doc.data.score) {
-                var score = doc.data.score;
-                if (score.indexOf('+') == 0) score = score.substr(1);//strip of the '+' character at the front since its not CSS-friendly
-                if (score != Enums.NA) vals[doc.structureId.priority] = score;
+                vals[doc.structureId.priority] = _cleanUpScore(doc.data.score);
             }
         });
         return vals;
@@ -306,6 +320,7 @@ ServerDataHandler = function () {
                 mObj.cells = [];
             } else {
                 mObj.cells = body.rows.map(function (row) {
+                    if (row.value.data && row.value.data.score) row.value.data.score = _cleanUpScore(row.value.data.score);
                     return {pId:row.value.structureId.priority, data:row.value.data};
                 });
             }
@@ -378,11 +393,45 @@ ServerDataHandler = function () {
     var _returnBasicSuccess = function (res) {
         _returnJsonObj(res, "OK");
     };
-    //endregion
 
-    //region public API
-    //--these are routed through index.js (any new methods must be specified there)
-    //=========== CONTRIBUTE ==================
+    var _TEMP_fixLang = function (obj, props, lang) {
+        if (obj == null) return;
+        props.forEach(function (prop) {
+            var val = obj[prop];
+            if (typeof val === 'string') {
+                delete obj[prop];
+                obj[prop] = {};
+                obj[prop][lang] = val;
+            }
+        });
+    };
+
+    var _TEMP_fixLangs = function () {
+        var filename = 'test1';
+        db.view('views', 'files', { key:filename }, function (err, body) {
+            body.rows.forEach(function (row, i) {
+                /** @type Content */
+                var doc = row.value;
+                if (doc.contentType == Enums.CTYPE_CELL) {
+                    _TEMP_fixLang(doc.data, ['description'], 'en');
+                    _saveContent(doc);
+                }
+                if (doc.contentType == Enums.CTYPE_MECH) {
+                    _TEMP_fixLang(doc.data, ['title', 'description', 'nickname', 'gerund'], 'en');
+                    _saveContent(doc);
+                }
+                if (doc.contentType == Enums.CTYPE_PRIORITY) {
+                    _TEMP_fixLang(doc.data, ['title', 'description', 'nickname'], 'en');
+                    _saveContent(doc);
+                }
+            });
+        });
+    };
+//endregion
+
+//region public API
+//--these are routed through index.js (any new methods must be specified there)
+//=========== CONTRIBUTE ==================
     /** @see SAS.DataHandler.takeLock */
     this.takeLock = function (req, res, postData) {
         var user = postData.user;
@@ -425,7 +474,7 @@ ServerDataHandler = function () {
         _getAllContent(req, res);
     };
 
-    //=========== PLAY ==================
+//=========== PLAY ==================
     this.getPriorities = function (req, res, postData) {
         _getPriorities(req, res);
     };
@@ -437,17 +486,20 @@ ServerDataHandler = function () {
     this.getMechanismInfo = function (req, res, postData) {
         _getMechanismInfo(req, res);
     };
-    //====================================
-
+//====================================
+    this.TEMP_fixLangs = function () {
+        _TEMP_fixLangs();
+    };
 
     this.setHandlers = function (socketHandler, imageDataHandler) {
         _socketHandler = socketHandler;
         _imageDataHandler = imageDataHandler;
     };
-    //endregion
+//endregion
 
     _init();
-};
+}
+;
 
 module.exports = new ServerDataHandler();
 

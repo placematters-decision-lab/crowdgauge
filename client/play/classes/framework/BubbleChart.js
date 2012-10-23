@@ -219,8 +219,10 @@
         };
 
         var _updateTitle = function (sel) {
-            sel.attr("title", function (d) {
-                return d.data.title;// + ": " + d.value;
+            SAS.localizr.live(function(val) {
+                sel.attr("title", function (d) {
+                    return SAS.localizr.get(d.data.title);// + ": " + d.value;
+                });
             });
         };
 
@@ -262,7 +264,7 @@
                 .attr("x", -100).attr("y", -100)
                 .attr("width", 200).attr("height", 200)
                 .attr("xlink:href", function (d) {
-                    return "/files/" + d.svgPath + "?color=white";
+                    return "/files/" + d.data.svgPath + "?color=white";
                 });
 
             _overlayCircles = bubbles.append("circle")
@@ -276,7 +278,7 @@
                 opacity:0.95,
                 title:function () {
                     var d = this.__data__;
-                    return d.data.title;
+                    return SAS.localizr.get(d.data.title);
                 }
             });
 
@@ -286,7 +288,7 @@
                 opacity:0.95,
                 title:function () {
                     var d = this.__data__;
-                    var tip = d.data.title;
+                    var tip = SAS.localizr.get(d.data.title);
                     if (!d3.select(this).classed("score_na")) tip += "<br/>(click for more)";
                     return tip;
                 }

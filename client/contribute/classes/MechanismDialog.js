@@ -30,18 +30,20 @@
 
         var _buildContent = function ($dlg) {
             var $inputsDiv = $("<div></div>").appendTo($dlg);
-            _$title = $("<input type='text' />").val(_mechanism.title).appendTo($("<label>Title:</label>").addClass("dialogLabel").appendTo($("<div>").appendTo($inputsDiv)));
-            _$gerund = $("<input type='text' />").val(_mechanism.gerund).appendTo($("<label>Gerund form of title:</label>").addClass("dialogLabel").appendTo($("<div>").appendTo($inputsDiv)));
-            _$description = $("<input type='text' />").val(_mechanism.description).appendTo($("<label>Description:</label>").addClass("dialogLabel").appendTo($("<div>").appendTo($inputsDiv)));
-            _$nickname = $("<input type='text' />").val(_mechanism.nickname).appendTo($("<label>Nickname:</label>").addClass("dialogLabel").appendTo($("<div>").appendTo($inputsDiv)));
+            _$title = $("<input type='text' />").val(SAS.localizr.get(_mechanism.title)).appendTo($("<label>Title:</label>").addClass("dialogLabel").appendTo($("<div>").appendTo($inputsDiv)));
+            _$gerund = $("<input type='text' />").val(SAS.localizr.get(_mechanism.gerund)).appendTo($("<label>Gerund form of title:</label>").addClass("dialogLabel").appendTo($("<div>").appendTo($inputsDiv)));
+            _$description = $("<input type='text' />").val(SAS.localizr.get(_mechanism.description)).appendTo($("<label>Description:</label>").addClass("dialogLabel").appendTo($("<div>").appendTo($inputsDiv)));
+            _$nickname = $("<input type='text' />").val(SAS.localizr.get(_mechanism.nickname)).appendTo($("<label>Nickname:</label>").addClass("dialogLabel").appendTo($("<div>").appendTo($inputsDiv)));
             new SAS.ImageList($("<div class='panel'>").appendTo($inputsDiv), _mechanism.uid, true);
         };
 
         var _applyChanges = function () {
-            _mechanism.title = _$title.val();
-            _mechanism.gerund = _$gerund.val();
-            _mechanism.description = _$description.val();
-            _mechanism.nickname = _$nickname.val();
+            var vals = {};
+            vals.title = _$title.val();
+            vals.gerund = _$gerund.val();
+            vals.description = _$description.val();
+            vals.nickname = _$nickname.val();
+            SAS.localizr.set(_mechanism, vals);
         };
 
         var _showDialog = function (onAccept, onCancel) {
