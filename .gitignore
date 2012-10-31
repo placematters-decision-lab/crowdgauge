@@ -2,7 +2,7 @@
 ## Project-specific files
 #################
 #ignore config.js because it may contain sensitive information. config.js.example is included instead.
-config.js
+server/config.js
 
 #################
 ## Webstorm

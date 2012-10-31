@@ -14,6 +14,7 @@
         var _priorityLookup = {};
         var _totalStars = 0;
         var _numStars = 5;
+        var _randomizeOrder = SAS.configInstance.randomizeOrder.priorities;
 
         var _recalcStarBalance = function () {
             var starsUsed = 0;
@@ -60,7 +61,9 @@
         var _createList = function () {
             $("#leftPanel").addClass("sliderPanel");
             $("#priorityList").html("");
-            $.each(_priorities, function (i, priority) {
+            var orderedArr = _priorities.slice(0);//clone
+            if (_randomizeOrder) orderedArr.sort(function() { return 0.5 - Math.random();});
+            $.each(orderedArr, function (i, priority) {
                 /** @type SAS.PriorityDef */
                 var pDef = priority.data;
                 var uid = priority.data.uid;
