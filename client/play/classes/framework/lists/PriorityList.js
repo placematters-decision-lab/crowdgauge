@@ -73,9 +73,7 @@
                 var ratingDiv = $("<div class='sliderDiv id='slider" + i + "'></div>").appendTo(div);
                 priority.ratingDiv = ratingDiv;
                 var $titleTxt = $("<div class='sliderTitle'></div>").appendTo(div);
-                SAS.localizr.live(pDef.title, function(val) {
-                    $titleTxt.html(val);
-                });
+                SAS.localizr.live(pDef.title, $titleTxt);
                 ratingDiv.raty({
                     path:'img/raty-img',
                     cancel:true,

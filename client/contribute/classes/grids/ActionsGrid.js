@@ -4,16 +4,9 @@
  * Time: 11:34 AM
  */
 (function () { // self-invoking function
-    var _scoreColors = {//todo move to config
-        'N/A':'#EEEEEE',
-        '0.2x':'#5CAEA2',
-        '0.5x':'#A2D05C',
-        '1x (No Multiplier)':'#FFFF00',
-        '1.5x':'#FFD000',
-        '2x':'#FF9700',
-        '5x':'#FF5000'
-    };
-
+    var COLR_LESS = '#fcffdd';
+    var COLR_NEUTRAL = '#9DD60E';
+    var COLR_MORE = '#297F05';
     /**
      * @class SAS.ActionsGrid
      * @extends SAS.AMechGrid
@@ -81,11 +74,18 @@
             return SAS.localizr.get(mechObj.data.getNickname()) + " : " + SAS.localizr.get(actionObj.data.getNickname());
         };
 
+        var _getColor = function (value) {
+            if (value < 1) {
+                return d3.interpolateRgb(COLR_LESS, COLR_NEUTRAL)(value);
+            }
+            var max = 1.5;
+            if (value === max) return COLR_MORE;
+            return d3.interpolateRgb(COLR_NEUTRAL, COLR_MORE)((value - 1) / (max - 1));
+        };
+
         var _updateCells = function () {
             _$grid.width(4000);//--width will be set correctly at the end - this is to ensure layout does not wrap while building
             var $rtCell = null;
-//            var scoreOpts = ['N/A', '0.2x', '0.5x', '1x (No Multiplier)', '1.5x', '2x', '5x'];
-            var scoreOpts = $.map(_scoreColors, function(value, key) { return key; });
             $.each(_mechIds, function (i, mId) {
                 var mechObj = _mechLookup[mId];
 
@@ -102,7 +102,7 @@
                     });
                     $btn.appendTo($cell).click(function () {
                         _super.p_editContent(content, function () {
-                            return new SAS.CellContentDialog(content, _getTitle(mechObj, actionObj), scoreOpts);
+                            return new SAS.ActionCellContentDialog(content, _getTitle(mechObj, actionObj), _getColor);
                         }, function () {
                             //$btn.css({background:_bgColors[content.status]});
                             _dataHandler.updateContent(content, true, function () {
@@ -112,7 +112,7 @@
                     });
                     var cellDef = new SAS.CellDef(content.data);//TODO figure out whether this needs to be a special CellDef or Actions and Priorities can share
                     if (!cellDef.isEmpty()) {
-                        $cell.css({backgroundColor:_scoreColors[cellDef.score]});
+                        $cell.css({backgroundColor:_getColor(cellDef.value)});
                         var $conLen = $('<span>').addClass("contLenLbl").appendTo($cell);
                         SAS.localizr.live(function () {
                             $conLen.html(SAS.localizr.getLength(cellDef.description).toString());

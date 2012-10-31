@@ -84,9 +84,9 @@
                     var cap = $("<div class='info_caption'>").appendTo(lt_box);
                     cap.html(pic.caption);
                 });
-                $.each(data.cells, function (k, cell) {
-                    if (cell.data && SAS.localizr.get(cell.data.description)) {
-                        _addPriority(cell.pId, cell.data, right, mechanism);
+                $.each(data.priorities, function (k, pCell) {
+                    if (pCell.data && SAS.localizr.get(pCell.data.description)) {
+                        _addPriority(pCell.pId, pCell.data, right, mechanism);
                     }
                 });
             });

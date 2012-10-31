@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html xmlns="http://www.w3.org/1999/html">
 <head>
     <title>CrowdGauge: create content</title>
 
@@ -16,6 +16,8 @@
     <script src="../lib/jquery.iframe-transport.js"></script>
     <script src="../lib/jquery.fileupload.js"></script>
 
+    <script type="text/javascript" src="../lib/d3/d3.min.js"></script>
+
     <script type="text/javascript" src="../core/SAS.js"></script>
     <script type="text/javascript" src="../core/Inheritance.js"></script>
     <script type="text/javascript" src="../core/ControlUtils.js"></script>
@@ -31,19 +33,42 @@
 
     <script type="text/javascript" src="classes/DataHandler.js"></script>
     <script type="text/javascript" src="classes/MatrixUI.js"></script>
-    <script type="text/javascript" src="classes/MechanismDialog.js"></script>
-    <script type="text/javascript" src="classes/ActionDialog.js"></script>
-    <script type="text/javascript" src="classes/PriorityDialog.js"></script>
-    <script type="text/javascript" src="classes/CellContentDialog.js"></script>
     <script type="text/javascript" src="classes/ImageList.js"></script>
-    <script type="text/javascript" src="classes/AMechGrid.js"></script>
-    <script type="text/javascript" src="classes/PriorityGrid.js"></script>
-    <script type="text/javascript" src="classes/ActionsGrid.js"></script>
+
+    <script type="text/javascript" src="classes/dialogs/MechanismDialog.js"></script>
+    <script type="text/javascript" src="classes/dialogs/ActionDialog.js"></script>
+    <script type="text/javascript" src="classes/dialogs/PriorityDialog.js"></script>
+    <script type="text/javascript" src="classes/dialogs/CellContentDialog.js"></script>
+    <script type="text/javascript" src="classes/dialogs/ActionCellContentDialog.js"></script>
+
+    <script type="text/javascript" src="classes/grids/AMechGrid.js"></script>
+    <script type="text/javascript" src="classes/grids/PriorityGrid.js"></script>
+    <script type="text/javascript" src="classes/grids/ActionsGrid.js"></script>
 
     <script type="text/javascript" src="contrib-main.js"></script>
 </head>
 <body>
 <div id="header">CrowdGauge Contribute Matrix</div>
 <div id="holder"></div>
+<div id="instructions">
+    <h3>Notes on Priorities</h3>
+    <div id="priorities">
+        <p>Users will rate each priority listed based on how much they value it. Each priority is represented by a circle and should have an icon assigned.</p>
+        <p>They can then see how different mechanisms will impact their priorities and read text about how each priority is affected by each mechanism.</p>
+    </div>
+    <h3>Notes on Actions</h3>
+    <div id="action">
+        <p>Each general mechanism can have a number of specific actions. For example a mechanism 'Build more roads'
+            could have these actions assigned:</p>
+        <ul>
+            <li>Build 9 miles of two-lane road</li>
+            <li>Build 9 miles of 4-lane highway with 3 interchanges</li>
+        </ul>
+        <p>When playing the game, users are given a fixed number of coins and asked to choose how they would allocate them. Each action is assigned a certain number of coins to indicate relative expense. Some actions may cost nothing.</p>
+        <p>Each column represents a particular number of coins. Add new action columns to represent a different number of coins.</p>
+        <p>In addition to cost, each action is given a multiplier to indicate how effective it is in achieving the goals of the mechanism. This multiplier is applied to the scores for each priority (both positive and negative).</p>
+    </div>
+</div>
+</div>
 </body>
 </html>

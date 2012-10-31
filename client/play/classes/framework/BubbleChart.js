@@ -75,7 +75,7 @@
             var delay = 100;
             var maxFill = 0.8;//--otherwise preview circles overwhelm others
             if (mechanism && micon) {
-                var r = maxFill * Math.sqrt(100 * micon.getAction().multiplier) * 10;
+                var r = maxFill * Math.sqrt(100 * micon.getMultiplier(1.2)) * 10;
                 _overlayCircles
                     .style("fill", null)
                     .style("opacity", _overlayOpac)
@@ -258,6 +258,11 @@
             _mainCircles = bubbles.append("circle")
                 .attr("r", _circleRad);
 
+            _overlayCircles = bubbles.append("circle")
+                .style("stroke", "black")
+                .attr("r", 0)
+                .style("opacity", _overlayOpac);
+
             _imageIcons = bubbles.append("image")
                 .attr("class", "bubbleIcon")
                 .attr("transform", "scale(0.65)")//scale down to fit square SVG icons within circles (multiply the diameter by 1/sqrt(2) = 0.707) + inset from the edge a little
@@ -266,11 +271,6 @@
                 .attr("xlink:href", function (d) {
                     return "/files/" + d.data.svgPath + "?color=white";
                 });
-
-            _overlayCircles = bubbles.append("circle")
-                .style("stroke", "black")
-                .attr("r", 0)
-                .style("opacity", _overlayOpac);
 
             $('svg image').tipsy({
                 gravity:'n',

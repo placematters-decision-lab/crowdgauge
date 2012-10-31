@@ -57,8 +57,8 @@
             var genders = ["Male", "Female", "Prefer not to say"];
             SAS.controlUtilsInstance.populateSelectList(_$genderInput, "[Select Gender]", genders);
 
-            _$btnStart = $("<button>START</button>").appendTo($holder);
-
+            _$btnStart = $('<button data-localize="buttons.start">START</button>').appendTo($holder);
+            _$btnStart.button();
         };
 
         var _getDemographics = function () {

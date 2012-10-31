@@ -28,7 +28,7 @@
 
         this.appendScores = function (multiplier, scores) {
             $.each(_mechanism.values, function (priorityId, mpr) {
-                var str_val = mpr.score;
+                var str_val = mpr;
                 if (str_val == "na" || str_val == "") return true;//continue
                 var val = parseFloat(str_val);
                 var score = multiplier * val;

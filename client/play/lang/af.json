@@ -1,5 +1,6 @@
 {
     "buttons": {
-        "next": "Volgende"
+        "next": "Volgende",
+        "start": "Begin"
     }
 }

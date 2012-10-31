@@ -1,9 +1,9 @@
-crowdgauge
+<img src="http://crowdgauge.org/img/CrowdgaugeH.png" alt="CrowdGauge" />
 ===========
-[CrowdGauge](http://crowdgauge.org) is framework for creating educational online games that first ask people to rank a set of priorities and then explains how various mechanisms and actions would impact those priorities.
+[CrowdGauge](http://crowdgauge.org) is framework for creating educational online games that first ask people to rank a set of priorities and then explain how various mechanisms and actions would impact those priorities.
 
 ## Background
-The game was originally developed by Sasaki Associates as part of the Greater Des Moines [Tomorrow Plan](http://www.thetomorrowplan.com/). This is a regional planning initiative, however the same approach can be applied to any situation where its meaningful to evaluate a series of actions or mechanisms in terms of people's priorities.
+The game was originally developed by Sasaki Associates as part of the Greater Des Moines [Tomorrow Plan](http://www.thetomorrowplan.com/). This is a regional planning initiative, however the same approach can be applied to any situation where its meaningful to demonstrate how a series of actions or mechanisms relate to people's priorities.
 
 The original game can be found here: http://interactive.thetomorrowplan.com/
 

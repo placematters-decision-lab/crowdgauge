@@ -91,9 +91,7 @@
                 });
             });
             var $rTitle = $("<div>").addClass("pRowTitle").appendTo($pRowHeader);
-            SAS.localizr.live(mechDef.getNickname(), function(val) {
-                $rTitle.html(val);
-            });
+            SAS.localizr.live(mechDef.getNickname(), $rTitle);
             return $mRow;
         };
 

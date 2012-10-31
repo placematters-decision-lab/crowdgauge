@@ -7,8 +7,11 @@
     /**
      * @class SAS.MechanismList
      * @extends SAS.ACompareList
-     **/
-    SAS.MechanismList = function (bigBubbleChart) {
+     * @param filename
+     * @param bigBubbleChart
+     * @constructor
+     */
+    SAS.MechanismList = function (filename, bigBubbleChart) {
         var _self = this;
         /** @type SAS.ACompareList */
         var _super = SAS.Inheritance.Extend(this, new SAS.ACompareList(bigBubbleChart));
@@ -17,6 +20,8 @@
         var SCENARIO = "scenario";
 
         //region private fields and methods
+        var _filename = filename;
+
         /** @type SAS.BubbleChart */
         var _bigBubbleChart = bigBubbleChart;
         var _onLoad = function () {
@@ -28,6 +33,9 @@
         var _moneyIcons;
         var _mode = IMPACTS;
         var _totalCoins = 12;
+
+        var _actionDefs = {};
+
         //var _transTime = 1000;
 
         var _setMode = function (mode) {
@@ -80,21 +88,33 @@
 
         var _addMoneyAndVotes = function (mechanism) {
             _moneyIcons[mechanism.id] = [];
-            $.each(mechanism.actions, function (i, action) {
-                var actionDiv;
-                if (action.title == "") {
-                    actionDiv = $("<div>").appendTo(_mechIconDivsById[mechanism.id]);
-                } else {
-                    actionDiv = $("<div class='mech_action_div'>").appendTo(_mechSubDivsById[mechanism.id]);
-                }
-                var micon = new SAS.MoneyVoteIcon(mechanism, action);
-                _moneyIcons[mechanism.id].push(micon);
-                micon.addMoneyAndVotes(actionDiv, mechanism.values);
-                micon.onSelectionChange(function () {
-                    _radioClick(mechanism, micon);
-                    _recalcMoney(mechanism, micon);
+            d3.json('/getActions?mechId=' + mechanism.id, function (mObj) {
+                $.each(mObj.actions, function (i, action) {
+                    if (!action.data) return true;//continue
+                    var actionDiv = $("<div class='mech_action_div'>").appendTo(_mechSubDivsById[mechanism.id]);
+                    var micon = new SAS.MoneyVoteIcon(mechanism, action.data, _actionDefs[action.aId]);
+                    _moneyIcons[mechanism.id].push(micon);
+                    micon.addMoneyAndVotes(actionDiv, mechanism.values);
+                    micon.onSelectionChange(function () {
+                        _radioClick(mechanism, micon);
+                        _recalcMoney(mechanism, micon);
+                    });
                 });
             });
+        };
+
+        var _ensureActionDefsLoaded = function (callback) {
+            if ($.isEmptyObject(_actionDefs)) {
+                d3.json('/getActionDefs?filename='+_filename, function (actionDefs) {
+                    _actionDefs = {};
+                    $.each(actionDefs, function (i, /**SAS.ActionDef*/ value) {
+                        _actionDefs[value.uid] = value;
+                    });
+                    callback();
+                });
+            } else {
+                callback();
+            }
         };
 
         var _recalcCoinBalance = function (coinsUsed) {
@@ -120,8 +140,8 @@
                 if (micons == null) return true;//continue
                 $.each(micons, function (j, micon) {
                     if (micon.isOn()) {
-                        coinsUsed += micon.getAction().coins;
-                        new SAS.MechanismScorer(mechanism).appendScores(micon.getAction().multiplier, scores);
+                        coinsUsed += micon.getTotalCoins();
+                        new SAS.MechanismScorer(mechanism).appendScores(micon.getMultiplier(), scores);
                     }
                 });
             });
@@ -138,9 +158,7 @@
             _mechIconDivsById[mechanism.id] = $("<div class='mechIcon'></div>").appendTo(mechDiv);
             _mechIconDivsById[mechanism.id].attr("id", "mechIcon" + mechanism.id);
             var $titleTxt = $("<div class='mechText'></div>").appendTo(mechDiv);
-            SAS.localizr.live(mechanism.data.title, function(val) {
-                $titleTxt.html(val);
-            });
+            SAS.localizr.live(mechanism.data.title, $titleTxt);
             _mechSubDivsById[mechanism.id] = $("<div class='mechSub'></div>").appendTo(mechDiv);
             mechDiv.click(function () {
                 if (_mode == IMPACTS) {
@@ -237,8 +255,10 @@
             _super._showBubbleCharts(false);
             if (_moneyIcons == null) {
                 _moneyIcons = {};
-                $.each(_super._mechanisms(), function (i, mechanism) {
-                    _addMoneyAndVotes(mechanism);
+                _ensureActionDefsLoaded(function () {
+                    $.each(_super._mechanisms(), function (i, mechanism) {
+                        _addMoneyAndVotes(mechanism);
+                    });
                 });
                 _recalcMoney();
             } else {

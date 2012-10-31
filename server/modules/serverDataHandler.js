@@ -68,64 +68,69 @@ ServerDataHandler = function () {
                         if (doc.filename) emit(doc.filename, doc);
                     }
                 },
-                mechanismsByFilename:{
+                byContentType: {
                     map:function (/**Content*/doc) {
-                        if (doc.contentType == "mech_def") emit(doc.filename, doc);
-                    }
-                },
-                prioritiesByFilename:{
-                    map:function (/**Content*/doc) {
-                        if (doc.contentType == "priority_def") emit(doc.filename, doc);
+                        if (doc.contentType) emit([doc.filename, doc.contentType], doc);
                     }
                 },
                 cellsByMechanismId:{
                     map:function (/**Content*/doc) {
-                        if (doc.contentType == "cell" && doc.structureId.mechanism && doc.structureId.mechanism !== "") emit(doc.structureId.mechanism, doc);
+                        if (doc.contentType === 'cell' && doc.structureId.mechanism && doc.structureId.mechanism !== "") emit(doc.structureId.mechanism, doc);
                     }
                 },
                 mechIds:{
                     map:function (/**Content*/doc) {
-                        if (doc.contentType == "mech_def") emit(doc.filename, doc.structureId.mechanism);
+                        if (doc.contentType === 'mech_def') emit(doc.filename, doc.structureId.mechanism);
                     }
                 },
                 priorityIds:{
                     map:function (/**Content*/doc) {
-                        if (doc.contentType == "priority_def") emit(doc.filename, doc.structureId.priority);
+                        if (doc.contentType === 'priority_def') emit(doc.filename, doc.structureId.priority);
                     }
                 },
                 actionIds:{
                     map:function (/**Content*/doc) {
-                        if (doc.contentType == "priority_def") emit(doc.filename, doc.structureId.priority);
+                        if (doc.contentType === 'action_def') emit(doc.filename, doc.structureId.action);
                     }
                 },
                 byPriorityIds:{
                     map:function (/**Content*/doc) {
-                        if (doc.structureId.priority && doc.structureId.priority !== "") emit(doc.structureId.priority, doc);
+                        if (doc.structureId.priority && doc.structureId.priority !== '') emit(doc.structureId.priority, doc);
                     }
                 },
                 byActionIds:{
                     map:function (/**Content*/doc) {
-                        if (doc.structureId.action && doc.structureId.action !== "") emit(doc.structureId.action, doc);
+                        if (doc.structureId.action && doc.structureId.action !== '') emit(doc.structureId.action, doc);
                     }
                 },
                 byMechanismIds:{
                     map:function (/**Content*/doc) {
-                        if (doc.structureId.mechanism && doc.structureId.mechanism !== "") emit(doc.structureId.mechanism, doc);
+                        if (doc.structureId.mechanism && doc.structureId.mechanism !== '') emit(doc.structureId.mechanism, doc);
                     }
                 },
                 byTypeAndStructureId:{
                     map:function (/**Content*/doc) {
-                        if (doc.structureId) emit([doc.contentType, doc.structureId.priority, doc.structureId.mechanism], doc);
+                        if (doc.structureId) {
+                            var secondKey = doc.structureId.priority ? doc.structureId.priority : doc.structureId.action;
+                            var cellType = doc.structureId.priority ? 'priority' : 'action';
+                            emit([doc.contentType, cellType, doc.structureId.mechanism, secondKey], doc);
+                        }
                     }
                 },
                 byTypeAndMechId:{
                     map:function (/**Content*/doc) {
-                        if (doc.structureId) emit([doc.contentType, doc.structureId.mechanism], doc);
+                        if (doc.structureId) {
+                            var cellType = doc.structureId.priority ? 'priority' : 'action';
+                            emit([doc.contentType, cellType, doc.structureId.mechanism], doc);
+                        }
                     }
                 },
                 byFullStructureId:{
                     map:function (/**Content*/doc) {
-                        if (doc.structureId) emit([doc.structureId.priority, doc.structureId.mechanism], doc);
+                        if (doc.structureId) {
+                            var secondKey = doc.structureId.priority ? doc.structureId.priority : doc.structureId.action;
+                            emit([doc.structureId.mechanism, secondKey], doc);
+                        }
                     }
                 }
             }
@@ -186,17 +191,18 @@ ServerDataHandler = function () {
     };
 
     var _takeLock = function (user, force, structureId, res) {
-        db.view('views', 'byFullStructureId', { key:[structureId.priority, structureId.mechanism] }, function (err, body) {
+        var secondKey = structureId.priority ? structureId.priority : structureId.action;
+        db.view('views', 'byFullStructureId', { key:[structureId.mechanism, secondKey] }, function (err, body) {
             if (body && body.rows.length > 0) {
                 var doc = body.rows[0].value;
-                if (force || doc.lock == Enums.LOCK_NONE) {
+                if (force || doc.lock === Enums.LOCK_NONE) {
                     doc.lock = (force) ? Enums.LOCK_NONE : user;
                     _saveContent(doc, function () {
                         _returnJsonObj(res, true);
                         _socketHandler.broadcastUpdate('lockStateChanged', {lock:doc.lock, structureId:structureId});
                     });
                 } else {
-                    _returnJsonObj(res, doc.lock == user);//--if the user already has this lock then return true so they can edit
+                    _returnJsonObj(res, doc.lock === user);//--if the user already has this lock then return true so they can edit
                 }
             } else {
                 _returnJsonObj(res, false);
@@ -205,7 +211,8 @@ ServerDataHandler = function () {
     };
 
     var _releaseLock = function (user, structureId, res) {
-        db.view('views', 'byFullStructureId', { key:[structureId.priority, structureId.mechanism] }, function (err, body) {
+        var secondKey = structureId.priority ? structureId.priority : structureId.action;
+        db.view('views', 'byFullStructureId', { key:[structureId.mechanism, secondKey] }, function (err, body) {
             if (body && body.rows.length > 0) {
                 var doc = body.rows[0].value;
                 doc.lock = Enums.LOCK_NONE;
@@ -288,7 +295,7 @@ ServerDataHandler = function () {
     var _getPriorities = function (req, res) {
         var url_parts = url.parse(req.url, true);
         var query = url_parts.query;
-        db.view('views', 'prioritiesByFilename', { key:query.filename }, function (err, body) {
+        db.view('views', 'byContentType', { key:[query.filename, Enums.CTYPE_PRIORITY] }, function (err, body) {
             if (body) {
                 var pObjs = [];
                 var ans = [];
@@ -307,11 +314,44 @@ ServerDataHandler = function () {
                             pObj.data.svgPath = "";
                         }
                         ans.push(pObj);
-                        if (ans.length == pObjs.length) {//since file lists are returned async, this is how we tell that we're finished
+                        if (ans.length === pObjs.length) {//since file lists are returned async, this is how we tell that we're finished
                             _returnJsonObj(res, ans);
                         }
                     });
                 });
+            }
+        });
+    };
+
+    var _getActions = function (req, res) {
+        var query = _getQuery(req);
+        var mObj = {};
+        var mechId = query.mechId;
+
+        //if priorityId is not specified, we need to get ALL priorities, so we can just use 'null'
+        db.view('views', 'byTypeAndMechId', { key:['cell', 'action', mechId] }, function (err, body) {
+            if (!(body && body.rows && body.rows.length > 0)) {
+                mObj.actions = [];
+            } else {
+                mObj.actions = body.rows.map(function (row) {
+                    return {aId:row.value.structureId.action, data:row.value.data};
+                });
+            }
+            _returnJsonObj(res, mObj);
+        });
+    };
+
+    var _getActionsDefs = function (req, res) {
+        var query = _getQuery(req);
+        db.view('views', 'byContentType', { key:[query.filename, Enums.CTYPE_ACTION] }, function (err, body) {
+            if (body && body.rows) {
+                var aObjs = [];
+                body.rows.forEach(function (row, i) {
+                    /** @type Content */
+                    var doc = row.value;
+                    aObjs.push(doc.data);
+                });
+                _returnJsonObj(res, aObjs);
             }
         });
     };
@@ -324,13 +364,12 @@ ServerDataHandler = function () {
      */
     var _cleanUpScore = function (score) {
         //TODO replace this code with a settings file that defines localizable score options and maps options to css class suffixes.
-        if (score == Enums.NA) return NA;
-        if (score.indexOf('+') == 0) score = score.substr(1);//strip of the '+' character at the front since its not CSS-friendly
+        if (typeof score !== 'string' || score === Enums.NA) return NA;
+        if (score.indexOf('+') === 0) score = score.substr(1);//strip of the '+' character at the front since its not CSS-friendly
         return score;
     };
 
     var _getMechValues = function (body) {
-
         var vals = {};
         if (!body || !body.rows) return vals;
         body.rows.forEach(function (row, i) {
@@ -354,36 +393,41 @@ ServerDataHandler = function () {
         var mObj = {};
         var mechId = query.mechId;
         var priorityId = query.priorityId;
-        var view = (priorityId) ? 'byTypeAndStructureId' : 'byTypeAndMechId';
-        var keys = (priorityId) ? ['cell', priorityId, mechId] : ['cell', mechId];
 
-        //if priorityId is not specified, we need to get ALL priorities, so we can just use 'null'
+        var view = 'byTypeAndMechId';
+        var keys =['cell', 'priority', mechId];
+        if (priorityId) {
+            view = 'byTypeAndStructureId';
+            keys.push(priorityId);//pass priorityId if specified, otherwise get ALL priorities.
+        }
+
         db.view('views', view, { key:keys }, function (err, body) {
             if (!(body && body.rows)) {
-                mObj.cells = [];
+                mObj.priorities = [];
             } else {
-                mObj.cells = body.rows.map(function (row) {
+                mObj.priorities = body.rows.map(function (row) {
                     if (row.value.data && row.value.data.score) row.value.data.score = _cleanUpScore(row.value.data.score);
-                    return {pId:row.value.structureId.priority, data:row.value.data};
+                    if (row.value.structureId.priority) {
+                        return {pId:row.value.structureId.priority, data:row.value.data};
+                    }
                 });
             }
-            if (mObj.pictures && mObj.cells) {
+            if (mObj.pictures && mObj.priorities) {//ensure both async operations have completed
                 _returnJsonObj(res, mObj);
             }
         });
         _imageDataHandler.listFiles(mechId, function (files) {
             mObj.pictures = files;
-            if (mObj.pictures && mObj.cells) {
+            if (mObj.pictures && mObj.priorities) {//ensure both async operations have completed
                 _returnJsonObj(res, mObj);
             }
         });
-
     };
 
     var _getMechanisms = function (req, res) {
         //TODO return error code if query.filename is null or no results found
         var query = _getQuery(req);
-        db.view('views', 'mechanismsByFilename', { key:query.filename }, function (err, body) {
+        db.view('views', 'byContentType', { key:[query.filename, Enums.CTYPE_MECH] }, function (err, body) {
             if (body && body.rows) {
                 var numRows = body.rows.length;
                 var mObjs = [];
@@ -529,6 +573,14 @@ ServerDataHandler = function () {
 //=========== PLAY ==================
     this.getPriorities = function (req, res, postData) {
         _getPriorities(req, res);
+    };
+
+    this.getActions = function (req, res, postData) {
+        _getActions(req, res);
+    };
+
+    this.getActionDefs = function (req, res, postData) {
+        _getActionsDefs(req, res);
     };
 
     this.getMechanisms = function (req, res, postData) {

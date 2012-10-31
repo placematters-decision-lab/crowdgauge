@@ -248,7 +248,7 @@
 
         var _initialize = function () {
             _layout.addRightAligners([
-                {sel:$("#btnNext"), leave:10},
+//                {sel:$("#btnNext"), leave:10},
                 {sel:$("#reshowInstr"), leave:10},
                 {sel:$("#moreInfo"), leave:10},
                 {sel:$("#footer_sasaki"), leave:5},
@@ -290,6 +290,7 @@
                 return false;
             });
 
+            $("#btnNext").button();
             $("#btnNext").click(function () {
                 if ($(this).hasClass("bigButton_" + BTN_SUBMIT)) {
                     _submitTime = new Date();

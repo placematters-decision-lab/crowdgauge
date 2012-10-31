@@ -34,7 +34,7 @@
             return _self.title;
         };
 
-        /** @type {String} the title of the action*/
+        /** @type {Object} the title of the action (lang object)*/
         this.title = _settings.title;
 
         /** @type {Number} the value of the action (for example number of coins)*/

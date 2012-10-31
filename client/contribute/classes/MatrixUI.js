@@ -22,6 +22,7 @@
         //region private fields and methods
         var userId = "u_" + _getUID();//TODO replace with auth
 
+        var _onTabChanged = function (isActions) {};
         var _$tabs;
 
         /** @type SAS.PriorityGrid */
@@ -157,6 +158,7 @@
                         $addABtn.toggle(ui.newPanel[0] == $tabActions[0]);
                         _currentMechGrid = (ui.newPanel[0] == $tabPrio[0]) ? _priorityGrid : _actionsGrid;
                         _currentMechGrid.showContent();
+                        _onTabChanged(_currentMechGrid == _actionsGrid);
                     }}
             );
 
@@ -197,6 +199,13 @@
         };
         this.lockStateChanged = function (data) {
             _lockStateChanged(data);
+        };
+
+        /**
+         * @param {Function} fn
+         */
+        this.onTabChanged = function (fn) {
+            _onTabChanged = fn;
         };
         //endregion
     }

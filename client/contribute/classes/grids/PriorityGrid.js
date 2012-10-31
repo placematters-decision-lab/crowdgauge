@@ -64,9 +64,7 @@
                     });
                 });
                 var $colTitle = $("<div>").addClass("pColTitle").appendTo($pcolHdr);
-                SAS.localizr.live(priorityObj.data.getNickname(), function (val) {
-                    $colTitle.html(val);
-                });
+                SAS.localizr.live(priorityObj.data.getNickname(), $colTitle);
 
                 var $pIcon = $("<div>").addClass("pColIcon").appendTo($pcolHdr);
                 $.getJSON('/listfiles/' + pId, function (data) {
@@ -100,7 +98,7 @@
         var _updateCells = function () {
             _$grid.width(4000);//--width will be set correctly at the end - this is to ensure layout does not wrap while building
             var $rtCell = null;
-            var scoreOpts = ['N/A', '-2', '-1', '0', '+1', '+2'];
+            var scoreOpts = $.map(_scoreColors, function(value, key) { return key; });
             $.each(_mechIds, function (i, mId) {
                 var mechObj = _mechLookup[mId];
 

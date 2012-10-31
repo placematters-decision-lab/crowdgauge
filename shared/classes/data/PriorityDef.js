@@ -35,13 +35,13 @@
             return _self.title;
         };
 
-        /** @type {String} the title of the priority*/
+        /** @type {Object} the title of the priority (lang object)*/
         this.title = _settings.title;
 
-        /** @type {String} full descriptive text*/
+        /** @type {Object} full descriptive text (lang object)*/
         this.description = _settings.description;
 
-        /** @type {String} an optional, shorter version of the title to help identify this priority in the UI */
+        /** @type {Object} an optional, shorter version of the title to help identify this priority in the UI (lang object)*/
         this.nickname = _settings.nickname;
 
         /** @type {String} unique id*/

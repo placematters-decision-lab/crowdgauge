@@ -13,6 +13,7 @@
         //region private fields and methods
         var _defaults = {
             description: {},
+            value: 1,
             score: "N/A"
         };
 
@@ -22,7 +23,8 @@
         //region public API
         this.isEmpty = function () {
             return $.isEmptyObject(_self.description)
-                && _self.score == _defaults.score;
+                && _self.score == _defaults.score
+                && _self.value == _defaults.value;
         };
 
         /** @type {String} */
@@ -30,6 +32,9 @@
 
         /** @type {String} */
         this.score = _settings.score;
+
+        /** @type {Number} */
+        this.value = _settings.value;
         //endregion
     }
 })();

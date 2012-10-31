@@ -22,8 +22,16 @@ $borderColor: #d2dde3;
   margin-top: $d;
 }
 
-.dialogLabel {
+@mixin ctLbl {
   font-size: 0.85em;
+}
+
+.controlLabel {
+  @include ctLbl;
+}
+
+.dialogLabel {
+  @include ctLbl;
   width: 100px;
 }
 

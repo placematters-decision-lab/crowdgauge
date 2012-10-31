@@ -18,6 +18,8 @@
         /** @type SAS.DataManager */
         var _dataManager;
 
+        var _filename = 'test1';
+
         var _detectSVG = function () {
             return document.implementation.hasFeature("http://www.w3.org/TR/SVG11/feature#BasicStructure", "1.1");
         };
@@ -67,7 +69,7 @@
 //            _map = new SAS.MapFrame();
             _priorityList = new SAS.PriorityList();
             _bubbleChart = new SAS.BubbleChart(_priorityList);
-            _mechanismList = new SAS.MechanismList(_bubbleChart);
+            _mechanismList = new SAS.MechanismList(_filename, _bubbleChart);
             _pages = new SAS.Pages(_layout, _priorityList, _mechanismList, _bubbleChart, _map, _dataManager);
 
             _addLangBtn($('#langSel'));

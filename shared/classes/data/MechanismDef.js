@@ -37,16 +37,16 @@
             return _self.title;
         };
 
-        /** @type {String} the title of the mechanism (e.g. Improve parking strategy)*/
+        /** @type {Object} the title of the mechanism (e.g. Improve parking strategy) (lang object)*/
         this.title = _settings.title;
 
-        /** @type {String} the gerund form of the title (e.g. Improving parking strategy)*/
+        /** @type {Object} the gerund form of the title (e.g. Improving parking strategy) (lang object)*/
         this.gerund = _settings.gerund;
 
-        /** @type {String} full descriptive text*/
+        /** @type {Object} full descriptive text (lang object)*/
         this.description = _settings.description;
 
-        /** @type {String} a shorter version of the title to help identify this mechanism in the UI (e.g. Parking) */
+        /** @type {Object} a shorter version of the title to help identify this mechanism in the UI (e.g. Parking) (lang object)*/
         this.nickname = _settings.nickname;
 
         /** @type {String} unique id*/
