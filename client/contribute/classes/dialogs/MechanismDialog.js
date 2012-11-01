@@ -25,14 +25,14 @@
         /** @type SAS.MechanismDef */
         var _mechanism = mechanism;
         var _$title;
-        var _$gerund;
+        var _$progressive;
         var _$description;
         var _$nickname;
 
         var _buildContent = function ($dlg) {
             var $inputsDiv = $("<div></div>").appendTo($dlg);
             _$title = $("<input type='text' />").val(SAS.localizr.get(_mechanism.title)).appendTo($("<label>Title:</label>").addClass("dialogLabel").appendTo($("<div>").appendTo($inputsDiv)));
-            _$gerund = $("<input type='text' />").val(SAS.localizr.get(_mechanism.gerund)).appendTo($("<label>Gerund form of title:</label>").addClass("dialogLabel").appendTo($("<div>").appendTo($inputsDiv)));
+            _$progressive = $("<input type='text' />").val(SAS.localizr.get(_mechanism.progressive)).appendTo($("<label>Progressive tense of title:</label>").addClass("dialogLabel").appendTo($("<div>").appendTo($inputsDiv)));
             _$description = $("<input type='text' />").val(SAS.localizr.get(_mechanism.description)).appendTo($("<label>Description:</label>").addClass("dialogLabel").appendTo($("<div>").appendTo($inputsDiv)));
             _$nickname = $("<input type='text' />").val(SAS.localizr.get(_mechanism.nickname)).appendTo($("<label>Nickname:</label>").addClass("dialogLabel").appendTo($("<div>").appendTo($inputsDiv)));
             new SAS.ImageList($("<div class='panel'>").appendTo($inputsDiv), _mechanism.uid, true);
@@ -41,7 +41,7 @@
         var _applyChanges = function () {
             var vals = {};
             vals.title = _$title.val();
-            vals.gerund = _$gerund.val();
+            vals.progressive = _$progressive.val();
             vals.description = _$description.val();
             vals.nickname = _$nickname.val();
             SAS.localizr.set(_mechanism, vals);

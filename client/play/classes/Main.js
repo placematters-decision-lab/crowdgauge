@@ -43,7 +43,7 @@
                     new SAS.InfoWindow().createMechanismWindow(activeMech, _priorityList.getPriorities());
                 });
                 var $boldSpan = $('<span>').appendTo($link);
-                SAS.localizr.live(activeMech.data.gerund, function(str) {
+                SAS.localizr.live(activeMech.data.progressive, function(str) {
                     $boldSpan.html(str.toLowerCase());
                 });
                 _bubbleChart.colorForMechanism(activeMech);

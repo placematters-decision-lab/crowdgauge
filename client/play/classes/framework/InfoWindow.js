@@ -38,7 +38,7 @@
             rt_hdr.html(SAS.localizr.get(pDef.title));
             var rd_bdy = $("<div class='info_body'>").appendTo(right);
             var infoText = SAS.localizr.get(cell.description);
-            if (infoText == "") infoText = "It is unlikely that " + SAS.localizr.get(mechanism.data.gerund) + " will have a great contribution to creating a Greater Des Moine where " + SAS.localizr.get(pDef.title);
+            if (infoText == "") infoText = "It is unlikely that " + SAS.localizr.get(mechanism.data.progressive) + " will have a great contribution to creating a future where " + SAS.localizr.get(pDef.title);
             rd_bdy.html(infoText);
         };
 
@@ -51,7 +51,7 @@
 
             $("<div class='info_hdr info_hdr_top'>").appendTo(headerDiv);
             var lt_hdr = $("<div class='info_left_title'>").appendTo(headerDiv);
-            lt_hdr.html(SAS.localizr.get(mechanism.data.gerund));
+            lt_hdr.html(SAS.localizr.get(mechanism.data.progressive));
             $("<div class='info_hdr info_hdr_below'>").appendTo(headerDiv);
 
             var wrapper = $("<div class='right_wrapper'>").appendTo(mainDiv);

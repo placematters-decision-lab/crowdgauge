@@ -18,7 +18,7 @@
 
         var _defaults = {
             title: "",
-            gerund: "",
+            progressive: "",
             description: "",
             nickname: "",
             uid: "m"+_getUID()
@@ -40,8 +40,8 @@
         /** @type {Object} the title of the mechanism (e.g. Improve parking strategy) (lang object)*/
         this.title = _settings.title;
 
-        /** @type {Object} the gerund form of the title (e.g. Improving parking strategy) (lang object)*/
-        this.gerund = _settings.gerund;
+        /** @type {Object} the progressive form of the title (e.g. Improving parking strategy) (lang object)*/
+        this.progressive = _settings.progressive;
 
         /** @type {Object} full descriptive text (lang object)*/
         this.description = _settings.description;

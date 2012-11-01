@@ -504,7 +504,7 @@ ServerDataHandler = function () {
                     _saveContent(doc);
                 }
                 if (doc.contentType == Enums.CTYPE_MECH) {
-                    _TEMP_fixLang(doc.data, ['title', 'description', 'nickname', 'gerund'], 'en');
+                    _TEMP_fixLang(doc.data, ['title', 'description', 'nickname', 'progressive'], 'en');
                     _saveContent(doc);
                 }
                 if (doc.contentType == Enums.CTYPE_PRIORITY) {
