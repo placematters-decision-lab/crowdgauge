@@ -81,6 +81,9 @@ textarea {
 #toolbar {
   padding: 5px; }
 
+#btnPlay {
+  float: right; }
+
 .ui-tabs .ui-tabs-panel {
   padding: 0; }
 
