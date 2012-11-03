@@ -1,12 +1,15 @@
 var path = require('path');
 var nodeStatic = require('node-static');
 
+var config = require("./server/config");
 var server = require("./server/http/server");
 var router = require("./server/http/router");
-/** @type ServerDataHandler */
-var dataHandler = require("./server/modules/serverDataHandler");
+/** @type ContributeDataHandler */
+var dataHandler = require("./server/modules/dataHandlers/contributeDataHandler");
+/** @type ResponseDataHandler */
+var responseDataHandler = require("./server/modules/dataHandlers/responseDataHandler");
 /** @type ImageDataHandler */
-var imageDataHandler = require("./server/modules/imageDataHandler.js");
+var imageDataHandler = require("./server/modules/dataHandlers/imageDataHandler");
 /** @type FileManager */
 var fileManager = require("./server/modules/fileManager");
 /** @type SocketHandler*/
@@ -16,7 +19,7 @@ var persistentStore = require("./server/modules/persistentStore");
 
 var persist = new persistentStore.PersistentStore();
 var ps = new personaServer.PersonaServer(persist, {
-    audience:"http://localhost:8080" // Must match your browser's address bar
+    audience:config.appURL
 });
 
 fileManager.setHandlers(imageDataHandler);
@@ -67,6 +70,8 @@ handle["/getMechanisms"] = dataHandler.getMechanisms;
 handle["/getMechanismInfo"] = dataHandler.getMechanismInfo;
 handle["/getActionDefs"] = dataHandler.getActionDefs;
 handle["/getActions"] = dataHandler.getActions;
+
+handle["/saveResponse"] = responseDataHandler.saveResponse;
 
 handle["/persona_login"] = ps.login;
 handle["/persona_logout"] = ps.logout;

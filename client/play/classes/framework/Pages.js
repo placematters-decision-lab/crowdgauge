@@ -61,6 +61,7 @@
                     $("#btnNext").removeClass("bigButton_" + btn);
                 }
             });
+            SAS.controlUtilsInstance.setButtonText($("#btnNext"), btnState);
             $("#btnNext").toggle(show);
         };
 

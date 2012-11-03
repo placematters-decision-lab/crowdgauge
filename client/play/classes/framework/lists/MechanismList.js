@@ -78,7 +78,7 @@
                 if (clickedIcon != micon) {
                     if (clickedIcon.isOn()) {
                         micon.setOn(false);
-                        micon.setNetCoins(clickedIcon.getAction().coins);
+                        micon.setNetCoins(clickedIcon.getTotalCoins());
                     } else {//--icons can be unchecked too
                         micon.setNetCoins(0);
                     }
@@ -225,7 +225,7 @@
                 if (micons == null) return true;//continue
                 $.each(micons, function (j, micon) {
                     if (micon.isOn()) {
-                        votes[mechanism.id] = micon.getAction().coins;
+                        votes[mechanism.id] = micon.getTotalCoins();
                     }
                 });
             });

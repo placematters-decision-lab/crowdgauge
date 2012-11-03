@@ -20,19 +20,16 @@
         //var _ws = new SAS.JsonRestWS("svc/regionalScoresService/", "DataService.svc", true, true);
         var _ws = SAS.configInstance.getRegionalScoresWS();
 
-        var _getData = function() {
-            return {demographics:_demoData, priorities:_priorityData, mechanisms:_voteData, times:_timeData, infocnt: _infoWinCnt};
+        var _getData = function () {
+            return {demographics:_demoData, priorities:_priorityData, mechanisms:_voteData, times:_timeData, infocnt:_infoWinCnt};
         };
 
         var _saveData = function (onSave) {
-            /*_ws.getWebService("saveResponse", {data:JSON.stringify(_getData())}, function(entryId) {
-                _entryId = entryId;
-                onSave(_entryId);
-            });*/
-            _ws.postWebService("saveResponse", {}, {data:JSON.stringify(_getData())}, function(entryId) {
-                _entryId = entryId;
-                onSave(_entryId);
-            });
+            $.post("/saveResponse", {data:JSON.stringify(_getData())},
+                function (entryId) {
+                    _entryId = entryId;
+                    onSave(_entryId);
+                });
         };
         //endregion
 
@@ -41,11 +38,11 @@
             _infoWinCnt++;
         };
 
-        this.storeDemographics = function(demoData) {
+        this.storeDemographics = function (demoData) {
             _demoData = demoData;
         };
 
-        this.storePriorities = function(priorityData) {
+        this.storePriorities = function (priorityData) {
             _priorityData = priorityData;
         };
 
@@ -53,20 +50,20 @@
             _timeData = {priorities:prioritySecs, impacts:impactsSecs, voting:votingSecs};
         };
 
-        this.storeVotes = function(voteData) {
+        this.storeVotes = function (voteData) {
             _voteData = voteData;
         };
         this.getEntryId = function () {
             return _entryId;
         };
 
-        this.setIsSaved = function(value) {
+        this.setIsSaved = function (value) {
             _mIsSaved = value;
         };
-        this.getIsSaved = function() {
+        this.getIsSaved = function () {
             return _mIsSaved;
         };
-        this.saveData = function(onSave) {
+        this.saveData = function (onSave) {
             _saveData(onSave);
             _mIsSaved = true;
         };

@@ -5,7 +5,7 @@
  */
 (function () { // self-invoking function
     /**
-     * @class SAS.DataHandler - works with server-side @see ServerDataHandler
+     * @class SAS.DataHandler - works with server-side @see ContributeDataHandler
      * @constructor
      **/
     SAS.DataHandler = function (userId, filename) {
@@ -22,7 +22,7 @@
 
         //region public API
         /**
-         * works with @see ServerDataHandler.takeLock
+         * works with @see ContributeDataHandler.takeLock
          * @param {Boolean} force setting this to true lets you steal the lock
          * @param {Content} c
          * @param {Function} [successFn]
@@ -37,7 +37,7 @@
         };
 
         /**
-         * works with @see ServerDataHandler.releaseLock
+         * works with @see ContributeDataHandler.releaseLock
          * @param {Content} c
          * @param {Function} [callback]
          */
@@ -49,7 +49,7 @@
         };
 
         /**
-         * works with @see ServerDataHandler.addPriority
+         * works with @see ContributeDataHandler.addPriority
          * @param {SAS.PriorityDef} p
          * @param {Function} [callback]
          */
@@ -61,7 +61,7 @@
         };
 
         /**
-         * works with @see ServerDataHandler.addAction
+         * works with @see ContributeDataHandler.addAction
          * @param {SAS.ActionDef} a
          * @param {Function} [callback]
          */
@@ -73,7 +73,7 @@
         };
 
         /**
-         * works with @see ServerDataHandler.addMechanism
+         * works with @see ContributeDataHandler.addMechanism
          * @param {SAS.MechanismDef} m
          * @param {Function} [callback]
          */
@@ -85,7 +85,7 @@
         };
 
         /**
-         * works with @see ServerDataHandler.addMechanism
+         * works with @see ContributeDataHandler.addMechanism
          * @param {String} mId
          * @param {Function} [callback]
          */
@@ -97,7 +97,7 @@
         };
 
         /**
-         * works with @see ServerDataHandler.deleteAction
+         * works with @see ContributeDataHandler.deleteAction
          * @param {String} aId
          * @param {Function} [callback]
          */
@@ -109,7 +109,7 @@
         };
 
         /**
-         * works with @see ServerDataHandler.deletePriority
+         * works with @see ContributeDataHandler.deletePriority
          * @param {String} pId
          * @param {Function} [callback]
          */
@@ -121,7 +121,7 @@
         };
 
         /**
-         * works with @see ServerDataHandler.updateContent
+         * works with @see ContributeDataHandler.updateContent
          * @param {Content} c
          * @param {Boolean} releaseLock
          * @param {Function} [callback]
@@ -134,7 +134,7 @@
         };
 
         /**
-         * works with @see ServerDataHandler.getAllContent
+         * works with @see ContributeDataHandler.getAllContent
          * @param {function(Array.<Content>)} callback
          */
         this.getAllContent = function (callback) {

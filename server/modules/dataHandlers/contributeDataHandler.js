@@ -4,7 +4,7 @@
  * Time: 9:33 AM
  */
 //region includes
-var config = require("../config");
+var config = require("../../config");
 
 var db_name = "contribute";
 var nano = require('nano')(config.couchURL);
@@ -12,9 +12,9 @@ var nano = require('nano')(config.couchURL);
 var db = nano.db.use(db_name);
 var url = require('url');
 
-var logger = require("./logger");
-var Enums = require('../../shared/classes/modules/Enums');
-var Content = require('../../shared/classes/modules/Content');
+var logger = require("./../logger");
+var Enums = require('../../../shared/classes/modules/Enums');
+var Content = require('../../../shared/classes/modules/Content');
 //endregion
 
 //region includes
@@ -22,9 +22,9 @@ var NA = "na";
 //constants
 /**
  Server-side data handler - works with client-side @see SAS.DataHandler
- @class ServerDataHandler
+ @class ContributeDataHandler
  */
-ServerDataHandler = function () {
+ContributeDataHandler = function () {
     var _self = this;
 
     var _filename = "test1";
@@ -590,6 +590,7 @@ ServerDataHandler = function () {
     this.getMechanismInfo = function (req, res, postData) {
         _getMechanismInfo(req, res);
     };
+
 //====================================
     this.TEMP_fixLangs = function () {
         _TEMP_fixLangs();
@@ -605,5 +606,5 @@ ServerDataHandler = function () {
 }
 ;
 
-module.exports = new ServerDataHandler();
+module.exports = new ContributeDataHandler();
 

@@ -44,6 +44,7 @@
         var _buildGrid = function () {
             _$grid.html("");
             var $pRow = $("<div>").addClass("pHeaderRow").appendTo(_$grid);
+            _super.p_addColHeader($pRow);
             $.each(_priorityIds, function (i, pId) {
                 var priorityObj = _priorityLookup[pId];
                 /** @type Content */

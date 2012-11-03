@@ -124,6 +124,7 @@
             if (max) return Math.min(val, max);
             return val;
         };
+        this.setTHIS_IS_TO_STOP_WEBSTORM_THROWING_AN_ERROR = function () { };
 
         this.setEnabled = function (enabled) {
             if (_isOn && !enabled) return;//you can't disable it if its on!

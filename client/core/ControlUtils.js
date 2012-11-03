@@ -100,6 +100,24 @@
             if (jsonColor.indexOf(",") > 0) return "rgb(" + jsonColor + ")";
             return jsonColor;
         };
+
+        this.getButtonText = function ($elem) {
+            var $jqUIBtn = $("span.ui-button-text", $elem);//support jqueryUI style buttons with text within a span
+            if ($jqUIBtn.length > 0) {
+                return $jqUIBtn.text();
+            } else {
+                return $elem.html();
+            }
+        };
+
+        this.setButtonText = function ($elem, v) {
+            var $jqUIBtn = $("span.ui-button-text", $elem);//support jqueryUI style buttons with text within a span
+            if ($jqUIBtn.length > 0) {
+                $jqUIBtn.text(v);
+            } else {
+                $elem.html(v);
+            }
+        };
     };
     /**
      @type SAS.ControlUtils

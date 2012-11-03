@@ -1,3 +1,6 @@
+body {
+  font-size: 12px; }
+
 .controlLabel {
   font-size: 0.85em; }
 
@@ -9,10 +12,16 @@
   width: 80px;
   border-right: 1px solid #d2dde3;
   margin-right: 5px;
-  height: 200px;
+  height: 155px;
   display: inline-block;
   font-size: 0.85em;
   vertical-align: top; }
+
+.pRowColumnHeader {
+  width: 220px;
+  font-weight: bold;
+  display: inline-block;
+  vertical-align: bottom; }
 
 .gCell {
   width: 80px;
@@ -29,7 +38,6 @@
   width: 64px; }
 
 .pHeaderRow {
-  margin-left: 220px;
   height: 160px; }
 
 .pRowHeader {
@@ -75,3 +83,18 @@ textarea {
 
 .ui-tabs .ui-tabs-panel {
   padding: 0; }
+
+.hdrTitle {
+  vertical-align: top;
+  display: inline-block;
+  font-style: normal;
+  font-weight: 400;
+  font-family: Anton;
+  font-size: 22px;
+  color: #817865; }
+
+div.cg {
+  display: inline-block; }
+
+div.cg:first-letter {
+  font-size: 1.2em; }

@@ -6,8 +6,8 @@ var url = require('url');
 
 //endregion
 //region modules
-var config = require("../config");
-var logger = require("./logger");
+var config = require("../../config");
+var logger = require("./../logger");
 //endregion
 
 var nano = require('nano')(config.couchURL);

@@ -107,6 +107,11 @@
             _onCellUpdateRequired();
         };
 
+        this.p_addColHeader = function ($pRow) {
+            var $rowColHdr = $("<div>").addClass("pRowColumnHeader").appendTo($pRow);
+            $rowColHdr.html('Mechanisms:');
+        };
+
         this.p_addDeleteButton = function ($holder) {
             return _makeUIBtn(20, ICON_DELETE).appendTo($holder)
         };

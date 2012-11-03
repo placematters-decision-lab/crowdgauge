@@ -29,12 +29,7 @@
             if ($elem.is('input')) {
                 $elem.val(v);
             } else if ($elem.is('button')) {
-                var $jqUIBtn = $("span.ui-button-text", $elem);//support jqueryUI style buttons with text within a span
-                if ($jqUIBtn.length > 0) {
-                    $jqUIBtn.text(v);
-                } else {
-                    $elem.html(v);
-                }
+                SAS.controlUtilsInstance.setButtonText($elem, v);
             } else {
                 $elem.html(v);
             }
@@ -44,12 +39,7 @@
             if ($elem.is('input')) {
                 return $elem.val();
             } else if ($elem.is('button')) {
-                var $jqUIBtn = $("span.ui-button-text", $elem);//support jqueryUI style buttons with text within a span
-                if ($jqUIBtn.length > 0) {
-                    return $jqUIBtn.text();
-                } else {
-                    return $elem.html();
-                }
+                return SAS.controlUtilsInstance.getButtonText($elem);
             } else {
                 return $elem.html();
             }
@@ -131,7 +121,7 @@
                 if (fnj instanceof jQuery) {//support setting .html on any jquery selector passed in
                     var $j = fnj;
                     fn = function (val) {
-                        $j.html(val);
+                        _setText($j, val);
                     };
                 } else {
                     fn = fnj;

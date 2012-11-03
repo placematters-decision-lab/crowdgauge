@@ -33,6 +33,7 @@
         var _buildGrid = function () {
             _$grid.html("");
             var $pRow = $("<div>").addClass("pHeaderRow").appendTo(_$grid);
+            _super.p_addColHeader($pRow);
             $.each(_actionIds, function (i, aId) {
                 var actionObj = _actionLookup[aId];
                 /** @type Content */

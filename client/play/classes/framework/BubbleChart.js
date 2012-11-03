@@ -117,7 +117,7 @@
 
             var delay = 100;
             if (mechanism && micon) {
-                var r = Math.sqrt(100 * micon.getAction().multiplier) * 10;
+                var r = Math.sqrt(100 * micon.getMultiplier()) * 10;
                 _overlayCircles
                     .style("fill", null)
                     .style("opacity", _overlayOpac)

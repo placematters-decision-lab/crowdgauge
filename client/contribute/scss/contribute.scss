@@ -26,6 +26,17 @@ $borderColor: #d2dde3;
   font-size: 0.85em;
 }
 
+@mixin column {
+  width: $cellWidth;
+// + $borderGap;
+  border-right: $borderGap solid $borderColor;
+  margin-right: $columnGap;
+}
+
+body {
+  font-size: 12px;
+}
+
 .controlLabel {
   @include ctLbl;
 }
@@ -35,19 +46,20 @@ $borderColor: #d2dde3;
   width: 100px;
 }
 
-@mixin column {
-  width: $cellWidth;
-// + $borderGap;
-  border-right: $borderGap solid $borderColor;
-  margin-right: $columnGap;
-}
 
 .pColumnHeader {
   @include column;
-  height: 200px;
+  height: 155px;
   display: inline-block;
   font-size: 0.85em;
   vertical-align: top;
+}
+
+.pRowColumnHeader {//--the title for the mechanisms
+  width: $rowTitleW;
+  font-weight: bold;
+  display: inline-block;
+  vertical-align: bottom;
 }
 
 .gCell {
@@ -65,8 +77,10 @@ $borderColor: #d2dde3;
   width: $cellWidth * 0.8;
 }
 
+
+
 .pHeaderRow {
-  margin-left: $rowTitleW;
+  //margin-left: $rowTitleW;
   height: 160px;
 }
 
@@ -125,4 +139,22 @@ textarea {
 //jquery UI customizations
 .ui-tabs .ui-tabs-panel {
   padding: 0;
+}
+
+.hdrTitle {
+  vertical-align: top;
+  display: inline-block;
+  font-style: normal;
+  font-weight: 400;
+  font-family: Anton;
+  font-size: 22px;
+  color: #817865;
+}
+
+div.cg {
+  display: inline-block;
+}
+
+div.cg:first-letter {
+  font-size: 1.2em;
 }

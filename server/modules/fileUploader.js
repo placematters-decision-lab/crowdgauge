@@ -10,7 +10,7 @@ var formidable = require('formidable');
 //endregion
 //region modules
 /** @type ImageDataHandler */
-var dataHandler = require("./imageDataHandler");
+var dataHandler = require("./dataHandlers/imageDataHandler");
 var logger = require("./logger");
 var persistentStore = require("./persistentStore");
 //endregion

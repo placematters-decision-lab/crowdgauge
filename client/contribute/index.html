@@ -3,7 +3,8 @@
 <head>
     <title>CrowdGauge: create content</title>
 
-    <link type="text/css" href="../lib/jquery-ui/jquery-ui-1.8.23.custom.css" rel="stylesheet"/>
+    <link href="http://fonts.googleapis.com/css?family=Anton" rel="stylesheet" type="text/css">
+    <link type="text/css" href="../lib/jquery-ui/jquery-ui-1.9.1.custom.min.css" rel="stylesheet"/>
     <link type="text/css" href="scss/css/contribute.css" rel="stylesheet"/>
 
     <!--socket.io scripts served by node js module-->
@@ -48,15 +49,26 @@
     <script type="text/javascript" src="contrib-main.js"></script>
 </head>
 <body>
-<div id="header">CrowdGauge Contribute Matrix</div>
+<div id="header">
+    <img src="../img/icon.png" width="46" height="40">
+    <div class="hdrTitle">
+        <div class="cg">Crowd</div><div class="cg">Gauge</div>
+        <span>Contribute</span>
+    </div>
+</div>
 <div id="holder"></div>
 <div id="instructions">
     <h3>Notes on Priorities</h3>
+
     <div id="priorities">
-        <p>Users will rate each priority listed based on how much they value it. Each priority is represented by a circle and should have an icon assigned.</p>
-        <p>They can then see how different mechanisms will impact their priorities and read text about how each priority is affected by each mechanism.</p>
+        <p>Users will rate each priority listed based on how much they value it. Each priority is represented by a
+            circle and should have an icon assigned.</p>
+
+        <p>They can then see how different mechanisms will impact their priorities and read text about how each priority
+            is affected by each mechanism.</p>
     </div>
     <h3>Notes on Actions</h3>
+
     <div id="action">
         <p>Each general mechanism can have a number of specific actions. For example a mechanism 'Build more roads'
             could have these actions assigned:</p>
@@ -64,11 +76,17 @@
             <li>Build 9 miles of two-lane road</li>
             <li>Build 9 miles of 4-lane highway with 3 interchanges</li>
         </ul>
-        <p>When playing the game, users are given a fixed number of coins and asked to choose how they would allocate them. Each action is assigned a certain number of coins to indicate relative expense. Some actions may cost nothing.</p>
-        <p>Each column represents a particular number of coins. Add new action columns to represent a different number of coins.</p>
-        <p>In addition to cost, each action is given a multiplier to indicate how effective it is in achieving the goals of the mechanism. This multiplier is applied to the scores for each priority (both positive and negative).</p>
+        <p>When playing the game, users are given a fixed number of coins and asked to choose how they would allocate
+            them. Each action is assigned a certain number of coins to indicate relative expense. Some may cost
+            nothing.</p>
+
+        <p>Each column represents a particular number of coins. Add new action columns to represent a different number
+            of coins.</p>
+
+        <p>In addition to cost, each action is given a multiplier to indicate how effective it is in achieving the goals
+            of the mechanism. This multiplier is applied to the scores for each priority (both positive and
+            negative).</p>
     </div>
-</div>
 </div>
 </body>
 </html>
