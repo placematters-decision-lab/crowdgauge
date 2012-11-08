@@ -6,13 +6,13 @@
 (function () { // self-invoking function
     /**
      * @class SAS.PriorityDialog
-     * @extends SAS.ADialog
+     * @extends SAS.AFieldDialog
      * @constructor
      **/
     SAS.PriorityDialog = function (/**SAS.PriorityDef*/ priority) {
         var _self = this;
-        /** @type SAS.ADialog */
-        var _super = SAS.Inheritance.Extend(this, new SAS.ADialog());
+        /** @type SAS.AFieldDialog */
+        var _super = SAS.Inheritance.Extend(this, new SAS.AFieldDialog());
         var DIALOG_ID = "priority_dialog";
         _super._init(DIALOG_ID);
 
@@ -27,9 +27,10 @@
 
         var _buildContent = function ($dlg) {
             var $inputsDiv = $("<div></div>").appendTo($dlg);
-            _$title = $("<input type='text' />").val(SAS.localizr.get(_priority.title)).appendTo($("<label>Title:</label>").addClass("dialogLabel").appendTo($("<div>").appendTo($inputsDiv)));
-            _$description = $("<input type='text' />").val(SAS.localizr.get(_priority.description)).appendTo($("<label>Description:</label>").addClass("dialogLabel").appendTo($("<div>").appendTo($inputsDiv)));
-            _$nickname = $("<input type='text' />").val(SAS.localizr.get(_priority.nickname)).appendTo($("<label>Nickname:</label>").addClass("dialogLabel").appendTo($("<div>").appendTo($inputsDiv)));
+            _$title = _super.p_mkShortField('pd_title', "Title", $inputsDiv, _priority.title);
+            _$nickname = _super.p_mkShortField('pd_nickname', "Nickname (optional short version of title)", $inputsDiv, _priority.nickname);
+            _$description = _super.p_mkLongTextField('pd_description', 'Description', $inputsDiv, _priority.description);
+
             _$imagePane = $("<div class='panel'>").appendTo($inputsDiv);
             _addImagePane();
         };
@@ -39,8 +40,8 @@
             $('<img src="' + file.thumbnail_url + '?color=black"}">').appendTo($row);
             $('<img src="' + file.thumbnail_url + '?color=crimson"}">').appendTo($row);
             $('<span/>').text(file.name).appendTo($row);
-            $('<button/>').text("delete").appendTo($row).click(function() {
-                $.post('/deletefile/', {groupId:_priority.uid, name:file.name}, function() {
+            $('<button/>').text("delete").appendTo($row).click(function () {
+                $.post('/deletefile/', {groupId:_priority.uid, name:file.name}, function () {
                     $row.remove();
                 });
             });

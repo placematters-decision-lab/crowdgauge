@@ -11,13 +11,13 @@
 (function () { // self-invoking function
     /**
      * @class SAS.MechanismDialog
-     * @extends SAS.ADialog
+     * @extends SAS.AFieldDialog
      * @constructor
      **/
     SAS.MechanismDialog = function (/**SAS.MechanismDef*/ mechanism) {
         var _self = this;
-        /** @type SAS.ADialog */
-        var _super = SAS.Inheritance.Extend(this, new SAS.ADialog());
+        /** @type SAS.AFieldDialog */
+        var _super = SAS.Inheritance.Extend(this, new SAS.AFieldDialog());
         var DIALOG_ID = "mechanism_dialog";
         _super._init(DIALOG_ID);
 
@@ -31,11 +31,12 @@
 
         var _buildContent = function ($dlg) {
             var $inputsDiv = $("<div></div>").appendTo($dlg);
-            _$title = $("<input type='text' />").val(SAS.localizr.get(_mechanism.title)).appendTo($("<label>Title:</label>").addClass("dialogLabel").appendTo($("<div>").appendTo($inputsDiv)));
-            _$progressive = $("<input type='text' />").val(SAS.localizr.get(_mechanism.progressive)).appendTo($("<label>Progressive tense of title:</label>").addClass("dialogLabel").appendTo($("<div>").appendTo($inputsDiv)));
-            _$description = $("<input type='text' />").val(SAS.localizr.get(_mechanism.description)).appendTo($("<label>Description:</label>").addClass("dialogLabel").appendTo($("<div>").appendTo($inputsDiv)));
-            _$nickname = $("<input type='text' />").val(SAS.localizr.get(_mechanism.nickname)).appendTo($("<label>Nickname:</label>").addClass("dialogLabel").appendTo($("<div>").appendTo($inputsDiv)));
-            new SAS.ImageList($("<div class='panel'>").appendTo($inputsDiv), _mechanism.uid, true);
+            _$title = _super.p_mkShortField('md_title', "Title", $inputsDiv, _mechanism.title);
+            _$progressive = _super.p_mkShortField('md_progressive', "Progressive tense of title", $inputsDiv, _mechanism.progressive);
+            _$nickname = _super.p_mkShortField('md_nickname', "Nickname (optional short version of title)", $inputsDiv, _mechanism.nickname);
+            _$description = _super.p_mkLongTextField('md_description', 'Description', $inputsDiv, _mechanism.description);
+
+            new SAS.ImageList($('<div class="panel">').appendTo($inputsDiv), _mechanism.uid, true);
         };
 
         var _applyChanges = function () {

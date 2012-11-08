@@ -26,8 +26,6 @@ var _pathMatch = function (pathname, securePaths) {
  * @private
  */
 var _checkAuthorization = function (req, pathname, securePaths, persistentStore, callback) {
-    callback(true);//REDISTOGO outage!!!
-    return;
     if (_pathMatch(pathname, securePaths)) {
         persistentStore.checkAuthorization(req, function(success) {
             if (callback) callback(success);
@@ -58,8 +56,14 @@ function start(route, securePaths, prehandle, handle, staticServer, persistentSt
                         staticServer.serve(req, res);
                     }
                 } else {
-                    res.writeHead(403);
-                    res.end('Sorry you are not authorized.');
+                    res.writeHead(302, {
+                        'Location': '/client/login/index.html'
+                        //add other headers here...
+                    });
+                    res.end();
+                    //--if its a web service call, then it should probably not redirect... but there is no way to determine this here?
+                    //res.writeHead(403);
+                    //res.end('Sorry you are not authorized.');
                 }
             });
         });

@@ -7,7 +7,7 @@ var redis = require('redis');
 //region modules
 var config = require("../config");
 
-redis.debug_mode = true;
+//redis.debug_mode = true;
 //endregion
 /**
  * @param {Function} [onReady]
@@ -21,7 +21,6 @@ var PersistentStore = function (onReady) {
     var _onReady = onReady;
 
     var _init = function () {
-        return;//TEMP
         _client = redis.createClient(config.redis.port, config.redis.host);
         _client.auth(config.redis.key, function (err) {
             if (err) { throw err; }

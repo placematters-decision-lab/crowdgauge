@@ -13,6 +13,7 @@
             $('#signout').hide().click(function () {
                 navigator.id.logout();
             });
+            $('#link').hide();
             navigator.id.watch({
                 loggedInUser:null,
                 onlogin:function (assertion) {
@@ -28,6 +29,7 @@
                                 $('#username').html("Welcome: " + res.email);
                                 $('#signin').html('Change User');
                                 $('#signout').show();
+                                $('#link').show();
                             } else {
                                 $('#username').html("Not able to log in: " + res.reason);
                             }
@@ -47,6 +49,7 @@
                             $('#username').html("Logged out: " +res.status);
                             $('#signin').html('Sign In');
                             $('#signout').hide();
+                            $('#link').hide();
                         },
                         error:function (res, status, xhr) { alert("logout failure" + res); }
                     });
@@ -59,5 +62,6 @@
 <div id="username">Not signed in</div>
 <button id="signin">Sign In</button>
 <button id="signout">Sign Out</button>
+<div><a id="link" href="../contribute/index.html">Contribute</a></div>
 </body>
 </html>

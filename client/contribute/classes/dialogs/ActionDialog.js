@@ -30,38 +30,26 @@
             _$value = $("<input/>").appendTo($("<label>Value:</label>").addClass("dialogLabel").appendTo($("<div>").appendTo($inputsDiv)));
             _$value.spinner();
             _$value.spinner( "value", _action.value );
-            _$imagePane = $("<div class='panel'>").appendTo($inputsDiv);
-            _addImagePane();
+            //_$imagePane = $("<div class='panel'>").appendTo($inputsDiv);
+            //_addImagePane();
         };
 
-        var _drawRow = function (file) {
-            var $row = $("<div>").appendTo(_$imagePane);
-            $('<img src="' + file.thumbnail_url + '?color=black"}">').appendTo($row);
-            $('<img src="' + file.thumbnail_url + '?color=crimson"}">').appendTo($row);
-            $('<span/>').text(file.name).appendTo($row);
-            $('<button/>').text("delete").appendTo($row).click(function() {
-                $.post('/deletefile/', {groupId:_action.uid, name:file.name}, function() {
-                    $row.remove();
-                });
-            });
-        };
-
-        var _addImagePane = function () {
-            var $chooseFilesBtn = $('<input type="file" data-url="/fileupload">').appendTo(_$imagePane);
-            $chooseFilesBtn.attr("name", _action.uid);
-
-            $.getJSON('/getImage/' + _action.uid, function (file) {
-                _drawRow(file);
-            });
-            $chooseFilesBtn.fileupload({
-                dataType:'json',
-                done:function (e, data) {
-                    $.each(data.result, function (index, file) {
-                        _drawRow(file);
-                    });
-                }
-            });
-        };
+//        var _addImagePane = function () {
+//            var $chooseFilesBtn = $('<input type="file" data-url="/fileupload">').appendTo(_$imagePane);
+//            $chooseFilesBtn.attr("name", _action.uid);
+//
+//            $.getJSON('/getImage/' + _action.uid, function (file) {
+//                _drawRow(file);
+//            });
+//            $chooseFilesBtn.fileupload({
+//                dataType:'json',
+//                done:function (e, data) {
+//                    $.each(data.result, function (index, file) {
+//                        _drawRow(file);
+//                    });
+//                }
+//            });
+//        };
 
         var _applyChanges = function () {
             var vals = {};
