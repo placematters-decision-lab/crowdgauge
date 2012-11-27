@@ -11,4 +11,4 @@ The original game can be found here: http://interactive.thetomorrowplan.com/
 Jquery on the front-end, Node.js server and CouchDB as the database. You can obviously host this anywhere Node.js is supported, however we recommend [Nodejitsu](http://nodejitsu.com/) if you want to get up and running quickly as our installation instructions will guide you through this process.
 
 ## Status
-We're actively developing this product for a mid-November beta launch.
+CrowdGauge is not 100% complete, but it is now ready for alpha testing. Please see the installation instructions.

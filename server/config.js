@@ -8,10 +8,12 @@ module.exports.couchURL = process.env.COUCH_URL;
 module.exports.verbosity = 0;
 module.exports.redis = {
     host:process.env.REDIS_HOST,
-    port:9859,
+    //port:9859, //default redis port
+    port:6379, //for iris
     key:process.env.REDIS_KEY
 };
-module.exports.loggly = {
-    conf:{ subdomain:'yourdomain' },
-    key:'your-key'
-};
+module.exports.loggly = null;
+//module.exports.loggly = {
+//    conf:{ subdomain:'yourdomain' },
+//    key:'your-key'
+//};

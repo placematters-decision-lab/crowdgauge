@@ -23,7 +23,9 @@ var PersistentStore = function (onReady) {
     var _init = function () {
         _client = redis.createClient(config.redis.port, config.redis.host);
         _client.auth(config.redis.key, function (err) {
-            if (err) { throw err; }
+            if (err) {
+                throw err;
+            }
             // You are now connected to your redis.
             if (_onReady) _onReady();
         });
