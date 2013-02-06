@@ -31,9 +31,9 @@
 
         var _buildContent = function ($dlg) {
             var $inputsDiv = $("<div></div>").appendTo($dlg);
-            _$title = _super.p_mkShortField('md_title', "Title", $inputsDiv, _mechanism.title);
-            _$progressive = _super.p_mkShortField('md_progressive', "Progressive tense of title", $inputsDiv, _mechanism.progressive);
-            _$nickname = _super.p_mkShortField('md_nickname', "Nickname (optional short version of title)", $inputsDiv, _mechanism.nickname);
+            _$title = _super.p_mkShortTextField('md_title', "Title", $inputsDiv, _mechanism.title);
+            _$progressive = _super.p_mkShortTextField('md_progressive', "Progressive tense of title", $inputsDiv, _mechanism.progressive);
+            _$nickname = _super.p_mkShortTextField('md_nickname', "Nickname (optional short version of title)", $inputsDiv, _mechanism.nickname);
             _$description = _super.p_mkLongTextField('md_description', 'Description', $inputsDiv, _mechanism.description);
 
             new SAS.ImageList($('<div class="panel">').appendTo($inputsDiv), _mechanism.uid, true);

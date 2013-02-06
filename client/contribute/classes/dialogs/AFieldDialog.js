@@ -18,7 +18,7 @@
         //endregion
 
         //region protected fields and methods (use '_' to differentiate).
-        this.p_mkShortField = function (id, title, $div, langObj) {
+        this.p_mkShortTextField = function (id, title, $div, langObj) {
             var $fieldRow = $('<div>').appendTo($div);
             $('<label for="' + id + '">' + title + ':</label>').addClass("dialogLabel").appendTo($fieldRow);
             var $ans = $('<input id="' + id + '" type="text" size="50" />').appendTo($('<div>').appendTo($fieldRow));

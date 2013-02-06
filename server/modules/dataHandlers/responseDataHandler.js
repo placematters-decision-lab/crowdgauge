@@ -7,7 +7,7 @@ var util = require('util');
 
 //endregion
 //region modules
-var config = require("../../config");
+
 var logger = require("./../logger");
 var aDataHandler = require('./aDataHandler');
 var Response = require('../../../shared/classes/modules/Response');
@@ -16,9 +16,6 @@ var Response = require('../../../shared/classes/modules/Response');
 
 var events = require("events");
 
-var nano = require('nano')(config.couchURL);
-var db = nano.db.use('responses');
-
 /**
  @class ResponseDataHandler
  @extends ADataHandler
@@ -26,7 +23,7 @@ var db = nano.db.use('responses');
 var ResponseDataHandler = function () {
     var _self = this;
 
-    aDataHandler.ADataHandler.call(this, db);
+    aDataHandler.ADataHandler.call(this, 'responses');
 
     var _init = function () {
         _createViews();

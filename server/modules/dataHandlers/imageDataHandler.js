@@ -8,18 +8,17 @@ var url = require('url');
 //region modules
 var config = require("../../config");
 var logger = require("./../logger");
+var aDataHandler = require('./aDataHandler');
 //endregion
-
-var nano = require('nano')(config.couchURL);
-
-var images_db = nano.db.use('images');
-
 
 /**
  @class ImageDataHandler
+ @extends ADataHandler
  */
 ImageDataHandler = function () {
     var _self = this;
+
+    aDataHandler.ADataHandler.call(this, 'images');
 
     /** @type {Object.<string, Array.<Function>>} a queue of functions to execute as revisions are made (to avoid conflicts)*/
     var _queuedDocActions = {};
@@ -29,41 +28,26 @@ ImageDataHandler = function () {
         _createViews();
     };
 
-    //TODO add a super-class for datahandlers that includes db urls, utils functions etc.
-    var _addOrUpdate = function (doc, docId) {
-        images_db.head(docId, function (err, _, headers) {
-            if (err) {
-                //probably a 404 in which case we don't need a 'revision'
-            } else {
-                doc._rev = JSON.parse(headers.etag);
-            }
-            images_db.insert(doc, docId, function (err, res) {
-                if (err) console.log("ERROR: problem inserting design views: " + err.description);
-            });
-        });
-    };
-
     var _createViews = function () {
-        var views = {
-            "views":{
-                "byFilename":{
-                    "map":function (doc) {
+        _self.p_createViews({
+            "views": {
+                "byFilename": {
+                    "map": function (doc) {
                         if (doc.filename) emit(doc.filename, doc._id);
                     }
                 },
-                "byGroup":{
-                    "map":function (doc) {
+                "byGroup": {
+                    "map": function (doc) {
                         if (doc.groupId) emit(doc.groupId, doc);
                     }
                 },
-                "byGroupByFilename":{
-                    "map":function (doc) {
+                "byGroupByFilename": {
+                    "map": function (doc) {
                         if (doc.groupId && doc.filename) emit([doc.groupId, doc.filename], doc);
                     }
                 }
             }
-        };
-        _addOrUpdate(views, '_design/views');
+        });
     };
 
     function _logResponse(err, body) {
@@ -102,15 +86,9 @@ ImageDataHandler = function () {
     };
 
     var _deleteFile = function (groupId, filename, callback) {
-        images_db.view('views', 'byGroupByFilename', {"key":[groupId, filename]}, function (err, body) {
+        _self.p_view('byGroupByFilename', {"key": [groupId, filename]}, function (err, body) {
             if (!err) {
-                if (body.rows && body.rows.length > 0) {
-                    var doc = body.rows[0].value;
-                    console.log("DELETE DOC ID: " + doc._id);
-                    images_db.destroy(doc._id, doc._rev, function (err, body) {
-                        callback(!err);
-                    });
-                }
+                _self.p_deleteAllResults(body, callback);
             } else {
                 console.log("Problem removing image: " + err.description);
                 callback(false);
@@ -137,7 +115,7 @@ ImageDataHandler = function () {
                 _withLatestRev(docId, function (revId) {
                     console.log("insert: " + docId + " : " + revId + " : " + version);
 
-                    images_db.attachment.insert(docId, version, data, contentType, { rev:revId },
+                    _self.p_db.attachment.insert(docId, version, data, contentType, { rev: revId },
                         function (err, body) {
                             if (!err) {
                                 _updateRevision(body.id, body.rev);
@@ -151,7 +129,7 @@ ImageDataHandler = function () {
     };
 
     var _saveDocument = function (doc, callback) {
-        images_db.insert(doc, {}, function (err, body) {
+        _self.p_db.insert(doc, {}, function (err, body) {
             if (!err) {
                 _updateRevision(body.id, body.rev);
                 if (callback) callback(body.id);
@@ -163,12 +141,12 @@ ImageDataHandler = function () {
     var _serveAttachment = function (filename, version, req, res) {
         logger.log("_serveAttachment: " + filename, 1);
         //--how do we identify unique images (since they could have the same file name?)
-        images_db.view('views', 'byFilename', {"key":filename}, function (err, body) {
+        _self.p_view('byFilename', {"key": filename}, function (err, body) {
             if (!err) {
                 if (body.rows && body.rows.length > 0) {
                     var docId = body.rows[0].value;
                     logger.log("Serving image: " + docId + " : " + filename + " : " + version, 1);
-                    images_db.attachment.get(docId, version).pipe(res);
+                    _self.p_db.attachment.get(docId, version).pipe(res);
                 }
             } else {
                 logger.log("Problem serving image: " + err.description);
@@ -180,14 +158,14 @@ ImageDataHandler = function () {
     var _loadAttachment = function (filename, version, callback) {
         logger.log("_loadAttachment: " + filename, 1);
         //--how do we identify unique images (since they could have the same file name?)
-        images_db.view('views', 'byFilename', {"key":filename}, function (err, body) {
+        _self.p_view('byFilename', {"key": filename}, function (err, body) {
             if (err) {
                 logger.log("Problem serving image: " + err.description);
                 return;
             }
             if (body.rows && body.rows.length > 0) {
                 var docId = body.rows[0].value;
-                images_db.attachment.get(docId, version, function (err, body) {
+                _self.p_db.attachment.get(docId, version, function (err, body) {
                     if (err) {
                         logger.log("Problem fetching attachment: " + err.description);
                         return;
@@ -200,12 +178,12 @@ ImageDataHandler = function () {
     };
 
     var _listFiles = function (groupId, callback) {
-        images_db.view('views', 'byGroup', {"key":groupId}, function (err, body) {
+        _self.p_view('byGroup', {"key": groupId}, function (err, body) {
             if (!err) {
                 var ans = [];
                 body.rows.forEach(function (row, i) {
                     var doc = row.value;
-                    ans.push({filename:doc.filename});
+                    ans.push({filename: doc.filename});
                 });
                 callback(ans);
             }

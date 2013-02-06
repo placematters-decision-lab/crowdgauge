@@ -4,6 +4,9 @@
 #ignore config.js because it may contain sensitive information. config.js.example is included instead.
 #server/config.js --commented out - sensitive information moved to environment vars
 
+#Coin_Illustrations - these are temp files that get renamed without the prefix...
+*/Coin_Illustrations_*.png
+
 #################
 ## Webstorm
 #################
