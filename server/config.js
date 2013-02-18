@@ -3,7 +3,7 @@
  * For debugging it may be helpful to provide a localhost URL.
  * If you're using NodeJitsu then you can leave this as is unless you want to use a custom URL.
  */
-module.exports.appURL = (process.env.NODE_ENV == 'production') ? 'http://'+process.env.SUBDOMAIN+'.jit.su' : 'http://localhost:8080';
+module.exports.appURL = (process.env.NODE_ENV == 'production') ? 'http://'+process.env.SUBDOMAIN+'.jit.su' : 'http://desotocg.local';
 module.exports.couchURL = process.env.COUCH_URL;
 module.exports.verbosity = 0;
 module.exports.redis = {
