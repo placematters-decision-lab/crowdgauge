@@ -4,7 +4,7 @@
   "scripts": {
     "start": "index.js"
   },
-  "version": "0.0.1-19",
+  "version": "0.0.1-23",
   "dependencies": {
     "socket.io": "0.9.x",
     "imagemagick": "0.1.x",
