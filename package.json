@@ -1,6 +1,6 @@
 {
   "name": "crowdgauge",
-  "subdomain": "crowdgauge_demo",
+  "subdomain": "desoto",
   "scripts": {
     "start": "index.js"
   },
