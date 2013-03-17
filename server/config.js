@@ -11,7 +11,7 @@ module.exports.appURL = (env['DOTCLOUD_FLAVOR'] == 'sandbox') ? env['DOTCLOUD_WW
 module.exports.couchURL = env['COUCH_URL'];
 module.exports.verbosity = 0;
 module.exports.redis = {
-    host:env['DOTCLOUD_DATA_REDIS_HOST'],
+    host:env['DOTCLOUD_DATA_REDIS_URL'],
     port:env['DOTCLOUD_DATA_REDIS_PORT'], //9859 = default redis port, use 6379 for iris
     key:env['DOTCLOUD_DATA_REDIS_PASSWORD']
 };
