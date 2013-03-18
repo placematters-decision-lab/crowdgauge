@@ -37,6 +37,7 @@
 
         var _drawRow = function (file) {
             var $row = $("<div>").appendTo(_$imagePane);
+            $('<div>').text('Your icon should appear twice below (black on the left, red on the right). This is to ensure your icons can be dynamically colored.').appendTo($row);
             $('<img src="' + file.thumbnail_url + '?color=black"}">').appendTo($row);
             $('<img src="' + file.thumbnail_url + '?color=crimson"}">').appendTo($row);
             $('<span/>').text(file.name).appendTo($row);
@@ -48,6 +49,7 @@
         };
 
         var _addImagePane = function () {
+            $('<div>').text('SVG file for icon:').appendTo(_$imagePane);
             var $chooseFilesBtn = $('<input type="file" data-url="/fileupload">').appendTo(_$imagePane);
             $chooseFilesBtn.attr("name", _priority.uid);
 
