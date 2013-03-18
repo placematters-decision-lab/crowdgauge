@@ -186,7 +186,7 @@
             $("#coinsLeft").toggle(show && _mode == SCENARIO);
             $("#clickInstr").toggle(show && _mode == IMPACTS);
             if (show) {
-                $("#leftPanel").css("width", "445px");
+                //$("#leftPanel").css("width", "445px");
             }
             _super._updateSelectionDisplay();
         };

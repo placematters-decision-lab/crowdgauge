@@ -59,7 +59,7 @@
         };
 
         var _createList = function () {
-            $("#leftPanel").addClass("sliderPanel");
+            //$("#leftPanel").addClass("sliderPanel");
             $("#priorityList").html("");
             var orderedArr = _priorities.slice(0);//clone
             if (_randomizeOrder) orderedArr.sort(function() { return 0.5 - Math.random();});
@@ -73,7 +73,7 @@
                 priority.value = _starAsPerc(priority.score);
                 var div = $("<div class='sliderGrp'></div>").appendTo("#priorityList");
 //                var img = $("<img class='sliderIcon' src='" + priority.icon + ".png' width='26' height='26'>").appendTo(div);
-                var ratingDiv = $("<div class='sliderDiv id='slider" + i + "'></div>").appendTo(div);
+                var ratingDiv = $("<div class='sliderDiv' id='slider" + i + "'></div>").appendTo(div);
                 priority.ratingDiv = ratingDiv;
                 var $titleTxt = $("<div class='sliderTitle'></div>").appendTo(div);
                 SAS.localizr.live(pDef.title, $titleTxt);
@@ -97,7 +97,7 @@
             $("#priorityList").toggle(show);
             $("#starsLeft").toggle(show);
             if (show) {
-                $("#leftPanel").css("width", 505);
+                //$("#leftPanel").css("width", 505);
             }
         };
 
