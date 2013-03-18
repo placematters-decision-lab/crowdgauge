@@ -1,0 +1,97 @@
+.tabTitle {
+  cursor: pointer;
+  display: inline-block; }
+
+.sliderPanel {
+  float: left;
+  padding: 5px;
+  padding-left: 8px;
+  padding-top: 7px; }
+
+.sliderDiv {
+  float: left;
+  width: 150px;
+  margin-top: 4px;
+  margin-left: 6px; }
+
+.sliderTitle {
+  font-size: 0.8em;
+  margin-bottom: 2px;
+  margin-left: 8px;
+  vertical-align: middle;
+  float: left;
+  margin-top: 5px; }
+
+.sliderGrp {
+  margin-top: 5px;
+  height: 25px;
+  vertical-align: middle;
+  clear: left; }
+
+.mechGrp {
+  margin: 5px;
+  padding: 5px; }
+
+.mechGrpBtn {
+  cursor: pointer;
+  padding: 5px 4px 4px 5px; }
+
+.mechIcon {
+  float: left;
+  clear: left; }
+
+.right_wrapper {
+  float: left;
+  width: 100%; }
+
+.info_left {
+  width: 362px;
+  display: block;
+  padding: 2px;
+  float: left;
+  margin-right: 5px;
+  margin-left: -100%; }
+
+.info_left_box > img {
+  max-width: 360px; }
+
+.info_right {
+  margin-left: 375px;
+  display: block;
+  margin-top: 28px; }
+
+.info_icon {
+  display: inline-block;
+  float: left;
+  margin-right: 8px;
+  margin-top: 2px; }
+
+.info_right_title {
+  font-weight: bold;
+  font-size: 1.3em;
+  margin-top: 12px; }
+
+.mechText {
+  margin-left: 42px; }
+
+.mech_action_div {
+  vertical-align: middle;
+  margin-top: 8px;
+  min-height: 24px; }
+
+#chart {
+  display: block;
+  left: 510px;
+  position: absolute;
+  top: 80px; }
+
+#starsLeft {
+  padding-left: 30px;
+  height: 40px;
+  position: absolute; }
+
+#itemsLeft {
+  position: absolute;
+  margin-left: 10px;
+  width: 500px;
+  height: 45px; }
