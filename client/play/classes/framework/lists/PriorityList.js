@@ -73,9 +73,9 @@
                 priority.value = _starAsPerc(priority.score);
                 var div = $("<div class='sliderGrp'></div>").appendTo("#priorityList");
 //                var img = $("<img class='sliderIcon' src='" + priority.icon + ".png' width='26' height='26'>").appendTo(div);
-                var ratingDiv = $("<div class='sliderDiv' id='slider" + i + "'></div>").appendTo(div);
+                var ratingDiv = $("<div class='sliderDiv span4' id='slider" + i + "'></div>").appendTo(div);
                 priority.ratingDiv = ratingDiv;
-                var $titleTxt = $("<div class='sliderTitle'></div>").appendTo(div);
+                var $titleTxt = $("<div class='sliderTitle span8'></div>").appendTo(div);
                 SAS.localizr.live(pDef.title, $titleTxt);
                 ratingDiv.raty({
                     path:'img/raty-img',

@@ -11,7 +11,7 @@
         var IMPACTS = "impacts";
 
         //region private fields and methods
-        var _mRadius = 1000;
+        var _mRadius = 1250;
         var _circleRad = 99;//--allow small buffer for stroke
         var _mSvg;
         var _mainGrp;
@@ -304,10 +304,11 @@
             $("#colorRampLegend").toggle(show);
         };
 
+
         var _updateLayout = function () {
             var w = $("#chart").width();
             var h = $("#chart").height();
-            var scale = Math.min(w, h) / 1000;
+            var scale = Math.min(w, h) / 1250;
             _mSvg.attr("width", w).attr("height", h);
             _mainGrp.attr("transform", "scale(" + scale + ")");
         };

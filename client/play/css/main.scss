@@ -40,6 +40,10 @@ body {
   clear: left;
 }
 
+.mechPanel {
+  height: auto !important;
+}
+
 .mechGrp {
   margin: 5px;
   padding: 5px;
@@ -99,6 +103,11 @@ body {
 
 //=====================================
 #chart {
+  position: fixed;
+}
+
+/*
+#chart {
   display: block;
   left: 510px;
   position: absolute;
@@ -116,4 +125,4 @@ body {
   margin-left: 10px;
   width: 500px;
   height: 45px;
-}
+}       */

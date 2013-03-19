@@ -262,7 +262,7 @@
                 {sel:$("#footer")}
             ]);
             _layout.addHeightFillers([
-                {sel:".mechPanel", leave:73},
+                /*{sel:".mechPanel", leave:73}, */
                 {sel:".mechPanelComp", leave:73},
                 {sel:"#priorityList", leave:73},
                 {sel:$("#chart"), leave:66}

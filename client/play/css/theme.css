@@ -38,3 +38,6 @@ body {
 
 .selected {
   border: 2px solid black; }
+
+.bigButton_next {
+  text-transform: capitalize; }

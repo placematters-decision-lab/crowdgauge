@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -10,12 +9,12 @@
 
     <!-- Le styles -->
     <link type="text/css" href="../lib/jquery-ui/jquery-ui-1.9.1.custom.min.css" rel="stylesheet"/>
-    <link type="text/css" href="../lib/jquery-tipsy/tipsy.css" rel="stylesheet" />
+    <link type="text/css" href="../lib/jquery-tipsy/tipsy.css" rel="stylesheet"/>
     <link type="text/css" href="css/main.css" rel="stylesheet"/>
     <link type="text/css" href="css/theme.css" rel="stylesheet"/>
     <link type="text/css" href="css/datacolors.css" rel="stylesheet"/>
     <link type="text/css" href="css/coins.css" rel="stylesheet"/>
-    <link href="../lib/bootstrap/css/bootstrap.css" rel="stylesheet">
+    <link href="../lib/bootstrap/css/bootstrap-cerulean.css" rel="stylesheet">
     <style type="text/css">
         body {
             padding-top: 60px;
@@ -25,6 +24,10 @@
             padding: 9px 0;
         }
 
+        .main {
+            padding-bottom: 100px;
+        }
+
         @media (max-width: 980px) {
             /* Enable use of floated navbar text */
             .navbar-text.pull-right {
@@ -32,6 +35,13 @@
                 padding-left: 5px;
                 padding-right: 5px;
             }
+        }
+
+        footer {
+            position: fixed;
+            bottom: 0;
+            background: lightgray;
+            width: 100%;
         }
     </style>
     <link href="../lib/bootstrap/css/bootstrap-responsive.css" rel="stylesheet">
@@ -50,75 +60,75 @@
 </head>
 
 <body>
+    <div class="navbar navbar navbar-fixed-top">
+        <div class="navbar-inner">
+            <div class="container-fluid">
+                <button type="button" class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="brand" href="#">DeSoto : A New Era of Discovery</a>
 
-<div class="navbar navbar-inverse navbar-fixed-top">
-    <div class="navbar-inner">
-        <div class="container-fluid">
-            <button type="button" class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-            </button>
-            <a class="brand" href="#">DeSoto : A New Era of Discovery</a>
-            <div class="nav-collapse collapse">
-                <p class="navbar-text pull-right">
-                    Welcome
-                </p>
-                <ul class="nav">
-                    <li id="tab_intro" class="tabTitle">Introduction</li>
-                    <li id="tab_priorities" class="tabTitle">Priorities</li>
-                    <li id="tab_impacts" class="tabTitle">Impacts</li>
-                    <li id="tab_money" class="tabTitle">Plan a Scenario</li>
-                </ul>
-            </div><!--/.nav-collapse -->
+                <div class="nav-collapse collapse">
+                    <p class="navbar-text pull-right">
+                        Welcome
+                    </p>
+                    <ul class="nav">
+                        <li id="tab_intro"><a>Introduction</a></li>
+                        <li id="tab_priorities"><a>Priorities</a></li>
+                        <li id="tab_impacts"><a>Impacts</a></li>
+                        <li id="tab_money"><a>Choose your Policies</a></li>
+                    </ul>
+                </div>
+                <!--/.nav-collapse -->
+            </div>
         </div>
     </div>
-</div>
 
-<div class="container-fluid">
-    <div class="row-fluid">
-        <div id="leftPanel" class="span4">
-            <div id="mainTitle"></div>
-            <div id="priorityList"></div>
-            <div id="mechanismList"></div>
-            <div id="compareList"></div>
-        </div><!--/span-->
-        <div class="span8">
-            <div id="titleBar" class="titleImg"></div>
-            <div id="intro">
-                <div class="introTxt">
-                    <p>Use this interactive game to tell us your
-                        priorities for the future and see how different regional projects and policies might affect what you
-                        want.</p>
-                </div>
-                <div id="introFrm" class="introFrm">
-
-                </div>
-
+    <div class="container-fluid main">
+        <div class="row-fluid">
+            <div id="leftPanel" class="span4">
+                <div id="mainTitle"></div>
+                <div id="priorityList"></div>
+                <div id="mechanismList"></div>
+                <div id="compareList"></div>
             </div>
-            <div id="chart"></div>
-        </div><!--/span-->
-    </div><!--/row-->
-    <div class="row-fluid">
-        <div class="span12">
-            <div id="moreInfo"></div>
-            <div id="itemsLeft">
-                <div id="starsLeft"></div>
-                <div id="coinsLeft"></div>
-                <div id="clickInstr" class="clickTheIcon">Click the icons for explanations</div>
+            <!--/span-->
+            <div class="span8">
+                <div id="titleBar" class="titleImg"></div>
+                <div id="intro">
+                    <div class="introTxt">
+                        <p>Use this interactive game to tell us your
+                            priorities for the future and see how different regional projects and policies might affect
+                            what you
+                            want.</p>
+                    </div>
+                    <div id="introFrm" class="introFrm">
+
+                    </div>
+
+                </div>
+                <div id="chart"></div>
             </div>
-            <div id="colorRampLegend" class="colorRamp"></div>
-            <div id="langSel" style="display:none;"></div>
-            <button class="btn btn-primary" id="btnNext" data-localize="buttons.next">Next</button>
-            <div id="reshowInstr">Show Instructions Again</div>
-            <div id="dialog"></div>
+            <!--/span-->
         </div>
+        <!--/row-->
     </div>
-    <hr>
 
-    <footer>
-
-    </footer>
+<footer>
+        <div id="moreInfo"></div>
+        <div id="itemsLeft">
+            <div id="starsLeft"></div>
+            <div id="coinsLeft"></div>
+            <div id="clickInstr" class="clickTheIcon">Click the icons for explanations</div>
+        </div>
+        <div id="colorRampLegend" class="colorRamp"></div>
+        <div id="langSel" style="display:none;"></div>
+        <button class="btn-large btn-primary" id="btnNext" data-localize="buttons.next">Next</button>
+        <div id="reshowInstr">Show Instructions Again</div>
+        <div id="dialog"></div>
+</footer>
 
 </div><!--/.fluid-container-->
 

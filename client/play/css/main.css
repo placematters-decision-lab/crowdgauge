@@ -28,6 +28,9 @@
   vertical-align: middle;
   clear: left; }
 
+.mechPanel {
+  height: auto !important; }
+
 .mechGrp {
   margin: 5px;
   padding: 5px; }
@@ -80,18 +83,25 @@
   min-height: 24px; }
 
 #chart {
+  position: fixed; }
+
+/*
+#chart {
   display: block;
   left: 510px;
   position: absolute;
-  top: 80px; }
+  top: 80px;
+}
 
 #starsLeft {
   padding-left: 30px;
   height: 40px;
-  position: absolute; }
+  position: absolute;
+}
 
 #itemsLeft {
   position: absolute;
   margin-left: 10px;
   width: 500px;
-  height: 45px; }
+  height: 45px;
+}       */
