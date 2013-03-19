@@ -18,6 +18,7 @@
         var _pageIds = [INTRO, PRIORITIES, IMPACTS, MONEY];
         var _btnStates = [BTN_NEXT, BTN_SUBMIT, BTN_SHARE];
         var _cacheVersion = SAS.mainInstance.getCacheVersion();
+        var _pageTitles = new Array();
         var _lastPage;
         var _moneyShown = false;
         var _submitted = false;
@@ -43,6 +44,12 @@
         var _instructions = new SAS.Instructions();
         var _introPage = new SAS.IntroPage(dataManager);
 
+
+        _pageTitles['intro'] = '';
+        _pageTitles['priorities'] = ' I want communities in the I-69/269 corridor where... ';
+        _pageTitles['impacts'] = '';
+        _pageTitles['money'] = '';
+
         var _selectTab = function (pageId) {
             $(".tabTitle").removeClass("tabTitleHighlight");
             $("#tab_" + pageId).addClass("tabTitleHighlight");
@@ -51,6 +58,8 @@
                 $("#titleBar").removeClass("titleImg_" + _lastPage);
             }
             $("#titleBar").addClass("titleImg_" + pageId);
+            console.log('select tab: ' + _pageTitles[pageId]);
+            $("#titleBar").html("<h2>" + _pageTitles[pageId] + "</h2>");
         };
 
         var _showNextButton = function (show, btnState) {
@@ -262,9 +271,9 @@
                 {sel:$("#footer")}
             ]);
             _layout.addHeightFillers([
-                /*{sel:".mechPanel", leave:73}, */
-                {sel:".mechPanelComp", leave:73},
-                {sel:"#priorityList", leave:73},
+                {sel:".mechPanel", leave:125},
+                {sel:".mechPanelComp", leave:125},
+                {sel:"#priorityList", leave:125},
                 {sel:$("#chart"), leave:66}
                 //40 for image + 24 for footer + 2
             ]);

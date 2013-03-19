@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>DeSoto : A New Era of Discovery</title>
+    <title>DeSoto : New Era of Discovery</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="">
     <meta name="author" content="">
@@ -17,11 +17,20 @@
     <link href="../lib/bootstrap/css/bootstrap-cerulean.css" rel="stylesheet">
     <style type="text/css">
         body {
-            padding-top: 60px;
+            padding-top: 45px;
             padding-bottom: 40px;
         }
         .sidebar-nav {
             padding: 9px 0;
+        }
+
+         /* Custom container */
+        .container-narrow {
+            margin: 20px auto;
+            max-width: 700px;
+        }
+        .container-narrow > hr {
+            margin: 30px 0;
         }
 
         .main {
@@ -42,6 +51,7 @@
             bottom: 0;
             background: lightgray;
             width: 100%;
+            padding: 10px 0;
         }
     </style>
     <link href="../lib/bootstrap/css/bootstrap-responsive.css" rel="stylesheet">
@@ -68,7 +78,7 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="brand" href="#">DeSoto : A New Era of Discovery</a>
+                <a class="brand" href="#">DeSoto : New Era of Discovery</a>
 
                 <div class="nav-collapse collapse">
                     <p class="navbar-text pull-right">
@@ -85,8 +95,25 @@
             </div>
         </div>
     </div>
+    <div class="container-narrow">
 
+            <div id="intro">
+                <div class="introTxt">
+                    <p>Use this interactive game to tell us your
+                        priorities for the future and see how different regional projects and policies might affect
+                        what you
+                        want.</p>
+                </div>
+                <div id="introFrm" class="introFrm">
+
+                </div>
+
+            </div>
+    </div> <!--/continer-narrow-->
     <div class="container-fluid main">
+        <div class="row-fluid">
+            <div id="titleBar" class="span12 titleImg"></div>
+        </div>
         <div class="row-fluid">
             <div id="leftPanel" class="span4">
                 <div id="mainTitle"></div>
@@ -96,19 +123,6 @@
             </div>
             <!--/span-->
             <div class="span8">
-                <div id="titleBar" class="titleImg"></div>
-                <div id="intro">
-                    <div class="introTxt">
-                        <p>Use this interactive game to tell us your
-                            priorities for the future and see how different regional projects and policies might affect
-                            what you
-                            want.</p>
-                    </div>
-                    <div id="introFrm" class="introFrm">
-
-                    </div>
-
-                </div>
                 <div id="chart"></div>
             </div>
             <!--/span-->
@@ -117,6 +131,7 @@
     </div>
 
 <footer>
+    <div class="container-fluid">
         <div id="moreInfo"></div>
         <div id="itemsLeft">
             <div id="starsLeft"></div>
@@ -128,6 +143,7 @@
         <button class="btn-large btn-primary" id="btnNext" data-localize="buttons.next">Next</button>
         <div id="reshowInstr">Show Instructions Again</div>
         <div id="dialog"></div>
+    </div>
 </footer>
 
 </div><!--/.fluid-container-->

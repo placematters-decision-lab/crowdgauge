@@ -41,7 +41,9 @@ body {
 }
 
 .mechPanel {
-  height: auto !important;
+  /*height: auto !important; */
+  overflow-y: auto;
+  border-bottom: 1px solid #E0D5D0;
 }
 
 .mechGrp {
