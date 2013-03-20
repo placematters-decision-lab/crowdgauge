@@ -28,6 +28,7 @@
         var _$progressive;
         var _$description;
         var _$nickname;
+        var _$category;
 
         var _buildContent = function ($dlg) {
             var $inputsDiv = $("<div></div>").appendTo($dlg);
@@ -35,6 +36,7 @@
             _$progressive = _super.p_mkShortTextField('md_progressive', "Progressive tense of title", $inputsDiv, _mechanism.progressive);
             _$nickname = _super.p_mkShortTextField('md_nickname', "Nickname (optional short version of title)", $inputsDiv, _mechanism.nickname);
             _$description = _super.p_mkLongTextField('md_description', 'Description', $inputsDiv, _mechanism.description);
+            _$category =  _super.p_mkShortTextField('md_category', "Category", $inputsDiv, _mechanism.category);
 
             new SAS.ImageList($('<div class="panel">').appendTo($inputsDiv), _mechanism.uid, true);
         };
@@ -45,6 +47,7 @@
             vals.progressive = _$progressive.val();
             vals.description = _$description.val();
             vals.nickname = _$nickname.val();
+            vals.category = _$category.val();
             SAS.localizr.set(_mechanism, vals);
         };
 

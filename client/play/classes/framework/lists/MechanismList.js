@@ -36,6 +36,7 @@
 
         var _actionDefs = {};
 
+
         //var _transTime = 1000;
 
         var _setMode = function (mode) {
@@ -151,8 +152,12 @@
 
         var _addMechListItem = function (mechanism) {
             mechanism.id = mechanism.data.uid;
-            mechanism.category = "main";
-            if (!_super._getCatDiv(mechanism.category)) return;
+            if(mechanism.data.category) {
+                mechanism.category = SAS.localizr.get(mechanism.data.category);
+            } else {
+                mechanism.category = "";
+            }
+            if (!_super._getCatDiv(SAS.localizr.get(mechanism.category))) return;
             var mechDiv = $("<div class='mechGrp'></div>").appendTo(_super._getCatDiv(mechanism.category));
             mechDiv.attr("id", "mech" + mechanism.id);
             _mechIconDivsById[mechanism.id] = $("<div class='mechIcon'></div>").appendTo(mechDiv);
@@ -171,7 +176,8 @@
             $("#mechanismList").html("");
             _super._mechPanel($("<div class='mechPanel'></div>").appendTo("#mechanismList"));
 
-            _super._addCatDivs(["main"]);
+            _super._addCatDivs(["","Land Development","Housing","Transportation","Parks, Natural Areas and Agriculture","Economy"]);
+
 
             $.each(_super._mechanisms(), function (i, mechanism) {
                 _addMechListItem(mechanism);

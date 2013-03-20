@@ -21,6 +21,7 @@
             progressive: "",
             description: "",
             nickname: "",
+            category: "",
             uid: "m"+_getUID()
         };
 
@@ -51,6 +52,9 @@
 
         /** @type {String} unique id*/
         this.uid = _settings.uid;
+
+        /** @type {String} optional category name*/
+        this.category = _settings.category;
         //endregion
     }
 })();
