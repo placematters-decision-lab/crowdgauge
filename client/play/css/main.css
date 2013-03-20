@@ -28,7 +28,7 @@
   vertical-align: middle;
   clear: left; }
 
-.mechPanel {
+.mechPanel, #priorityList {
   /*height: auto !important; */
   overflow-y: auto;
   border-bottom: 1px solid #E0D5D0; }

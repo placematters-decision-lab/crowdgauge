@@ -53,7 +53,9 @@
 
         var _selectTab = function (pageId) {
             $(".tabTitle").removeClass("tabTitleHighlight");
+            $(".tabTitle").removeClass("active");
             $("#tab_" + pageId).addClass("tabTitleHighlight");
+            $("#tab_" + pageId).addClass("active");
 
             if (_lastPage != null) {
                 $("#titleBar").removeClass("titleImg_" + _lastPage);
@@ -240,7 +242,7 @@
         var _addClickEvents = function (pids) {
             $.each(pids, function (i, pageId) {
                 $("#tab_" + pageId)
-                    .addClass("tabTitleActive")
+                    .addClass("tabTitle")
                     .click(function () {
                         _gotoPage(pageId);
                         _selectTab(pageId);
@@ -251,7 +253,7 @@
         var _removeClickEvents = function (pids) {
             $.each(pids, function (i, pageId) {
                 $("#tab_" + pageId)
-                    .removeClass("tabTitleActive")
+                    .removeClass("tabTitle")
                     .unbind('click');
             });
         };
@@ -314,7 +316,7 @@
                     }
                     _dataManager.saveData(function (entryId) {
                         _submitted = true;
-                        _showNextButton(true, BTN_SHARE);
+                        _showNextButton(false, BTN_SHARE);
                         _showSharingDialog(entryId, "Your response has been submitted. Thank you for your time. ");
                     });
                 } else if ($(this).hasClass("bigButton_" + BTN_SHARE)) {

@@ -114,7 +114,8 @@
 
         this.showIntroDialog = function() {
             _showAgainFn = null;
-            var txt = "<p>This is the intro</p>";
+            var txt = "<p>Welcome to Desoto : A New Era of Discovery! This exercise is designed to help you understand how what you value most relate to possible development policies that could be applied in the I-69/269 Corridor.</p>";
+            txt += "<p>You can learn more by visiting the <a href='http://desotodiscovery.com' target='_blank'>official website.</a></p>"
             _showInstructionDialog(txt, "Introduction", "Get Started", function() {
                 SAS.mainInstance.preventAccidentalLeaving();
             });
@@ -177,6 +178,8 @@
 
         this.showSharingDialog = function (entryId, header, pages, bubblechart, sortedPriorities) {
             //TODO
+            var txt = "<p>Thank you for sharing your submission!  Your input is valuable to the future of DeSoto County and the I-69/269 Corridor.</p>";
+            _showInstructionDialog(txt,'Thank you for sharing!');
         };
         //endregion
 

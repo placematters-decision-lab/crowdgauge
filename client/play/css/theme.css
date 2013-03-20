@@ -1,12 +1,6 @@
 body {
   background-color: #ffed9b; }
 
-.tabTitle {
-  background-color: #ffffff;
-  border: 1px solid gray;
-  margin: 0px 5px;
-  padding: 2px 3px; }
-
 .sliderTitle {
   color: #654A3F; }
 
@@ -42,7 +36,7 @@ body {
 .btn-primary {
   text-transform: capitalize; }
 
-.starsLeftNum {
+.starsLeftNum, .coinsLeftNum {
   font-family: 'Telex', sans-serif;
   font-size: 2em;
   color: #45aeea; }

@@ -155,6 +155,7 @@
 
         this.load = function (data) {
             _priorities = data;
+            console.log(data);
             _totalStars = Math.ceil(_priorities.length * 2.5);
             _createList();
             _onLoad();
