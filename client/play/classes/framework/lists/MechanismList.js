@@ -171,7 +171,7 @@
             $("#mechanismList").html("");
             _super._mechPanel($("<div class='mechPanel'></div>").appendTo("#mechanismList"));
 
-            _super._addCatDivs(["main","test","what"]);
+            _super._addCatDivs(["main"]);
 
             $.each(_super._mechanisms(), function (i, mechanism) {
                 _addMechListItem(mechanism);

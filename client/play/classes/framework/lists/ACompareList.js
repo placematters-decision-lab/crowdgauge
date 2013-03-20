@@ -80,6 +80,10 @@
             }
         };
 
+        /*
+        Check for passed data, if it exists, set var _mechanisms to the data, otherwise return var _mechanisms.  Allows inheriting classes
+        to
+         */
         this._mechanisms = function (p) {
             if (p) {
                 _mechanisms = p;
