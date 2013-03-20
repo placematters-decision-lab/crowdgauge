@@ -136,7 +136,7 @@
             };
             $("#dialog").html("");
             var txtAbove = $("<div></div>").appendTo("#dialog");
-            $("<p>Ever wonder how planning affects you?</p><p>Click through the <b>list of actions on the left</b> to see how different projects and policies might affect your priorities.</p>").appendTo(txtAbove);
+            $("<p>Ever wonder how planning affects you?</p><p>Click through the <b>list of actions on the left</b> to see how different policies might affect your priorities.</p>").appendTo(txtAbove);
             $("<div class='clickTheIcon' style='height:40px'>Then click on any of the bubbles to open up an explanation.</div>").appendTo(txtAbove);
             $("<p>The colors of your priority chart show how each project or policy impacts your priorities, in a <span style='background-color: #2BBEC5'>positive</span> , <span style='background-color: #EAD9C4'>neutral</span>, or <span style='background-color: #ec7623'>negative</span> way.</p>").appendTo(txtAbove);
             $("<p>Look for actions that make your biggest bubbles turn blue. To get started, we've picked the action that appears to have the greatest positive impact on your priorities:</p>.").appendTo(txtAbove);
@@ -146,7 +146,6 @@
             new SAS.MiniBubbleChart(bubblechart).addMiniBubbleChart("#mechInsExample", topScorer.values);
             var insTxt = $("<div class='mechText' style='font-size: 1em;'></div>").appendTo(mechDivIns);
             insTxt.html(topScorer.data.title.en);
-            console.log(topScorer.data.title.en);
 
             mechDivIns.click(function () {
                 _closeDialog();

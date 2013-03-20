@@ -59,7 +59,6 @@
                 $("#titleBar").removeClass("titleImg_" + _lastPage);
             }
             $("#titleBar").addClass("titleImg_" + pageId);
-            console.log('select tab: ' + _pageTitles[pageId]);
             $("#titleBar").html("<h2>" + _pageTitles[pageId] + "</h2>");
         };
 
