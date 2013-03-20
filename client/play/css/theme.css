@@ -39,5 +39,10 @@ body {
 .selected {
   border: 2px solid black; }
 
-.bigButton_next {
+.btn-primary {
   text-transform: capitalize; }
+
+.starsLeftNum {
+  font-family: 'Telex', sans-serif;
+  font-size: 2em;
+  color: #45aeea; }

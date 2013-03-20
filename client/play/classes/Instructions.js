@@ -21,6 +21,10 @@
             $("#reshowInstr").toggle(show);
         };
 
+        var _showModalInstructionDialog = function (html, title) {
+
+        };
+
         var _showInstructionDialog = function (html, title, buttonLabel, buttonFn) {
             $("#dialog").html(html);
             _showInstructionDialog2(600, title, buttonLabel, buttonFn);
@@ -142,6 +146,7 @@
             new SAS.MiniBubbleChart(bubblechart).addMiniBubbleChart("#mechInsExample", topScorer.values);
             var insTxt = $("<div class='mechText' style='font-size: 1em;'></div>").appendTo(mechDivIns);
             insTxt.html(topScorer.data.title);
+            console.log(topScorer.data.title);
 
             mechDivIns.click(function () {
                 _closeDialog();

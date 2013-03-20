@@ -44,11 +44,12 @@
         var _instructions = new SAS.Instructions();
         var _introPage = new SAS.IntroPage(dataManager);
 
-
+        /** These are hard coded now, but could come from a config file or database record
+         * TODO move these out of code **/
         _pageTitles['intro'] = '';
         _pageTitles['priorities'] = ' I want communities in the I-69/269 corridor where... ';
-        _pageTitles['impacts'] = '';
-        _pageTitles['money'] = '';
+        _pageTitles['impacts'] = 'How might planning policies affect your priorities?';
+        _pageTitles['money'] = 'Tell us which policies you would like to see in the corridor';
 
         var _selectTab = function (pageId) {
             $(".tabTitle").removeClass("tabTitleHighlight");
@@ -271,10 +272,10 @@
                 {sel:$("#footer")}
             ]);
             _layout.addHeightFillers([
-                {sel:".mechPanel", leave:125},
-                {sel:".mechPanelComp", leave:125},
-                {sel:"#priorityList", leave:125},
-                {sel:$("#chart"), leave:66}
+                {sel:".mechPanel", leave:100},
+                {sel:".mechPanelComp", leave:100},
+                {sel:"#priorityList", leave:100},
+                {sel:$("#chart"), leave:20}
                 //40 for image + 24 for footer + 2
             ]);
             _layout.addWidthFillers([
