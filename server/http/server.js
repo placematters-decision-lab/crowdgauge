@@ -1,5 +1,8 @@
 //region nodejs core
 var http = require("http");
+var https = require('https');
+http.globalAgent.maxSockets = 10000;
+https.globalAgent.maxSockets = 10000;
 var url = require("url");
 var qs = require('querystring');
 //endregion
