@@ -106,11 +106,11 @@
                 buttons:{ "Ok":function () {
                     $(this).dialog("close");
                 } },
-                height:650,
+                height:500,
                 width:800,
                 minWidth:600,
-                maxHeight:$(window).height() - 80,
-                position:[10, 20],
+                maxHeight:$(window).height() - 100,
+                position:[10, 60],
                 dialogClass:'noTitle'
             });
         };
