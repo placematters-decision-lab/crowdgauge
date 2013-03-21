@@ -169,7 +169,8 @@
             var txt = "<p>Tell us what policies you support!</p>";
             txt += "<p>You have " + numCoins + " ways to show your support. You may allocate your total support to as many policies as you can. " +
                 "You can allocate it evenly among many policies or put more support behind a set of policies until you run out of support. " +
-                "You can also put all of your support behind making no policy changes, but if you do, you will not be able to choose anything else.</p>" +
+                "<strong>You do not have to allocate all of your available support.</strong></p> " +
+                "<p>You can also put all of your support behind making no policy changes, but if you do, you will not be able to choose anything else.</p>" +
                 "<p>See how the colors change in your priority chart to show how well the options you select help achieve your priorities.</p>";
             _showInstructionDialog(txt);
         };

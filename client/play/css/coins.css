@@ -22,8 +22,8 @@
 .coins_hlite_9 {
   background-image: url("img/coins/hlite_9.png"); }
 
-.coins_hlite_12 {
-  background-image: url("img/coins/hlite_12.png"); }
+.coins_hlite_25 {
+  background-image: url("img/coins/hlite_25.png"); }
 
 .coins_off_0 {
   background-image: url("img/coins/off_0.png"); }
@@ -49,8 +49,8 @@
 .coins_off_9 {
   background-image: url("img/coins/off_9.png"); }
 
-.coins_off_12 {
-  background-image: url("img/coins/off_12.png"); }
+.coins_off_25 {
+  background-image: url("img/coins/off_25.png"); }
 
 .coins_on_0 {
   background-image: url("img/coins/on_0.png"); }
@@ -76,8 +76,8 @@
 .coins_on_9 {
   background-image: url("img/coins/on_9.png"); }
 
-.coins_on_12 {
-  background-image: url("img/coins/on_12.png"); }
+.coins_on_25 {
+  background-image: url("img/coins/on_25.png"); }
 
 .coins_disabled_0 {
   background-image: url("img/coins/disabled_0.png"); }
@@ -103,8 +103,8 @@
 .coins_disabled_9 {
   background-image: url("img/coins/disabled_9.png"); }
 
-.coins_disabled_12 {
-  background-image: url("img/coins/disabled_12.png"); }
+.coins_disabled_25 {
+  background-image: url("img/coins/disabled_25.png"); }
 
 .coins {
   background-repeat: no-repeat;
