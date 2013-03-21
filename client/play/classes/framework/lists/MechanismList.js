@@ -90,6 +90,7 @@
         var _addMoneyAndVotes = function (mechanism) {
             _moneyIcons[mechanism.id] = [];
             d3.json('/getActions?mechId=' + mechanism.id, function (mObj) {
+                console.log(mObj.actions);
                 $.each(mObj.actions, function (i, action) {
                     if (!action.data) return true;//continue
                     var actionDiv = $("<div class='mech_action_div'>").appendTo(_mechSubDivsById[mechanism.id]);
