@@ -2,8 +2,11 @@ var path = require('path');
 var nodeStatic = require('node-static');
 var fs = require('fs');
 
-var config = require("./server/config");
-
+if(process.env.DEV) {
+    var config = require("./server/config_local");
+} else {
+    var config = require("./server/config");
+}
 
 var server = require("./server/http/server");
 var router = require("./server/http/router");
