@@ -5,6 +5,10 @@ body {
   //position: fixed;
 }
 
+.mechSub {
+  margin-left: 20px;
+}
+
 .tabTitle {
   cursor: pointer;
   display: inline-block;
@@ -101,6 +105,7 @@ body {
   vertical-align: middle;
   margin-top: 8px;
   min-height: 24px;
+  display: inline-block;
 }
 
 //=====================================

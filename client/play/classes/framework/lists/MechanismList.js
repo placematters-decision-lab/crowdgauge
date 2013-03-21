@@ -98,7 +98,11 @@
                     _moneyIcons[mechanism.id].push(micon);
                     micon.addMoneyAndVotes(actionDiv, mechanism.values);
                     micon.onSelectionChange(function () {
-                        _radioClick(mechanism, micon);
+                        /*
+                        Temporarily removed radio click as the options for this game are not exclusive
+                        TODO: abstract to make this optional so admin can select whether they want exclusive or non-exclusive actions
+                         */
+                        //_radioClick(mechanism, micon);
                         _recalcMoney(mechanism, micon);
                     });
                 });
@@ -232,7 +236,16 @@
                 if (micons == null) return true;//continue
                 $.each(micons, function (j, micon) {
                     if (micon.isOn()) {
-                        votes[mechanism.id] = micon.getTotalCoins();
+                        /*
+                        Added check to see if mechanism already has votes associated with it, make this cumulative, this
+                        is a hack for a special case where you want to allocate individual coins to a single
+                        TODO: abstract this so the admin can choose whether action votes are exclusive or not, maybe store the actual votes by action instead of mechanism
+                         */
+                        if(votes[mechanism.id]) {
+                            votes[mechanism.id] = votes[mechanism.id] + micon.getTotalCoins();
+                        } else {
+                            votes[mechanism.id] = micon.getTotalCoins();
+                        }
                     }
                 });
             });
