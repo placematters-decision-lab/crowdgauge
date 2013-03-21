@@ -32,7 +32,7 @@
 
         var _moneyIcons;
         var _mode = IMPACTS;
-        var _totalCoins = 12;
+        var _totalCoins = 9;
 
         var _actionDefs = {};
 
@@ -126,9 +126,9 @@
         var _recalcCoinBalance = function (coinsUsed) {
             var coinsLeft = (_totalCoins - coinsUsed);
             if (coinsLeft == 0) {
-                $("#coinsLeft").html("<span class='coinsLeftNum'>0</span><small> coins left (to redistribute, uncheck current selections)</small>");
+                $("#coinsLeft").html("<span class='coinsLeftNum'>0</span><small> ways to show support (to redistribute, uncheck current selections)</small>");
             } else {
-                $("#coinsLeft").html("You have <span class='coinsLeftNum'>" + coinsLeft + "</span> coin" + ((coinsLeft > 1) ? "s" : "") + " left");
+                $("#coinsLeft").html("You have <span class='coinsLeftNum'>" + coinsLeft + "</span> more ways to show support");
             }
 
             $.each(_moneyIcons, function (mechId, micons) {
