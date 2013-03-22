@@ -13,18 +13,19 @@ var config_redis_port = process.env.REDIS_PORT;
 var config_redis_key = process.env.REDIS_KEY;
 var config_loggly = null;
 
-var fs = require('fs');
-fs.exists('/home/dotcloud', function(exists) {
-  if(exists) {
-      var env = JSON.parse(fs.readFileSync('/home/dotcloud/environment.json', 'utf-8'));
-      config_appURL = env['DOTCLOUD_WWW_HTTP_URL'];
-      config_couchURL = env['COUCH_URL'];
-      config_redis_host = env['DOTCLOUD_DATA_REDIS_HOST'];
-      config_redis_port = env['DOTCLOUD_DATA_REDIS_PORT'];
-      config_redis_key = env['DOTCLOUD_DATA_REDIS_PASSWORD'];
-  }
-});
 
+var fs = require('fs');
+fs.readFile('/home/dotcloud/environment.json', 'utf8', function (err,data) {
+    if (err) {
+        return console.log(err);
+    }
+        env = data;
+        config_appURL = env['DOTCLOUD_WWW_HTTP_URL'];
+        config_couchURL = env['COUCH_URL'];
+        config_redis_host = env['DOTCLOUD_DATA_REDIS_HOST'];
+        config_redis_port = env['DOTCLOUD_DATA_REDIS_PORT'];
+        config_redis_key = env['DOTCLOUD_DATA_REDIS_PASSWORD'];
+});
 /*
 separated out config variables to make it easier to specify mixed use cases, defaults defined for a native node installation
  */
