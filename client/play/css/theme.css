@@ -40,3 +40,15 @@ body {
   font-family: 'Telex', sans-serif;
   font-size: 2em;
   color: #45aeea; }
+
+.colorRamp_impacts {
+  background-image: url("img/color_ramp_red_blue.png"); }
+
+.colorRamp_money {
+  background-image: url("img/color_ramp_red_blue_gradient.png"); }
+
+#colorRampLegend {
+  display: block;
+  height: 50px;
+  width: 450px;
+  background-repeat: no-repeat; }

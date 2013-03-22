@@ -806,7 +806,7 @@ body .ui-tooltip {
 }
 .ui-widget-content {
 	border: 1px solid #a6c9e2;
-	background: #fcfdfd url(images/ui-bg_inset-hard_100_fcfdfd_1x100.png) 50% bottom repeat-x;
+	background: #fcfdfd;
 	color: #222222;
 }
 .ui-widget-content a {
@@ -814,7 +814,7 @@ body .ui-tooltip {
 }
 .ui-widget-header {
 	border: 1px solid #4297d7;
-	background: #45aeea url(images/ui-bg_gloss-wave_55_5c9ccc_500x100.png) 50% 50% repeat-x;
+	background: #45aeea;
 	color: #ffffff;
 	font-weight: bold;
 }
@@ -828,7 +828,7 @@ body .ui-tooltip {
 .ui-widget-content .ui-state-default,
 .ui-widget-header .ui-state-default {
 	border: 1px solid #c5dbec;
-	background: #dfeffc url(images/ui-bg_glass_85_dfeffc_1x400.png) 50% 50% repeat-x;
+	background: #dfeffc;
 	font-weight: bold;
 	color: #2e6e9e;
 }
@@ -845,7 +845,7 @@ body .ui-tooltip {
 .ui-widget-content .ui-state-focus,
 .ui-widget-header .ui-state-focus {
 	border: 1px solid #79b7e7;
-	background: #d0e5f5 url(images/ui-bg_glass_75_d0e5f5_1x400.png) 50% 50% repeat-x;
+	background: #d0e5f5;
 	font-weight: bold;
 	color: #1d5987;
 }
@@ -860,7 +860,7 @@ body .ui-tooltip {
 .ui-widget-content .ui-state-active,
 .ui-widget-header .ui-state-active {
 	border: 1px solid #79b7e7;
-	background: #f5f8f9 url(images/ui-bg_inset-hard_100_f5f8f9_1x100.png) 50% 50% repeat-x;
+	background: #f5f8f9;
 	font-weight: bold;
 	color: #e17009;
 }
@@ -877,7 +877,7 @@ body .ui-tooltip {
 .ui-widget-content .ui-state-highlight,
 .ui-widget-header .ui-state-highlight {
 	border: 1px solid #fad42e;
-	background: #fbec88 url(images/ui-bg_flat_55_fbec88_40x100.png) 50% 50% repeat-x;
+	background: #fbec88;
 	color: #363636;
 }
 .ui-state-highlight a,
@@ -889,7 +889,7 @@ body .ui-tooltip {
 .ui-widget-content .ui-state-error,
 .ui-widget-header .ui-state-error {
 	border: 1px solid #cd0a0a;
-	background: #fef1ec url(images/ui-bg_glass_95_fef1ec_1x400.png) 50% 50% repeat-x;
+	background: #fef1ec;
 	color: #cd0a0a;
 }
 .ui-state-error a,
