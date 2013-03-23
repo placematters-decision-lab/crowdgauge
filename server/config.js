@@ -19,12 +19,13 @@ fs.readFile('/home/dotcloud/environment.json', 'utf8', function (err,data) {
     if (err) {
         return console.log(err);
     }
-        env = data;
-        config_appURL = env['DOTCLOUD_WWW_HTTP_URL'];
-        config_couchURL = env['COUCH_URL'];
-        config_redis_host = env['DOTCLOUD_DATA_REDIS_HOST'];
-        config_redis_port = env['DOTCLOUD_DATA_REDIS_PORT'];
-        config_redis_key = env['DOTCLOUD_DATA_REDIS_PASSWORD'];
+    env = JSON.parse(data);
+    console.log(env);
+    config_appURL = env['DOTCLOUD_WWW_HTTP_URL'];
+    config_couchURL = env['COUCH_URL'];
+    config_redis_host = env['DOTCLOUD_DATA_REDIS_HOST'];
+    config_redis_port = env['DOTCLOUD_DATA_REDIS_PORT'];
+    config_redis_key = env['DOTCLOUD_DATA_REDIS_PASSWORD'];
 });
 /*
 separated out config variables to make it easier to specify mixed use cases, defaults defined for a native node installation
