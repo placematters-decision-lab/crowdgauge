@@ -18,7 +18,7 @@
         /** @type SAS.DataManager */
         var _dataManager;
 
-        var _filename = 'test1';
+        var _filename = 'NRV';
 
         var _detectSVG = function () {
             return document.implementation.hasFeature("http://www.w3.org/TR/SVG11/feature#BasicStructure", "1.1");

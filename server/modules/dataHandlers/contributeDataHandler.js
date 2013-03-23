@@ -30,7 +30,7 @@ ContributeDataHandler = function () {
 
     aDataHandler.ADataHandler.call(this, db_name);
 
-    var _filename = "test1";
+    var _filename = "NRV";
     var _socketHandler;
 
     /** @type ImageDataHandler */
