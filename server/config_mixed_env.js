@@ -20,7 +20,7 @@ fs.readFile('/home/dotcloud/environment.json', 'utf8', function (err,data) {
         return console.log(err);
     }
     env = JSON.parse(data);
-    console.log(env);
+    console.log(data);
     config_appURL = env['DOTCLOUD_WWW_HTTP_URL'];
     config_couchURL = env['COUCH_URL'];
     config_redis_host = env['DOTCLOUD_DATA_REDIS_HOST'];

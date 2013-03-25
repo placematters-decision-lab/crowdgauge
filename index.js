@@ -1,6 +1,7 @@
 var path = require('path');
 var nodeStatic = require('node-static');
 var fs = require('fs');
+var util = require('util');
 
 var config = require("./server/config");
 
@@ -77,6 +78,26 @@ handle["/saveResponse"] = responseDataHandler.saveResponse;
 
 handle["/persona_login"] = ps.login;
 handle["/persona_logout"] = ps.logout;
+
+handle["/"] = function(req, res, postData) {
+    /*fs.readFile('client/play/index.html',function(err, contents) {
+        if (!err) {
+            res.writeHead(200, {
+                "Content-Type": 'text/html',
+                "Content-Length": contents.length
+            });
+            res.end(contents);
+        } else {
+            res.writeHead(500);
+            res.end();
+        }
+    }); */
+    res.writeHead(302, {
+        'Location': '/client/play/index.html'
+        //add other headers here...
+    });
+    res.end();
+}
 
 //handle["/TEMP_fixLangs"] = dataHandler.TEMP_fixLangs();
 

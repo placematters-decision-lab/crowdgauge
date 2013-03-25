@@ -56,6 +56,7 @@ function start(route, securePaths, prehandle, handle, staticServer, persistentSt
                 if (success) {
                     //TODO create test to ensure that all possible routes that resolve in 'route' function are checked by securePaths
                     if (!route(handle, pathname, req, res, postData)) {
+                        //console.log("static: " + pathname);
                         staticServer.serve(req, res);
                     }
                 } else {
