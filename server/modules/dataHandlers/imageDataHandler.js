@@ -18,7 +18,7 @@ var aDataHandler = require('./aDataHandler');
 ImageDataHandler = function () {
     var _self = this;
 
-    aDataHandler.ADataHandler.call(this, 'images');
+    aDataHandler.ADataHandler.call(this, 'images_nrv');
 
     /** @type {Object.<string, Array.<Function>>} a queue of functions to execute as revisions are made (to avoid conflicts)*/
     var _queuedDocActions = {};

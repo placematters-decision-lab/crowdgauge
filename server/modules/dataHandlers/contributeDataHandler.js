@@ -6,7 +6,7 @@
 //region includes
 var config = require('../../config');
 
-var db_name = 'contribute';
+var db_name = 'contribute_nrv';
 var url = require('url');
 
 var logger = require('./../logger');

@@ -23,7 +23,7 @@ var events = require("events");
 var ResponseDataHandler = function () {
     var _self = this;
 
-    aDataHandler.ADataHandler.call(this, 'responses');
+    aDataHandler.ADataHandler.call(this, 'responses_nrv');
 
     var _init = function () {
         _createViews();
