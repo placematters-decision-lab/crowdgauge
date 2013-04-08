@@ -15,12 +15,12 @@ var config_loggly = null;
 
 
 var fs = require('fs');
-fs.readFileSync('/home/dotcloud/environment.json', 'utf8', function (err,data) {
+fs.readFile('/home/dotcloud/environment.json', 'utf8', function (err,data) {
     if (err) {
         return console.log(err);
     } else {
         console.log(data);
-        env = JSON.parse(data);
+        var env = JSON.parse(data);
         config_appURL = env['DOTCLOUD_WWW_HTTP_URL'];
         config_couchURL = env['COUCH_URL'];
         config_redis_host = env['DOTCLOUD_DATA_REDIS_HOST'];
