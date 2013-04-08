@@ -8,7 +8,7 @@
 var config_couchURL, config_appURL, config_verbosity, config_redis_host, config_redis_port, config_redis_key;
 var config_loggly = null;
 
-if(process.env) {
+if(process.env.COUCH_URL) {
     console.log(process.env);
     config_couchURL = process.env.COUCH_URL;
     config_appURL = (process.env.NODE_ENV == 'production') ? 'http://'+process.env.SUBDOMAIN+'.jit.su' : 'http://localhost:8080';
