@@ -12,6 +12,7 @@
 
         //region private fields and methods
         var _defaults = {
+            title: {},
             description: {},
             value: 1,
             score: "N/A"
@@ -26,6 +27,9 @@
                 && _self.score == _defaults.score
                 && _self.value == _defaults.value;
         };
+
+        /** @type {String} */
+        this.title = _settings.title;
 
         /** @type {String} */
         this.description = _settings.description;

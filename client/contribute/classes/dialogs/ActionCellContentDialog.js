@@ -27,6 +27,7 @@
         var _colorGetter = colorGetter;
         var _hasChanges = false;
 
+        var _$title;
         var _$description;
         var _$statusSelection;
         var _$multiplierSlider;
@@ -60,6 +61,8 @@
             _updateSlider(_cellDef.value);
 
             var $descDiv = $('<div>').appendTo($inputsDiv);
+            $('<label for="title_txt">Title:</label>').addClass("dialogLabel").appendTo($descDiv);
+            _$title = $('<input id="title_txt" type="text"/>').val(SAS.localizr.get(_cellDef.title)).appendTo($('<div>').appendTo($descDiv));
             $('<label for="description_txt">Description:</label>').addClass("dialogLabel").appendTo($descDiv);
             _$description = $('<textarea id="description_txt"></textarea>').val(SAS.localizr.get(_cellDef.description)).appendTo($('<div>').appendTo($descDiv));
             //_$description.wysiwyg();
@@ -85,6 +88,7 @@
         var _applyChanges = function () {
             _cellDef.value = _sliderToMultiplier(_$multiplierSlider.slider('value'));
             SAS.localizr.set(_cellDef, {description:_$description.val()});
+            SAS.localizr.set(_cellDef, {title:_$title.val()});
             _content.data = _cellDef;
             _content.status = (_cellDef.isEmpty()) ? Enums.STATUS_NEW : _$statusSelection.val();
             _hasChanges = true;
