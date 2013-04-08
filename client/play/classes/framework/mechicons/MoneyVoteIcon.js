@@ -38,7 +38,7 @@
             _textDiv = $("<div class='mech_action'></div>")
                 .appendTo(sel);
 
-            SAS.localizr.live(_mAction.description, _textDiv);
+            SAS.localizr.live(_mAction.title, _textDiv);   //replaced description with title
 
             _moneyDiv.hover(
                 function () {
