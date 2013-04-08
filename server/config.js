@@ -18,6 +18,7 @@ if(process.env) {
     config_redis_key = process.env.REDIS_KEY;
     config_loggly = null;
 } else {
+    var fs = require('fs');
     var env = JSON.parse(fs.readFileSync('/home/dotcloud/environment.json', 'utf-8'));
     config_appURL = env['DOTCLOUD_WWW_HTTP_URL'];
     config_couchURL = env['COUCH_URL'];
