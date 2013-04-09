@@ -162,7 +162,8 @@
             } else {
                 mechanism.category = "";
             }
-            if (!_super._getCatDiv(SAS.localizr.get(mechanism.category))) return;
+            _super._addCatDiv(mechanism.category);
+            if (!_super._getCatDiv(mechanism.category)) return;
             var mechDiv = $("<div class='mechGrp'></div>").appendTo(_super._getCatDiv(mechanism.category));
             mechDiv.attr("id", "mech" + mechanism.id);
             _mechIconDivsById[mechanism.id] = $("<div class='mechIcon'></div>").appendTo(mechDiv);
@@ -181,8 +182,7 @@
             $("#mechanismList").html("");
             _super._mechPanel($("<div class='mechPanel'></div>").appendTo("#mechanismList"));
 
-            _super._addCatDivs(["","Land Development","Housing","Transportation","Parks, Natural Areas and Agriculture","Economy"]);
-
+            _super._addCatDivs([""]);
 
             $.each(_super._mechanisms(), function (i, mechanism) {
                 _addMechListItem(mechanism);

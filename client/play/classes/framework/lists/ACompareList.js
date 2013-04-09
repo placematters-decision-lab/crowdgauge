@@ -124,6 +124,10 @@
             });
         };
 
+        this._addCatDiv = function (category) {
+            _addCatDiv(category);
+        }
+
         this._setActiveMechanism = function (mechanism) {
             _activeMechanism = mechanism;
             _updateSelectionDisplay();
