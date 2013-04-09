@@ -30,6 +30,10 @@
         this.getFileName = function () {
             return "NRV";
         };
+
+        this.introText = function () {
+
+        }
         //endregion
     };
     /**

@@ -114,8 +114,8 @@
 
         this.showIntroDialog = function() {
             _showAgainFn = null;
-            var txt = "<p>Welcome to Desoto : A New Era of Discovery! This exercise is designed to help you understand how what you value most relate to possible development policies that could be applied in the I-69/269 Corridor.</p>";
-            txt += "<p>You can learn more by visiting the <a href='http://desotodiscovery.com' target='_blank'>official website.</a></p>"
+            var txt = "<p>Welcome to the New River Valley Livability Initiative! This exercise is designed to help you understand how what you value most relate to possible policies and projects in the the New River Valley.</p>";
+            txt += "<p>You can learn more by visiting the <a href='http://nrvlivability.org/' target='_blank'>official website.</a></p>";
             _showInstructionDialog(txt, "Introduction", "Get Started", function() {
                 SAS.mainInstance.preventAccidentalLeaving();
             });
@@ -137,7 +137,7 @@
             };
             $("#dialog").html("");
             var txtAbove = $("<div></div>").appendTo("#dialog");
-            $("<p>Ever wonder how planning affects you?</p><p>Click through the <b>list of actions on the left</b> to see how different policies might affect your priorities.</p>").appendTo(txtAbove);
+            $("<p>Learn how planning affects you!</p><p>Click through the <b>list of actions on the left</b> to see how different projects and policies might affect your priorities.</p>").appendTo(txtAbove);
             $("<div class='clickTheIcon' style='height:40px'>Then click on any of the bubbles to open up an explanation.</div>").appendTo(txtAbove);
             $("<p>The colors of your priority chart show how each project or policy impacts your priorities, in a <span style='background-color: #2BBEC5'>positive</span> , <span style='background-color: #EAD9C4'>neutral</span>, or <span style='background-color: #ec7623'>negative</span> way.</p>").appendTo(txtAbove);
             $("<p>Look for actions that make your biggest bubbles turn blue. To get started, we've picked the action that appears to have the greatest positive impact on your priorities:</p>.").appendTo(txtAbove);
@@ -166,11 +166,9 @@
             _showAgainFn = function() {
                 _self.showMoneyDialog(numCoins);
             };
-            var txt = "<p>Tell us what policies you support!</p>";
-            txt += "<p>You have " + numCoins + " ways to show your support. You may allocate your total support to as many policies as you can. " +
-                "You can allocate it evenly among many policies or put more support behind a set of policies until you run out of support. " +
-                "<strong>You do not have to allocate all of your available support.</strong></p> " +
-                "<p>You can also put all of your support behind making no policy changes, but if you do, you will not be able to choose anything else.</p>" +
+            var txt = "<p>Put your money where your mouse is!</p>";
+            txt += "<p>You have " + numCoins + " coins to spend. You may allocate your total support to as many projects as you can. The coins represent relative cost out of a fixed budget." +
+                "<p>You can also give the thumbs up to as many general policies as you'd like. These are high level policies that don't have direct costs.</p>" +
                 "<p>See how the colors change in your priority chart to show how well the options you select help achieve your priorities.</p>";
             _showInstructionDialog(txt);
         };

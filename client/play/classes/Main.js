@@ -126,7 +126,7 @@
         };
 
         this.preventAccidentalLeaving = function () {
-            //TEMP _preventAccidentalLeaving();
+            _preventAccidentalLeaving();
         };
 
         //endregion
