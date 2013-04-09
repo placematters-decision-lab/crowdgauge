@@ -4,7 +4,11 @@
  * Time: 9:33 AM
  */
 //region includes
-var config = require('../../config');
+if(process.env.NODE_ENV == 'production') {
+    var config = require("../../config");
+} else {
+    var config = require("../../config.development");
+}
 
 var db_name = 'contribute_nrv';
 var url = require('url');

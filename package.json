@@ -12,7 +12,8 @@
     "nano": "3.x.x",
     "node-static": "0.6.x",
     "loggly": "0.3.x",
-    "redis": "0.8.x"
+    "redis": "0.8.x",
+    "konphyg": "1.2.x"
   },
   "engines": {
     "node": "0.8.x"

@@ -6,7 +6,11 @@ var url = require('url');
 
 //endregion
 //region modules
-var config = require("../../config");
+if(process.env.NODE_ENV == 'production') {
+    var config = require("../../config");
+} else {
+    var config = require("../../config.development");
+}
 var logger = require("./../logger");
 var aDataHandler = require('./aDataHandler');
 //endregion

@@ -1,7 +1,11 @@
 //region includes
 
 //endregion
-var config = require("../../config");
+if(process.env.NODE_ENV == 'production') {
+    var config = require("../../config");
+} else {
+    var config = require("../../config.development");
+}
 var nano = require('nano')(config.couchURL);
 
 //region includes
