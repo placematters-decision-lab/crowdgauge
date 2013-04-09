@@ -46,10 +46,10 @@
 
         /** These are hard coded now, but could come from a config file or database record
          * TODO move these out of code **/
-        _pageTitles['intro'] = 'How do you imagine DeSoto in the future?';
-        _pageTitles['priorities'] = ' I want communities in the I-69/269 corridor where... ';
+        _pageTitles['intro'] = 'How do you imagine the New River Valley in the future?';
+        _pageTitles['priorities'] = ' I imagine a New River Valley where... ';
         _pageTitles['impacts'] = 'How might planning policies affect your priorities?';
-        _pageTitles['money'] = 'Tell us which policies you would like to see in the corridor';
+        _pageTitles['money'] = 'Tell us which policies you would like to see in the New River Valley.';
 
         var _selectTab = function (pageId) {
             $(".tabTitle").removeClass("tabTitleHighlight");

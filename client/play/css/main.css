@@ -85,8 +85,7 @@
 .mech_action_div {
   vertical-align: middle;
   margin-top: 8px;
-  min-height: 24px;
-  display: inline-block; }
+  min-height: 24px; }
 
 #chart {
   position: fixed; }
