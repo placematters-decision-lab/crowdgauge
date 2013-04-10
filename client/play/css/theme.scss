@@ -1,5 +1,4 @@
 body {
-  background-color: #ffed9b;
 }
 
 .sliderTitle {
@@ -72,4 +71,15 @@ body {
 
 .nonvalid + input[type="text"], .nonvalid + select {
   border: 1px solid red;
+}
+
+//iPad - landscape
+@media only screen
+and (min-width : 768px)
+and (max-width : 1024px) {
+  //split screen on iPad to maximize real estate
+  .row-fluid #leftPanel.span5, .row-fluid #rightPanel.span7 {
+    width: 48.717948717948715%;
+    *width: 48.664757228587014%;
+  }
 }

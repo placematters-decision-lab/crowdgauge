@@ -101,7 +101,7 @@
                         Temporarily removed radio click as the options for this game are not exclusive
                         TODO: abstract to make this optional so admin can select whether they want exclusive or non-exclusive actions
                          */
-                        //_radioClick(mechanism, micon);
+                        _radioClick(mechanism, micon);
                         _recalcMoney(mechanism, micon);
                     });
                 });
