@@ -47,7 +47,8 @@ body {
 
 .mechPanel, #priorityList {
   /*height: auto !important; */
-  overflow-y: auto;
+  overflow-y: scroll;
+  -webkit-overflow-scrolling: touch;
   border-bottom: 1px solid #E0D5D0;
 }
 
@@ -134,10 +135,3 @@ body {
   width: 500px;
   height: 45px;
 }       */
-
-.tooltip-inner {
-  text-align: left !important;
-  font-size: 12px;
-  max-width: 275px !important;
-  line-height: 1.5 !important;
-}
