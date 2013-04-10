@@ -170,7 +170,7 @@
             var txt = "<p>Put your money where your mouse is!</p>";
             txt += "<p>You have " + numCoins + " coins to spend. You may allocate your coins to as many projects as you can, although a few " +
                 "projects are different levels of investment and you can only choose one or the other. The coins represent relative cost out " +
-                "of a fixed budget.. The coins represent relative cost out of a fixed budget." +
+                "of a fixed budget." +
                 "<p>You can also give the thumbs up to as many general policies as you'd like.</p>" +
                 "<p>See how the colors change in your priority bubble chart to show how well the options you select help achieve your priorities.</p>";
             _showInstructionDialog(txt);
