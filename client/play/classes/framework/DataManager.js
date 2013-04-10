@@ -27,6 +27,7 @@
         var _saveData = function (onSave) {
             $.post("/saveResponse", {data:JSON.stringify(_getData())},
                 function (entryId) {
+                    console.log(entryId);
                     _entryId = entryId;
                     onSave(_entryId);
                 });
