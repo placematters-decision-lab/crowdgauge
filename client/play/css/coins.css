@@ -113,4 +113,5 @@
   height: 22px;
   float: left;
   clear: left;
-  cursor: pointer; }
+  cursor: pointer;
+  margin-right: 10px; }

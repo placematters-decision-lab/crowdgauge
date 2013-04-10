@@ -276,7 +276,7 @@
                 {sel:".mechPanel", leave:100},
                 {sel:".mechPanelComp", leave:100},
                 {sel:"#priorityList", leave:100},
-                {sel:$("#chart"), leave:20}
+                {sel:$("#chart"), leave:80}
                 //40 for image + 24 for footer + 2
             ]);
             _layout.addWidthFillers([

@@ -18,4 +18,3 @@ module.exports.loggly = null;
 //    conf:{ subdomain:'yourdomain' },
 //    key:'your-key'
 //};
-
