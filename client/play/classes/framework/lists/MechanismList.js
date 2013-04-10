@@ -91,7 +91,7 @@
             _moneyIcons[mechanism.id] = [];
             d3.json('/getActions?mechId=' + mechanism.id, function (mObj) {
                 $.each(mObj.actions, function (i, action) {
-                    if (!action.data) return true;//continue
+                    if (!action.data || action.data.value === 0) return true;//continue
                     var actionDiv = $("<div class='mech_action_div'>").appendTo(_mechSubDivsById[mechanism.id]);
                     var micon = new SAS.MoneyVoteIcon(mechanism, action.data, _actionDefs[action.aId]);
                     _moneyIcons[mechanism.id].push(micon);
@@ -125,9 +125,9 @@
         var _recalcCoinBalance = function (coinsUsed) {
             var coinsLeft = (_totalCoins - coinsUsed);
             if (coinsLeft == 0) {
-                $("#coinsLeft").html("<span class='coinsLeftNum'>0</span><small> ways to show support (to redistribute, uncheck current selections)</small>");
+                $("#coinsLeft").html("<span class='coinsLeftNum'>0</span> coins to spend <small>(to redistribute, uncheck current selections)</small>");
             } else {
-                $("#coinsLeft").html("You have <span class='coinsLeftNum'>" + coinsLeft + "</span> more ways to show support");
+                $("#coinsLeft").html("You have <span class='coinsLeftNum'>" + coinsLeft + "</span> coin" + (coinsLeft > 1 ? "s" : "") + " left to distribute");
             }
 
             $.each(_moneyIcons, function (mechId, micons) {
