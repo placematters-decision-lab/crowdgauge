@@ -48,8 +48,8 @@
          * TODO move these out of code **/
         _pageTitles['intro'] = 'How do you imagine the New River Valley in the future?';
         _pageTitles['priorities'] = ' I imagine a New River Valley where... ';
-        _pageTitles['impacts'] = 'How might planning policies affect your priorities?';
-        _pageTitles['money'] = 'Tell us which policies you would like to see in the New River Valley.';
+        _pageTitles['impacts'] = 'How might planning projects and policies affect your priorities?';
+        _pageTitles['money'] = 'Tell us which projects and policies you would like to see in the New River Valley.';
 
         var _selectTab = function (pageId) {
             $(".tabTitle").removeClass("tabTitleHighlight");

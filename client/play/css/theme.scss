@@ -65,3 +65,11 @@ body {
   width: 450px;
   background-repeat: no-repeat;
 }
+
+.nonvalid {
+  color: #8b0000;
+}
+
+.nonvalid + input[type="text"], .nonvalid + select {
+  border: 1px solid #8b0000;
+}
