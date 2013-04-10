@@ -88,7 +88,7 @@
 
         var _validate = function () {
             //TEMP
-            return true;
+            //return true;
             var valid = true;
             var zip = _$zipInput.val();
             $('label').removeClass("nonvalid");
