@@ -287,8 +287,9 @@
             }
             console.log('callMoney');
             _super._updateSelectionDisplay();
-            $('body').tooltip({
-                selector: '[data-toggle=tooltip]'
+            $('body').popover({
+                selector: '[data-toggle=popover]',
+                trigger: 'hover'
             });
         };
         //endregion

@@ -9,9 +9,12 @@
 
         //region private fields and methods
         //var _ashxPath = "http://localhost:59159/ashx/";
+        var isiPad = -1;
         var _ashxPath = "http://ws.sasakistrategies.com/ashx/regionalScoresService/";
         var _showAgainFn;
         var _initialize = function() {
+            isiPad = navigator.userAgent.toLowerCase().indexOf("ipad");
+            console.log(isiPad);
             $("#reshowInstr").click(function () {
                 if (_showAgainFn != null) _showAgainFn();
             });
@@ -127,7 +130,7 @@
             _showAgainFn = function() {
                 _self.showStarsDialog(numStars);
             };
-            var txt = "<p>Use the stars to rate how important each value is to you. You can allocate up to " + numStars + " stars.</p>";
+            var txt = "<p>Use the stars to rate how important each value is to you. You can allocate <span style='text-decoration:underline'>up to</span> " + numStars + " stars.</p>";
             txt += "<p>Watch your priority chart change as you indicate your highest priorities.</p>";
             _showInstructionDialog(txt);
         };
@@ -168,9 +171,9 @@
                 _self.showMoneyDialog(numCoins);
             };
             var txt = "<p>Put your money where your mouse is!</p>";
-            txt += "<p>You have " + numCoins + " coins to spend. You may allocate your coins to as many projects as you can, although a few " +
-                "projects are different levels of investment and you can only choose one or the other. The coins represent relative cost out " +
-                "of a fixed budget." +
+            txt += "<p>You have <span style='text-decoration:underline'>up to</span> " + numCoins + " coins to spend. You may allocate your coins to as many projects as you can, although a few " +
+                "projects are different levels of investment and you can only choose one or the other. The coins represent relative cost out of a fixed budget. To learn more about each project, " +
+                "hover (or tap if on a tablet) on each project description on the left side of your screen." +
                 "<p>You can also give the thumbs up to as many general policies as you'd like.</p>" +
                 "<p>See how the colors change in your priority bubble chart to show how well the options you select help achieve your priorities.</p>";
             _showInstructionDialog(txt);

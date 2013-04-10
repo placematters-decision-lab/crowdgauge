@@ -59,4 +59,9 @@
 @media only screen and (min-width: 768px) and (max-width: 1024px) {
   .row-fluid #leftPanel.span5, .row-fluid #rightPanel.span7 {
     width: 48.717948717948715%;
-    *width: 48.664757228587014%; } }
+    *width: 48.664757228587014%; }
+
+  #titleBar h2 {
+    font-size: 20px;
+    padding-top: 0;
+    margin-top: 0; } }
