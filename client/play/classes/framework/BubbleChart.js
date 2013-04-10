@@ -281,7 +281,6 @@
                 title:function () {
                     var d = this.__data__;
                     var tip = SAS.localizr.get(d.data.title);
-                    console.log(d3.select(this).classed("score_na"));
                     if (d3.select(this).classed("bubbleIconNoMouse")) tip += "<br/>(click for more)";
                     return tip;
                 }
@@ -295,7 +294,6 @@
                 title:function () {
                     var d = this.__data__;
                     var tip = SAS.localizr.get(d.data.title);
-                    console.log(d3.select(this).classed("score_na"));
                     if (!d3.select(this).classed("notip")) tip += "<br/>(click for more)";
                     return tip;
                 }

@@ -9,12 +9,9 @@
 
         //region private fields and methods
         //var _ashxPath = "http://localhost:59159/ashx/";
-        var isiPad = -1;
         var _ashxPath = "http://ws.sasakistrategies.com/ashx/regionalScoresService/";
         var _showAgainFn;
         var _initialize = function() {
-            isiPad = navigator.userAgent.toLowerCase().indexOf("ipad");
-            console.log(isiPad);
             $("#reshowInstr").click(function () {
                 if (_showAgainFn != null) _showAgainFn();
             });

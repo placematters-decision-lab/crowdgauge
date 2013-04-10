@@ -285,7 +285,6 @@
                 //_showMoneyIcons(true);
                 _recalcMoney();
             }
-            console.log('callMoney');
             _super._updateSelectionDisplay();
             $('body').popover({
                 selector: '[data-toggle=popover]',
