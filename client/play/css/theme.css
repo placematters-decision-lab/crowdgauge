@@ -54,7 +54,7 @@ body {
   background-repeat: no-repeat; }
 
 .nonvalid {
-  color: #8b0000; }
+  color: red; }
 
 .nonvalid + input[type="text"], .nonvalid + select {
-  border: 1px solid #8b0000; }
+  border: 1px solid red; }

@@ -277,6 +277,7 @@
                 _ensureActionDefsLoaded(function () {
                     $.each(_super._mechanisms(), function (i, mechanism) {
                         _addMoneyAndVotes(mechanism);
+
                     });
                 });
                 _recalcMoney();
@@ -284,7 +285,11 @@
                 //_showMoneyIcons(true);
                 _recalcMoney();
             }
+            console.log('callMoney');
             _super._updateSelectionDisplay();
+            $('body').tooltip({
+                selector: '[data-toggle=tooltip]'
+            });
         };
         //endregion
 

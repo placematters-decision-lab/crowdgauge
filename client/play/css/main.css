@@ -111,3 +111,8 @@
   width: 500px;
   height: 45px;
 }       */
+.tooltip-inner {
+  text-align: left !important;
+  font-size: 12px;
+  max-width: 275px !important;
+  line-height: 1.5 !important; }

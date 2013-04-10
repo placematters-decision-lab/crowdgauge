@@ -238,6 +238,7 @@
         var _setClickable = function (clickable) {
             //pointer-events: none;
             _imageIcons.classed("bubbleIconNoMouse", clickable);
+            _mainCircles.classed("notip", !clickable);
         };
 
         var _createBubbles = function () {
@@ -256,7 +257,8 @@
             //_updateTitle(bubbles);
 
             _mainCircles = bubbles.append("circle")
-                .attr("r", _circleRad);
+                .attr("r", _circleRad)
+                .attr("class","notip");
 
             _overlayCircles = bubbles.append("circle")
                 .style("stroke", "black")
@@ -278,9 +280,13 @@
                 opacity:0.95,
                 title:function () {
                     var d = this.__data__;
-                    return SAS.localizr.get(d.data.title);
+                    var tip = SAS.localizr.get(d.data.title);
+                    console.log(d3.select(this).classed("score_na"));
+                    if (d3.select(this).classed("bubbleIconNoMouse")) tip += "<br/>(click for more)";
+                    return tip;
                 }
             });
+
 
             $('svg circle').tipsy({//--on 'clickable' screens images are not interactive so we need to use circles
                 gravity:'n',
@@ -289,7 +295,8 @@
                 title:function () {
                     var d = this.__data__;
                     var tip = SAS.localizr.get(d.data.title);
-                    if (!d3.select(this).classed("score_na")) tip += "<br/>(click for more)";
+                    console.log(d3.select(this).classed("score_na"));
+                    if (!d3.select(this).classed("notip")) tip += "<br/>(click for more)";
                     return tip;
                 }
             });
