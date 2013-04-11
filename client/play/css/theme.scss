@@ -1,4 +1,7 @@
-body {
+#titleBar h2 {
+  font-size: 28px;
+  padding-top: 0;
+  margin-top: 0;
 }
 
 .sliderTitle {
@@ -84,7 +87,7 @@ and (max-width : 1024px) {
   }
 
   #titleBar h2 {
-    font-size: 20px;
+    font-size: 19px;
     padding-top: 0;
     margin-top: 0;
   }

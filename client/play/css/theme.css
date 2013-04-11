@@ -1,3 +1,8 @@
+#titleBar h2 {
+  font-size: 28px;
+  padding-top: 0;
+  margin-top: 0; }
+
 .sliderTitle {
   color: #654A3F; }
 
@@ -62,6 +67,6 @@
     *width: 48.664757228587014%; }
 
   #titleBar h2 {
-    font-size: 20px;
+    font-size: 19px;
     padding-top: 0;
     margin-top: 0; } }
