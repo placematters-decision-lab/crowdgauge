@@ -1,3 +1,6 @@
+.navbar-fixed-top {
+  z-index: 950; }
+
 .mechSub {
   margin-left: 42px;
   font-size: .75em; }
@@ -35,7 +38,17 @@
 .mechPanel, #priorityList {
   /*height: auto !important; */
   overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
   border-bottom: 1px solid #E0D5D0; }
+
+::-webkit-scrollbar {
+  -webkit-appearance: none;
+  width: 7px; }
+
+::-webkit-scrollbar-thumb {
+  border-radius: 4px;
+  background-color: rgba(0, 0, 0, 0.5);
+  -webkit-box-shadow: 0 0 1px rgba(255, 255, 255, 0.5); }
 
 #reshowInstr {
   cursor: pointer; }
