@@ -248,11 +248,11 @@
                          */
 
                         var aId = micon.getAction().aId;
-                        if(votes[mechanism.id + "-" + aId]) {
-                            votes[mechanism.id + "-" + aId] = micon.getTotalCoins();
+                        if(votes[mechanism.id + "_" + aId]) {
+                            votes[mechanism.id + "_" + aId] = micon.getTotalCoins();
                             //votes[mechanism.id] = {'total':micon.getTotalCoins() + votes[mechanism.id]['total']};
                         } else {
-                            votes[mechanism.id + "-" + aId] = micon.getTotalCoins();
+                            votes[mechanism.id + "_" + aId] = micon.getTotalCoins();
                             //votes[mechanism.id] = {'total':micon.getTotalCoins() + votes[mechanism.id]['total']};
                         }
                     console.log(votes);
