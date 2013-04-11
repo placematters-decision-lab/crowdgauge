@@ -94,7 +94,6 @@
                     if (!action.data || action.data.value === 0) return true;//continue
                     var actionDiv = $("<div id='" + action.aId + "' class='mech_action_div'>").appendTo(_mechSubDivsById[mechanism.id]);
                     action.data.aId = action.aId;
-                    console.log(action.aId);
                     var micon = new SAS.MoneyVoteIcon(mechanism, action.data, _actionDefs[action.aId]);
                     _moneyIcons[mechanism.id].push(micon);
                     micon.addMoneyAndVotes(actionDiv, mechanism.values);
@@ -103,8 +102,6 @@
                         Temporarily removed radio click as the options for this game are not exclusive
                         TODO: abstract to make this optional so admin can select whether they want exclusive or non-exclusive actions
                          */
-                        console.log(micon.getAction());
-                        console.log(micon.getTotalCoins());
                         //_radioClick(mechanism, micon);
                         _recalcMoney(mechanism, micon);
                     });
@@ -255,11 +252,9 @@
                             votes[mechanism.id + "_" + aId] = micon.getTotalCoins();
                             //votes[mechanism.id] = {'total':micon.getTotalCoins() + votes[mechanism.id]['total']};
                         }
-                    console.log(votes);
                     }
                 });
             });
-            console.log(votes);
             return votes;
         };
 
