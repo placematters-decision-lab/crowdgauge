@@ -34,8 +34,7 @@
 
 .mechPanel, #priorityList {
   /*height: auto !important; */
-  overflow-y: scroll;
-  -webkit-overflow-scrolling: touch;
+  overflow-y: auto;
   border-bottom: 1px solid #E0D5D0; }
 
 #reshowInstr {
