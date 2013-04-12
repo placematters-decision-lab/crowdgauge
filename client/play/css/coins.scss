@@ -1,6 +1,6 @@
   $imgDir: 'img';
 $states: 'hlite', 'off', 'on', 'disabled';
-$nums: 0,1,2,3,4,5,6,9,25;
+$nums: 0,1,2,3,4,5,6,9,10,20,25;
 
 @for $i from 1 through length($states) {
   @for $j from 1 through length($nums) {
