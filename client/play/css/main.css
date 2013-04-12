@@ -107,6 +107,9 @@
 .mech_action {
   margin-left: 50px; }
 
+.tipsy {
+  z-index: 3000; }
+
 .ui-dialog {
   z-index: 5000 !important; }
 
