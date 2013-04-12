@@ -107,8 +107,15 @@
 .mech_action {
   margin-left: 50px; }
 
+.ui-dialog {
+  z-index: 5000 !important; }
+
 #chart {
   position: fixed; }
+
+.popover {
+  width: 350px;
+  max-width: 350px; }
 
 /*
 #chart {

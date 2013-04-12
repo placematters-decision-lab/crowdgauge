@@ -97,8 +97,8 @@
         var _createMechanismWindow = function (mechanism, priorities, priorityId) {
             if (mechanism == null) return;
             //hide tipsy tooltips if open, this is only necessary on touch devices
-            $('svg image').tipsy("hide");
-            $('svg circle').tipsy("hide");
+            $('svg image').tipsy('hide');
+            $('svg circle').tipsy('hide');
             SAS.mainInstance.getDataManager().incrementInfoWinCount();
             //var link = mechanism.id + "_" + priorityId + ".html";
             //$("#dialog").load("moreInfo/" + link, function () {

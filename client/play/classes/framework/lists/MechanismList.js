@@ -296,7 +296,7 @@
             $('body').popover({
                 selector: '[data-toggle=popover]',
                 trigger: 'hover',
-                delay: {show: 0, hide: 750}
+                delay: 2000
             });
         };
         //endregion
