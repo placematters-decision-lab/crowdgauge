@@ -83,7 +83,11 @@ div.panel_impacts #mechm40344173223-2092 {
   margin-left: -100%; }
 
 .info_left_box > img {
-  max-width: 360px; }
+  max-width: 360px;
+  margin-bottom: 20px; }
+
+.info_left_box {
+  margin-top: 20px; }
 
 .info_right {
   margin-left: 375px;
@@ -125,6 +129,9 @@ div.panel_impacts #mechm40344173223-2092 {
   width: 350px;
   max-width: 350px;
   z-index: 1000000; }
+
+.info_left_title {
+  font-size: 1.5em; }
 
 /*
 #chart {
