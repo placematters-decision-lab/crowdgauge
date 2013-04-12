@@ -62,6 +62,9 @@
 .nonvalid + input[type="text"], .nonvalid + select {
   border: 1px solid red; }
 
+.ui-widget-content a {
+  color: #0099dd; }
+
 @media only screen and (min-width: 768px) and (max-width: 1024px) {
   .row-fluid #leftPanel.span5, .row-fluid #rightPanel.span7 {
     width: 48.717948717948715%;
