@@ -38,7 +38,6 @@
 .mechPanel, #priorityList {
   /*height: auto !important; */
   overflow-y: auto;
-  -webkit-overflow-scrolling: touch;
   border-bottom: 1px solid #E0D5D0; }
 
 ::-webkit-scrollbar {
