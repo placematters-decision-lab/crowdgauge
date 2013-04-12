@@ -148,7 +148,6 @@
             _activePage = IMPACTS;
             _introPage.showDivs(false);
             _priorityList.showDivs(false);
-            $('.mechPanel').removeClass('panel_money');
             //_scenarioList.showDivs(false);
             _bubbleChart.showDivs(true);
             //_map.showDivs(false);
@@ -178,6 +177,8 @@
             }
             _mechanismList.showDivs(true);
             _setClickToInfoWin(_mechanismList);
+            $('.mechPanel').addClass('panel_impacts');
+            $('.mechPanel').removeClass('panel_money');
         };
 
         var _gotoMoney = function () {
@@ -188,6 +189,7 @@
             //_scenarioList.showDivs(false);
             _bubbleChart.showDivs(true);
             $('.mechPanel').addClass('panel_money');
+            $('.mechPanel').removeClass('panel_impacts');
             //_map.showDivs(false);
             _showMoreInfo(false);
             _showNextButton(true, (_submitted) ? BTN_SHARE : BTN_SUBMIT);

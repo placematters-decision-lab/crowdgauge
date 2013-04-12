@@ -181,7 +181,7 @@
 
         var _createList = function () {
             $("#mechanismList").html("");
-            _super._mechPanel($("<div class='mechPanel'></div>").appendTo("#mechanismList"));
+            _super._mechPanel($("<div class='mechPanel panel_impacts'></div>").appendTo("#mechanismList"));
 
             _super._addCatDivs([""]);
 
