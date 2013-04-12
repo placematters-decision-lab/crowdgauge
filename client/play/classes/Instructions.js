@@ -114,7 +114,7 @@
 
         this.showIntroDialog = function() {
             _showAgainFn = null;
-            var txt = "<p>Welcome to the New River Valley Livability Initiative! This exercise is designed to get your feedback on " +
+            var txt = "<p>Welcome to the NRV Tomorrow Survey! This exercise is designed to get your feedback on " +
             "possible projects and policies, and to show how those projects and policies impact what you value most in the New River Valley.</p>";
             txt += "<p>You can learn more by visiting the <a href='http://nrvlivability.org/' target='_blank'>official website.</a></p>";
             _showInstructionDialog(txt, "Introduction", "Get Started", function() {
@@ -138,10 +138,10 @@
             };
             $("#dialog").html("");
             var txtAbove = $("<div></div>").appendTo("#dialog");
-            $("<p>Learn how planning affects you!</p><p>Click through the <b>list of actions on the left</b> to see how different projects and policies might affect your priorities.</p>").appendTo(txtAbove);
-            $("<div class='clickTheIcon' style='height:40px'>Then click on any of the priority bubbles to open up an explanation.</div>").appendTo(txtAbove);
-            $("<p>The colors of your priority chart show how each project or policy impacts your priorities in a <span style='background-color: #2BBEC5'>positive</span> , <span style='background-color: #EAD9C4'>neutral</span>, or <span style='background-color: #ec7623'>negative</span> way.</p>").appendTo(txtAbove);
-            $("<p>Look for actions that make your biggest bubbles turn blue. To get started, we've picked the action that appears to have the greatest positive impact on your priorities:</p>.").appendTo(txtAbove);
+            $("<p><b>Click on any action on the left</b> and then <b>click on any of the priority bubbles on the right</b> to open up an explanation of how the project or policy might affect your priorities.</p>").appendTo(txtAbove);
+            $("<p>The colors of your priority chart show how each project or policy impacts your priorities in a <span style='background-color: #ec7623'>negative</span>, <span style='background-color: #EAD9C4'>neutral</span>, or <span style='background-color: #2BBEC5'>positive</span> way.</p>").appendTo(txtAbove);
+            $("<p>Spend as much time on this page as you like, then move on to the next tab where you’ll be asked to identify the projects and policies that appeal most to you.</p>.").appendTo(txtAbove);
+            $("<p>To get started, we've picked the action that appears to have the greatest positive impact on your priorities:</p>.").appendTo(txtAbove);
 
             var mechDivIns = $("<div class='mechGrp' style='min-height: 30px'></div>").appendTo("#dialog");
             $("<div class='mechIcon'></div>").appendTo(mechDivIns).attr("id", "mechInsExample");
@@ -168,10 +168,9 @@
                 _self.showMoneyDialog(numCoins);
             };
             var txt = "<p>Put your money where your mouse is!</p>";
-            txt += "<p>You have <span style='text-decoration:underline'>up to</span> " + numCoins + " coins to spend. You may allocate your coins to as many projects as you can, although a few " +
-                "projects are different levels of investment and you can only choose one or the other. The coins represent relative cost out of a fixed budget. To learn more about each project, " +
-                "hover (or tap if on a tablet) on each project description on the left side of your screen." +
-                "<p>You can also give the thumbs up to as many general policies as you'd like.</p>" +
+            txt += "<p>You have <span style='text-decoration:underline'>up to</span> " + numCoins + " coins to spend. The coins represent relative cost within a fixed budget. " +
+                "To learn more about each project, hover (or tap if on a tablet) on each project description on the left side of your screen." +
+                "<p>You can also give the thumbs up to as many general policies as you'd like at the bottom of the left panel.</p>" +
                 "<p>See how the colors change in your priority bubble chart to show how well the options you select help achieve your priorities.</p>";
             _showInstructionDialog(txt);
         };
