@@ -32,7 +32,7 @@
 
         var _moneyIcons;
         var _mode = IMPACTS;
-        var _totalCoins = 15;
+        var _totalCoins = 20;
 
         var _actionDefs = {};
 
@@ -295,7 +295,8 @@
             _super._updateSelectionDisplay();
             $('body').popover({
                 selector: '[data-toggle=popover]',
-                trigger: 'hover'
+                trigger: 'hover',
+                delay: {show: 0, hide: 750}
             });
         };
         //endregion

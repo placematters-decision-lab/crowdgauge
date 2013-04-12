@@ -46,10 +46,10 @@
 
         /** These are hard coded now, but could come from a config file or database record
          * TODO move these out of code **/
-        _pageTitles['intro'] = 'How do you imagine the New River Valley in the future?';
+        _pageTitles['intro'] = 'Imagine New River Valley in the Future';
         _pageTitles['priorities'] = ' I imagine a New River Valley where... ';
-        _pageTitles['impacts'] = 'How might planning projects and policies affect your priorities?';
-        _pageTitles['money'] = 'Tell us which projects and policies you would like to see in the New River Valley.';
+        _pageTitles['impacts'] = 'Explore how different projects and policies affect your priorities...';
+        _pageTitles['money'] = 'Tell us which projects and policies you would like to see in the New River Valley';
 
         var _selectTab = function (pageId) {
             $(".tabTitle").removeClass("tabTitleHighlight");
@@ -140,7 +140,7 @@
             _activePage = IMPACTS;
             _introPage.showDivs(false);
             _priorityList.showDivs(false);
-
+            $('.mechPanel').removeClass('panel_money');
             //_scenarioList.showDivs(false);
             _bubbleChart.showDivs(true);
             //_map.showDivs(false);
@@ -173,6 +173,7 @@
             _priorityList.showDivs(false);
             //_scenarioList.showDivs(false);
             _bubbleChart.showDivs(true);
+            $('.mechPanel').addClass('panel_money');
             //_map.showDivs(false);
             _showMoreInfo(false);
             _showNextButton(true, (_submitted) ? BTN_SHARE : BTN_SUBMIT);
@@ -274,9 +275,10 @@
             ]);
             _layout.addHeightFillers([
                 {sel:".mechPanel", leave:100},
-                {sel:".mechPanelComp", leave:100},
-                {sel:"#priorityList", leave:100},
-                {sel:$("#chart"), leave:80}
+                {sel:".mechPanelComp", leave:80},
+                {sel:".panel_money", leave:80 },
+                {sel:"#priorityList", leave:80},
+                {sel:$("#chart"), leave:90}
                 //40 for image + 24 for footer + 2
             ]);
             _layout.addWidthFillers([

@@ -53,7 +53,8 @@
   display: block;
   height: 50px;
   width: 450px;
-  background-repeat: no-repeat; }
+  background-repeat: no-repeat;
+  clear: right; }
 
 .nonvalid {
   color: red; }

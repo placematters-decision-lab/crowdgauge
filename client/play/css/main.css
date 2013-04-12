@@ -104,6 +104,9 @@
   margin-top: 8px;
   min-height: 24px; }
 
+.mech_action {
+  margin-left: 50px; }
+
 #chart {
   position: fixed; }
 
