@@ -295,8 +295,7 @@
             _super._updateSelectionDisplay();
             $('body').popover({
                 selector: '[data-toggle=popover]',
-                trigger: 'hover',
-                delay: 2000
+                trigger: 'hover'
             });
         };
         //endregion
