@@ -28,6 +28,8 @@
         var _votingStartTime;
         var _submitTime;
 
+        var _mechanismData;
+
         //region private fields and methods
         var _activePage;
         /** @type SAS.PriorityList */
@@ -96,7 +98,9 @@
                 document.location.reload(true);
                 return;
             }
-            _instructions.showIntroDialog();
+            if(!_mechanismData) {
+                _instructions.showIntroDialog();
+            }
             _activePage = INTRO;
             _introPage.showDivs(true);
             _priorityList.showDivs(false);
@@ -130,8 +134,12 @@
                 });
             } else {
                 _layout.positionElements();
+                $("#reshowInstr").click(function () {
+                    _instructions.showStarsDialog(_priorityList.getTotalStars());
+                });
                 //_bubbleChart.colorByPriority();--keep the coloring from the later screens
             }
+
             //_bubbleChart.onBubbleClick(function () {});//--if its colored by a later screen, keep the info available...
         };
 
@@ -148,6 +156,7 @@
             _showNextButton(true, BTN_NEXT);
             if (!_mechanismList.hasData()) {
                 d3.json('/getMechanisms' + _fileAndVersion(), function (data) {
+                    _mechanismData = data;
                     _mechanismList.load(data);
                     _mechanismList.ensureShowMiniBubbleCharts();
                     var priorities = _priorityList.getPriorities();
@@ -161,6 +170,11 @@
                 _mechanismList.ensureShowMiniBubbleCharts();
                 _bubbleChart.colorForMechanism(_mechanismList.getActiveMechanism());
                 _layout.positionElements();
+                var priorities = _priorityList.getPriorities();
+                var topScorer = _mechanismList.getTopScorer(priorities);
+                $("#reshowInstr").click(function () {
+                   _instructions.showMechanismInstructions(_mechanismData, priorities, _bubbleChart, topScorer);
+                });
             }
             _mechanismList.showDivs(true);
             _setClickToInfoWin(_mechanismList);
@@ -191,6 +205,9 @@
                 _moneyShown = true;
                 _instructions.showMoneyDialog(_mechanismList.getNumCoins());
             }
+            $("#reshowInstr").click(function () {
+                _instructions.showMoneyDialog(_mechanismList.getNumCoins());
+            });
             _mechanismList.showDivs(true);
             _setClickToInfoWin();
         };
