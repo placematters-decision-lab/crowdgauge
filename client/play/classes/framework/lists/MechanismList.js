@@ -194,8 +194,6 @@
         };
 
         var _showDivs = function (show) {
-            console.log(show);
-            console.log(_mode);
             $("#mechanismList").toggle(show);
             $("#coinsLeft").toggle(show && _mode == SCENARIO);
             $("#clickInstr").toggle(show && _mode == IMPACTS);
@@ -281,7 +279,6 @@
 
         this.ensureShowMoneyAndVotes = function () {
             _setMode(SCENARIO);
-            console.log(_mode);
             _super._showBubbleCharts(false);
             if (_moneyIcons == null) {
                 _moneyIcons = {};
