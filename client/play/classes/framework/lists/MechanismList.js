@@ -89,21 +89,29 @@
 
         var _addMoneyAndVotes = function (mechanism) {
             _moneyIcons[mechanism.id] = [];
+            var micons = [];
             d3.json('/getActions?mechId=' + mechanism.id, function (mObj) {
                 $.each(mObj.actions, function (i, action) {
                     if (!action.data || action.data.value === 0) return true;//continue
                     var actionDiv = $("<div id='" + action.aId + "' class='mech_action_div'>").appendTo(_mechSubDivsById[mechanism.id]);
                     action.data.aId = action.aId;
-                    var micon = new SAS.MoneyVoteIcon(mechanism, action.data, _actionDefs[action.aId]);
-                    _moneyIcons[mechanism.id].push(micon);
-                    micon.addMoneyAndVotes(actionDiv, mechanism.values);
-                    micon.onSelectionChange(function () {
-                        /*
-                        Temporarily removed radio click as the options for this game are not exclusive
-                        TODO: abstract to make this optional so admin can select whether they want exclusive or non-exclusive actions
-                         */
-                        //_radioClick(mechanism, micon);
-                        _recalcMoney(mechanism, micon);
+                    if(_actionDefs[action.aId].value == 0) {
+                        micons[0] = new SAS.MoneyVoteIcon(mechanism, action.data, _actionDefs[action.aId], {thumbState:'up',thumbs:1});
+                        micons[1] = new SAS.MoneyVoteIcon(mechanism, action.data, _actionDefs[action.aId], {thumbState:'down',thumbs:-1});
+                    } else {
+                        micons[0] = new SAS.MoneyVoteIcon(mechanism, action.data, _actionDefs[action.aId]);
+                    }
+                    $.each(micons, function(i,micon){
+                        _moneyIcons[mechanism.id].push(micon);
+                        micon.addMoneyAndVotes(actionDiv, mechanism.values);
+                        micon.onSelectionChange(function () {
+                            /*
+                             Temporarily removed radio click as the options for this game are not exclusive
+                             TODO: abstract to make this optional so admin can select whether they want exclusive or non-exclusive actions
+                             */
+                            //_radioClick(mechanism, micon);
+                            _recalcMoney(mechanism, micon);
+                        });
                     });
                 });
             });

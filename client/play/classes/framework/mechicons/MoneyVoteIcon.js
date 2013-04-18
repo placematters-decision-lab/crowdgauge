@@ -4,12 +4,14 @@
  * Time: 2:23 PM
  */
 (function () { // self-invoking function
-    SAS.MoneyVoteIcon = function (mechanism, action, actionDef) {
+    SAS.MoneyVoteIcon = function (mechanism, action, actionDef, options) {
         var _self = this;
         var ON = "on";
         var OFF = "off";
         var HLITE = "hlite";
         var DISABLED = "disabled";
+        var _options = options;
+        console.log(options);
 
         //region private fields and methods
         var _mState = OFF;
@@ -23,28 +25,35 @@
         var _isOn = false;
         var _totalCoins = _actionDef.value;
         var _netCoins = _totalCoins;
-        var _onSelectionChange = function () {};
+        var _onSelectionChange = function () {
+        };
+        var _type = 'coins';
+        var _thumbState;
 
         var _currentClass = function () {
-            return "coins_" + _mState + "_" + _totalCoins;
+            return _type + "_" + _mState + "_" + (_type == 'thumbs' ? _thumbState : _totalCoins);
         };
 
         var _hoverClass = function () {
-            return "coins_" + HLITE + "_" + _totalCoins;
+            return _type + "_" + HLITE + "_" + (_type == 'thumbs' ? _thumbState : _totalCoins);
         };
 
         var _addMoneyAndVotes = function (sel, values) {
-            console.log(_actionDef.value);
-            if(_actionDef.value == 0) {
-                console.log(_mechanism.id);
+            if (_actionDef.value == 0) {
+                _type = 'thumbs';
+                _thumbState = _options.thumbState;
                 $('#mech' + _mechanism.id + ' .mechText').hide();
+                 _moneyDiv = $("<div class='thumbs_" + _thumbState + " " + _currentClass() + "'></div>").appendTo(sel);
+                //_thumbDiv[1] = $("<div class='thumbs_down " + _currentClass() + "'></div>").appendTo(sel);
+            } else {
+                _type = 'coins';
+                _moneyDiv = $("<div class='coins " + _currentClass() + "'></div>").appendTo(sel);
             }
-            _moneyDiv = $("<div class='coins " + _currentClass() + "'></div>").appendTo(sel);
-            _textDiv = $("<div class='mech_action' data-toggle='popover' data-placement='right' data-original-title='"+ SAS.localizr.get(_mAction.title) +"' data-content='"+ SAS.localizr.get(_mAction.description) + "'></div>")
-                .appendTo(sel);
-
-            SAS.localizr.live(_mAction.title, _textDiv);   //replaced description with title
-
+            if(_thumbState == 'down' || !_thumbState) {
+                _textDiv = $("<div class='mech_action' data-toggle='popover' data-placement='right' data-original-title='" + SAS.localizr.get(_mAction.title) + "' data-content='" + SAS.localizr.get(_mAction.description) + "'></div>")
+                    .appendTo(sel);
+                SAS.localizr.live(_mAction.title, _textDiv);   //replaced description with title
+            }
             _moneyDiv.hover(
                 function () {
                     if (_enabled) {

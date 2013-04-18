@@ -31,6 +31,12 @@
 .coins_hlite_25 {
   background-image: url("img/coins/hlite_25.png"); }
 
+.thumbs_hlite_up {
+  background-image: url("img/coins/hlite_up.png"); }
+
+.thumbs_hlite_down {
+  background-image: url("img/coins/hlite_down.png"); }
+
 .coins_off_0 {
   background-image: url("img/coins/off_0.png"); }
 
@@ -63,6 +69,12 @@
 
 .coins_off_25 {
   background-image: url("img/coins/off_25.png"); }
+
+.thumbs_off_up {
+  background-image: url("img/coins/off_up.png"); }
+
+.thumbs_off_down {
+  background-image: url("img/coins/off_down.png"); }
 
 .coins_on_0 {
   background-image: url("img/coins/on_0.png"); }
@@ -97,6 +109,12 @@
 .coins_on_25 {
   background-image: url("img/coins/on_25.png"); }
 
+.thumbs_on_up {
+  background-image: url("img/coins/on_up.png"); }
+
+.thumbs_on_down {
+  background-image: url("img/coins/on_down.png"); }
+
 .coins_disabled_0 {
   background-image: url("img/coins/disabled_0.png"); }
 
@@ -130,7 +148,13 @@
 .coins_disabled_25 {
   background-image: url("img/coins/disabled_25.png"); }
 
-.coins {
+.thumbs_disabled_up {
+  background-image: url("img/coins/disabled_up.png"); }
+
+.thumbs_disabled_down {
+  background-image: url("img/coins/disabled_down.png"); }
+
+.coins, .thumbs_up, .thumbs_down {
   background-repeat: no-repeat;
   background-position: left center;
   width: 42px;
