@@ -34,6 +34,11 @@
         };
 
         var _addMoneyAndVotes = function (sel, values) {
+            console.log(_actionDef.value);
+            if(_actionDef.value == 0) {
+                console.log(_mechanism.id);
+                $('#mech' + _mechanism.id + ' .mechText').hide();
+            }
             _moneyDiv = $("<div class='coins " + _currentClass() + "'></div>").appendTo(sel);
             _textDiv = $("<div class='mech_action' data-toggle='popover' data-placement='right' data-original-title='"+ SAS.localizr.get(_mAction.title) +"' data-content='"+ SAS.localizr.get(_mAction.description) + "'></div>")
                 .appendTo(sel);
@@ -124,7 +129,6 @@
             if (max) return Math.min(val, max);
             return val;
         };
-        this.setTHIS_IS_TO_STOP_WEBSTORM_THROWING_AN_ERROR = function () { };
 
         this.setEnabled = function (enabled) {
             if (_isOn && !enabled) return;//you can't disable it if its on!
