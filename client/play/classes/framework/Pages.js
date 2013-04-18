@@ -15,7 +15,7 @@
         var BTN_SUBMIT = "submit";
         var BTN_SHARE = "share";
 
-        var _pageIds = [INTRO, PRIORITIES, IMPACTS, MONEY];
+        var _pageIds = [INTRO, PRIORITIES, MONEY];  //remove IMPACTS temp
         var _btnStates = [BTN_NEXT, BTN_SUBMIT, BTN_SHARE];
         var _cacheVersion = SAS.mainInstance.getCacheVersion();
         var _pageTitles = new Array();
@@ -187,21 +187,20 @@
             _introPage.showDivs(false);
             _priorityList.showDivs(false);
             //_scenarioList.showDivs(false);
-            _bubbleChart.showDivs(true);
             $('.mechPanel').addClass('panel_money');
             $('.mechPanel').removeClass('panel_impacts');
             //_map.showDivs(false);
-            _showMoreInfo(false);
-            _showNextButton(true, (_submitted) ? BTN_SHARE : BTN_SUBMIT);
             if (!_mechanismList.hasData()) {
                 d3.json('/getMechanisms' + _fileAndVersion(), function (data) {
                     _mechanismList.load(data);
                     _mechanismList.ensureShowMoneyAndVotes();
                     _layout.positionElements();
                 });
+                _mechanismList.showDivs(true);
             } else {
                 _mechanismList.ensureShowMoneyAndVotes();
                 _layout.positionElements();
+                _mechanismList.showDivs(true);
             }
             if (!_moneyShown) {
                 _moneyShown = true;
@@ -210,7 +209,9 @@
             $("#reshowInstr").click(function () {
                 _instructions.showMoneyDialog(_mechanismList.getNumCoins());
             });
-            _mechanismList.showDivs(true);
+            _bubbleChart.showDivs(true);
+            _showMoreInfo(false);
+            _showNextButton(true, (_submitted) ? BTN_SHARE : BTN_SUBMIT);
             _setClickToInfoWin();
         };
 
