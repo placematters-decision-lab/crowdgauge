@@ -163,3 +163,9 @@
   clear: left;
   cursor: pointer;
   margin-right: 10px; }
+
+.thumbs_up, .thumbs_down {
+  clear: none; }
+
+.thumbs_up {
+  margin-right: 0; }

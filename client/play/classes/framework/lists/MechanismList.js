@@ -96,6 +96,7 @@
                     var actionDiv = $("<div id='" + action.aId + "' class='mech_action_div'>").appendTo(_mechSubDivsById[mechanism.id]);
                     action.data.aId = action.aId;
                     if(_actionDefs[action.aId].value == 0) {
+                        //actionDiv = $("<div class='vote_group'>").appendTo(actionDiv);
                         micons[0] = new SAS.MoneyVoteIcon(mechanism, action.data, _actionDefs[action.aId], {thumbState:'up',thumbs:1});
                         micons[1] = new SAS.MoneyVoteIcon(mechanism, action.data, _actionDefs[action.aId], {thumbState:'down',thumbs:-1});
                     } else {
@@ -109,6 +110,9 @@
                              Temporarily removed radio click as the options for this game are not exclusive
                              TODO: abstract to make this optional so admin can select whether they want exclusive or non-exclusive actions
                              */
+                            if(_actionDefs[action.aId].value == 0) {
+                                _radioClick(mechanism, micon); //exclusive selection between thumbs up and down
+                            }
                             //_radioClick(mechanism, micon);
                             _recalcMoney(mechanism, micon);
                         });
