@@ -133,6 +133,7 @@
                     _layout.positionElements();
                 });
             } else {
+                _bubbleChart.colorByPriority();  //TODO: add easing to the animation
                 _layout.positionElements();
                 $("#reshowInstr").click(function () {
                     _instructions.showStarsDialog(_priorityList.getTotalStars());
