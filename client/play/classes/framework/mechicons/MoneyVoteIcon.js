@@ -54,6 +54,8 @@
                 _textDiv = $("<div class='mech_action' data-toggle='popover' data-placement='right' data-original-title='" + SAS.localizr.get(_mAction.title) + "' data-content='" + SAS.localizr.get(_mAction.description) + "'></div>")
                     .appendTo(sel);
                 SAS.localizr.live(_mAction.title, _textDiv);   //replaced description with title
+            }  else {
+                _textDiv = $("<span class='empty'>").appendTo(sel);
             }
             _moneyDiv.hover(
                 function () {
