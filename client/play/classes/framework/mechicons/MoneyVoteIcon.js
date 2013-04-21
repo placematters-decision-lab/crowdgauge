@@ -11,7 +11,6 @@
         var HLITE = "hlite";
         var DISABLED = "disabled";
         var _options = options;
-        console.log(options);
 
         //region private fields and methods
         var _mState = OFF;

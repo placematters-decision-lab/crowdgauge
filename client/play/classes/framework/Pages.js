@@ -179,7 +179,6 @@
             _setClickToInfoWin(_mechanismList);
             $('.mechPanel').addClass('panel_impacts');
             $('.mechPanel').removeClass('panel_money');
-            console.log('panel_impacts');
         };
 
         var _gotoMoney = function () {
