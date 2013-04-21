@@ -26,11 +26,14 @@
             return tot / numValid;
         };
 
-        this.appendScores = function (multiplier, scores) {
+        this.appendScores = function (multiplier, micon, scores) {
             $.each(_mechanism.values, function (priorityId, mpr) {
                 var str_val = mpr;
                 if (str_val == "na" || str_val == "") return true;//continue
                 var val = parseFloat(str_val);
+                if (micon.getThumbs() == -1) {
+                    val = 0;
+                }
                 var score = multiplier * val;
                 if (scores[priorityId] == null) {
                     scores[priorityId] = score;

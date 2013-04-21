@@ -179,6 +179,7 @@
             _setClickToInfoWin(_mechanismList);
             $('.mechPanel').addClass('panel_impacts');
             $('.mechPanel').removeClass('panel_money');
+            console.log('panel_impacts');
         };
 
         var _gotoMoney = function () {
@@ -187,8 +188,6 @@
             _introPage.showDivs(false);
             _priorityList.showDivs(false);
             //_scenarioList.showDivs(false);
-            $('.mechPanel').addClass('panel_money');
-            $('.mechPanel').removeClass('panel_impacts');
             //_map.showDivs(false);
             if (!_mechanismList.hasData()) {
                 d3.json('/getMechanisms' + _fileAndVersion(), function (data) {
@@ -202,6 +201,10 @@
                 _layout.positionElements();
                 _mechanismList.showDivs(true);
             }
+            _bubbleChart.showDivs(true);
+            _showMoreInfo(false);
+            _showNextButton(true, (_submitted) ? BTN_SHARE : BTN_SUBMIT);
+            _setClickToInfoWin();
             if (!_moneyShown) {
                 _moneyShown = true;
                 _instructions.showMoneyDialog(_mechanismList.getNumCoins());
@@ -209,10 +212,6 @@
             $("#reshowInstr").click(function () {
                 _instructions.showMoneyDialog(_mechanismList.getNumCoins());
             });
-            _bubbleChart.showDivs(true);
-            _showMoreInfo(false);
-            _showNextButton(true, (_submitted) ? BTN_SHARE : BTN_SUBMIT);
-            _setClickToInfoWin();
         };
 
         var _showSharingDialog = function (entryId, headerTxt) {

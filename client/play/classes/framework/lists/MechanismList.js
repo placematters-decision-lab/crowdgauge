@@ -159,7 +159,7 @@
                 $.each(micons, function (j, micon) {
                     if (micon.isOn()) {
                         coinsUsed += micon.getTotalCoins();
-                        new SAS.MechanismScorer(mechanism).appendScores(micon.getMultiplier(), scores);
+                        new SAS.MechanismScorer(mechanism).appendScores(micon.getMultiplier(), micon, scores);
                     }
                 });
             });
@@ -193,7 +193,7 @@
 
         var _createList = function () {
             $("#mechanismList").html("");
-            _super._mechPanel($("<div class='mechPanel panel_impacts'></div>").appendTo("#mechanismList"));
+            _super._mechPanel($("<div class='mechPanel " + (_mode == SCENARIO ? 'panel_money' : 'panel_money') + "'></div>").appendTo("#mechanismList"));
 
             _super._addCatDivs([""]);
 

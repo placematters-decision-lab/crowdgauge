@@ -89,6 +89,7 @@
                     .attr("class", function (d) {
                         if (mechanism != null) {
                             var score = mechanism.values[d.id];
+                            if (micon.getThumbs() == - 1) score = 0;
                             if (_scoreCounts(score)) return "score_" + score;
                             return "nofill";
                         }
@@ -131,6 +132,7 @@
                     .attr("class", function (d) {
                         if (mechanism != null) {
                             var score = mechanism.values[d.id];
+                            if (micon.getThumbs() == - 1) score = 0;
                             if (_scoreCounts(score)) return "score_" + score;
                             return "nofill";
                         }
@@ -173,7 +175,7 @@
                 .duration(800)
                 .style("fill", function (d) {
                     var score = scores[d.id];
-                    if (score == null) return "#CCCCCC";
+                    if (score == null ) return "#CCCCCC";
                     var adjScore = score;
                     if (adjScore != 0) {//--a hack to move away from the center (to make it more obvious whether small value are +ve or -ve)
                         adjScore += (adjScore > 0) ? 0.5 : -0.5;

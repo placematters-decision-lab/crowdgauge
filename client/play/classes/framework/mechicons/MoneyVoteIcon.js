@@ -29,6 +29,7 @@
         };
         var _type = 'coins';
         var _thumbState;
+        var _thumbs = 0;
 
         var _currentClass = function () {
             return _type + "_" + _mState + "_" + (_type == 'thumbs' ? _thumbState : _totalCoins);
@@ -42,6 +43,7 @@
             if (_actionDef.value == 0) {
                 _type = 'thumbs';
                 _thumbState = _options.thumbState;
+                _thumbs = _options.thumbs;
                 $('#mech' + _mechanism.id + ' .mechText').hide();
                  _moneyDiv = $("<div class='thumbs_" + _thumbState + " " + _currentClass() + "'></div>").appendTo(sel);
                 //_thumbDiv[1] = $("<div class='thumbs_down " + _currentClass() + "'></div>").appendTo(sel);
@@ -128,6 +130,10 @@
             return _totalCoins;
         };
 
+        this.getThumbs = function () {
+            return _thumbs;
+        }
+
         /**
          * @param {Number} [max] optional maximum for return value
          * @return {Number}
@@ -158,6 +164,7 @@
         this.getAction = function () {
             return _mAction;
         };
+
 
         this.setState = function (value) {
             _mState = value;
