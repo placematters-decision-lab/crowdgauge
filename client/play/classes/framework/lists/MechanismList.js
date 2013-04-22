@@ -256,14 +256,20 @@
                         is a hack for a special case where you want to allocate individual coins to a single
                         TODO: abstract this so the admin can choose whether action votes are exclusive or not, maybe store the actual votes by action instead of mechanism
                          */
-
+                        var thumbs = micon.getThumbs();
                         var aId = micon.getAction().aId;
                         if(votes[mechanism.id + "_" + aId]) {
-                            votes[mechanism.id + "_" + aId] = micon.getTotalCoins();
-                            //votes[mechanism.id] = {'total':micon.getTotalCoins() + votes[mechanism.id]['total']};
+                            if(thumbs != 0) {
+                                votes[mechanism.id + "_" + aId] = thumbs;
+                            } else {
+                                votes[mechanism.id + "_" + aId] = micon.getTotalCoins();
+                            }
                         } else {
-                            votes[mechanism.id + "_" + aId] = micon.getTotalCoins();
-                            //votes[mechanism.id] = {'total':micon.getTotalCoins() + votes[mechanism.id]['total']};
+                            if(thumbs != 0) {
+                                votes[mechanism.id + "_" + aId] = thumbs;
+                            } else {
+                                votes[mechanism.id + "_" + aId] = micon.getTotalCoins();
+                            }
                         }
                     }
                 });

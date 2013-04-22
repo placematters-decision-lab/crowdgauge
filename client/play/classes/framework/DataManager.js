@@ -25,11 +25,13 @@
         };
 
         var _saveData = function (onSave) {
+            /*
             $.post("/saveResponse", {data:JSON.stringify(_getData())},
                 function (entryId) {
                     _entryId = entryId;
                     onSave(_entryId);
-                });
+                }); */
+            console.log({data:JSON.stringify(_getData())});
         };
         //endregion
 
