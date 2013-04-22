@@ -25,13 +25,12 @@
         };
 
         var _saveData = function (onSave) {
-            /*
             $.post("/saveResponse", {data:JSON.stringify(_getData())},
                 function (entryId) {
                     _entryId = entryId;
                     onSave(_entryId);
-                }); */
-            console.log({data:JSON.stringify(_getData())});
+                });
+            //console.log({data:JSON.stringify(_getData())});
         };
         //endregion
 
@@ -48,8 +47,8 @@
             _priorityData = priorityData;
         };
 
-        this.storeTimeSpent = function (prioritySecs, impactsSecs, votingSecs) {
-            _timeData = {priorities:prioritySecs, impacts:impactsSecs, voting:votingSecs};
+        this.storeTimeSpent = function (prioritySecs, votingSecs) {  //Temp: remove impactsSecs
+            _timeData = {priorities:prioritySecs, voting:votingSecs};
         };
 
         this.storeVotes = function (voteData) {

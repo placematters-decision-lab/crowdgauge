@@ -329,11 +329,11 @@
                     _submitTime = new Date();
                     _showNextButton(false, "");//--hide the button to prevent multiple clicks...
                     _storeData(MONEY);
-                    if (_impactsStartTime && _priorityStartTime && _votingStartTime) {
-                        var priorityMs = _impactsStartTime.getTime() - _priorityStartTime.getTime();
-                        var impactsMs = _votingStartTime.getTime() - _impactsStartTime.getTime();
+                    if (_priorityStartTime && _votingStartTime) {  //remove _impactsStartTime temporarily
+                        //var priorityMs = _impactsStartTime.getTime() - _priorityStartTime.getTime();
+                        var priorityMs = _votingStartTime.getTime() - _priorityStartTime.getTime();
                         var votingMs = _submitTime.getTime() - _votingStartTime.getTime();
-                        _dataManager.storeTimeSpent(Math.round(priorityMs / 1000), Math.round(impactsMs / 1000), Math.round(votingMs / 1000));
+                        _dataManager.storeTimeSpent(Math.round(priorityMs / 1000), Math.round(votingMs / 1000));
                     }
                     _dataManager.saveData(function (entryId) {
                         _submitted = true;
