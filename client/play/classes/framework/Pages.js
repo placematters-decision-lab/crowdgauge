@@ -87,7 +87,8 @@
                     new SAS.InfoWindow().createMechanismWindow(acompList.getActiveMechanism(), _priorityList.getPriorities(), id);
                 });
             } else {
-                _bubbleChart.onBubbleClick(function () {});
+                _bubbleChart.onBubbleClick(function () {
+                });
             }
         };
 
@@ -101,7 +102,7 @@
                 document.location.reload(true);
                 return;
             }
-            if(!_mechanismData) {
+            if (!_mechanismData) {
                 _instructions.showIntroDialog();
             }
             _activePage = INTRO;
@@ -176,7 +177,7 @@
                 var priorities = _priorityList.getPriorities();
                 var topScorer = _mechanismList.getTopScorer(priorities);
                 $("#reshowInstr").click(function () {
-                   _instructions.showMechanismInstructions(_mechanismData, priorities, _bubbleChart, topScorer);
+                    _instructions.showMechanismInstructions(_mechanismData, priorities, _bubbleChart, topScorer);
                 });
             }
             _mechanismList.showDivs(true);
@@ -218,7 +219,10 @@
         };
 
         var gotoPolicies = function () {
-           if (!_policiesStartTime) _policiesStartTime = new Date();
+            if (!_policiesStartTime) _policiesStartTime = new Date();
+            _activePage = POLICIES;
+            _introPage.showDivs(false);
+            _priorityList.showDivs(false);
         }
 
         var _showSharingDialog = function (entryId, headerTxt) {
@@ -288,27 +292,27 @@
         var _initialize = function () {
             _layout.addRightAligners([
 //                {sel:$("#btnNext"), leave:10},
-                {sel:$("#reshowInstr"), leave:10},
-                {sel:$("#moreInfo"), leave:10},
-                {sel:$("#footer_sasaki"), leave:5}
+                {sel: $("#reshowInstr"), leave: 10},
+                {sel: $("#moreInfo"), leave: 10},
+                {sel: $("#footer_sasaki"), leave: 5}
                 /*{sel:$("#colorRampLegend"), leave:10}*/
             ]);
             _layout.addBottomAligners([
-               /* {sel:$("#colorRampLegend"), leave:27},*/
-                {sel:$("#moreInfo"), leave:70},
-                {sel:$("#itemsLeft"), leave:24},
-                {sel:$("#footer")}
+                /* {sel:$("#colorRampLegend"), leave:27},*/
+                {sel: $("#moreInfo"), leave: 70},
+                {sel: $("#itemsLeft"), leave: 24},
+                {sel: $("#footer")}
             ]);
             _layout.addHeightFillers([
-                {sel:".mechPanel", leave:100},
-                {sel:".mechPanelComp", leave:80},
-                {sel:".panel_money", leave:80 },
-                {sel:"#priorityList", leave:80},
-                {sel:$("#chart"), leave:90}
+                {sel: ".mechPanel", leave: 100},
+                {sel: ".mechPanelComp", leave: 80},
+                {sel: ".panel_money", leave: 80 },
+                {sel: "#priorityList", leave: 80},
+                {sel: $("#chart"), leave: 90}
                 //40 for image + 24 for footer + 2
             ]);
             _layout.addWidthFillers([
-                {sel:$("#chart")}
+                {sel: $("#chart")}
             ]);
 
             _addClickEvents([INTRO]);
