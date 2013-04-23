@@ -11,3 +11,5 @@ heart: Mon Apr 22 08:36:12 2013: Executed "/usr/local/Cellar/couchdb/1.2.1/bin/c
 
 heart_beat_kill_pid = 43427
 heart_beat_timeout = 11
+heart: Mon Apr 22 19:15:33 2013: heart-beat time-out, no activity for 1454 seconds
+heart: Mon Apr 22 19:15:34 2013: Executed "/usr/local/Cellar/couchdb/1.2.1/bin/couchdb -k" -> 0. Terminating.

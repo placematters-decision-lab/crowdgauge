@@ -10,6 +10,7 @@
         var PRIORITIES = "priorities";
         var IMPACTS = "impacts";
         var MONEY = "money";
+        var POLICIES = "policies";
 
         var BTN_NEXT = "next";
         var BTN_SUBMIT = "submit";
@@ -26,6 +27,7 @@
         var _priorityStartTime;
         var _impactsStartTime;
         var _votingStartTime;
+        var _policiesStartTime;
         var _submitTime;
 
         var _mechanismData;
@@ -52,6 +54,7 @@
         _pageTitles['priorities'] = ' I imagine a New River Valley where... ';
         _pageTitles['impacts'] = 'Explore how different projects and policies affect your priorities...';
         _pageTitles['money'] = 'Tell us which projects and policies you would like to see in the New River Valley';
+        _pageTitles['policies'] = 'Tell us which policies you would like to see in the New River Valley';
 
         var _selectTab = function (pageId) {
             $(".tabTitle").removeClass("tabTitleHighlight");
@@ -213,6 +216,10 @@
                 _instructions.showMoneyDialog(_mechanismList.getNumCoins());
             });
         };
+
+        var gotoPolicies = function () {
+           if (!_policiesStartTime) _policiesStartTime = new Date();
+        }
 
         var _showSharingDialog = function (entryId, headerTxt) {
             _instructions.showSharingDialog(entryId, headerTxt, _self, _bubbleChart, _priorityList.getSortedPriorities());
