@@ -1,6 +1,6 @@
 {
     "push_branch": null, 
-    "application": "nrvlive", 
+    "application": "nrvstaging", 
     "version": "0.9.4", 
     "push_protocol": "rsync"
 }
