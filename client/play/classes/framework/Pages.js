@@ -16,7 +16,7 @@
         var BTN_SUBMIT = "submit";
         var BTN_SHARE = "share";
 
-        var _pageIds = [INTRO, PRIORITIES, MONEY];  //remove IMPACTS temp
+        var _pageIds = [INTRO, PRIORITIES, MONEY, POLICIES];  //remove IMPACTS temp
         var _btnStates = [BTN_NEXT, BTN_SUBMIT, BTN_SHARE];
         var _cacheVersion = SAS.mainInstance.getCacheVersion();
         var _pageTitles = new Array();
@@ -53,8 +53,8 @@
         _pageTitles['intro'] = 'Imagine New River Valley in the Future';
         _pageTitles['priorities'] = ' I imagine a New River Valley where... ';
         _pageTitles['impacts'] = 'Explore how different projects and policies affect your priorities...';
-        _pageTitles['money'] = 'Tell us which projects and policies you would like to see in the New River Valley';
-        _pageTitles['policies'] = 'Tell us which policies you would like to see in the New River Valley';
+        _pageTitles['money'] = 'Put your money where your mouse is...';
+        _pageTitles['policies'] = 'Tell us which policies you would like to see in the New River Valley...';
 
         var _selectTab = function (pageId) {
             $(".tabTitle").removeClass("tabTitleHighlight");
@@ -218,11 +218,34 @@
             });
         };
 
-        var gotoPolicies = function () {
+        var _gotoPolicies = function () {
             if (!_policiesStartTime) _policiesStartTime = new Date();
             _activePage = POLICIES;
             _introPage.showDivs(false);
             _priorityList.showDivs(false);
+            if (!_mechanismList.hasData()) {
+                d3.json('/getMechanisms' + _fileAndVersion(), function (data) {
+                    _mechanismList.load(data);
+                    _mechanismList.ensureShowMoneyAndVotes();
+                    _layout.positionElements();
+                });
+                _mechanismList.showDivs(true);
+            } else {
+                _mechanismList.ensureShowMoneyAndVotes();
+                _layout.positionElements();
+                _mechanismList.showDivs(true);
+            }
+            _bubbleChart.showDivs(true);
+            _showMoreInfo(false);
+            _showNextButton(true, (_submitted) ? BTN_SHARE : BTN_SUBMIT);
+            _setClickToInfoWin();
+            if (!_moneyShown) {
+                _moneyShown = true;
+                _instructions.showMoneyDialog(_mechanismList.getNumCoins());
+            }
+            $("#reshowInstr").click(function () {
+                _instructions.showMoneyDialog(_mechanismList.getNumCoins());
+            });
         }
 
         var _showSharingDialog = function (entryId, headerTxt) {
@@ -240,6 +263,9 @@
                     break;
                 case MONEY:
                     _dataManager.storeVotes(_mechanismList.getVotes());
+                    break;
+                case POLICIES:
+                    ///
                     break;
             }
         };
@@ -259,6 +285,9 @@
                     break;
                 case MONEY:
                     _gotoMoney();
+                    break;
+                case POLICIES:
+                    _gotoPolicies();
                     break;
             }
         };

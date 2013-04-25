@@ -205,7 +205,10 @@
             });
         };
 
-        var _showDivs = function (show) {
+        var _showDivs = function (show, category) {
+            if(category) {
+               ////
+            }
             $("#mechanismList").toggle(show);
             $("#coinsLeft").toggle(show && _mode == SCENARIO);
             $("#clickInstr").toggle(show && _mode == IMPACTS);

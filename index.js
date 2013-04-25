@@ -5,7 +5,6 @@ var util = require('util');
 
 if(process.env.NODE_ENV == 'production') {
     var config = require("./server/config");
-    console.log('production');
 } else {
     var config = require("./server/config.development");
 }

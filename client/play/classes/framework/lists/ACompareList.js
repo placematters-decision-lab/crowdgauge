@@ -33,6 +33,7 @@
 
         var _addCatDiv = function (category) {
             if (!_catDivs[category]) {
+                var catText = category.replace(/ /g,"_").toLowerCase();
                 var catDiv = $("<div class='mechCat'></div>").appendTo(_mechPanel);
                 var catTitleDiv = $("<div class='mechCatTitle'></div>").appendTo(catDiv);
                 catTitleDiv.text(category);
