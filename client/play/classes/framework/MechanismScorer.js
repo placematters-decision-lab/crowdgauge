@@ -16,7 +16,8 @@
             if (priorities == null) return 0;
             var numValid = 0;
             var tot = 0;
-            $.each(priorities.children, function (i, priority) {
+//            $.each(priorities.children, function (i, priority) {
+            $.each(priorities, function (i, priority) { // modified by ycui, 04262013
                 var str_val = (_mechanism.values[priority.id]) ? _mechanism.values[priority.id] : "na";
                 if (str_val == "na") return true;//continue
                 var val = parseFloat(str_val);

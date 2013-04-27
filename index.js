@@ -8,6 +8,8 @@ var router = require("./server/http/router");
 var dataHandler = require("./server/modules/dataHandlers/contributeDataHandler");
 /** @type ResponseDataHandler */
 var responseDataHandler = require("./server/modules/dataHandlers/responseDataHandler");
+/** @type SettingDataHandler */
+var settingDataHandler = require("./server/modules/dataHandlers/settingDataHandler");
 /** @type ImageDataHandler */
 var imageDataHandler = require("./server/modules/dataHandlers/imageDataHandler");
 /** @type FileManager */
@@ -22,8 +24,10 @@ var ps = new personaServer.PersonaServer(persist, {
     audience:config.appURL
 });
 
+// set Handlers
 fileManager.setHandlers(imageDataHandler);
 dataHandler.setHandlers(socketHandler, imageDataHandler);
+responseDataHandler.setHandlers(settingDataHandler);
 
 //var client = path.resolve(__dirname, "client");
 var file = new (nodeStatic.Server)(__dirname);
@@ -72,6 +76,12 @@ handle["/getActionDefs"] = dataHandler.getActionDefs;
 handle["/getActions"] = dataHandler.getActions;
 
 handle["/saveResponse"] = responseDataHandler.saveResponse;
+// for client/play/classes/framework/mapping/MapMain.js, ycui 04232013
+handle["/getTopMechByCommunity"] = responseDataHandler.getTopMechByCommunity;
+handle["/getMechDataByCommunity"] = responseDataHandler.getMechDataByCommunity;
+handle["/getCommunityData"] = responseDataHandler.getCommunityData;
+
+handle["/getCommunities"] = settingDataHandler.getCommunities;
 
 handle["/persona_login"] = ps.login;
 handle["/persona_logout"] = ps.logout;
