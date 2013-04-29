@@ -222,14 +222,15 @@
                 });
 
             } else {
+                policies = false;
                 $('.mechCat').show();
                 $.each(_super._getPolicyDivs(), function(i, policyDiv) {
                     policyDiv.hide();
                 });
             }
-            $("#coinsLeft").toggle(show && _mode == SCENARIO);
-            $("#clickInstr").toggle(show && _mode == IMPACTS);
-
+            $("#coinsLeft").toggle(show && _mode == SCENARIO && !_policies);
+            $("#clickInstr").toggle(show && _mode == SCENARIO && !_policies);
+            $("#policiesInstr").toggle(show && _mode == SCENARIO && _policies);
             if (show) {
                 //$("#leftPanel").css("width", "445px");
             }
@@ -316,10 +317,10 @@
         };
 
         /*
-        policies bool
+        policies bool required
          */
         this.ensureShowMoneyAndVotes = function (policies) {
-            if(policies) _policies = policies;
+            _policies = policies;
             _setMode(SCENARIO);
 
             _super._showBubbleCharts(false);
