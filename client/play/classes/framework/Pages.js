@@ -197,9 +197,7 @@
             if (!_mechanismList.hasData()) {
                 d3.json('/getMechanisms' + _fileAndVersion(), function (data) {
                     _mechanismList.load(data);
-                    console.log('ensure show money start');
                     _mechanismList.ensureShowMoneyAndVotes(_mechanismList.showDivs(true));
-                    console.log('ensure show money end');
                     _layout.positionElements();
                 });
             } else {
@@ -217,7 +215,6 @@
             $("#reshowInstr").click(function () {
                 _instructions.showMoneyDialog(_mechanismList.getNumCoins());
             });
-            console.log('end of goToMoney');
             //_mechanismList.showDivs(true);
         };
 
@@ -249,6 +246,7 @@
             $("#reshowInstr").click(function () {
                 _instructions.showPoliciesDialog();
             });
+            _mechanismList.showDivs(true,true);
         }
 
         var _showSharingDialog = function (entryId, headerTxt) {

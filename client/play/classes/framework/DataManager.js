@@ -30,7 +30,6 @@
                     _entryId = entryId;
                     onSave(_entryId);
                 });
-            //console.log({data:JSON.stringify(_getData())});
         };
         //endregion
 
