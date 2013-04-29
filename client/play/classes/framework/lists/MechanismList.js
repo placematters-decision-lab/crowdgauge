@@ -207,7 +207,6 @@
         };
 
         var _showDivs = function (show, policies) {
-            console.log('show mechanism divs');
             $("#mechanismList").toggle(show);
             if(policies) {
                 $('.mechCat').hide();
@@ -219,9 +218,7 @@
                 $('.mechCat').show();
                 $.each(_super._getPolicyDivs(), function(i, policyDiv) {
                     policyDiv.hide();
-                    console.log(policyDiv);
                 });
-                console.log('show divs else');
             }
             $("#coinsLeft").toggle(show && _mode == SCENARIO);
             $("#clickInstr").toggle(show && _mode == IMPACTS);
