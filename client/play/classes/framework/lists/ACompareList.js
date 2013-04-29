@@ -22,6 +22,7 @@
         var _activeMechanism;
         var _onActiveMechanismChange = function () {
         };
+        var _policyDivs = {};
 
         var _addMiniBubbleChart = function (mechanism) {
             if (!_catDivs[mechanism.category]) return;
@@ -33,13 +34,23 @@
 
         var _addCatDiv = function (category) {
             if (!_catDivs[category]) {
-                var catText = category.replace(/ /g,"_").toLowerCase();
-                var catDiv = $("<div class='mechCat'></div>").appendTo(_mechPanel);
+                var catClass = 'cat';
+                if(category != '') {
+                    catClass = "cat_" + category.replace(/ /g,"_").toLowerCase();
+                }
+                var catDiv = $("<div class='mechCat " + catClass + "'></div>").appendTo(_mechPanel);
                 var catTitleDiv = $("<div class='mechCatTitle'></div>").appendTo(catDiv);
                 catTitleDiv.text(category);
                 _catDivs[category] = catDiv;
             }
         };
+
+        var _addPolicyDiv = function(category) {
+            if(!_policyDivs[category]) {
+                var catClass = "cat_" + category.replace(/ /g,"_").toLowerCase();
+                _policyDivs[category] = $('.' + catClass);
+            }
+        }
 
         var _resizeMiniBubbleCharts = function () {
             if (_miniCharts == null) return;
@@ -118,6 +129,10 @@
             return _catDivs[catname];
         };
 
+        this._getPolicyDivs = function () {
+            return _policyDivs;
+        }
+
         this._addCatDivs = function (divTitles) {
             _catDivs = {};
             $.each(divTitles, function (i, value) {
@@ -127,6 +142,10 @@
 
         this._addCatDiv = function (category) {
             _addCatDiv(category);
+        }
+
+        this._addPolicyDiv = function(category) {
+            _addPolicyDiv(category);
         }
 
         this._setActiveMechanism = function (mechanism) {

@@ -196,18 +196,18 @@
             if (!_mechanismList.hasData()) {
                 d3.json('/getMechanisms' + _fileAndVersion(), function (data) {
                     _mechanismList.load(data);
-                    _mechanismList.ensureShowMoneyAndVotes();
+                    console.log('ensure show money start');
+                    _mechanismList.ensureShowMoneyAndVotes(_mechanismList.showDivs(true));
+                    console.log('ensure show money end');
                     _layout.positionElements();
                 });
-                _mechanismList.showDivs(true);
             } else {
-                _mechanismList.ensureShowMoneyAndVotes();
+                _mechanismList.ensureShowMoneyAndVotes(_mechanismList.showDivs(true));
                 _layout.positionElements();
-                _mechanismList.showDivs(true);
             }
             _bubbleChart.showDivs(true);
             _showMoreInfo(false);
-            _showNextButton(true, (_submitted) ? BTN_SHARE : BTN_SUBMIT);
+            _showNextButton(true, BTN_NEXT ); //TODO: check for policies, go to policies if they exist, otherwise submit (_submitted) ? BTN_SHARE : BTN_SUBMIT
             _setClickToInfoWin();
             if (!_moneyShown) {
                 _moneyShown = true;
@@ -216,6 +216,8 @@
             $("#reshowInstr").click(function () {
                 _instructions.showMoneyDialog(_mechanismList.getNumCoins());
             });
+            console.log('end of goToMoney');
+            //_mechanismList.showDivs(true);
         };
 
         var _gotoPolicies = function () {
@@ -229,11 +231,11 @@
                     _mechanismList.ensureShowMoneyAndVotes();
                     _layout.positionElements();
                 });
-                _mechanismList.showDivs(true);
+                _mechanismList.showDivs(true,true);
             } else {
                 _mechanismList.ensureShowMoneyAndVotes();
                 _layout.positionElements();
-                _mechanismList.showDivs(true);
+                _mechanismList.showDivs(true,true);
             }
             _bubbleChart.showDivs(true);
             _showMoreInfo(false);

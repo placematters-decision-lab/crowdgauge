@@ -91,14 +91,16 @@
             _moneyIcons[mechanism.id] = [];
             var micons = [];
             d3.json('/getActions?mechId=' + mechanism.id, function (mObj) {
-                $.each(mObj.actions, function (i, action) {
+                $.each(mObj.actions, function (i, action, cb) {
                     if (!action.data || action.data.value === 0) return true;//continue
                     var actionDiv = $("<div id='" + action.aId + "' class='mech_action_div'>").appendTo(_mechSubDivsById[mechanism.id]);
                     action.data.aId = action.aId;
                     if(_actionDefs[action.aId].value == 0) {
-                        //actionDiv = $("<div class='vote_group'>").appendTo(actionDiv);
+                        _super._addPolicyDiv(SAS.localizr.get(mechanism.data.category));
                         micons[0] = new SAS.MoneyVoteIcon(mechanism, action.data, _actionDefs[action.aId], {thumbState:'up',thumbs:1});
                         micons[1] = new SAS.MoneyVoteIcon(mechanism, action.data, _actionDefs[action.aId], {thumbState:'down',thumbs:-1});
+                        //TODO: this is a hacky fix to force divs to not show policies when on the budget page, should abstract this out to pass it in further up the chain
+                        _showDivs(true);
                     } else {
                         micons[0] = new SAS.MoneyVoteIcon(mechanism, action.data, _actionDefs[action.aId]);
                     }
@@ -113,7 +115,6 @@
                             if(_actionDefs[action.aId].value == 0) {
                                 _radioClick(mechanism, micon); //exclusive selection between thumbs up and down
                             }
-                            //_radioClick(mechanism, micon);
                             _recalcMoney(mechanism, micon);
                         });
                     });
@@ -205,11 +206,23 @@
             });
         };
 
-        var _showDivs = function (show, category) {
-            if(category) {
-               ////
-            }
+        var _showDivs = function (show, policies) {
+            console.log('show mechanism divs');
             $("#mechanismList").toggle(show);
+            if(policies) {
+                $('.mechCat').hide();
+                $.each(_super._getPolicyDivs(), function(i, policyDiv) {
+                    policyDiv.show();
+                });
+
+            } else {
+                $('.mechCat').show();
+                $.each(_super._getPolicyDivs(), function(i, policyDiv) {
+                    policyDiv.hide();
+                    console.log(policyDiv);
+                });
+                console.log('show divs else');
+            }
             $("#coinsLeft").toggle(show && _mode == SCENARIO);
             $("#clickInstr").toggle(show && _mode == IMPACTS);
 
@@ -237,8 +250,8 @@
         //endregion
 
         //region public API
-        this.showDivs = function (show) {
-            _showDivs(show);
+        this.showDivs = function (show, policies) {
+            _showDivs(show, policies);
         };
 
         this.onLoad = function (fn) {
@@ -306,7 +319,6 @@
                 _ensureActionDefsLoaded(function () {
                     $.each(_super._mechanisms(), function (i, mechanism) {
                         _addMoneyAndVotes(mechanism);
-
                     });
                 });
                 _recalcMoney();
