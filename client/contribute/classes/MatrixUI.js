@@ -137,7 +137,7 @@
             var $addABtn = $('<button>Add Action Column</button>').button().appendTo($toolbar);
             var $langSel = $('<select class="langSel"></select>').appendTo($toolbar);
 
-            SAS.controlUtilsInstance.populateSelectList($langSel, null, ['en', 'af'], 'en');
+            SAS.controlUtilsInstance.populateSelectList($langSel, null, ['en', 'es'], 'en');
             $langSel.change(function () {
                 SAS.localizr.setActiveLang($(this).val());
 //                _callUpdateCells();
