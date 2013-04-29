@@ -18,6 +18,7 @@
 
         var IMPACTS = "impacts";
         var SCENARIO = "scenario";
+        var POLICIES = "policies";
 
         //region private fields and methods
         var _filename = filename;
@@ -32,6 +33,7 @@
 
         var _moneyIcons;
         var _mode = IMPACTS;
+        var _policies = false;
         var _totalCoins = 20;
 
         var _actionDefs = {};
@@ -51,12 +53,12 @@
                 //_super._getCatDiv("Baseline").slideUp(_transTime);
                 $(".mechGrp").removeClass("selected");
                 $(".mechGrp").css("minHeight", "24px");
-                if (_mode == SCENARIO) {
+                if (_mode == SCENARIO || _mode == POLICIES) {
                     $(".mechSub").show();
                     $(".mechGrp").removeClass("mechGrpBtn").addClass("mechGrpBox");
                 }
             }
-            if (_mode == SCENARIO) {
+            if (_mode == SCENARIO || _mode == POLICIES) {
                 _showMoneyIcons(true);
                 $("#coinsLeft").show();
             } else {
@@ -99,8 +101,13 @@
                         _super._addPolicyDiv(SAS.localizr.get(mechanism.data.category));
                         micons[0] = new SAS.MoneyVoteIcon(mechanism, action.data, _actionDefs[action.aId], {thumbState:'up',thumbs:1});
                         micons[1] = new SAS.MoneyVoteIcon(mechanism, action.data, _actionDefs[action.aId], {thumbState:'down',thumbs:-1});
-                        //TODO: this is a hacky fix to force divs to not show policies when on the budget page, should abstract this out to pass it in further up the chain
-                        _showDivs(true);
+                        //TODO: this is a hacky fix to force divs to not show policies when on the budget page and vice versa when first loading, should work on creating a sequential loading of actions and hiding of policies/budget
+                        if(_policies) {
+                            _showDivs(true, true);
+                        } else {
+                            _showDivs(true);
+                        }
+
                     } else {
                         micons[0] = new SAS.MoneyVoteIcon(mechanism, action.data, _actionDefs[action.aId]);
                     }
@@ -308,8 +315,13 @@
             _setMode(IMPACTS);
         };
 
-        this.ensureShowMoneyAndVotes = function () {
+        /*
+        policies bool
+         */
+        this.ensureShowMoneyAndVotes = function (policies) {
+            if(policies) _policies = policies;
             _setMode(SCENARIO);
+
             _super._showBubbleCharts(false);
             if (_moneyIcons == null) {
                 _moneyIcons = {};

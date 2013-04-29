@@ -197,12 +197,14 @@
             if (!_mechanismList.hasData()) {
                 d3.json('/getMechanisms' + _fileAndVersion(), function (data) {
                     _mechanismList.load(data);
-                    _mechanismList.ensureShowMoneyAndVotes(_mechanismList.showDivs(true));
+                    _mechanismList.ensureShowMoneyAndVotes();
                     _layout.positionElements();
+                    _mechanismList.showDivs(true);
                 });
             } else {
-                _mechanismList.ensureShowMoneyAndVotes(_mechanismList.showDivs(true));
+                _mechanismList.ensureShowMoneyAndVotes();
                 _layout.positionElements();
+                _mechanismList.showDivs(true)
             }
             _bubbleChart.showDivs(true);
             _showMoreInfo(false);
@@ -226,12 +228,12 @@
             if (!_mechanismList.hasData()) {
                 d3.json('/getMechanisms' + _fileAndVersion(), function (data) {
                     _mechanismList.load(data);
-                    _mechanismList.ensureShowMoneyAndVotes();
+                    _mechanismList.ensureShowMoneyAndVotes(true);
                     _layout.positionElements();
                 });
                 _mechanismList.showDivs(true,true);
             } else {
-                _mechanismList.ensureShowMoneyAndVotes();
+                _mechanismList.ensureShowMoneyAndVotes(true);
                 _layout.positionElements();
                 _mechanismList.showDivs(true,true);
             }
