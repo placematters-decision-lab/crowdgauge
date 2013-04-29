@@ -126,8 +126,8 @@ div.panel_impacts #mechm40344173223-2092 {
   position: fixed; }
 
 .popover {
-  width: 400px;
-  max-width: 350px;
+  width: 450px;
+  max-width: 500px;
   z-index: 1000000; }
 
 .info_left_title {
