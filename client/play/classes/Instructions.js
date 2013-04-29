@@ -170,10 +170,19 @@
             var txt = "<p>Put your money where your mouse is!</p>";
             txt += "<p>You have <span style='text-decoration:underline'>up to</span> " + numCoins + " coins to spend. The coins represent relative cost within a fixed budget. " +
                 "To learn more about each project, hover (or tap if on a tablet) on each project description on the left side of your screen." +
-                "<p>You can also give the thumbs up to as many general policies as you'd like at the bottom of the left panel.</p>" +
                 "<p>See how the colors change in your priority bubble chart to show how well the options you select help achieve your priorities.</p>";
             _showInstructionDialog(txt);
         };
+
+        this.showPoliciesDialog = function () {
+            _showAgainFn = function() {
+                _self.showPoliciesDialog();
+            };
+            var txt = "<p>Tell us what you think of these policies</p>";
+            txt += "<p>This is the last part of the survey before submitting! Please give the thumbs up or down to each of these policies.  If you are neutral or don't have an opinion, don't select either.</p>" +
+                "<p>The colors in your priority bubble chart will continue to show how well the options you select help achieve your priorities like in the budget exercise.</p>";
+            _showInstructionDialog(txt);
+        }
 
         this.showCredits = function () {
             var txt = "<p>Many icons are from <a href='http://thenounproject.com/' target='_blank'>The Noun Project</a> Collection.</p>";
