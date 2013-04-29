@@ -180,7 +180,7 @@
             };
             var txt = "<p>Tell us what you think of these policies</p>";
             txt += "<p>This is the last part of the survey before submitting! Please give the thumbs up or down to each of these policies.  If you are neutral or don't have an opinion, don't select either.</p>" +
-                "<p>The colors in your priority bubble chart will continue to show how well the options you select help achieve your priorities like in the budget exercise.</p>";
+                "<p>The colors in your priority bubble chart will continue to show how well the options you select help achieve your priorities.</p>";
             _showInstructionDialog(txt);
         }
 
