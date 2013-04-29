@@ -22,6 +22,7 @@
         var _pageTitles = new Array();
         var _lastPage;
         var _moneyShown = false;
+        var _policiesShown = false;
         var _submitted = false;
 
         var _priorityStartTime;
@@ -241,12 +242,12 @@
             _showMoreInfo(false);
             _showNextButton(true, (_submitted) ? BTN_SHARE : BTN_SUBMIT);
             _setClickToInfoWin();
-            if (!_moneyShown) {
-                _moneyShown = true;
-                _instructions.showMoneyDialog(_mechanismList.getNumCoins());
+            if (!_policiesShown) {
+                _policiesShown = true;
+                _instructions.showPoliciesDialog();
             }
             $("#reshowInstr").click(function () {
-                _instructions.showMoneyDialog(_mechanismList.getNumCoins());
+                _instructions.showPoliciesDialog();
             });
         }
 
