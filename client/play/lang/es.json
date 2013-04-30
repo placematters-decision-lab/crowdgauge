@@ -1,0 +1,13 @@
+{
+    "buttons": {
+        "next": "Próximo",
+        "start": "Comienzo"
+    },
+
+    "tabs": {
+        "intro": "Introducción",
+        "priorities" : "Prioridad",
+        "budget" : "Presupuesto",
+        "policies" : "Programa"
+    }
+}

@@ -46,6 +46,7 @@
                 selJq.append($("<option />").val(PROMPT).text(promptStr));
             }
             $.each(arr, function (i, value) {
+                console.log(value);
                 var optionJq = $("<option />").val(value).text(value).prop("selected", (selectedValue == value));
                 selJq.append(optionJq);
             });
