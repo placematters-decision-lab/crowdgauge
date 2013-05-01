@@ -56,19 +56,19 @@
 
             rects = bar.append("rect")
                 .attr("class", "bar_rect")
-                .style("fill", _mechanism.color)
+                .style("fill", _mechanism.data.color.background) // set color
                 .attr("height", function (d) { return y(d.percent); })
                 .attr("width", x.rangeBand());
 
             bar.append("text")
                 .attr("class", "barLabel barLabelOuter")
                 .attr("transform", "translate(" + (barWidth / 2) + " , -5) rotate(-90)")
-                .text(function (d, i) { return d.city;});
+                .text(function (d, i) { return d.location;});
 
             bar.append("text")
                 .attr("class", "barLabel barLabelInner")
                 .attr("transform", "translate(" + (barWidth / 2) + " , -5) rotate(-90)")
-                .text(function (d, i) { return d.city;});
+                .text(function (d, i) { return d.location;});
 
             $('svg rect.bar_rect').tipsy({
                 gravity:'w',
@@ -77,7 +77,7 @@
                 title:function () {
                     var d = this.__data__;
                     var perc = d.percent;
-                    return _mechanism.ingText + " gets " + perc.toFixed(1) + "% of the votes in " + d.city;
+                    return SAS.localizr.getProp(_mechanism.data, 'progressive') + " gets " + perc.toFixed(1) + "% of the votes in " + d.location;
                 }
             });
 
@@ -130,7 +130,7 @@
                 .attr("height", function (d) {
                     return y(d.percent);
                 })
-                .style("fill", _mechanism.color);
+                .style("fill", _mechanism.data.color.background) // set color
 
             bar.transition()
                 .duration(750)
@@ -173,21 +173,21 @@
             _showMain(false);
         };
 
-        this.updateData = function (cityArr, mech) {
+        this.updateData = function (locationArr, mech) {
             _showMain(true);
             _mechanism = mech;
             if (!_data) {
                 _data = [];
-                $.each(cityArr, function (i, cityObj) {
-                    _data.push({city:cityObj.city, percent:cityObj.percent * 100})
+                $.each(locationArr, function (i, locationObj) {
+                    _data.push({location:locationObj.location, percent:locationObj.perc * 100})
                 });
                 _setup();
             } else {
                 //--update the percent on exist data
-                var dataByCity = d3.nest().key(
-                    function (d) { return d.city; }).map(cityArr)
+                var dataByLocation = d3.nest().key(
+                    function (d) { return d.location; }).map(locationArr)
                 $.each(_data, function (i, dv) {
-                    dv.percent = dataByCity[dv.city][0].percent * 100;
+                    dv.percent = dataByLocation[dv.location][0].perc * 100;
                 });
                 _update();
             }

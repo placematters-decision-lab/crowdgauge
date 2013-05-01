@@ -15,16 +15,18 @@
         var _currentRankings;
         var _centersText;
         var _centers;
-        var _cityCharts;
+        var _locationCharts;
         var _starMarkers;
         var _circleMarkers;
         var _container = container;
         var _svg = d3.select(svgNode);
-        var _dataByCity;
+        var _dataByLocation;
+        var _cloudMade = {styleId: '998', apiKey: 'F5b3b4d1159f463ead3d1c183c4a30fb'};
         var map;
         var po = org.polymaps;
 
-        var _onSelectCity = function () {};
+        var _onSelectLocation = function () {
+        };
 
         var _createMap = function () {
             /*var svg = po.svg("svg:svg");//fix for Firefox: https://github.com/simplegeo/polymaps/issues/115
@@ -34,17 +36,20 @@
             // Create the map object, add it to #map…
             map = po.map()
                 .container(_container)
-                .center({lat:41.6, lon:-93.66})
+                .center({lat: 37.1, lon: -80.6})// Modify: center lat, lon
                 .zoom(10)
                 .add(po.interact());
 
-            var script = document.createElement("script");
-            script.setAttribute("type", "text/javascript");
-            script.setAttribute("src", "https://dev.virtualearth.net"
-                + "/REST/V1/Imagery/Metadata/Road"
-                + "?key=AmT-ZC3HPevQq5IBJ7v8qiDUxrojNaqbW1zBsKF0oMNEs53p7Nk5RlAuAmwSG7bg"
-                + "&jsonp=bing_callback");
-            document.body.appendChild(script);
+            map.add(po.image() // CloudMade API
+                .url(po.url('http://{S}tile.cloudmade.com'
+                        + '/' + _cloudMade.apiKey + '/' + _cloudMade.styleId + '/'
+                        + '256/{Z}/{X}/{Y}.png')
+                    .hosts(['a.', 'b.', 'c.', ''])));
+
+            map.add(po.compass()
+                .pan("none"));
+
+            loadData();
         };
 
         window.bing_callback = function (data) {
@@ -55,16 +60,13 @@
                 for (var j = 0; j < resources.length; j++) {
                     var resource = resources[j];
                     map.add(po.image()
-                        .url(template(resource.imageUrl.replace(/^http:/, "https:"), resource.imageUrlSubdomains)))
-                        .tileSize({x:resource.imageWidth, y:resource.imageHeight});
+                            .url(template(resource.imageUrl.replace(/^http:/, "https:"), resource.imageUrlSubdomains)))
+                        .tileSize({x: resource.imageWidth, y: resource.imageHeight});
                 }
             }
             //map.add(po.image().url("http://sasakistrategies.com/MapTiles/Iowa/MPOBoundary/{Z}/{X}/{Y}.png"));
             // Add the compass control on top.
-            map.add(po.compass()
-                .pan("none"));
 
-            loadData();
         };
 
         var useFilter = false;
@@ -74,7 +76,7 @@
         var n = 1;
         //var color = d3.scale.ordinal().range(d3_category20);
         var color = function (d) {
-            return d.data.mech.color;
+            return d.data.mech.color.background;
         };
         var makeStar = function (d) {
             var values = d.topmechs;
@@ -87,8 +89,8 @@
             return 1 / n;//for a star chart, we use a constant angle rather than an angle based on the data value
         });
         var starRad = function (d) {
-            return 2;
-            //return Math.sqrt(d.data.score) * rm;//use the area of the wedge to represent the value. r is a radius multiplier and can be modified for different data sets.
+            //return 2;
+            return Math.sqrt(d.data.score) * rm;//use the area of the wedge to represent the value. r is a radius multiplier and can be modified for different data sets.
         };
         var arc = d3.svg.arc().innerRadius(0).outerRadius(starRad);
         var midAngle = function (d) {
@@ -99,17 +101,17 @@
 
             var layer = _svg.insert("svg:g", ".compass");
 
-            _cityCharts = layer.selectAll("g")
+            _locationCharts = layer.selectAll("g")
                 .data(_mapdata)
                 .enter().append("svg:g")
                 .attr("transform", transform);
 
-            _cityCharts.on("click", function (d) {
-                _onSelectCity(_getCityName(d));
+            _locationCharts.on("click", function (d) {
+                _onSelectLocation(_getLocationName(d));
             });
 
-            _starMarkers = _cityCharts.append("svg:g");
-            _circleMarkers = _cityCharts.append("svg:g");
+            _starMarkers = _locationCharts.append("svg:g");
+            _circleMarkers = _locationCharts.append("svg:g");
 
 
             var shadCircs = _circleMarkers.append("circle")
@@ -140,7 +142,7 @@
                 })
                 .attr("d", arc);
 
-            _centers = _cityCharts.append("g")
+            _centers = _locationCharts.append("g")
                 .attr("transform", "scale(0.1)");
             _centers.append("circle")
                 .attr("r", 6)
@@ -154,24 +156,24 @@
                 });
 
             $('svg g.arc').tipsy({
-                gravity:'n',
-                html:true,
-                opacity:0.85,
-                title:function () {
+                gravity: 'n',
+                html: true,
+                opacity: 0.85,
+                title: function () {
                     var d = this.__data__;
                     var perc = 100 * d.data.score;
-                    return perc.toFixed(1) + "% of the votes in " + d.data.city + " are for: " + d.data.mech.ingText;
+                    return perc.toFixed(1) + "% of the votes in " + d.data.location + " are for: " + SAS.localizr.getProp(d.data.mech, 'progressive');
                 }
             });
 
             $('svg circle.arc').tipsy({
-                gravity:'n',
-                html:true,
-                opacity:0.85,
-                title:function () {
+                gravity: 'n',
+                html: true,
+                opacity: 0.85,
+                title: function () {
                     var d = this.__data__;
-                    var perc = 100 * _getCityPerc(d);
-                    return perc.toFixed(1) + "% of the votes in " + _getCityName(d);
+                    var perc = 100 * _getLocationPerc(d);
+                    return perc.toFixed(1) + "% of the votes in " + _getLocationName(d);
                 }
             });
 
@@ -205,8 +207,12 @@
                         }
                     })
                     .attr("fill", function (d, i) {
-                        var colr = d3.rgb(d.data.mech.color);
-                        return SAS.mainMapInstance.useWhiteForeground(d.data.mech.letter) ? colr.brighter() : colr.darker();
+                        var colr = d3.hsl(d.data.mech.color.background);
+                        if (d.data.mech.color.textShift == 'brighter') {
+                            return colr.brighter(3);
+                        }  else {
+                            return colr.darker(2);
+                        }
                     })
                     //.attr("opacity", 0.5)
                     .text(function (d, i) {
@@ -219,7 +225,7 @@
             // Whenever the map moves, update the marker positions.
             var lastZoom = map.zoom();
             map.on("move", function (e) {
-                _cityCharts.attr("transform", transform);
+                _locationCharts.attr("transform", transform);
                 var zoom = map.zoom();
                 if (zoom != lastZoom) {//there is no on("zoomChanged") option for polymaps. For efficiency we don't want to rerun all these calculations for pan events - only when the zoom actually changes
                     lastZoom = zoom;
@@ -255,7 +261,7 @@
             }
 
             map.on("resize", function (e) {
-                _cityCharts.attr("transform", transform);
+                _locationCharts.attr("transform", transform);
             });
 
             window.addEventListener("mouseup", function (e) {
@@ -290,7 +296,7 @@
             }
 
             function transform(d) {
-                d = map.locationPoint({lat:d.city[0], lon:d.city[1]});
+                d = map.locationPoint({lat: d.location.coordinates.lat, lon: d.location.coordinates.lon});
                 return "translate(" + d.x + "," + d.y + ") scale(" + getPartialScale() + ")";
             }
 
@@ -334,14 +340,15 @@
                 .duration(duration)
                 .attr("fill", color)
                 .attr("r", function (d, i) {
-                    return Math.sqrt(_getCityPerc(d)) * sizeMult;
+                    return Math.sqrt(_getLocationPerc(d)) * sizeMult;
                 });
 
             _circleMarkers.select("circle.shadow")
                 .transition()
                 .duration(duration)
+                .attr("fill", color)
                 .attr("r", function (d, i) {
-                    return Math.sqrt(_getCityPerc(d)) * sizeMult;
+                    return Math.sqrt(_getLocationPerc(d)) * sizeMult;
                 });
         };
 
@@ -354,30 +361,32 @@
             });
         };
 
-        var _getCityName = function (d) {
-            return d.city[2];
+        var _getLocationName = function (d) {
+            return d.location.name;
         };
 
-        var _getCityPerc = function (d) {
-            return _dataByCity[_getCityName(d)][0].percent;
+        var _getLocationPerc = function (d) {
+            return _dataByLocation[_getLocationName(d)][0].perc;
         };
 
         var _getVisible = function (d) {
             if (!_currentRankings) return false;
-            return _currentRankings[_getCityName(d)][0].percent > 0;
+            return _currentRankings[_getLocationName(d)][0].perc > 0;
         };
 
         var _getRank = function (d) {
             if (!_currentRankings) return null;
-            return _currentRankings[_getCityName(d)][0].i;
+            return _currentRankings[_getLocationName(d)][0].no;
         };
         //endregion
 
         //region public API
 
-        this.updateRankings = function (cityArr) {
+        this.updateRankings = function (locationArr) {
             _currentRankings = d3.nest().key(
-                function (d) { return d.city; }).map(cityArr)
+                function (d) {
+                    return d.location;
+                }).map(locationArr)
             _updateCenters();
         };
 
@@ -391,13 +400,15 @@
         this.showCircles = function (data, color) {
             _mode = MODE_CIRCLE;
             _updateMode();
-            _dataByCity = d3.nest().key(
-                function (d) { return d.city; }).map(data);
+            _dataByLocation = d3.nest().key(
+                function (d) {
+                    return d.location;
+                }).map(data);
             _updateCircles(color);
         };
 
-        this.onSelectCity = function (fn) {
-            _onSelectCity = fn;
+        this.onSelectLocation = function (fn) {
+            _onSelectLocation = fn;
         };
 
         this.hasData = function () {
@@ -407,10 +418,10 @@
         this.load = function (data) {
             _mode = MODE_STAR;
             _mapdata = data;
-            $.each(_mapdata, function (i, cityVal) {//store city names on top mech objects so that we can access this info for tooltips etc
-                var cityName = _getCityName(cityVal);
-                $.each(cityVal.topmechs, function (j, mechObj) {
-                    mechObj.city = cityName;
+            $.each(_mapdata, function (i, locationVal) {//store location names on top mech objects so that we can access this info for tooltips etc
+                var locationName = _getLocationName(locationVal);
+                $.each(locationVal.topmechs, function (j, mechObj) {
+                    mechObj.location = locationName;
                 });
             });
             _createMap();

@@ -76,12 +76,9 @@ handle["/getActionDefs"] = dataHandler.getActionDefs;
 handle["/getActions"] = dataHandler.getActions;
 
 handle["/saveResponse"] = responseDataHandler.saveResponse;
-// for client/play/classes/framework/mapping/MapMain.js, ycui 04232013
-handle["/getTopMechByCommunity"] = responseDataHandler.getTopMechByCommunity;
-handle["/getMechDataByCommunity"] = responseDataHandler.getMechDataByCommunity;
-handle["/getCommunityData"] = responseDataHandler.getCommunityData;
+handle["/getCoinCountForMechZip"] = responseDataHandler.getCoinCountForMechZip;
 
-handle["/getCommunities"] = settingDataHandler.getCommunities;
+handle["/getLocations"] = settingDataHandler.getLocations;
 
 handle["/persona_login"] = ps.login;
 handle["/persona_logout"] = ps.logout;

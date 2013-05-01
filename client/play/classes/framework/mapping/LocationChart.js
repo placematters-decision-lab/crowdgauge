@@ -4,7 +4,7 @@
  * Time: 4:47 PM
  */
 (function () { // self-invoking function
-    SAS.CityChart = function (svgNode) {
+    SAS.LocationChart = function (svgNode) {
         var _self = this;
 
         //region private fields and methods
@@ -20,7 +20,7 @@
         var _xIndex = ["a"];//, "b", "c"];//--just using 1 chart right now, but allow for multiple
 
         var _getColor = function (d) {
-            return d[0].m.color;
+            return d[0].m.mech.color.background;
         };
         var _yArr;
         var _chart;
@@ -34,7 +34,7 @@
             $.each(percs, function (k, arr) {
                 $.each(arr, function (i, v) {
                     if (!_yArr[i]) _yArr[i] = [];
-                    _yArr[i][_xIndex.indexOf(k)] = {x:k, y:v.perc, m:v.mech};
+                    _yArr[i][_xIndex.indexOf(k)] = {x:k, y:v.perc, m:v};
                 });
             });
         };
@@ -123,7 +123,11 @@
                     return -_y(d.y0) - _y(d.y);
                 })
                 .attr("height", function (d) {
-                    return _y(d.y);
+                    if (_y(d.y) < 0) {
+                        return -_y(d.y);
+                    } else {
+                        return _y(d.y);
+                    }
                 })
                 .attr("width", _x.rangeBand());
 
@@ -138,11 +142,16 @@
                 .attr("transform", _labelTrans)
                 .attr("visibility", _labelVis)
                 .attr("fill", function (d, i) {
-                    var colr = d3.rgb(d.m.color);
-                    return SAS.mainMapInstance.useWhiteForeground(d.m.letter) ? colr.brighter() : colr.darker();
+                    var colr = d3.hsl(d.m.mech.color.background);
+                    if (d.m.mech.color.textShift == 'brighter') {
+                        return colr.brighter(2);
+                    }  else {
+                        return colr.darker(2);
+                    }
+
                 })
                 .text(function (d) {
-                    return d.m.letter;
+                    return d.m.mech.letter;
                 });
 
             _titleBar = _mainGroup.append("g")
@@ -166,7 +175,8 @@
                 title:function () {
                     var d = this.__data__;
                     if (!d) return "";//there are other non-data rectangles present!
-                    return (d.y*100).toFixed(1) + "% of the votes are for: "+d.m.ingText;
+                    var perc = 100 * d.m.perc;
+                    return perc.toFixed(1) + "% of the votes are for: " + SAS.localizr.getProp(d.m.mech, 'progressive');
                 }
             });
 
@@ -196,15 +206,15 @@
             _h = ht;
             _update();
         };
-        this.setData = function (city, data) {
-            _title = city;
+        this.setData = function (location, data) {
+            _title = location;
+
             if (!_chart) {
                 _loadData(data);
             } else {
                 _updateValues(data);
             }
         };
-
         //endregion
     }
 })();

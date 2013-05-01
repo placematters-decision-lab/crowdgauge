@@ -13,73 +13,154 @@
         var _cacheVersion = 12;
         var _mechanismsById;
         var _mechanisms;
-        var _cities;
-        var _structuredData;
+        var _locations;
+        var _locationData; // {key: locationname, value: location}
+        var _mechData; // {key: mechId, value: mech}}
+        var _mechCountsByZip; // [zip, mechId, count]
+        var _mechCountsByLocation; // {key: cityname, value: [mechId, counts]}
+        var _mechPercsByLocation;
         /** @type SAS.Map */
         var _map;
         /** @type SAS.MapMechList */
         var _mechList;
         /** @type SAS.BarChart */
         var _barChart;
-        /** @type SAS.CityChart */
-        var _cityChart;
-        /** @type SAS.JsonRestWS */
-        var _ws;
+        /** @type SAS.LocationChart */
+        var _locationChart;
         /** @type SAS.Layout */
         var _layout;
+        var _topNum = 9; // Modify
 
-        var _fileAndVersion = function () { // for 'getMechanisms', 'getCommunities'
+        var _fileAndVersion = function () {
 //            return '?filename=' + encodeURIComponent(SAS.configInstance.getFileName()) + '&v=' + SAS.mainInstance.getCacheVersion();
-              return '?filename=NRV'; // TODO: otherwise, call Main.js -> Pages.js
+            return '?filename=NRV'; // TODO: add version
         };
 
         var _loadData = function () {
-//            _ws.getWebService("getTopActions", {num:5}, function (data) {
-//            d3.json('/getTopActions?num=5', function (data) {
-            d3.json('/getTopMechByCommunity?limit=5', function (data) {
-                _structuredData = [];
-                $.each(data, function (city, mechs) {
-                    var mechData = [];
-                    $.each(mechs, function (mid, score) {
-                        mechData.push({mech:_mechanismsById[mid], score:score});
+            _mechCountsByLocation = {};
+            _mechPercsByLocation = {};
+
+            $.each(_locations, function (i, location) { // per location
+                // count for the total mechanisms per location
+                var total = 0;
+                $.each (location.data.zips, function (j, zip) {
+                    $.each(_mechCountsByZip, function (k, zmc) {
+                        if (zmc.zip == zip) {
+                            total += zmc.count;
+                        }
                     });
-                    _structuredData.push({city:_cities[city], topmechs:mechData});
                 });
-                _map.load(_structuredData);
+
+                // count for the specify mechanism per location
+                var mechCounts = {};
+                var mechPercs = {};
+                $.each(location.data.zips, function (j, zip) {
+                    // assume: zips not duplicated
+                    $.each(_mechCountsByZip, function (k, zmc) {
+                        if (zmc.zip == zip) {
+                            if (!mechCounts[zmc.mechId]) { // not exist key, http://stackoverflow.com/questions/135448/how-do-i-check-to-see-if-an-object-has-a-property-in-javascript
+                                mechCounts[zmc.mechId] = zmc.count;
+                                mechPercs[zmc.mechId] = zmc.count / total;
+                            } else { // not exist key
+                                mechCounts[zmc.mechId] += zmc.count;
+                                mechPercs[zmc.mechId] += zmc.count / total;
+                            }
+                        }
+                    });
+                });
+                _mechCountsByLocation[location.data.name] = mechCounts;
+                _mechPercsByLocation[location.data.name] = mechPercs;
             });
+
+            // show the top 5 mechanisms
+            _showTop();
+            _layout.positionElements();
         };
+
+        var _getTopMechs = function (limit) {
+            var structuredData = [];
+            $.each(_mechPercsByLocation, function (loc, mechPercs) {
+                // sort count of mechanism per location
+                var orderedList = [];
+                $.each(mechPercs, function (mechId, perc) {
+                    orderedList.push({mech: _mechData[mechId], score: perc});
+                });
+                orderedList.sort(function (a, b) {
+                    return b.score - a.score;
+                });
+                structuredData.push({location: _locationData[loc], topmechs: orderedList.slice(0, limit)});
+            });
+            return structuredData;
+        };
+
+        var _showTop = function () {
+            var structuredData = _getTopMechs(_topNum);
+            _map.load(structuredData);
+        };
+
 
         var _loadMechChartData = function (mech) {
-//            _ws.getWebService("getMechDataByCity", {mid:mech.id}, function (data) {
-//                d3.json('/getMechDataByCity?mid=' + mech.id, function (data) {
-                d3.json('/getMechDataByCommunity?mechId=' + mech.id, function (data) {
-                _barChart.updateData(data, mech);
-                _map.updateRankings(data);
-                _map.showCircles(data, mech.color);
-                _updateLayout();
+            var data = [];
+            $.each(_locations, function (i, location) { // per location
+                // count for the total mechanisms per location
+                var total = 0;
+                $.each (location.data.zips, function (j, zip) {
+                    $.each(_mechCountsByZip, function (k, zmc) {
+                        if (zmc.zip == zip) {
+                            total += zmc.count;
+                        }
+                    });
+                });
+
+                var locationData = _mechCountsByLocation[location.data.name];
+
+                if (locationData[mech.data.uid]) {
+                    data.push({no: 0, location: location.data.name, perc: locationData[mech.data.uid] / total});
+                } else {
+                    data.push({no: 0, location: location.data.name, perc: 0});
+                }
             });
+            // Sort
+            var orderedList = [];
+            data.sort(function (a, b) {
+                return b.perc - a.perc;
+            });
+            $.each (data, function(i, d) {
+                orderedList.push({no: i + 1, location: d.location, perc: d.perc});
+            });
+
+            _barChart.updateData(orderedList, mech);
+            _map.updateRankings(orderedList);
+            _map.showCircles(orderedList, mech.data.color.background);
+            _updateLayout();
         };
 
-        var _showCityData = function (city) {
-            // debug info
-            console.log("I am 'showCityData'");
+        var _showLocationData = function (location) {
+            var locationData = _mechCountsByLocation[location];
+            if (!locationData) return;
 
-//            _ws.getWebService("getCityData", {city:city}, function (data) {
-//                d3.json('/getCityData?city=' + city, function (data) {
-                d3.json('/getCommunityData?communityName=' + city, function (data) {
-                var orderedData = [];
-                $.each(_mechanisms, function (i, mechanism) {
-                    var val = data[mechanism.id] || 0;
-                    orderedData.push({mech:mechanism, perc:val});
-                });
-                orderedData.reverse();//--so it matches the top-down mech list
-                _cityChart.setData(city, {a:orderedData});
+            // count for the total mechanisms for the location
+            var locationTotal = 0;
+            $.each(locationData, function (mechId, count) {
+                locationTotal += count;
             });
+
+            var orderedData = [];
+            $.each (_mechData, function (mechId, mech) {
+                if (locationData[mechId]) {
+                    orderedData.push({mech: _mechData[mechId], perc: locationData[mechId] / locationTotal});
+                } else { // fill unmatched mechId w/ perc = 0
+                    orderedData.push({mech: _mechData[mechId], perc: 0});
+                }
+            });
+
+            orderedData.reverse();//--so it matches the top-down mech list
+            _locationChart.setData(location, {a: orderedData});
         };
 
         var _updateLayout = function () {
             _barChart.updateLayout();
-            _cityChart.updateLayout();
+            _locationChart.updateLayout();
         };
 
         var _initialize = function () {
@@ -93,17 +174,14 @@
             _map = new SAS.Map(container, svg);
             _layout = new SAS.Layout();
             _barChart = new SAS.BarChart(svg);
-            _cityChart = new SAS.CityChart(svg);
+            _locationChart = new SAS.LocationChart(svg);
             _mechList = new SAS.MapMechList();
-            _layout.addHeightFillers({sel:"#mechList", leave:0});
-            _layout.addWidthFillers({sel:"#svgDiv", leave:0});
+            _layout.addHeightFillers({sel: "#mechList", leave: 0});
+            _layout.addWidthFillers({sel: "#svgDiv", leave: 0});
 
-            // display data in html
-            _map.onSelectCity(function(city) {
-                // debug info
-                console.log("I am 'onSelectCity'");
-
-                _showCityData(city);
+            // display events
+            _map.onSelectLocation(function (location) {
+                _showLocationData(location);
             });
 
             _mechList.onSelect(function (mech) {
@@ -114,28 +192,37 @@
                     _loadMechChartData(mech);
                 }
             });
-//            _ws = SAS.configInstance.getRegionalScoresWS();
-            // get mechanisms from CouchDB
+
+            // get data from CouchDB
             d3.json('/getMechanisms' + _fileAndVersion(), function (data) {
-            // d3.json("../mechanisms.json?v=" + _cacheVersion, function (data) {
                 var cnt = "A".charCodeAt(0);
-//                _mechanisms = data.children; // TODO: why to ues .children?
                 _mechanisms = data;
+                _mechData = {};
                 $.each(_mechanisms, function (i, mech) {
-                    mech.letter = String.fromCharCode(cnt++);
+                    mech.data.letter = String.fromCharCode(cnt++);
+                    _mechData[mech.data.uid] = mech.data;
                 });
-                _mechList.loadData(data);
+                _mechList.loadData(data, _topNum);
                 _mechanismsById = {};
                 $.each(_mechanisms, function (i, mechanism) {
                     _mechanismsById[mechanism.id] = mechanism;
                 });
-                if (_cities) _loadData();
+                if (_locations && _mechCountsByZip) _loadData();
             });
-//            d3.json('/getCities', function (data) {
-            d3.json('/getCommunities' + _fileAndVersion(), function (data) {
-//            d3.json("../cities.json?v=" + _cacheVersion, function (data) {
-                _cities = data;
-                if (_mechanismsById) _loadData();
+
+            d3.json('/getLocations' + _fileAndVersion(), function (data) {
+                _locations = data; // array
+                _locationData = {}; // object: hashmap
+                $.each(_locations, function(i, location) {
+                    _locationData[location.data.name] = location.data;
+                });
+
+                if (_mechanismsById && _mechCountsByZip) _loadData();
+            });
+
+            d3.json('/getCoinCountForMechZip' + _fileAndVersion(), function (data) {
+                _mechCountsByZip = data;
+                if (_mechanismsById && _locations) _loadData();
             });
 
             $(window).resize(function () {
@@ -149,19 +236,6 @@
             $(document).ready(function () {
                 _initialize();
             });
-        };
-
-        this.useWhiteForeground = function(letter) {
-            switch(letter) {
-                case "K": return true;
-                case "L": return true;
-                case "M": return true;
-                case "O": return true;
-                case "P": return true;
-                case "T": return true;
-                case "U": return true;
-                default: return false;
-            }
         };
         //endregion
     };

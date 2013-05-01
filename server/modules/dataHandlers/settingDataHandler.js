@@ -27,7 +27,7 @@ var Enums = require('../../../shared/classes/modules/Enums');
 SettingDataHandler = function () {
     var _self = this;
     aDataHandler.ADataHandler.call(this, db_name);
-    var _filename = "test1";
+    var _filename = "NRV"; // TODO: filename
 
     var _init = function () {
         _createViews();
@@ -41,12 +41,6 @@ SettingDataHandler = function () {
                     "map": function (/**Content*/doc) {
                         if (doc.contentType) emit([doc.filename, doc.contentType], doc);
                     }
-                },
-
-                "byCommunityName": {
-                    "map": function (/**Content*/doc) {
-                        if (doc.contentType) emit([doc.filename, doc.contentType, doc.data.name], doc);
-                    }
                 }
             }
         });
@@ -58,27 +52,11 @@ SettingDataHandler = function () {
         return url_parts.query;
     };
 
-    var _getCommunities = function (req, res) {
+    var _getLocations = function (req, res) { // for client-side call
         var query = _getQuery(req);
-        _self.p_view('byContentType', {key: [query.filename, Enums.CTYPE_COMMUNITY] }, function (err, body) {
-            if (body && body.rows) {
+        _self.p_view('byContentType', {key: [query.filename, Enums.CTYPE_LOCATION] }, function (err, body) { // TODO: filename
+            if (body && body.rows && !err) {
                 var numRows = body.rows.length;
-                var cObjs = [];
-                body.rows.forEach(function (row, i) {
-                    var doc = row.value;
-                    var cDef = doc.data;
-                    var cObj = {data: cDef};
-                    cObjs.push(cObj);
-                });
-                _self.p_returnJsonObj(res, cObjs);
-            }
-        });
-    }
-
-    var _getCommunity = function (communityName, req, res) {
-        var query = _getQuery(req);
-        _self.p_view('byCommunityName', {key: [query.filename, Enums.CTYPE_COMMUNITY, communityName] }, function (err, body) {
-            if (body) {
                 var cObjs = [];
                 body.rows.forEach(function (row, i) {
                     var doc = row.value;
@@ -93,13 +71,8 @@ SettingDataHandler = function () {
     //endregion
 
     //region public API
-    this.getCommunities = function (req, res, postData) { // used by responseDataHandler.getTopMechByCommunity
-        _getCommunities(req, res);
-    }
-
-    this.getCommunity = function (req, res, postData) { // used by responseDataHandler.getTopMechByCommunity
-        var dataObj = JSON.parse(postData.data);
-        _getCommunities(dataObj, req, res);
+    this.getLocations = function (req, res, postData) { // for client-side
+        _getLocations(req, res);
     }
     //endregion
 
