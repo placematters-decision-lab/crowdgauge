@@ -18,6 +18,7 @@
 
         this.getRegionalScoresWS = function () {
             if (_isLocal()) {
+//                return new SAS.JsonRestWS("http://localhost:59159/svc/", "DataService.svc", false, true);
                 return new SAS.JsonRestWS("http://localhost:59159/svc/", "DataService.svc", false, true);
             } else {
                 return new SAS.JsonRestWS("svc/regionalScoresService/", "DataService.svc", true, true);

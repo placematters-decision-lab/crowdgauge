@@ -118,6 +118,7 @@ ContributeDataHandler = function () {
                         }
                     }
                 }
+
             }
         });
     };
@@ -469,6 +470,7 @@ ContributeDataHandler = function () {
             }
         });
     };
+
 //endregion
 
 //region public API

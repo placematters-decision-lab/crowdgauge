@@ -22,24 +22,42 @@ var events = require("events");
  */
 var ResponseDataHandler = function () {
     var _self = this;
+    var _filename = "NRV"; // TODO
 
     aDataHandler.ADataHandler.call(this, 'responses_nrv');
+    /** @type SettingDataHandler */
+    var _settingDataHandler;
 
     var _init = function () {
         _createViews();
     };
 
+    var _getQuery = function (req) {
+        var url_parts = url.parse(req.url, true);
+        return url_parts.query;
+    };
+
     var _createViews = function () {
         _self.p_createViews({
-            "views":{
-                "all":{
-                    "map":function (doc) {
+            views:{
+                all:{
+                    map:function (doc) {
                         emit(doc._id, doc);
                     }
+                },
+
+                getCoinCountForMechZip: {
+                    map: function (/**Content*/doc) {
+                        if (doc.data && doc.data.demographics && doc.data.demographics.zip && doc.data.mechanisms) {
+                            for (var k in Object.keys(doc.data.mechanisms)) {
+                                emit([doc.data.demographics.zip, Object.keys(doc.data.mechanisms)[k]], 1); // 1, not coins  TODO
+                            }
+                        }
+                    }
                 }
-            }
-        });
-    };
+        }
+    });
+    }
 
     var _updateResponse = function (/**Response*/c, callback) {
         _self.p_addOrUpdate(c, c._id, callback);
@@ -66,6 +84,22 @@ var ResponseDataHandler = function () {
         });
     };
 
+    var _getCoinCountForMechZip = function (req, res) {
+        var query = _getQuery(req);
+        _self.p_view('getCoinCountForMechZip', function (err, body) {
+            if (body && body.rows) {
+                var mObjs = []; // return: array contains objects
+                body.rows.forEach (function (row, i) {
+                    var mechId = row.key[1].split("_")[0];
+                    mObj = {zip: row.key[0],mechId: mechId, count: row.value};
+//                    mObj = {zip: row.key[0],mechId: row.key[1], count: row.value};
+                    mObjs.push(mObj);
+                });
+                _self.p_returnJsonObj(res, mObjs);
+            }
+        });
+    }
+
     //region public API
     this.saveResponse = function (req, res, postData) {
         var dataObj = JSON.parse(postData.data);
@@ -75,8 +109,16 @@ var ResponseDataHandler = function () {
     this.init = function () {
         _init();
     };
-    //endregion
 
+    this.getCoinCountForMechZip = function (req, res, postData) {
+        _getCoinCountForMechZip(req, res);
+    };
+
+    //====================================
+    this.setHandlers = function (settingDataHandler) {
+        _settingDataHandler = settingDataHandler;
+    };
+    //endregion
 };
 
 util.inherits(ResponseDataHandler, aDataHandler.ADataHandler);
