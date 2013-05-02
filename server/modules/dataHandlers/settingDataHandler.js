@@ -4,8 +4,12 @@
  * Time: 3:52 PM
  */
 //region nodejs core
-var config = require('../../config');
-var db_name = 'settings';
+if(process.env.NODE_ENV == 'production') {
+    var config = require("../../config");
+} else {
+    var config = require("../../config.development");
+}
+var db_name = 'settings_nrv';
 var url = require('url');
 var util = require('util');
 //endregion
