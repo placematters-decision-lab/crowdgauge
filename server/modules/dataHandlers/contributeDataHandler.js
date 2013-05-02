@@ -10,7 +10,7 @@ if(process.env.NODE_ENV == 'production') {
     var config = require("../../config.development");
 }
 
-var db_name = 'contribute_nrv';
+var db_name = 'contribute_okc';
 var url = require('url');
 
 var logger = require('./../logger');

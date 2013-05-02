@@ -28,7 +28,7 @@
         };
 
         this.getFileName = function () {
-            return "NRV";
+            return "OKC";
         };
         //endregion
     };
