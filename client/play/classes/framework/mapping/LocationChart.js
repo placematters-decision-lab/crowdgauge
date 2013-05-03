@@ -20,7 +20,7 @@
         var _xIndex = ["a"];//, "b", "c"];//--just using 1 chart right now, but allow for multiple
 
         var _getColor = function (d) {
-            return d[0].m.mech.color.background;
+            return d[0].m.item.data.color.background;
         };
         var _yArr;
         var _chart;
@@ -50,6 +50,27 @@
             _y.domain([0, 1]);
 
             var stackedData = d3.layout.stack()(_yArr);
+
+            _mainGroup.selectAll("g.bar_grp")
+                .data(stackedData)
+                .attr("class", "bar_grp")
+                .style("fill", function (d, i) {
+                    return _getColor(d);
+                })
+                .style("stroke", function (d, i) { return d3.rgb(_getColor(d)).darker(); });
+
+            _labels.selectAll("text.itemLabel")
+                .data(Object)
+                .attr("class", "itemLabel")
+                .attr("transform", _labelTrans)
+                .attr("visibility", _labelVis)
+                .attr("fill", function (d, i) {
+                    return d.m.item.props.textColor;
+                })
+                .text(function (d) {
+                    return d.m.item.props.letter;
+                });
+
             _chart.data(stackedData);
             _chart.selectAll("rect")
                 .data(Object)
@@ -123,11 +144,7 @@
                     return -_y(d.y0) - _y(d.y);
                 })
                 .attr("height", function (d) {
-                    if (_y(d.y) < 0) {
-                        return -_y(d.y);
-                    } else {
-                        return _y(d.y);
-                    }
+                    return Math.max(_y(d.y), 0);
                 })
                 .attr("width", _x.rangeBand());
 
@@ -135,23 +152,17 @@
                 .data(stackedData)
                 .enter().append("svg:g");
 
-            _labelTxt = _labels.selectAll("text.mechLabel")
+            _labelTxt = _labels.selectAll("text.itemLabel")
                 .data(Object)
                 .enter().append("svg:text")
-                .attr("class", "mechLabel")
+                .attr("class", "itemLabel")
                 .attr("transform", _labelTrans)
                 .attr("visibility", _labelVis)
                 .attr("fill", function (d, i) {
-                    var colr = d3.hsl(d.m.mech.color.background);
-                    if (d.m.mech.color.textShift == 'brighter') {
-                        return colr.brighter(2);
-                    }  else {
-                        return colr.darker(2);
-                    }
-
+                    return d.m.item.props.textColor;
                 })
                 .text(function (d) {
-                    return d.m.mech.letter;
+                    return d.m.item.props.letter;
                 });
 
             _titleBar = _mainGroup.append("g")
@@ -176,7 +187,7 @@
                     var d = this.__data__;
                     if (!d) return "";//there are other non-data rectangles present!
                     var perc = 100 * d.m.perc;
-                    return perc.toFixed(1) + "% of the votes are for: " + SAS.localizr.getProp(d.m.mech, 'progressive');
+                    return perc.toFixed(1) + "% of the votes are for: " + d.m.item.props.tooltipLabel;
                 }
             });
 
@@ -196,9 +207,17 @@
                 .attr("width", _w)
                 .attr("y", -(fullHeight - (fullHeight - ypos)));
         };
+
+        var _showMain = function(show) {
+            if (!_mainGroup) return;
+            _mainGroup.attr("display", show ? "inherit" : "none");
+        };
         //endregion
 
         //region public API
+        this.hide = function() {
+            _showMain(false);
+        };
         this.updateLayout = function () {
             _updateLayout();
         };
@@ -206,7 +225,12 @@
             _h = ht;
             _update();
         };
-        this.setData = function (location, data) {
+        this.reset = function () {
+            if (_mainGroup) _mainGroup.remove();
+            _chart = null;
+        };
+        this.updateData = function (location, data) {
+            _showMain(true);
             _title = location;
 
             if (!_chart) {

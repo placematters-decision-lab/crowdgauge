@@ -40,7 +40,7 @@
     <script type="text/javascript" src="classes/framework/mapping/LocationChart.js"></script>
     <script type="text/javascript" src="classes/framework/mapping/Map.js"></script>
     <script type="text/javascript" src="classes/framework/mapping/MapFrame.js"></script>
-    <script type="text/javascript" src="classes/framework/mapping/MapMechList.js"></script>
+    <script type="text/javascript" src="classes/framework/mapping/MapItemList.js"></script>
     <script type="text/javascript" src="classes/framework/mapping/StarChart.js"></script>
     <script type="text/javascript" src="classes/framework/mapping/MapMain.js"></script>
 
@@ -51,9 +51,18 @@
     <link href="../lib/jquery-tipsy/tipsy.css" rel="stylesheet" type="text/css"/>
     <link rel='stylesheet' href='css/common.css?v=12'>
     <link rel='stylesheet' href='css/map.css?v=12'>
+    <script>
+        $(document).ready(function() {
+            $('#switchModeButton').click(function() {
+                SAS.mainMapInstance.switchMode();
+            });
+        });
+
+    </script>
 </head>
 <body>
 <div id="svgDiv"></div>
-<div id="mechList"></div>
+<div id="itemList"></div>
+<input type="button" id="switchModeButton" value="Switch Mode" style="position: absolute; width: auto"/>
 </body>
 </html>

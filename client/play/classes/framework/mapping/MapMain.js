@@ -4,25 +4,40 @@
  * Time: 3:42 PM
  */
 (function () { // self-invoking function
+    const MODE_PRIORITY = 'MODE_PRIORITY';
+    const MODE_MECH = 'MODE_MECH';
+
     SAS.MapMain = function () {
         var _self = this;
 
         //region private fields and methods
         var po = org.polymaps;
-
-        var _cacheVersion = 12;
-        var _mechanismsById;
+//        var _cacheVersion = 12; // TODO: add version
+        // mechanisms
         var _mechanisms;
+        var _mechanismsById;
+        var _mechData;
+        var _mechCountsByZip;
+
+        // priorities
+        var _priorities;
+        var _prioritiesById;
+        var _priData;
+        var _priCountsByZip;
+
+        var _itemData;
+        var _itemCountsByZip;
+        var _itemCountsByLocation;
+        var _itemPercsByLocation;
+
+        var _mode = MODE_MECH; // start from Mechanism Mode
+        // locations
         var _locations;
-        var _locationData; // {key: locationname, value: location}
-        var _mechData; // {key: mechId, value: mech}}
-        var _mechCountsByZip; // [zip, mechId, count]
-        var _mechCountsByLocation; // {key: cityname, value: [mechId, counts]}
-        var _mechPercsByLocation;
+        var _locationData;
         /** @type SAS.Map */
         var _map;
-        /** @type SAS.MapMechList */
-        var _mechList;
+        /** @type SAS.MapItemList */
+        var _itemList;
         /** @type SAS.BarChart */
         var _barChart;
         /** @type SAS.LocationChart */
@@ -36,86 +51,94 @@
             return '?filename=NRV'; // TODO: add version
         };
 
-        var _loadData = function () {
-            _mechCountsByLocation = {};
-            _mechPercsByLocation = {};
+        var _loadData = function (itemCountsByZip, itemData, data) {
+            _itemList.loadData(data, _topNum); // load #itemList
 
-            $.each(_locations, function (i, location) { // per location
-                // count for the total mechanisms per location
+            _itemCountsByZip = itemCountsByZip;
+            _itemData = itemData;
+            _itemCountsByLocation = {};
+            _itemPercsByLocation = {};
+
+            $.each(_locations, function (i, location) {
+                // count for the total item per location
                 var total = 0;
                 $.each (location.data.zips, function (j, zip) {
-                    $.each(_mechCountsByZip, function (k, zmc) {
+                    $.each(_itemCountsByZip, function (k, zmc) {
                         if (zmc.zip == zip) {
                             total += zmc.count;
                         }
                     });
                 });
 
-                // count for the specify mechanism per location
-                var mechCounts = {};
-                var mechPercs = {};
+                // count for the specify item per location
+                var itemCounts = {};
+                var itemPercs = {};
                 $.each(location.data.zips, function (j, zip) {
-                    // assume: zips not duplicated
-                    $.each(_mechCountsByZip, function (k, zmc) {
-                        if (zmc.zip == zip) {
-                            if (!mechCounts[zmc.mechId]) { // not exist key, http://stackoverflow.com/questions/135448/how-do-i-check-to-see-if-an-object-has-a-property-in-javascript
-                                mechCounts[zmc.mechId] = zmc.count;
-                                mechPercs[zmc.mechId] = zmc.count / total;
+                    $.each(_itemCountsByZip, function (k, zic) {
+                        if (zic.zip == zip) { // exist key
+                            if (!itemCounts[zic.itemId]) {
+                                itemCounts[zic.itemId] = zic.count;
+                                itemPercs[zic.itemId] = zic.count / total;
                             } else { // not exist key
-                                mechCounts[zmc.mechId] += zmc.count;
-                                mechPercs[zmc.mechId] += zmc.count / total;
+                                itemCounts[zic.itemId] += zic.count;
+                                itemPercs[zic.itemId] += zic.count / total;
                             }
                         }
                     });
                 });
-                _mechCountsByLocation[location.data.name] = mechCounts;
-                _mechPercsByLocation[location.data.name] = mechPercs;
+                _itemCountsByLocation[location.data.name] = itemCounts;
+                _itemPercsByLocation[location.data.name] = itemPercs;
             });
 
-            // show the top 5 mechanisms
-            _showTop();
+            // show the top items
+            _showTopItems();
             _layout.positionElements();
         };
 
-        var _getTopMechs = function (limit) {
+        var _getTopItems = function (limit) {
             var structuredData = [];
-            $.each(_mechPercsByLocation, function (loc, mechPercs) {
-                // sort count of mechanism per location
+            $.each(_itemPercsByLocation, function (loc, itemPercs) {
+                // sort count of item per location
                 var orderedList = [];
-                $.each(mechPercs, function (mechId, perc) {
-                    orderedList.push({mech: _mechData[mechId], score: perc});
+                $.each(itemPercs, function (itemId, perc) {
+                    orderedList.push({item: _itemData[itemId], score: perc});
                 });
                 orderedList.sort(function (a, b) {
                     return b.score - a.score;
                 });
-                structuredData.push({location: _locationData[loc], topmechs: orderedList.slice(0, limit)});
+                structuredData.push({location: _locationData[loc], topitems: orderedList.slice(0, limit)});
             });
             return structuredData;
         };
 
-        var _showTop = function () {
-            var structuredData = _getTopMechs(_topNum);
+        var _showTopItems = function () {
+            var structuredData = _getTopItems(_topNum);
             _map.load(structuredData);
         };
 
 
-        var _loadMechChartData = function (mech) {
+        var _loadItemChartData = function (item) {
             var data = [];
             $.each(_locations, function (i, location) { // per location
-                // count for the total mechanisms per location
+                // count for the total item per location
                 var total = 0;
                 $.each (location.data.zips, function (j, zip) {
-                    $.each(_mechCountsByZip, function (k, zmc) {
+                    $.each(_itemCountsByZip, function (k, zmc) {
                         if (zmc.zip == zip) {
                             total += zmc.count;
                         }
                     });
                 });
 
-                var locationData = _mechCountsByLocation[location.data.name];
+                var locationData = _itemCountsByLocation[location.data.name];
 
-                if (locationData[mech.data.uid]) {
-                    data.push({no: 0, location: location.data.name, perc: locationData[mech.data.uid] / total});
+                if (locationData[item.data.uid]) {
+                    // for _mechCountForZip by coins
+//                    if (locationData[item.data.uid] < 0) {
+//                        locationData[item.data.uid] = 0;
+//                    }
+
+                    data.push({no: 0, location: location.data.name, perc: locationData[item.data.uid] / total});
                 } else {
                     data.push({no: 0, location: location.data.name, perc: 0});
                 }
@@ -129,33 +152,33 @@
                 orderedList.push({no: i + 1, location: d.location, perc: d.perc});
             });
 
-            _barChart.updateData(orderedList, mech);
+            _barChart.updateData(orderedList, item);
             _map.updateRankings(orderedList);
-            _map.showCircles(orderedList, mech.data.color.background);
+            _map.showCircles(orderedList, item.data.color.background);
             _updateLayout();
         };
 
         var _showLocationData = function (location) {
-            var locationData = _mechCountsByLocation[location];
+            var locationData = _itemCountsByLocation[location];
             if (!locationData) return;
 
-            // count for the total mechanisms for the location
+            // count for the total items for the location
             var locationTotal = 0;
-            $.each(locationData, function (mechId, count) {
+            $.each(locationData, function (itemId, count) {
                 locationTotal += count;
             });
 
             var orderedData = [];
-            $.each (_mechData, function (mechId, mech) {
-                if (locationData[mechId]) {
-                    orderedData.push({mech: _mechData[mechId], perc: locationData[mechId] / locationTotal});
-                } else { // fill unmatched mechId w/ perc = 0
-                    orderedData.push({mech: _mechData[mechId], perc: 0});
+            $.each (_itemData, function (itemId, item) {
+                if (locationData[itemId]) {
+                    orderedData.push({item: _itemData[itemId], perc: locationData[itemId] / locationTotal});
+                } else { // fill unmatched itemId w/ perc = 0
+                    orderedData.push({item: _itemData[itemId], perc: 0});
                 }
             });
 
-            orderedData.reverse();//--so it matches the top-down mech list
-            _locationChart.setData(location, {a: orderedData});
+            orderedData.reverse();//--so it matches the top-down item list
+            _locationChart.updateData(location, {a: orderedData});
         };
 
         var _updateLayout = function () {
@@ -175,8 +198,8 @@
             _layout = new SAS.Layout();
             _barChart = new SAS.BarChart(svg);
             _locationChart = new SAS.LocationChart(svg);
-            _mechList = new SAS.MapMechList();
-            _layout.addHeightFillers({sel: "#mechList", leave: 0});
+            _itemList = new SAS.MapItemList();
+            _layout.addHeightFillers({sel: "#itemList", leave: 0});
             _layout.addWidthFillers({sel: "#svgDiv", leave: 0});
 
             // display events
@@ -184,30 +207,79 @@
                 _showLocationData(location);
             });
 
-            _mechList.onSelect(function (mech) {
-                if (mech == null) {
+            _itemList.onSelect(function (item) {
+                if (item == null) {
                     _map.showStars();
                     _barChart.hide();
                 } else {
-                    _loadMechChartData(mech);
+                    _loadItemChartData(item);
                 }
             });
 
             // get data from CouchDB
+            //  priorities
+            d3.json('/getPriorities' + _fileAndVersion(), function (data) {
+                var cnt = "A".charCodeAt(0);
+                _priorities = data;
+                _priData = {};
+                $.each(_priorities, function (i, priority) {
+                    priority.props = {};
+                    priority.props.letter = String.fromCharCode(cnt++);
+                    var color = d3.hsl(priority.data.color.background);
+                    if (priority.data.color.textShift == 'brighter') {
+                        priority.props.textColor = color.brighter(2);
+                    }  else {
+                        priority.props.textColor = color.darker(2);
+                    }
+
+                    if (priority.data.nickname) {
+                        priority.props.tooltipLabel  = SAS.localizr.getProp(priority.data, 'nickname'); // TODO: nickname
+                    } else  if (priority.data.title) {
+                        priority.props.tooltipLabel  = SAS.localizr.getProp(priority.data, 'title');
+                    }
+
+                    _priData[priority.data.uid] = priority;
+                });
+                _prioritiesById = {};
+                $.each(_priorities, function (i, priority) {
+                    _prioritiesById[priority.id] = priority;
+                });
+                _tryLoadData();
+            });
+
+            d3.json('/getPriCountForZip' + _fileAndVersion(), function (data) {
+                _priCountsByZip = data;
+                _tryLoadData();
+            });
+
+            // mechanisms
             d3.json('/getMechanisms' + _fileAndVersion(), function (data) {
                 var cnt = "A".charCodeAt(0);
                 _mechanisms = data;
                 _mechData = {};
                 $.each(_mechanisms, function (i, mech) {
-                    mech.data.letter = String.fromCharCode(cnt++);
-                    _mechData[mech.data.uid] = mech.data;
+                    mech.props = {};
+                    mech.props.letter = String.fromCharCode(cnt++);
+                    var color = d3.hsl(mech.data.color.background);
+                    if (mech.data.color.textShift == 'brighter') {
+                        mech.props.textColor = color.brighter(2);
+                    }  else {
+                        mech.props.textColor = color.darker(2);
+                    }
+                    mech.props.tooltipLabel  = SAS.localizr.getProp(mech.data, 'progressive');
+
+                    _mechData[mech.data.uid] = mech;
                 });
-                _mechList.loadData(data, _topNum);
                 _mechanismsById = {};
                 $.each(_mechanisms, function (i, mechanism) {
                     _mechanismsById[mechanism.id] = mechanism;
                 });
-                if (_locations && _mechCountsByZip) _loadData();
+                _tryLoadData();
+            });
+
+            d3.json('/getMechCountForZip' + _fileAndVersion(), function (data) {
+                _mechCountsByZip = data;
+                _tryLoadData();
             });
 
             d3.json('/getLocations' + _fileAndVersion(), function (data) {
@@ -217,18 +289,31 @@
                     _locationData[location.data.name] = location.data;
                 });
 
-                if (_mechanismsById && _mechCountsByZip) _loadData();
-            });
-
-            d3.json('/getCoinCountForMechZip' + _fileAndVersion(), function (data) {
-                _mechCountsByZip = data;
-                if (_mechanismsById && _locations) _loadData();
+                _tryLoadData();
             });
 
             $(window).resize(function () {
                 _updateLayout();
             });
         };
+
+        var _resetCharts = function () {
+            _locationChart.reset();
+        };
+        var _tryLoadData = function() {
+            _resetCharts();
+            if (_mode == MODE_MECH) {
+                if (_locations  && _mechanismsById && _mechCountsByZip) {
+                    _loadData(_mechCountsByZip, _mechData, _mechanisms);
+                }
+            }
+            if (_mode == MODE_PRIORITY) {
+                if (_locations  && _prioritiesById && _priCountsByZip) {
+                    _loadData(_priCountsByZip, _priData, _priorities);
+                }
+            }
+        };
+
         //endregion
 
         //region public API
@@ -237,6 +322,27 @@
                 _initialize();
             });
         };
+
+        this.setMode = function (mode) {
+            _mode = mode;
+            _tryLoadData();
+        };
+
+        // for test
+        this.switchMode = function () {
+            if (_mode == MODE_PRIORITY) {
+                _mode = MODE_MECH;
+                _locationChart.hide(); // hide _locationChart, _barChart
+                _barChart.hide();
+                _tryLoadData();
+            } else if (_mode == MODE_MECH) {
+                _mode = MODE_PRIORITY;
+                _locationChart.hide(); // hide _locationChart, _barChart
+                _barChart.hide();
+                _tryLoadData();
+            }
+        };
+
         //endregion
     };
     /**

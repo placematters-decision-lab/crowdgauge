@@ -32,41 +32,25 @@
             /*var svg = po.svg("svg:svg");//fix for Firefox: https://github.com/simplegeo/polymaps/issues/115
              svg.setAttribute('width', '100%');
              svg.setAttribute('height', '100%');*/
+            if (!map) {
+                // Create the map object, add it to #map…
+                map = po.map()
+                    .container(_container)
+                    .center({lat: 37.1, lon: -80.6})// Modify: center lat, lon
+                    .zoom(10)
+                    .add(po.interact());
 
-            // Create the map object, add it to #map…
-            map = po.map()
-                .container(_container)
-                .center({lat: 37.1, lon: -80.6})// Modify: center lat, lon
-                .zoom(10)
-                .add(po.interact());
+                map.add(po.image() // CloudMade API
+                    .url(po.url('http://{S}tile.cloudmade.com'
+                            + '/' + _cloudMade.apiKey + '/' + _cloudMade.styleId + '/'
+                            + '256/{Z}/{X}/{Y}.png')
+                        .hosts(['a.', 'b.', 'c.', ''])));
 
-            map.add(po.image() // CloudMade API
-                .url(po.url('http://{S}tile.cloudmade.com'
-                        + '/' + _cloudMade.apiKey + '/' + _cloudMade.styleId + '/'
-                        + '256/{Z}/{X}/{Y}.png')
-                    .hosts(['a.', 'b.', 'c.', ''])));
-
-            map.add(po.compass()
-                .pan("none"));
+                map.add(po.compass()
+                    .pan("none"));
+            }
 
             loadData();
-        };
-
-        window.bing_callback = function (data) {
-            /* Display each resource as an image layer. */
-            var resourceSets = data.resourceSets;
-            for (var i = 0; i < resourceSets.length; i++) {
-                var resources = data.resourceSets[i].resources;
-                for (var j = 0; j < resources.length; j++) {
-                    var resource = resources[j];
-                    map.add(po.image()
-                            .url(template(resource.imageUrl.replace(/^http:/, "https:"), resource.imageUrlSubdomains)))
-                        .tileSize({x: resource.imageWidth, y: resource.imageHeight});
-                }
-            }
-            //map.add(po.image().url("http://sasakistrategies.com/MapTiles/Iowa/MPOBoundary/{Z}/{X}/{Y}.png"));
-            // Add the compass control on top.
-
         };
 
         var useFilter = false;
@@ -76,10 +60,10 @@
         var n = 1;
         //var color = d3.scale.ordinal().range(d3_category20);
         var color = function (d) {
-            return d.data.mech.color.background;
+            return d.data.item.data.color.background;
         };
         var makeStar = function (d) {
-            var values = d.topmechs;
+            var values = d.topitems;
             //--setting the value of n here permits arrays of different lengths to be used, but this is not recommended as it skews the areas in the visualization as well as the positions of the wedges.
             //--it is recommended to use equal length arrays and use zeros where data is not available.
             n = values.length;
@@ -98,6 +82,7 @@
         };
 
         var loadData = function () {
+            if (_locationCharts) _locationCharts.remove();
 
             var layer = _svg.insert("svg:g", ".compass");
 
@@ -112,7 +97,6 @@
 
             _starMarkers = _locationCharts.append("svg:g");
             _circleMarkers = _locationCharts.append("svg:g");
-
 
             var shadCircs = _circleMarkers.append("circle")
                 .attr("r", 0)
@@ -162,7 +146,7 @@
                 title: function () {
                     var d = this.__data__;
                     var perc = 100 * d.data.score;
-                    return perc.toFixed(1) + "% of the votes in " + d.data.location + " are for: " + SAS.localizr.getProp(d.data.mech, 'progressive');
+                    return perc.toFixed(1) + "% of the votes in " + d.data.location + " are for: " + d.data.item.props.tooltipLabel;
                 }
             });
 
@@ -207,16 +191,11 @@
                         }
                     })
                     .attr("fill", function (d, i) {
-                        var colr = d3.hsl(d.data.mech.color.background);
-                        if (d.data.mech.color.textShift == 'brighter') {
-                            return colr.brighter(3);
-                        }  else {
-                            return colr.darker(2);
-                        }
+                        return d.data.item.props.textColor;
                     })
                     //.attr("opacity", 0.5)
                     .text(function (d, i) {
-                        return d.data.mech.letter;
+                        return d.data.item.props.letter;
                     });
             }
 
@@ -357,7 +336,7 @@
                 return _getRank(d);
             });
             _centers.attr("visibility", function (d, i) {
-                return _getVisible(d) ? "visible" : "hidden";
+                return _getVisible(d) && (_mode == MODE_CIRCLE) ? "visible" : "hidden";
             });
         };
 
@@ -383,6 +362,7 @@
         //region public API
 
         this.updateRankings = function (locationArr) {
+            _mode = MODE_CIRCLE;
             _currentRankings = d3.nest().key(
                 function (d) {
                     return d.location;
@@ -418,10 +398,11 @@
         this.load = function (data) {
             _mode = MODE_STAR;
             _mapdata = data;
-            $.each(_mapdata, function (i, locationVal) {//store location names on top mech objects so that we can access this info for tooltips etc
+
+            $.each(_mapdata, function (i, locationVal) {//store location names on top item objects so that we can access this info for tooltips etc
                 var locationName = _getLocationName(locationVal);
-                $.each(locationVal.topmechs, function (j, mechObj) {
-                    mechObj.location = locationName;
+                $.each(locationVal.topitems, function (j, itemObj) {
+                    itemObj.location = locationName;
                 });
             });
             _createMap();
