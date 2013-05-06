@@ -29,11 +29,11 @@ div#svgDiv {
     left: 365px;
 }
 
-div#mechList {
+div#itemList {
     position: absolute;
     background-color: white;
     padding: 10px;
-    height: 200px;
+    height: auto; /* TODO: 200px; */
     overflow-y: scroll;
 }
 
@@ -43,13 +43,13 @@ div#barChart {
     left: 350px;
 }
 
-.mechLegendRow {
+.itemLegendRow {
     border: 2px solid white;
     cursor: pointer;
     vertical-align: middle;
 }
 
-.mechColorItem {
+.itemColorItem {
     border: 1px solid #756561;
     width: 10px;
     height: 10px;
@@ -66,7 +66,7 @@ div#barChart {
 
 }
 
-.mechItemLabel {
+.itemItemLabel {
     width: 300px;
     margin-left: 5px;
     display: inline-block;
@@ -80,7 +80,7 @@ div#barChart {
 }
 /*=============================city chart============*/
 
-.mechLabel {
+.itemLabel {
     font-size: 0.8em;
     pointer-events: none;
 }

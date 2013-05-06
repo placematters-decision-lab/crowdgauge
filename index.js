@@ -83,7 +83,8 @@ handle["/getActionDefs"] = dataHandler.getActionDefs;
 handle["/getActions"] = dataHandler.getActions;
 
 handle["/saveResponse"] = responseDataHandler.saveResponse;
-handle["/getCoinCountForMechZip"] = responseDataHandler.getCoinCountForMechZip;
+handle["/getMechCountForZip"] = responseDataHandler.getMechCountForZip;
+handle["/getPriCountForZip"] = responseDataHandler.getPriCountForZip;
 
 handle["/getLocations"] = settingDataHandler.getLocations;
 

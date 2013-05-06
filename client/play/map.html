@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/html">
 <head>
-    <title>Map View Test</title>
+    <title>NRV Tomorrow Map</title>
     <style type="text/css">
         @import url("http://polymaps.org/style.css");
     </style>
@@ -53,6 +53,14 @@
     <link rel='stylesheet' href='css/common.css?v=12'>
     <link rel='stylesheet' href='css/map.css?v=12'>
 
+    <script>
+        $(document).ready(function() {
+            $('#switchModeButton').click(function() {
+                SAS.mainMapInstance.switchMode();
+            });
+        });
+
+    </script>
 </head>
 <body>
 <div class="navbar navbar navbar-fixed-top">
@@ -79,11 +87,12 @@
 </div>
 <div id="svgDiv"></div>
 <div id="mechList"></div>
+<div id="itemList"></div>
+<input type="button" id="switchModeButton" value="Switch Mode" style="position: absolute; width: auto"/>
 
 <script type="text/javascript" src="http://mbostock.github.com/d3/d3.js?1.29.5"></script>
 <script type="text/javascript" src="http://code.jquery.com/jquery.js"></script>
 
-<!---------------------->
 <script type="text/javascript" src="http://polymaps.org/polymaps.min.js?2.5.0"></script>
 <script type="text/javascript" src="../lib/d3/d3.min.js"></script>
 <script type="text/javascript" src="../lib/d3/d3.layout.min.js"></script>
@@ -118,9 +127,8 @@
 <script type="text/javascript" src="classes/framework/mapping/LocationChart.js"></script>
 <script type="text/javascript" src="classes/framework/mapping/Map.js"></script>
 <script type="text/javascript" src="classes/framework/mapping/MapFrame.js"></script>
-<script type="text/javascript" src="classes/framework/mapping/MapMechList.js"></script>
+<script type="text/javascript" src="classes/framework/mapping/MapItemList.js"></script>
 <script type="text/javascript" src="classes/framework/mapping/StarChart.js"></script>
 <script type="text/javascript" src="classes/framework/mapping/MapMain.js"></script>
-
 </body>
 </html>

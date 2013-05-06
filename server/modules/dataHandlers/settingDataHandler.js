@@ -59,6 +59,11 @@ SettingDataHandler = function () {
     var _getLocations = function (req, res) { // for client-side call
         var query = _getQuery(req);
         _self.p_view('byContentType', {key: [query.filename, Enums.CTYPE_LOCATION] }, function (err, body) { // TODO: filename
+            if (err) {
+                console.log('Error in byContentType: '+err);
+                _self.p_returnBasicFailure(res, err);
+                return;
+            }
             if (body && body.rows && !err) {
                 var numRows = body.rows.length;
                 var cObjs = [];

@@ -14,7 +14,7 @@
 
         //var _divId = "#barChart";
         var _data = null;
-        var _mechanism;
+        var _item;
         var index;
         var y;
         var x;
@@ -56,7 +56,7 @@
 
             rects = bar.append("rect")
                 .attr("class", "bar_rect")
-                .style("fill", _mechanism.data.color.background) // set color
+                .style("fill", _item.data.color.background) // set color
                 .attr("height", function (d) { return y(d.percent); })
                 .attr("width", x.rangeBand());
 
@@ -77,7 +77,7 @@
                 title:function () {
                     var d = this.__data__;
                     var perc = d.percent;
-                    return SAS.localizr.getProp(_mechanism.data, 'progressive') + " gets " + perc.toFixed(1) + "% of the votes in " + d.location;
+                    return _item.props.tooltipLabel + " gets " + perc.toFixed(1) + "% of the votes in " + d.location;
                 }
             });
 
@@ -130,7 +130,7 @@
                 .attr("height", function (d) {
                     return y(d.percent);
                 })
-                .style("fill", _mechanism.data.color.background) // set color
+                .style("fill", _item.data.color.background) // set color
 
             bar.transition()
                 .duration(750)
@@ -173,9 +173,9 @@
             _showMain(false);
         };
 
-        this.updateData = function (locationArr, mech) {
+        this.updateData = function (locationArr, item) {
             _showMain(true);
-            _mechanism = mech;
+            _item = item;
             if (!_data) {
                 _data = [];
                 $.each(locationArr, function (i, locationObj) {
