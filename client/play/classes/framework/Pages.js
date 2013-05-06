@@ -198,13 +198,13 @@
                 d3.json('/getMechanisms' + _fileAndVersion(), function (data) {
                     _mechanismList.load(data);
                     _mechanismList.ensureShowMoneyAndVotes(false);
-                    _layout.positionElements();
                     _mechanismList.showDivs(true);
+                    _layout.positionElements();
                 });
             } else {
                 _mechanismList.ensureShowMoneyAndVotes(false);
+                _mechanismList.showDivs(true);
                 _layout.positionElements();
-                _mechanismList.showDivs(true)
             }
             _bubbleChart.showDivs(true);
             _showMoreInfo(false);
@@ -337,8 +337,6 @@
             ]);
             _layout.addHeightFillers([
                 {sel: ".mechPanel", leave: 100},
-                {sel: ".mechPanelComp", leave: 80},
-                {sel: ".panel_money", leave: 80 },
                 {sel: "#priorityList", leave: 80},
                 {sel: $("#chart"), leave: 90}
                 //40 for image + 24 for footer + 2
