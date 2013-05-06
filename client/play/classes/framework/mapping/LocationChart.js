@@ -10,7 +10,7 @@
         //region private fields and methods
         var _w = 30,
             _h = 100,
-            _p = [120, 5, 5, 5],
+            _p = [250, 5, 5, 5],
             _x = d3.scale.ordinal().rangeRoundBands([0, _w - _p[1] - _p[3]]),
             _y = d3.scale.linear().range([0, _h - _p[0] - _p[2]]);
 
@@ -110,7 +110,7 @@
         };
 
         var _loadData = function (percs) {
-            _h = $(window).height() - 10;
+            _h = $(window).height() - 45;
 
             _setupArr(percs);
             var stackedData = d3.layout.stack()(_yArr);
@@ -141,6 +141,7 @@
                 .attr("class", "barrect")
                 .attr("x", function (d) { return _p[1] + _x(d.x); })
                 .attr("y", function (d) {
+                    console.log(d.y0 + " " + d.y);
                     return -_y(d.y0) - _y(d.y);
                 })
                 .attr("height", function (d) {
@@ -173,6 +174,7 @@
                 .attr("transform", "rotate(-90)")
 
                 .text(_title);
+            console.log(_title);
 
             _titleBar.append("text")
                 .attr("class", "barLabel barLabelInner")
@@ -198,7 +200,7 @@
             var fullWidth = $(window).width();
             var fullHeight = $(window).height();
             var leftPos = $("#svgDiv").position().left;
-            var ypos = _h - _p[2] - 5;
+            var ypos = _h - _p[2] - 10;
             _mainGroup.attr("transform", "translate(" + (fullWidth - _w - leftPos) + ", " + ypos + ")");
             _h = fullHeight - 10;
             _update(0);

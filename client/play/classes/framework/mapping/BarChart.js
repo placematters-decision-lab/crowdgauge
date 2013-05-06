@@ -149,7 +149,7 @@
         var _updateLayout = function() {
             if (!_mainGroup) return;
             var fullHeight = $(window).height();
-            _mainGroup.attr("transform", "translate(10, " + (fullHeight - height - 10) + ")");
+            _mainGroup.attr("transform", "translate(10, " + (fullHeight - height - 55) + ")");
 
         };
 
