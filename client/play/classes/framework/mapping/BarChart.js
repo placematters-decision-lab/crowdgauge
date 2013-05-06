@@ -8,7 +8,7 @@
         var _self = this;
 
         //region private fields and methods
-        var margin = {top:0, right:10, bottom:20, left:10},
+        var margin = {top:0, right:10, bottom:0, left:10},
             width = 400 - margin.left - margin.right,
             height = 400 - margin.top - margin.bottom;
 
@@ -52,7 +52,7 @@
                 .data(_data)
                 .enter().append("g")
                 .attr("class", "bar")
-                .attr("transform", function (d, i) { return "translate(" + x(i) + "," + (height - y(d.percent)) + ")"; });
+                .attr("transform", function (d, i) { return "translate(" + x(i) + "," + (height - y(d.percent)) + ")";});
 
             rects = bar.append("rect")
                 .attr("class", "bar_rect")

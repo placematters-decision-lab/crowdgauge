@@ -58,6 +58,7 @@ div#barChart {
     font-size: 0.6em;
     padding: 1px;
     text-align: center;
+    line-height: normal;
 }
 
 .selected {
