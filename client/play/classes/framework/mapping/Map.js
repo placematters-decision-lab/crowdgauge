@@ -173,6 +173,7 @@
 
                 labels.append("text")
                     .attr("dy", ".35em")
+                    .attr("display", labelDisplay)
                     .attr("transform", function (d) {
                         var offset = -10;
                         //--rotate text so it doesn't go upside down!
@@ -208,9 +209,13 @@
                 var zoom = map.zoom();
                 if (zoom != lastZoom) {//there is no on("zoomChanged") option for polymaps. For efficiency we don't want to rerun all these calculations for pan events - only when the zoom actually changes
                     lastZoom = zoom;
+                    var labelsText = d3.selectAll('.label text');
+                    console.log(labelsText);
+                    console.log(labels);
                     if (useLabels) {
                         labels.attr("display", labelDisplay());
                         labels.attr("transform", labelTransform);
+                        labelsText.attr("display", labelDisplay());
                     }
                     resizeGfx(zoom);
 
