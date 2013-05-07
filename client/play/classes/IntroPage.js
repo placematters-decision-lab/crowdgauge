@@ -29,16 +29,16 @@
 
         var _checkZip = function () {
             var zip = $("#zipInput").val();
-            var zipCity = "";
+            var zipLocation = "";
             if (_zipLookup[zip]) {
-                zipCity = _zipLookup[zip][0].name;
+                zipLocation = _zipLookup[zip][0].name;
             } else {
                 if (_isValidZip(zip)) {
-                    zipCity = "Other City";
+                    zipLocation = "Other Location";
                 }
             }
-            if (zipCity != "") $('label[for="zipInput"]').removeClass("nonvalid");
-            $("#zipCity").html(zipCity);
+            if (zipLocation != "") $('label[for="zipInput"]').removeClass("nonvalid");
+            $("#zipLocation").html(zipLocation);
         };
 
         var _populateControls = function ($holder) {

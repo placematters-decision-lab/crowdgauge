@@ -160,6 +160,7 @@
             var txt = "<p>What did people vote for in different communities? Use this map to find out.</p>";
             txt += "<p>Click the projects and policies on the left to see where they are receiving the greatest percentage of the votes.</p>";
             txt += "<p>Click a community's circle on the map to see how a they are voting.</p>";
+            console.log('instructions');
             _showInstructionDialog(txt);
         };
 
@@ -192,8 +193,7 @@
         this.showSharingDialog = function (entryId, header, pages, bubblechart, sortedPriorities) {
             //TODO
             var txt = "<p>Thank you for sharing your submission! Your input is valuable to the future of the " +
-                "New River Valley. Please visit <a href='http://www.nrvlivability.org'>the New River Valley Livability Initiative website</a> for more information and stay " +
-                "tuned for the results of this exercise.</p>";
+                "New River Valley. Please visit <a href='http://www.nrvlivability.org'>the New River Valley Livability Initiative website</a> for more information on the initiative.  You can also view the results of this exercise to date on an <a href='map.html'>interactive map.</a></p>";
             _showInstructionDialog(txt,'Thank you for sharing!');
         };
         //endregion
