@@ -44,6 +44,7 @@
         var _locationChart;
         /** @type SAS.Layout */
         var _layout;
+        var _instructions = new SAS.Instructions();
         var _topNum = 9; // Modify
 
         var _fileAndVersion = function () {
@@ -291,6 +292,9 @@
 
                 _tryLoadData();
             });
+
+            _instructions.showMapResultsDialog();
+            console.log('load instructions');
 
             $(window).resize(function () {
                 _updateLayout();

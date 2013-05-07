@@ -160,6 +160,7 @@
             var txt = "<p>What did people vote for in different communities? Use this map to find out.</p>";
             txt += "<p>Click the projects and policies on the left to see where they are receiving the greatest percentage of the votes.</p>";
             txt += "<p>Click a community's circle on the map to see how a they are voting.</p>";
+            console.log('instructions');
             _showInstructionDialog(txt);
         };
 
