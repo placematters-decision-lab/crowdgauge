@@ -7,6 +7,7 @@ if(process.env.NODE_ENV == 'production') {
     var config = require("../../config.development");
 }
 var nano = require('nano')(config.couchURL);
+var json2csv = require('json2csv');
 
 //region includes
 //constants
@@ -119,6 +120,33 @@ ADataHandler = function (dbName) {
         res.write(JSON.stringify(obj));
         res.end();
     };
+
+    this.p_returnCSV = function (res, obj) {
+        var data = obj;
+        var columns = [];
+        obj.forEach(function(row,i) {
+            for(key in row) {
+                if(columns.indexOf(key) == -1) {
+                    columns.push(key);
+                }
+            }
+        });
+        for(var i = 0; i < columns.length; i++){
+            obj.forEach(function(row,j){
+               for(key in row) {
+                   if(row[columns[i]] == undefined) {
+                       row[columns[i]] = 0;
+                   }
+               }
+            });
+        }
+        res.writeHeader(200, {"Content-Type": "text/csv"});
+        json2csv({data: obj, fields: columns}, function(err, csv) {
+            if (err) console.log(err);
+            res.write(csv);
+        });
+        res.end();
+    }
 
     this.p_returnBasicSuccess = function (res) {
         _returnBasicSuccess(res);

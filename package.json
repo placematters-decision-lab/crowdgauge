@@ -13,7 +13,8 @@
     "node-static": "0.6.x",
     "loggly": "0.3.x",
     "redis": "0.8.x",
-    "konphyg": "1.2.x"
+    "konphyg": "1.2.x",
+    "json2csv": "2.0.x"
   },
   "engines": {
     "node": "0.8.x"
