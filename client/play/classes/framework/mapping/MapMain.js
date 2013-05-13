@@ -294,7 +294,6 @@
             });
 
             _instructions.showMapResultsDialog();
-            console.log('load instructions');
 
             $(window).resize(function () {
                 _updateLayout();

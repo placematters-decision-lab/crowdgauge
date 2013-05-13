@@ -210,8 +210,6 @@
                 if (zoom != lastZoom) {//there is no on("zoomChanged") option for polymaps. For efficiency we don't want to rerun all these calculations for pan events - only when the zoom actually changes
                     lastZoom = zoom;
                     var labelsText = d3.selectAll('.label text');
-                    console.log(labelsText);
-                    console.log(labels);
                     if (useLabels) {
                         labels.attr("display", labelDisplay());
                         labels.attr("transform", labelTransform);
@@ -224,7 +222,6 @@
 
                         feOffset.attr("dx", filterOffsetAmt)
                             .attr("dy", filterOffsetAmt);
-                        console.log("zoom", zoom, "offset", filterOffsetAmt);
                     }
                 }
             });
@@ -250,7 +247,6 @@
 
             window.addEventListener("mouseup", function (e) {
                 var clickLoc = map.pointLocation(map.mouse(e));
-                console.log(clickLoc.lat + ", " + clickLoc.lon + " z: " + map.zoom());
             }, false);
 
             function getPartialScale() {

@@ -141,7 +141,6 @@
                 .attr("class", "barrect")
                 .attr("x", function (d) { return _p[1] + _x(d.x); })
                 .attr("y", function (d) {
-                    console.log(d.y0 + " " + d.y);
                     return -_y(d.y0) - _y(d.y);
                 })
                 .attr("height", function (d) {
@@ -174,7 +173,6 @@
                 .attr("transform", "rotate(-90)")
 
                 .text(_title);
-            console.log(_title);
 
             _titleBar.append("text")
                 .attr("class", "barLabel barLabelInner")
