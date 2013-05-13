@@ -23,9 +23,9 @@
             });
             var starsLeft = (_totalStars - starsUsed);
             if (starsLeft == 0) {
-                $("#starsLeft").html("<span class='starsLeftNum'>0</span><small> stars left (to redistribute, lower current ratings)</small>");
+                $("#starsLeft").html("<span class='starsLeftNum'>0</span><small><span data-localize='starsleft.zero'>stars left (to redistribute, lower current ratings)</span></small>");
             } else {
-                $("#starsLeft").html("You have <span class='starsLeftNum'>" + starsLeft + "</span> star" + ((starsLeft > 1) ? "s" : "") + " left");
+                $("#starsLeft").html("<span data-localize='starsleft.first'>You have</span> <span class='starsLeftNum'>" + starsLeft + "</span> <span data-localize='starsleft.last'>star" + ((starsLeft > 1) ? "s" : "") + " left</span>");
             }
             $(".sliderDiv").find("img").show();//.prop('disabled', false);
             if (starsLeft < _numStars) {
@@ -39,6 +39,7 @@
                     }
                 });
             }
+            SAS.localizr.setActiveLang();
         };
 
         var _starAsPerc = function (value) {

@@ -135,6 +135,9 @@
 
 
         this.setActiveLang = function (lang) {
+            if(!lang) {
+                lang = _activeLang;
+            }
             if (lang != _activeLang && _activeLang == DEFAULT_LANG) {
                 _defaultValues = _storeLocalizableValues();
             }

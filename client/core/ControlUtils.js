@@ -39,15 +39,23 @@
          * @param {Array} arr
          * @param {String} [selectedValue]
          */
-        this.populateSelectList = function(selId, promptStr, arr, selectedValue) {
+        this.populateSelectList = function(selId, promptStr, arr, opts) {
+            if(opts) {
+                var selectedValue = opts.selectedValue;
+                var name = opts.name;
+                var text = opts.text;
+            }
+
             var selJq = $(selId);
             _clearSelectList(selJq);
             if (promptStr != null) {
-                selJq.append($("<option />").val(PROMPT).text(promptStr));
+                selJq.append($("<option data-localize='demographics.options." + name + ".0'/>").val(PROMPT).text(promptStr));
             }
             $.each(arr, function (i, value) {
-                console.log(value);
-                var optionJq = $("<option />").val(value).text(value).prop("selected", (selectedValue == value));
+                if(text) {
+                    var label = text[i];
+                }
+                var optionJq = $("<option data-localize='demographics.options." + name + "." + (i + 1) + "'/>").val(value).text(( label ? label : value)).prop("selected", (selectedValue == value));
                 selJq.append(optionJq);
             });
         };

@@ -53,7 +53,7 @@
         var _addLangBtn = function ($holder) {
             var $langSel = $("<select></select>").appendTo($holder);
 
-            SAS.controlUtilsInstance.populateSelectList($langSel, null, {'English':'en','Spanish': 'es'}, 'en');
+            SAS.controlUtilsInstance.populateSelectList($langSel, null, ['en','es'], {selectedValue: 'en', text: ['English','Español']});
             $langSel.change(function() {
                 SAS.localizr.setActiveLang($(this).val());
             });

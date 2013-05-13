@@ -81,14 +81,13 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="brand" href="#">NRV Tomorrow Survey</a>
+            <a class="brand" href="#" data-localize="titles.main">NRV Tomorrow Survey</a>
 
             <div class="nav-collapse collapse">
                 <p class="navbar-text pull-right">
-                    <a href="map.html">Map the Results</a> |
-                    <a href="http://www.nrvlivability.org" target="_blank">NRV Livability Home</a>
+                    <a href="map.html" data-localize="links.map">Map the Results</a> |
+                    <a href="http://www.nrvlivability.org" target="_blank" data-localize="links.home">NRV Livability Website</a>
                 </p>
-                <div id="langSel" class="pull-right"></div>
                 <ul class="nav">
                     <li id="tab_intro"><a data-localize="tabs.intro">Introduction</a></li>
                     <li id="tab_priorities"><a data-localize="tabs.priorities">Priorities</a></li>
@@ -107,15 +106,14 @@
         <div id="titleBar" class="span9 titleImg"></div>
         <div class="span3">
             <button class="btn btn-primary pull-right" id="btnNext" data-localize="buttons.next">Next</button>
-            <div id="reshowInstr" class="pull-right" style="clear:right;">Show Instructions Again</div>
+            <div id="reshowInstr" class="pull-right" data-localize="titles.show" style="clear:right;">Show Instructions Again</div>
         </div>
     </div>
     <div class="row-fluid">
-
         <div id="intro">
             <div class="introTxt span4">
                 <img src="img/nrv_logo.png" style="margin: 0 20px 20px 0; float: left;"/>
-                <p>Welcome to the NRV Tomorrow Survey. Use this interactive survey to tell us your priorities for the future and see how different projects and policies impact the New River Valley.</p>
+                <p data-localize="intro">Welcome to the NRV Tomorrow Survey. Use this interactive survey to tell us your priorities for the future and see how different projects and policies impact the New River Valley.</p>
             </div>
             <div id="introFrm" class="introFrm span8">
 
@@ -145,8 +143,9 @@
             <div id="itemsLeft" class="span4">
                 <div id="starsLeft"></div>
                 <div id="coinsLeft"></div>
-                <div id="clickInstr" class="clickTheIcon">Hover over or click the actions for more information. Click the coins to indicate where you would prioritize public dollars.</div>
-                <div id="policiesInstr" class="clickTheThumbs">Indicate whether or not you would support these policies. Click the thumbs to indicate your choices.</div>
+                <div id="clickInstr" class="clickTheIcon" data-localize="coinsleft.hover">Hover over or click the actions for more information. Click the coins to indicate where you would prioritize public dollars.</div>
+                <div id="policiesInstr" class="clickTheThumbs" data-localize="tips.policies">Indicate whether or not you would support these policies. Click the thumbs to indicate your choices.</div>
+                Translate: <div id="langSel" style="display: inline-block;"></div>
             </div>
             <div class="span8">
                 <div id="moreInfo" class="pull-right"></div>
