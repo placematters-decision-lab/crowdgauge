@@ -25,8 +25,8 @@
             }
         };
 
-        var _loadData = function () {
-            $("#itemList").html("Projects and Policies");
+        var _loadData = function (title) {
+            $("#itemList").html(title);
             _itemDivsById = {};
             var top5Div = $("<div class='itemLegendRow'></div>").appendTo("#itemList");
             $("<div class='itemColorItem'></div>").appendTo(top5Div);//used as spacer
@@ -67,10 +67,10 @@
         //endregion
 
         //region public API
-        this.loadData = function(data, topNum) {
+        this.loadData = function(data, topNum, title) {
             _topNum = topNum;
             _items = data;
-            _loadData();
+            _loadData(title);
         };
 
         this.onSelect = function (fn) {

@@ -52,8 +52,8 @@
             return '?filename=NRV'; // TODO: add version
         };
 
-        var _loadData = function (itemCountsByZip, itemData, data) {
-            _itemList.loadData(data, _topNum); // load #itemList
+        var _loadData = function (itemCountsByZip, itemData, data, title) {
+            _itemList.loadData(data, _topNum, title); // load #itemList
 
             _itemCountsByZip = itemCountsByZip;
             _itemData = itemData;
@@ -307,12 +307,12 @@
             _resetCharts();
             if (_mode == MODE_MECH) {
                 if (_locations  && _mechanismsById && _mechCountsByZip) {
-                    _loadData(_mechCountsByZip, _mechData, _mechanisms);
+                    _loadData(_mechCountsByZip, _mechData, _mechanisms, "Projects and Policies");
                 }
             }
             if (_mode == MODE_PRIORITY) {
                 if (_locations  && _prioritiesById && _priCountsByZip) {
-                    _loadData(_priCountsByZip, _priData, _priorities);
+                    _loadData(_priCountsByZip, _priData, _priorities, "Priorities");
                 }
             }
         };
