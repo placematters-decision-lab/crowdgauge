@@ -333,13 +333,11 @@
 
         // for test
         this.switchMode = function (el) {
-            console.log(el);
             if (_mode == MODE_PRIORITY) {
                 _mode = MODE_MECH;
                 _locationChart.hide(); // hide _locationChart, _barChart
                 _barChart.hide();
                 $('#'+el).val('View Ranking by Priorities');
-
                 _tryLoadData();
             } else if (_mode == MODE_MECH) {
                 _mode = MODE_PRIORITY;
