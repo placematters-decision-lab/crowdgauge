@@ -78,6 +78,7 @@
          * @param {Function} [callback]
          */
         this.addMechanism = function (m, callback) {
+            console.log(JSON.stringify(m));
             $.post("/addMechanism", {data:JSON.stringify(m)},
                 function (data) {
                     if (callback) callback(data);
@@ -127,6 +128,7 @@
          * @param {Function} [callback]
          */
         this.updateContent = function (c, releaseLock, callback) {
+            console.log(JSON.stringify(c));
             $.post("/updateContent", {data:JSON.stringify(c), releaseLock:releaseLock},
                 function (data) {
                     if (callback) callback(data);

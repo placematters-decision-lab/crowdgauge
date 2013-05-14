@@ -541,7 +541,6 @@ ContributeDataHandler = function () {
                     _self.p_view('cellsByMechanismId', { key: doc.structureId.mechanism }, function (err, cellBody) {
                         mObj.values = _getMechValues(cellBody);
                         mObjs.push(mObj);
-                        console.log()
                         if (mObjs.length == numRows) {//we have all results and can return
                             _self.p_returnJsonObj(res, mObjs);
                         }

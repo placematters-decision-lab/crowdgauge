@@ -37,6 +37,7 @@
                 <p class="navbar-text pull-right">
                     <a href="http://www.nrvlivability.org" target="_blank">NRV Livability Home</a>
                 </p>
+                <input type="button" class="btn btn-info pull-right" id="switchModeButton" value="View Ranking by Priorities"/>
                 <ul class="nav">
                     <li id="tab_intro"><a href="index.html">Back to Survey</a></li>
                 </ul>
@@ -48,7 +49,6 @@
 <div id="svgDiv"></div>
 <div id="mechList"></div>
 <div id="itemList"></div>
-<input type="button" id="switchModeButton" value="Switch Mode" style="position: absolute; width: auto; display: none;"/>
 <div id="dialog"></div>
 
 <script type="text/javascript" src="http://mbostock.github.com/d3/d3.js?1.29.5"></script>
@@ -94,7 +94,7 @@
 <script>
     $(document).ready(function() {
         $('#switchModeButton').click(function() {
-            SAS.mainMapInstance.switchMode();
+            SAS.mainMapInstance.switchMode(this.id);
         });
     });
 

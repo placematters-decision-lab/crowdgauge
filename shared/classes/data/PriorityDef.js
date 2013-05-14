@@ -20,7 +20,11 @@
             title: "",
             description: "",
             nickname: "",
-            uid: "p"+_getUID()
+            uid: "p"+_getUID(),
+            color: {
+                background: "#FFFFFF",
+                textShift: null
+            }
         };
         var _settings = $.extend({}, _defaults, data);
         //endregion
@@ -49,6 +53,8 @@
 
         /** @type {String} svgPath*/
         this.svgPath = _settings.svgPath;
+
+        this.color = _settings.color;
         //endregion
     }
 })();

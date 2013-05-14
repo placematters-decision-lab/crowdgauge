@@ -82,6 +82,8 @@
 
         //region public API
         this.set = function (obj, props, lang) {
+            console.log('localizr:');
+            console.log(obj);
             lang = lang || _activeLang;
             $.each(props, function (k, value) {
                 if (!obj[k]) {
