@@ -37,7 +37,7 @@
                 map = po.map()
                     .container(_container)
                     .center({lat: 37.1, lon: -80.6})// Modify: center lat, lon
-                    .zoom(10)
+                    .zoom(11)
                     .add(po.interact());
 
                 map.add(po.image() // CloudMade API
