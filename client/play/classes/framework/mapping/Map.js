@@ -41,10 +41,49 @@
                     .add(po.interact());
 
                 map.add(po.image() // CloudMade API
-                    .url(po.url('http://{S}tile.cloudmade.com'
-                            + '/' + _cloudMade.apiKey + '/' + _cloudMade.styleId + '/'
-                            + '256/{Z}/{X}/{Y}.png')
-                        .hosts(['a.', 'b.', 'c.', ''])));
+                    .url(po.url('http://api.tiles.mapbox.com/v3/jasonlally.map-sc61m461/{Z}/{X}/{Y}.png')
+                        .hosts(['a.','b.','c.',''])));
+
+
+                    /*
+                    .url(po.url('http://tile.stamen.com/toner/{Z}/{X}/{Y}.png')
+                        .hosts(['a.', 'b.', 'c.', ''])));*/
+
+                /*
+                 .url(po.url('http://{S}tile.cloudmade.com'
+                 + '/' + _cloudMade.apiKey + '/' + _cloudMade.styleId + '/'
+                 + '256/{Z}/{X}/{Y}.png')*/
+                /*
+                map.add(po.geoJson()
+                    .url("static/nrv_roads.json")
+                    .tile(false)
+                    .zoom(11)
+                    .on("load", po.stylist()
+                        .attr("stroke","#F2CB05")
+                        .attr("fill","none")
+                        .attr("stroke-width","4")
+                        .attr("opacity",".65")));
+                        */
+
+                map.add(po.geoJson()
+                    .url("static/nrv_counties.json")
+                    .tile(false)
+                    .zoom(10)
+                    .on("load", po.stylist()
+                        .attr("fill","none")
+                        .attr("stroke","#525252")
+                        .attr("opacity",".3")));
+
+                map.add(po.geoJson()
+                    .url("static/nrv_region.json")
+                    .tile(false)
+                    .zoom(10)
+                    .on("load", po.stylist()
+                        .attr("fill","none")
+                        .attr("stroke","#333")
+                        .attr("opacity",".65")));
+
+
 
                 map.add(po.compass()
                     .pan("none"));
@@ -60,6 +99,7 @@
         var n = 1;
         //var color = d3.scale.ordinal().range(d3_category20);
         var color = function (d) {
+            //console.log(d);
             return d.data.item.data.color.background;
         };
         var makeStar = function (d) {
@@ -97,6 +137,15 @@
 
             _starMarkers = _locationCharts.append("svg:g");
             _circleMarkers = _locationCharts.append("svg:g");
+
+            /*
+            var locationLabels = _locationCharts.append("text");
+
+            locationLabels.text(function(d){
+                return d.location.name;
+            })
+                .attr("transform","translate(-5,-3.5) scale(" + 1 / getPartialScale() + ")");
+             */
 
             var shadCircs = _circleMarkers.append("circle")
                 .attr("r", 0)
@@ -175,6 +224,7 @@
                     .attr("dy", ".35em")
                     .attr("display", labelDisplay)
                     .attr("transform", function (d) {
+                       // console.log(d);
                         var offset = -10;
                         //--rotate text so it doesn't go upside down!
                         //--translate to offset from edge
@@ -247,6 +297,7 @@
 
             window.addEventListener("mouseup", function (e) {
                 var clickLoc = map.pointLocation(map.mouse(e));
+                console.log(clickLoc);
             }, false);
 
             function getPartialScale() {
