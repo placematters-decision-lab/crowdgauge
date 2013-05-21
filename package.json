@@ -14,8 +14,9 @@
     "loggly": "0.3.x",
     "redis": "0.8.x",
     "mc": "1.0.x"
-  },
-  "engines": {
-    "node": "0.8.x"
   }
+//  },
+//  "engines": {
+//    "node": "0.8.x"
+//  }
 }
