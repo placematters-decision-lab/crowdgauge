@@ -6,7 +6,6 @@
   },
   "version": "0.0.1-82",
   "dependencies": {
-//    "socket.io-client": "0.9.11",
     "socket.io": "0.9.x",
     "imagemagick": "0.1.x",
     "formidable": "1.0.x",
