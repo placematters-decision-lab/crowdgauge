@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title></title>
+    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.js"></script>
+    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.9.0/jquery-ui.js"></script>
+    <link type="text/css" href="../lib/jquery-ui/jquery-ui-1.8.23.custom.css" rel="stylesheet"/>
+    <script>
+        $(document).ready(function () {
+            $("#instructions").accordion({
+                heightStyle:"content",
+                collapsible:true
+            });
+        });
+    </script>
+</head>
+<body>
+<div id="instructions">
+    <h3>Notes on Priorities</h3>
+
+    <div id="priorities">
+        <p></p>
+    </div>
+    <h3>Notes on Actions</h3>
+
+    <div id="action">
+        <p>Each general mechanism can have a number of specific actions. For example a mechanism 'Build more roads'
+            could have these actions assigned:</p>
+        <ul>
+            <li>Build 9 miles of two-lane road</li>
+            <li>Build 9 miles of 4-lane highway with 3 interchanges</li>
+        </ul>
+        <p>When playing the game, users are given a fixed number of coins and asked to choose how they would allocate
+            them. Each action is assigned a certain number of coins to indicate relative expense. Some actions may cost
+            nothing.</p>
+
+        <p>Each column represents a particular number of coins. Add new action columns to represent a different number
+            of coins.</p>
+
+        <p>In addition to cost, each action is given a multiplier to indicate how effective it is in achieving the goals
+            of the mechanism. This multiplier is applied to the scores for each priority (both positive and
+            negative).</p>
+    </div>
+</div>
+</div>
+</body>
+</html>

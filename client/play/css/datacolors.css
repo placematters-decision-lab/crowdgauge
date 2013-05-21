@@ -1,0 +1,21 @@
+circle.nofill {
+  fill: transparent; }
+
+circle.score_na {
+  fill: #eeeeee; }
+
+circle.score_-2 {
+  fill: #ec7f07; }
+
+/*if these change, remember to also update instructions*/
+circle.score_-1 {
+  fill: #fbdb10; }
+
+circle.score_0 {
+  fill: #EAD9C4; }
+
+circle.score_1 {
+  fill: #a9d3e2; }
+
+circle.score_2 {
+  fill: #38b7da; }

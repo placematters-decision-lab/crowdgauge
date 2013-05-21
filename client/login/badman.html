@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Badman</title>
+    <link type="text/css" href="../lib/jquery-ui/jquery-ui-1.8.23.custom.css" rel="stylesheet"/>
+    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.1/jquery.min.js"></script>
+    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.23/jquery-ui.min.js"></script>
+
+    <script src="../lib/jquery.ui.widget.js"></script>
+    <script src="../lib/jquery.iframe-transport.js"></script>
+    <script src="../lib/jquery.fileupload.js"></script>
+
+    <script type="text/javascript" src="../core/SAS.js"></script>
+    <script type="text/javascript" src="../core/Inheritance.js"></script>
+    <script type="text/javascript" src="../core/ControlUtils.js"></script>
+    <script type="text/javascript" src="../core/ADialog.js"></script>
+
+    <script type="text/javascript" src="../../shared/classes/modules/Content.js"></script>
+    <script type="text/javascript" src="../../shared/classes/modules/Enums.js"></script>
+    <script type="text/javascript" src="../../shared/classes/data/MechanismDef.js"></script>
+
+    <script type="text/javascript" src="../contribute/classes/ImageList.js"></script>
+    <script type="text/javascript" src="../contribute/classes/dialogs/MechanismDialog.js"></script>
+    <script type="text/javascript">
+        var _addNewMechanism = function () {
+            var m = new SAS.MechanismDef();
+            _editMechanism(m, function () {
+
+            });
+        };
+        var _editMechanism = function (/**SAS.MechanismDef*/ m, fn) {
+            var mFrm = new SAS.MechanismDialog(m);
+            mFrm.showDialog(fn);
+        };
+        $(document).ready(function() {
+            _addNewMechanism();
+        });
+    </script>
+</head>
+<body>
+
+</body>
+</html>

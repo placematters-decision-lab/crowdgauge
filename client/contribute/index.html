@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/html">
+<head>
+    <title>CrowdGauge: create content</title>
+
+    <link href="http://fonts.googleapis.com/css?family=Anton" rel="stylesheet" type="text/css">
+    <link type="text/css" href="../lib/jquery-ui/jquery-ui-1.9.1.custom.min.css" rel="stylesheet"/>
+    <link type="text/css" href="css/contribute.css" rel="stylesheet"/>
+
+    <!--socket.io scripts served by node js module-->
+    <script type="text/javascript" src="/socket.io/socket.io.js"></script>
+    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.js"></script>
+    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.9.0/jquery-ui.js"></script>
+    <script type="text/javascript" src="../lib/jwysiwyg/jquery.wysiwyg.js"></script>
+
+    <!--<script src="../lib/jquery.ui.widget.js"></script> ? think this is now included in jquery-ui-->
+    <script src="../lib/jquery.iframe-transport.js"></script>
+    <script src="../lib/jquery.fileupload.js"></script>
+
+    <script type="text/javascript" src="../lib/d3/d3.min.js"></script>
+
+    <script type="text/javascript" src="../core/SAS.js"></script>
+    <script type="text/javascript" src="../core/Inheritance.js"></script>
+    <script type="text/javascript" src="../core/ControlUtils.js"></script>
+    <script type="text/javascript" src="../core/ADialog.js"></script>
+    <script type="text/javascript" src="../core/Localizer.js"></script>
+
+    <script type="text/javascript" src="../../shared/classes/modules/Content.js"></script>
+    <script type="text/javascript" src="../../shared/classes/modules/Enums.js"></script>
+    <script type="text/javascript" src="../../shared/classes/data/CellDef.js"></script>
+    <script type="text/javascript" src="../../shared/classes/data/ActionDef.js"></script>
+    <script type="text/javascript" src="../../shared/classes/data/MechanismDef.js"></script>
+    <script type="text/javascript" src="../../shared/classes/data/PriorityDef.js"></script>
+
+    <script type="text/javascript" src="classes/DataHandler.js"></script>
+    <script type="text/javascript" src="classes/MatrixUI.js"></script>
+    <script type="text/javascript" src="classes/ImageList.js"></script>
+
+    <script type="text/javascript" src="classes/dialogs/AFieldDialog.js"></script>
+    <script type="text/javascript" src="classes/dialogs/MechanismDialog.js"></script>
+    <script type="text/javascript" src="classes/dialogs/ActionDialog.js"></script>
+    <script type="text/javascript" src="classes/dialogs/PriorityDialog.js"></script>
+    <script type="text/javascript" src="classes/dialogs/CellContentDialog.js"></script>
+    <script type="text/javascript" src="classes/dialogs/ActionCellContentDialog.js"></script>
+
+    <script type="text/javascript" src="classes/grids/AMechGrid.js"></script>
+    <script type="text/javascript" src="classes/grids/PriorityGrid.js"></script>
+    <script type="text/javascript" src="classes/grids/ActionsGrid.js"></script>
+
+    <script type="text/javascript" src="contrib-main.js"></script>
+</head>
+<body>
+<div id="header">
+    <img src="../img/icon.png" width="46" height="40">
+    <div class="hdrTitle">
+        <div class="cg">Crowd</div><div class="cg">Gauge</div>
+        <span>Contribute</span>
+    </div>
+    <button id="btnPlay">Play</button>
+</div>
+<div id="holder"></div>
+<div id="instructions">
+    <h3>Notes on Priorities</h3>
+
+    <div id="priorities">
+        <p>Users will rate each priority listed based on how much they value it. Each priority is represented by a
+            circle and should have an icon assigned.</p>
+
+        <p>They can then see how different mechanisms will impact their priorities and read text about how each priority
+            is affected by each mechanism.</p>
+    </div>
+    <h3>Notes on Actions</h3>
+
+    <div id="action">
+        <p>Each general mechanism can have a number of specific actions. For example a mechanism 'Build more roads'
+            could have these actions assigned:</p>
+        <ul>
+            <li>Build 9 miles of two-lane road</li>
+            <li>Build 9 miles of 4-lane highway with 3 interchanges</li>
+        </ul>
+        <p>When playing the game, users are given a fixed number of coins and asked to choose how they would allocate
+            them. Each action is assigned a certain number of coins to indicate relative expense. Some may cost
+            nothing.</p>
+
+        <p>Each column represents a particular number of coins. Add new action columns to represent a different number
+            of coins.</p>
+
+        <p>In addition to cost, each action is given a multiplier to indicate how effective it is in achieving the goals
+            of the mechanism. This multiplier is applied to the scores for each priority (both positive and
+            negative).</p>
+    </div>
+</div>
+</body>
+</html>

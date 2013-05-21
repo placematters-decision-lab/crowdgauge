@@ -1,0 +1,396 @@
+body {
+    normal: 100% Helvetica, Arial, sans-serif;
+}
+
+.tabTitle {
+     color: rgb(255, 255, 255);
+     cursor: pointer;
+     display: block;
+     float: left;
+     font-family: league-gothic, Arial, sans-serif;
+     font-size: 30px;
+     font-weight: normal;
+     letter-spacing: 1px;
+     height: 32px;
+     margin-left: 35px;
+     margin-top: 5px;
+     text-transform: uppercase;
+     width: 175px;
+ }
+
+.tabLogol {
+    cursor: pointer;
+    display: block;
+    float: left;
+    width: 180px;
+    height: 40px;
+    /*margin-right: 10px;*/
+}
+
+.tabTitleHighlight {
+    border-bottom: 10px solid #24ccff;
+
+}
+
+.bars {
+    width: 100%;
+    opacity: 1;
+    height: 9px;
+}
+
+.sliderPanel {
+    width: 600px;
+    float: left;
+    padding: 5px;
+    padding-left: 8px;
+    padding-top: 7px; }
+
+.sliderDiv {
+    float: left;
+    width: 150px;
+    margin-top: 4px;
+    margin-left: 6px; }
+
+.sliderTitle {
+    font-size: 0.8em;
+    margin-bottom: 2px;
+    margin-left: 8px;
+    vertical-align: middle;
+    float: left;
+    margin-top: 5px;
+    font-family: Arial, sans-serif; }
+    /*font-family: "Helvetica Neue" ; }*/
+
+.sliderGrp {
+    margin-top: 5px;
+    height: 25px;
+    vertical-align: middle;
+    clear: left; }
+
+.mechGrp {
+    margin: 5px;
+    padding: 5px; }
+
+.mechGrpBtn {
+    cursor: pointer;
+    padding: 5px 4px 4px 5px; }
+
+.mechIcon {
+    float: left;
+    clear: left; }
+
+.right_wrapper {
+    float: left;
+    width: 100%; }
+
+.info_left {
+    width: 362px;
+    display: block;
+    padding: 2px;
+    float: left;
+    margin-right: 5px;
+    margin-left: -100%; }
+
+.info_left_box > img {
+    max-width: 360px; }
+
+.info_right {
+    margin-left: 375px;
+    display: block;
+    margin-top: 28px; }
+
+.info_icon {
+    display: inline-block;
+    float: left;
+    margin-right: 8px;
+    margin-top: 2px; }
+
+.info_right_title {
+    font-weight: bold;
+    font-size: 1.3em;
+    margin-top: 12px; }
+
+.mechText {
+    color: saddlebrown;
+    margin-left: 42px;
+    font-family: Arial, sans-serif;}
+
+.mech_action_div {
+    vertical-align: middle;
+    margin-top: 8px;
+    min-height: 24px; }
+
+.mech_action {
+    font-size: 0.70em;
+    margin-left: 42px;
+    color: #654A3F;
+    font-weight: bold;
+    vertical-align: middle;
+    margin-top: 8px;
+    min-height: 24px;
+    font-family: Arial, sans-serif;}
+
+#chart {
+    display: block;
+    /*left: 510px;*/
+    left: 600px;
+    position: absolute;
+    top: 80px;}
+    /*padding-left: 1cm;}*/
+
+#starsLeft {
+    padding-left: 30px;
+    height: 40px;
+    position: absolute;
+    color: white;
+    font-family: league-gothic, Arial, sans-serif;}
+
+.starsLeftNum {
+    color: #24ccff;
+    font-size: 2em;}
+
+#clickInstr {
+    padding-left: 30px;
+    height: 40px;
+    position: absolute;
+    color: white;
+    font-family: league-gothic, Arial, sans-serif;
+}
+
+#coinsLeft {
+    padding-left: 30px;
+    height: 40px;
+    position: absolute;
+    color: white;
+    font-family: league-gothic, Arial, sans-serif;}
+
+.coinsLeftNum {
+    color: #24ccff;
+    font-size: 2em;}
+
+#itemsLeft {
+    position: absolute;
+    margin-left: 10px;
+    width: 500px;
+    height: 45px; }
+
+#header {
+    -webkit-background-clip: border-box;
+    -webkit-background-origin: padding-box;
+    -webkit-background-size: auto;
+    background-attachment: scroll;
+    background-clip: border-box;
+    background-color: rgb(77, 64, 72);
+    background-image: none;
+    background-origin: padding-box;
+    background-size: auto;
+    cursor: auto;
+    display: block;
+    font-family: Arial, sans-serif;
+    height: 40px;
+    overflow-x: hidden;
+    overflow-y: hidden;
+    width: 100%;
+}
+
+
+.wrap {
+    position:relative;
+    margin:0 auto;
+    width: 900px;
+}
+
+
+
+#footer {
+    background: #4d4048;
+    width: 100%;
+    height: 50px;
+    overflow: hidden;
+    position: fixed;
+    bottom:0;
+    z-index:999999
+}
+
+.leftPanel {
+    width: 580px !important;
+    /*width: 600px;*/
+    /*background: #4d4048;*/
+    /*width: 100%;*/
+    /*height: 40px;*/
+    /*overflow: hidden;*/
+    /*position: fixed;*/
+    /*bottom:0;*/
+    /*z-index:999999*/
+}
+
+.introFrm {
+    background-color: #ecf1ef;
+    padding: 1%;
+    /*float: top-left;*/
+    /*float: top;*/
+    float: left;
+    right: 20px;
+    top: 100px;
+    width: 30%;
+    font-family: league-gothic, Arial, sans-serif;
+    font-size: 100%;
+    color: #4d4048;
+    height: 400px;
+    text-transform: uppercase;
+}
+
+
+.introTxtH1 {
+    position:relative;
+    margin-left: 40px;
+    /*padding-bottom: 5%;*/
+    /*width: 60%;*/
+    color: rgb(169, 211, 226);
+    float: left;
+    font-family: league-gothic, Arial, sans-serif;
+    font-size: 500%;
+    font-weight: normal;
+    letter-spacing: 1px;
+    line-height: 1.0;
+    text-transform: uppercase;
+}
+
+.introTxt {
+    float: left;
+    margin-left: 40px;
+    width: 60%;
+    padding-bottom: 60%;
+    color: rgb(58, 40, 37);
+    font-family: Arial, sans-serif;
+    font-size: 110%;
+    font-weight: normal;
+    letter-spacing: 1px;
+    line-height: 1.4;
+    height: 32px;
+
+}
+
+
+
+
+
+#langSel {
+    float: right;
+    width: 85%;
+}
+
+.bigButton {
+    color: white;
+    background-color: #24ccff;
+    background-image: linear-gradient(to bottom, #11B6FF, #0099DD);
+    /*font-family: league-gothic, Arial, sans-serif;;*/
+    /*float: right;*/
+    position: absolute;
+    right: 0;
+    top: 55px;
+    text-transform: capitalize;
+}
+
+#reshowInstr {
+    /*clear: right;*/
+    /*float: right;*/
+    /*cursor: pointer;*/
+    color: #9B8277;
+    cursor: pointer;
+    font-size: 0.7em;
+    font-weight: bold;
+    left: 450px;
+    position: absolute;
+    top: 100px;
+}
+
+#priorityList {
+     overflow-y: auto;
+     /*height: 384.5px;*/
+ }
+
+.colorRamp {
+    background-position: left center;
+    background-repeat: no-repeat;
+    height: 40px;
+    position: absolute;
+    width: 450px;
+}
+
+.colorRamp_money {
+    background-image: url("../img/colorramp_Color_ramp_RED-BLUE_GRADIENT.png");
+}
+
+.colorRamp_impacts {
+    background-image: url("../img/colorramp_Color_ramp_RED-BLUE.png");
+}
+
+.nonvalid {
+    color: orange;
+}
+
+#moreInfo {
+    display: block;
+    font-size: 0.85em;
+    font-style: italic;
+    position: absolute;
+    text-align: right;
+    top: 80px;
+    width: 800px;
+}
+
+.mechPanel {
+    border-bottom: 1px solid #E0D5D0;
+    height: 500px;
+    overflow-y: auto;
+}
+
+.mechCatTitle {
+    color: #B33D1F;
+    margin-left: 10px;
+    text-transform: uppercase;
+}
+
+.sliderIcon {
+    float: left;
+}
+
+.priorityTxtH2 {
+    position: relative;
+    margin-left: 40px;
+    color: rgb(169, 211, 226);
+    /*float: left;*/
+    font-family: league-gothic, Arial, sans-serif;
+    font-size: 400%;
+    /*padding-bottom: 1%;*/
+    font-weight: normal;
+    letter-spacing: 1px;
+    line-height: 1.0;
+}
+
+.priorityTxtH3 {
+    position: relative;
+    color: green;
+    font-family: league-gothic, Arial, sans-serif;
+    font-size: 30%;
+    font-weight: normal;
+    letter-spacing: 1px;
+    line-height: 1.0;
+}
+
+#options {
+    float: right;
+}
+
+.optBtn {
+    color: #9B8277;
+    cursor: pointer;
+    display: inline-block;
+    font-size: 0.8em;
+    font-weight: bold;
+    margin: 8px;
+}
+
+strong {
+    font-weight: bold;}
