@@ -19,7 +19,7 @@
         _super.p_init(dataHandler);
 
         //region private fields and methods
-        var _$grid = $('<div></div>').appendTo($holder);
+        var _$grid = $('<div></div>').addClass("gridWide").appendTo($holder);
         var _dataHandler = dataHandler;
 
         var _actionIds = [];

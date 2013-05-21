@@ -101,3 +101,7 @@ div.cg {
 
 div.cg:first-letter {
   font-size: 1.2em; }
+
+.gridWide {
+    width: auto !important;
+}
