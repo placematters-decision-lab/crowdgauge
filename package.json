@@ -17,14 +17,5 @@
   },
   "engines": {
     "node": "0.8.x"
-  },
-  "custom_env": {
-      "COUCH_URL": "https://ycui:sasaki@crowdgaugeneo.iriscouch.com",
-      "NODE_ENV": "production",
-      "PORT": "80",
-      "REDIS_HOST": "165.225.131.162",
-      "REDIS_PORT": "11464",
-      "REDIS_KEY": "XCaa5SJnKYmrgLB8RRtJovs9nSCvaIbZ6f6Wj7FuwoGuycigdGWN9EQ0J8G55wwn",
-      "CACHE_TYPE": "1"
   }
 }
