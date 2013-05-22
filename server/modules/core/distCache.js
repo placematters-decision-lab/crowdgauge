@@ -81,10 +81,12 @@ DistCache = function (type, onReady) {
                     throw err;
                 }
                 // You are now connected to your redis.
+                console.log("Connected to redis");
                 if (_onReady) _onReady();
             });
 
             _get = function (key, callback) {
+                console.log("INSIDE GET REDIS...");
                 //console.log('getting from cache: ' + key);
                 _redCli.hgetall(key, function (err, obj) {
                     if (!err) {
@@ -95,6 +97,7 @@ DistCache = function (type, onReady) {
             };
 
             _set = function (key, val, callback) {
+                console.log("INSIDE SET REDIS...");
                 //console.log('setting cache: ' + key);
 //                if (typeof val !== 'string') {
 //                    val = JSON.stringify(val);
@@ -105,6 +108,7 @@ DistCache = function (type, onReady) {
             };
 
             _appendList = function (key, val, callback) {
+                console.log("INSIDE APPENDLIST REDIS...");
                 _redCli.rpush(key, val, function () {
                     if (callback) callback();
                 });
