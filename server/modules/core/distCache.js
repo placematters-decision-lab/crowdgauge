@@ -116,7 +116,7 @@ DistCache = function (type, onReady) {
         } else {
             console.log("ENTERING MEMCACHE... onReady:"+_onReady);
             var mc = require('mc');
-            _memCli = new mc.Client('sasakicache.s95c4z.cfg.use1.cache.amazonaws.com', mc.Adapter.json);//:11211
+            _memCli = new mc.Client('sasakicache.s95c4z.cfg.use1.cache.amazonaws.com:11211', mc.Adapter.json);//:11211
             _memCli.connect(function () {
                 console.log("Connected to memcache");
                 if (_onReady) _onReady();
