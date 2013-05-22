@@ -114,7 +114,7 @@ DistCache = function (type, onReady) {
             var mc = require('mc');
             _memCli = new mc.Client('sasakicache.s95c4z.cfg.use1.cache.amazonaws.com', mc.Adapter.json);//:11211
             _memCli.connect(function () {
-                //console.log("Connected to memcache");
+                console.log("Connected to memcache");
                 if (_onReady) _onReady();
             });
 
@@ -124,7 +124,7 @@ DistCache = function (type, onReady) {
                             console.log("MEMCACHE Error " + err);
                             _type = cacheTypes.MEMCACHE;
                             _init();
-                            callback(response[key]);
+//                            callback(response[key]);
                         }
                     }
                 );
@@ -147,7 +147,7 @@ DistCache = function (type, onReady) {
                                     console.log("MEMCACHE Error " + err);
                                     _type = cacheTypes.MEMCACHE;
                                     _init();
-                                    if (callback) callback();
+//                                    if (callback) callback();
                                 }
                             });
                         }
