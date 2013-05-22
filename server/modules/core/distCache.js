@@ -61,6 +61,8 @@ DistCache = function (type, onReady) {
             };
             if (_onReady) _onReady();
         } else if (_type == cacheTypes.REDIS) {
+            console.log("ENTERING REDIS...");
+
             logger.log('Connecting to REDIS');
             var redis = require('redis');
             //redis.debug_mode = true;//TEMP
@@ -73,6 +75,7 @@ DistCache = function (type, onReady) {
             });
             _redCli.auth(config.redis.key, function (err) {
                 if (err) {
+                    console.log("REDIS AUTH ERROR: " + err);
                     throw err;
                 }
                 // You are now connected to your redis.
