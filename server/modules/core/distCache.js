@@ -25,7 +25,7 @@ DistCache = function (type, onReady) {
 
     //region private fields and methods
 //    var _type = type || cacheTypes.REDIS;
-    var _type = 0; //type || cacheTypes.MEMCACHE;
+    var _type = 1; //type || cacheTypes.MEMCACHE;
     var _onReady = onReady;
     var _redCli;
     var _memCli;
@@ -126,9 +126,6 @@ DistCache = function (type, onReady) {
                 console.log("INSIDE GET MEMCACHE...");
                 _memCli.get(key, function (err, response) {
                         if (!err) {
-                            console.log("MEMCACHE Error " + err);
-                            _type = cacheTypes.MEMCACHE;
-                            _init();
                             callback(response[key]);
                         }
                         console.log("CLIENT CONNECTION MEMCACHE...");
@@ -153,15 +150,11 @@ DistCache = function (type, onReady) {
                             _memCli.add(key, val, function (err, status) {
                                 if (!err) {
                                     console.log("MEMCACHE Error " + err);
-                                    _type = cacheTypes.MEMCACHE;
-                                    _init();
                                     if (callback) callback();
                                 }
                             });
                         }
                         console.log("MEMCACHE Error " + err);
-                        _type = cacheTypes.MEMCACHE;
-                        _init();
                     } else {
                         if (callback) callback();
                     }
