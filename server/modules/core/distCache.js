@@ -49,8 +49,9 @@ DistCache = function (type, onReady) {
     };
 
     var _init = function () {
-        console.log("ENTERING DISTCACHE...");
+        console.log("ENTERING DISTCACHE..." + _type);
         if(_type == cacheTypes.NONDISTRIBUTED) {
+            console.log("ENTERING NONDISTRIBUTED...");
             if (_nondist) return;//already configured
             _nondist = {};
             _get = function (key, callback) {
@@ -109,6 +110,7 @@ DistCache = function (type, onReady) {
                 });
             };
         } else {
+            console.log("ENTERING MEMCACHE...");
             var mc = require('mc');
             _memCli = new mc.Client('sasakicache.s95c4z.cfg.use1.cache.amazonaws.com', mc.Adapter.json);//:11211
             _memCli.connect(function () {
