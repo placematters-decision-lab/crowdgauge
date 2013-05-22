@@ -121,6 +121,9 @@ DistCache = function (type, onReady) {
             _get = function (key, callback) {
                 _memCli.get(key, function (err, response) {
                         if (!err) {
+                            console.log("MEMCACHE Error " + err);
+                            _type = cacheTypes.MEMCACHE;
+                            _init();
                             callback(response[key]);
                         }
                     }
@@ -134,13 +137,6 @@ DistCache = function (type, onReady) {
                 });
             };
 
-            _memCli.on("error", function (err) {   // TODO
-                //_redCli.end();--seems to throw an error
-                console.log("MEMCACHE Error " + err);
-                _type = cacheTypes.MEMCACHE;
-                _init();
-            });
-
             _appendList = function (key, val, callback) {
                 _memCli.append(key, val, function (err, status) {
                     //console.log(status);
@@ -148,6 +144,9 @@ DistCache = function (type, onReady) {
                         if (err == 'NOT_FOUND') {
                             _memCli.add(key, val, function (err, status) {
                                 if (!err) {
+                                    console.log("MEMCACHE Error " + err);
+                                    _type = cacheTypes.MEMCACHE;
+                                    _init();
                                     if (callback) callback();
                                 }
                             });
