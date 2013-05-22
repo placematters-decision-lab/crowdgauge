@@ -124,7 +124,7 @@ DistCache = function (type, onReady) {
                             console.log("MEMCACHE Error " + err);
                             _type = cacheTypes.MEMCACHE;
                             _init();
-//                            callback(response[key]);
+                            callback(response[key]);
                         }
                     }
                 );
@@ -147,10 +147,12 @@ DistCache = function (type, onReady) {
                                     console.log("MEMCACHE Error " + err);
                                     _type = cacheTypes.MEMCACHE;
                                     _init();
-//                                    if (callback) callback();
+                                    if (callback) callback();
                                 }
                             });
                         }
+                        console.log("MEMCACHE Error " + err);
+                        _type = cacheTypes.MEMCACHE;
                         _init();
                     } else {
                         if (callback) callback();
