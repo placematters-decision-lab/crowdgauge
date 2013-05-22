@@ -49,6 +49,7 @@ DistCache = function (type, onReady) {
     };
 
     var _init = function () {
+        console.log("ENTERING DISTCACHE...");
         if(_type == cacheTypes.NONDISTRIBUTED) {
             if (_nondist) return;//already configured
             _nondist = {};
