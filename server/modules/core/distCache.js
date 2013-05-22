@@ -25,7 +25,7 @@ DistCache = function (type, onReady) {
 
     //region private fields and methods
 //    var _type = type || cacheTypes.REDIS;
-    var _type = 0; //type || cacheTypes.MEMCACHE;
+    var _type = 1; //type || cacheTypes.MEMCACHE;
     var _onReady = onReady;
     var _redCli;
     var _memCli;
@@ -134,6 +134,13 @@ DistCache = function (type, onReady) {
                 });
             };
 
+            _memCli.on("error", function (err) {   // TODO
+                //_redCli.end();--seems to throw an error
+                console.log("MEMCACHE Error " + err);
+                _type = cacheTypes.MEMCACHE;
+                _init();
+            });
+
             _appendList = function (key, val, callback) {
                 _memCli.append(key, val, function (err, status) {
                     //console.log(status);
@@ -145,6 +152,7 @@ DistCache = function (type, onReady) {
                                 }
                             });
                         }
+                        _init();
                     } else {
                         if (callback) callback();
                     }
