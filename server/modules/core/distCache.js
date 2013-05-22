@@ -119,6 +119,7 @@ DistCache = function (type, onReady) {
             });
 
             _get = function (key, callback) {
+                console.log("INSIDE GET MEMCACHE...");
                 _memCli.get(key, function (err, response) {
                         if (!err) {
                             console.log("MEMCACHE Error " + err);
@@ -126,11 +127,13 @@ DistCache = function (type, onReady) {
                             _init();
                             callback(response[key]);
                         }
+                        console.log("CLIENT CONNECTION MEMCACHE...");
                     }
                 );
             };
 
             _set = function (key, val, callback) {
+                console.log("INSIDE SET MEMCACHE...");
                 var oneDay = 60 * 60 * 24;
                 _memCli.set(key, val, {flags:0, exptime:oneDay}, function () {
                     if (callback) callback();
@@ -138,6 +141,7 @@ DistCache = function (type, onReady) {
             };
 
             _appendList = function (key, val, callback) {
+                console.log("INSIDE APPENDLIST MEMCACHE...");
                 _memCli.append(key, val, function (err, status) {
                     //console.log(status);
                     if (err) {
@@ -159,6 +163,8 @@ DistCache = function (type, onReady) {
                     }
                 });
             }
+
+            console.log("END MEMCACHE...");
         }
     };
 
