@@ -124,6 +124,7 @@ DistCache = function (type, onReady) {
 
             _get = function (key, callback) {
                 console.log("INSIDE GET MEMCACHE...");
+                _memCli.connect();
                 _memCli.get(key, function (err, response) {
                         if (!err) {
                             console.log("Got Value: "+response[key]+" for "+key);
