@@ -114,7 +114,7 @@ DistCache = function (type, onReady) {
                 });
             };
         } else {
-            console.log("ENTERING MEMCACHE...");
+            console.log("ENTERING MEMCACHE... onReady:"+_onReady);
             var mc = require('mc');
             _memCli = new mc.Client('sasakicache.s95c4z.cfg.use1.cache.amazonaws.com', mc.Adapter.json);//:11211
             _memCli.connect(function () {
@@ -126,15 +126,17 @@ DistCache = function (type, onReady) {
                 console.log("INSIDE GET MEMCACHE...");
                 _memCli.get(key, function (err, response) {
                         if (!err) {
+                            console.log("Got Value: "+response[key]+" for "+key);
                             callback(response[key]);
+                        }  else  {
+                            console.log("GET MEMCACHE Error: "+err);
                         }
-                        console.log("CLIENT CONNECTION MEMCACHE...");
                     }
                 );
             };
 
             _set = function (key, val, callback) {
-                console.log("INSIDE SET MEMCACHE...");
+                console.log("INSIDE SET MEMCACHE..."+key+" : "+val);
                 var oneDay = 60 * 60 * 24;
                 _memCli.set(key, val, {flags:0, exptime:oneDay}, function () {
                     if (callback) callback();
