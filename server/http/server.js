@@ -70,7 +70,7 @@ function start(route, securePaths, prehandle, handle, staticServer, persistentSt
     }
 
     app = http.createServer(onRequest);
-    app.listen(8080);//, '127.0.0.1');      // TODO
+    app.listen(80);//, '127.0.0.1');      // TODO
     console.log('Server running at http://127.0.0.1:8080/');
 }
 
