@@ -40,8 +40,13 @@ var ResponseDataHandler = function () {
         _self.p_createViews({
             "views":{
                 "all":{
-                    "map":function (doc) {
+                    map:function (doc) {
                         emit(doc._id, doc);
+                    }
+				},
+                "byResponseId":{
+                    map:function (doc) {
+                        if (doc.responseId) emit(doc.responseId, doc);
                     }
 				},
 
@@ -96,6 +101,21 @@ var ResponseDataHandler = function () {
         });
     };
 
+    var _getResponse = function (responseId, res) {
+        _self.p_view('byResponseId', {"key": responseId}, function (err, body) {
+            if (err) {
+                console.log('Error in byResponseId: '+err);
+                _self.p_returnBasicFailure(res, err);
+            } else {
+                var ans = null;
+                body.rows.forEach(function (row, i) {
+                    ans = row.value;//should only be 1!
+                });
+                _self.p_returnJsonObj(res, ans);
+            }
+        });
+    };
+
 
     // priorities
     var _getPriCountForZip = function (req, res) {   // TODO HERE!!!!!!
@@ -141,6 +161,15 @@ var ResponseDataHandler = function () {
     this.saveResponse = function (req, res, postData) {
         var dataObj = JSON.parse(postData.data);
         _saveResponse(dataObj, req, res);
+    };
+
+    this.getResponse = function (req, res, postData) {
+        var responseId = _getQuery(req).responseId;
+        if (!responseId) {
+            _self.p_returnBasicFailure(res, 'No responseId');
+            return;
+        }
+        _getResponse(responseId, res);
     };
 
     this.init = function () {

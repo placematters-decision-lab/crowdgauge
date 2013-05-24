@@ -382,7 +382,15 @@ ContributeDataHandler = function () {
                             pObj.data.svgPath = "";
                         }
                         ans.push(pObj);
+
                         if (ans.length === pObjs.length) {//since file lists are returned async, this is how we tell that we're finished
+                            var pSort = function(a,b) {
+                                if (a.data.uid < b.data.uid) return -1;
+                                if (a.data.uid > b.data.uid) return 1;
+                                return 0;
+                            };
+
+                            ans.sort(pSort);//TODO BB-40
                             _self.p_returnJsonObj(res, ans);
                         }
                     });

@@ -8,6 +8,7 @@ var io = require("socket.io");
 //endregion
 //region modules
 var logger = require("../modules/logger");
+var config = require("../config");
 //endregion
 var app;
 
@@ -70,8 +71,8 @@ function start(route, securePaths, prehandle, handle, staticServer, persistentSt
     }
 
     app = http.createServer(onRequest);
-    app.listen(80);//, '127.0.0.1');      // TODO
-    console.log('Server running at http://127.0.0.1:8080/');
+    app.listen(config.port);//, '127.0.0.1');      // TODO
+    console.log('Server running at http://127.0.0.1:'+config.port);
 }
 
 function startSockets(onConnect) {

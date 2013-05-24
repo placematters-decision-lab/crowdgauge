@@ -48,7 +48,7 @@
 
         var _fileAndVersion = function () {
 //            return '?filename=' + encodeURIComponent(SAS.configInstance.getFileName()) + '&v=' + SAS.mainInstance.getCacheVersion();
-            return '?filename=test1'; // TODO: add version
+            return '?filename=' + encodeURIComponent(SAS.configInstance.getFileName());
         };
 
         var _loadData = function (itemCountsByZip, itemData, data) {
@@ -62,7 +62,7 @@
             $.each(_locations, function (i, location) {
                 // count for the total item per location
                 var total = 0;
-                $.each (location.data.zips, function (j, zip) {
+                $.each(location.data.zips, function (j, zip) {
                     $.each(_itemCountsByZip, function (k, zmc) {
                         if (zmc.zip == zip) {
                             total += zmc.count;
@@ -122,7 +122,7 @@
             $.each(_locations, function (i, location) { // per location
                 // count for the total item per location
                 var total = 0;
-                $.each (location.data.zips, function (j, zip) {
+                $.each(location.data.zips, function (j, zip) {
                     $.each(_itemCountsByZip, function (k, zmc) {
                         if (zmc.zip == zip) {
                             total += zmc.count;
@@ -148,7 +148,7 @@
             data.sort(function (a, b) {
                 return b.perc - a.perc;
             });
-            $.each (data, function(i, d) {
+            $.each(data, function (i, d) {
                 orderedList.push({no: i + 1, location: d.location, perc: d.perc});
             });
 
@@ -169,7 +169,7 @@
             });
 
             var orderedData = [];
-            $.each (_itemData, function (itemId, item) {
+            $.each(_itemData, function (itemId, item) {
                 if (locationData[itemId]) {
                     orderedData.push({item: _itemData[itemId], perc: locationData[itemId] / locationTotal});
                 } else { // fill unmatched itemId w/ perc = 0
@@ -228,14 +228,14 @@
                     var color = d3.hsl(priority.data.color.background);
                     if (priority.data.color.textShift == 'brighter') {
                         priority.props.textColor = color.brighter(2);
-                    }  else {
+                    } else {
                         priority.props.textColor = color.darker(2);
                     }
 
                     if (priority.data.nickname) {
-                        priority.props.tooltipLabel  = SAS.localizr.getProp(priority.data, 'nickname'); // TODO: nickname
-                    } else  if (priority.data.title) {
-                        priority.props.tooltipLabel  = SAS.localizr.getProp(priority.data, 'title');
+                        priority.props.tooltipLabel = SAS.localizr.getProp(priority.data, 'nickname'); // TODO: nickname
+                    } else if (priority.data.title) {
+                        priority.props.tooltipLabel = SAS.localizr.getProp(priority.data, 'title');
                     }
 
                     _priData[priority.data.uid] = priority;
@@ -263,10 +263,10 @@
                     var color = d3.hsl(mech.data.color.background);
                     if (mech.data.color.textShift == 'brighter') {
                         mech.props.textColor = color.brighter(2);
-                    }  else {
+                    } else {
                         mech.props.textColor = color.darker(2);
                     }
-                    mech.props.tooltipLabel  = SAS.localizr.getProp(mech.data, 'progressive');
+                    mech.props.tooltipLabel = SAS.localizr.getProp(mech.data, 'progressive');
 
                     _mechData[mech.data.uid] = mech;
                 });
@@ -285,7 +285,7 @@
             d3.json('/getLocations' + _fileAndVersion(), function (data) {
                 _locations = data; // array
                 _locationData = {}; // object: hashmap
-                $.each(_locations, function(i, location) {
+                $.each(_locations, function (i, location) {
                     _locationData[location.data.name] = location.data;
                 });
 
@@ -300,15 +300,15 @@
         var _resetCharts = function () {
             _locationChart.reset();
         };
-        var _tryLoadData = function() {
+        var _tryLoadData = function () {
             _resetCharts();
             if (_mode == MODE_MECH) {
-                if (_locations  && _mechanismsById && _mechCountsByZip) {
+                if (_locations && _mechanismsById && _mechCountsByZip) {
                     _loadData(_mechCountsByZip, _mechData, _mechanisms);
                 }
             }
             if (_mode == MODE_PRIORITY) {
-                if (_locations  && _prioritiesById && _priCountsByZip) {
+                if (_locations && _prioritiesById && _priCountsByZip) {
                     _loadData(_priCountsByZip, _priData, _priorities);
                 }
             }

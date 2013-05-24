@@ -23,6 +23,9 @@ var socketHandler = require("./server/modules/socketHandler");
 var personaServer = require("./server/modules/personaServer");
 var persistentStore = require("./server/modules/persistentStore");
 
+/** @type PhantomProxy */
+var phantomProxy = require("./server/modules/phantomProxy");
+
 var persist = new persistentStore.PersistentStore();
 var ps = new personaServer.PersonaServer(persist, {
     audience:config.appURL
@@ -81,6 +84,7 @@ handle["/getActionDefs"] = dataHandler.getActionDefs;
 handle["/getActions"] = dataHandler.getActions;
 
 handle["/saveResponse"] = responseDataHandler.saveResponse;
+handle["/getResponse"] = responseDataHandler.getResponse;
 handle["/getMechCountForZip"] = responseDataHandler.getMechCountForZip;
 handle["/getPriCountForZip"] = responseDataHandler.getPriCountForZip;
 
@@ -88,6 +92,8 @@ handle["/getLocations"] = settingDataHandler.getLocations;
 
 handle["/persona_login"] = ps.login;
 handle["/persona_logout"] = ps.logout;
+
+handle["/png"] = phantomProxy.png;
 
 //handle["/TEMP_fixLangs"] = dataHandler.TEMP_fixLangs();
 
