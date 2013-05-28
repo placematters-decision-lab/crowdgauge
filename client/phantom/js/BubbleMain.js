@@ -48,7 +48,7 @@
         var _loadEntry = function () {
             if (!(_data.priorities && _data.mechanisms)) return;//_loadEntry could be called before priorities and mechs load
             _priorityList.setValues(_data.entry.data.priorities);
-            _bubbleChart.resizeBubbles(0);
+            _bubbleChart.resizeBubbles();
             _recalcMoney();
             _bubbleChart.updateLayout();
 
@@ -63,7 +63,7 @@
         var _initialize = function () {
             _dataManager = new SAS.DataManager();
             _priorityList = new SAS.PriorityList();
-            _bubbleChart = new SAS.BubbleChart(_priorityList);
+            _bubbleChart = new SAS.BubbleChart(_priorityList, true);
 
             _priorityList.onLoad(function () {
                 _bubbleChart.createBubbles();
@@ -127,13 +127,13 @@
 //
 //setTimeout(function() {
 //console.log('delayed loadResponse');
-//SAS.mainInstance.loadResponse('{"_id":"d0009549fcc9aa036670a55fb60017f3","_rev":"1-fb5966605200a74518fbff99c5f6ebe4","dateCreated":"2013-05-25T03:59:48.363Z","data":{"demographics":{"zip":"66666","age":"19-25","gender":"Prefer not to say","relationship":"None of the above, but Im interested in the region!","ethnicity":"Black or African American"},"priorities":{"p40233878541-7193":4,"p40233997029-562":3,"p40412022934-7351":5},"mechanisms":{"m40238293919-9016_undefined":2,"m40238293919-9016":2,"m40238063421-3387_undefined":2,"m40238063421-3387":2,"m40240485706-3778_undefined":-1,"m40240485706-3778":0,"m40240417238-3499_undefined":-1,"m40240417238-3499":0,"m40240525602-3785_undefined":1,"m40240525602-3785":0,"m40240364137-7413_undefined":1,"m40240364137-7413":0},"times":{"priorities":14,"impacts":5,"voting":15},"infocnt":0},"responseId":"44078388363-9205"}')
+//    SAS.mainInstance.loadResponse('{\"_id\":\"2bd10687aa13b5fc94879eec2c0017ae\",\"_rev\":\"1-7c156e0d67afdf80e688af984ad00772\",\"dateCreated\":\"2013-05-28T20:23:26.183Z\",\"data\":{\"demographics\":{\"zip\":\"55555\",\"age\":\"under 12\",\"gender\":\"Male\",\"relationship\":\"Born and raised here\",\"ethnicity\":\"White\"},\"priorities\":{\"p40233878541-7193\":5,\"p40234157559-4780\":5,\"p40234465466-9077\":5},\"mechanisms\":{\"m40239679897-1893\":[{\"actionId\":\"a43957659546-9057\",\"multiplier\":1,\"numCoins\":2},{\"actionId\":\"a43163610206-3312\",\"multiplier\":1,\"numCoins\":2}],\"m40240417238-3499\":[{\"actionId\":\"a43251888053-605\",\"multiplier\":-1,\"numCoins\":0}],\"m40240364137-7413\":[{\"actionId\":\"a43251888053-605\",\"multiplier\":1,\"numCoins\":0}],\"m40240034404-8499\":[{\"actionId\":\"a43957633490-9153\",\"multiplier\":1,\"numCoins\":1}],\"m40240382658-8379\":[{\"actionId\":\"a43251888053-605\",\"multiplier\":-1,\"numCoins\":0}],\"m40240045059-5664\":[{\"actionId\":\"a43938403518-8508\",\"multiplier\":1,\"numCoins\":3},{\"actionId\":\"a43938463722-1951\",\"multiplier\":1,\"numCoins\":6}],\"m40240432087-2563\":[{\"actionId\":\"a43251888053-605\",\"multiplier\":1,\"numCoins\":0}]},\"times\":{\"priorities\":32,\"impacts\":15,\"voting\":64},\"infocnt\":1},\"responseId\":\"44396606183-9631\"}')
 //}, 1000);
 ////
-setTimeout(function () {
-    console.log('delayed loadResponseById');
-    SAS.mainInstance.loadResponseById('44078388363-9205')
-}, 1000);
+//setTimeout(function () {
+//    console.log('delayed loadResponseById');
+//    SAS.mainInstance.loadResponseById('44078388363-9205')
+//}, 1000);
 //
 //setTimeout(function() {
 //    console.log('delayed loadResponse');

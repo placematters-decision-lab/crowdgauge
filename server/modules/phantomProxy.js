@@ -57,7 +57,10 @@ PhantomProxy = function () {
 
     //region public API
     this.png = function (res, responseData) {
-        _phantomize(res, {responseData: JSON.stringify(responseData)});
+        var json = JSON.stringify(responseData);
+        var escaped = json.replace(/"/g, '\\"');
+        console.log("SAS.mainInstance.loadResponse('"+escaped+"')");
+        _phantomize(res, {responseData: json});
     };
     //endregion
 

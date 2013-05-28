@@ -4,7 +4,7 @@
  * Time: 11:28 PM
  */
 (function () { // self-invoking function
-    SAS.BubbleChart = function (priorityList) {
+    SAS.BubbleChart = function (priorityList, backgroundMode) {
         var _self = this;
         var PRIORITY = "priority";
         var MONEY = "money";
@@ -18,6 +18,7 @@
 
         /** @type SAS.PriorityList */
         var _priorityList = priorityList;
+        var _backgroundMode = backgroundMode;//disable all animations for server-side rendering
         var _onBubbleClick = function (id) {
         };
         var _colorMode = PRIORITY;
@@ -73,8 +74,6 @@
         };
 
         var _previewMoney = function (mechanism, micon) {
-            //_thumbState = thumbState;
-
             var delay = 100;
             var maxFill = 0.8;//--otherwise preview circles overwhelm others
             if (mechanism && micon) {
@@ -92,13 +91,13 @@
                     .attr("class", function (d) {
                         return _getBubbleClass(mechanism, d.id, micon);
                     })
-                    .attr("r", r/1.5);
+                    .attr("r", r / 1.5);
 
                 _overlayCircles.transition()
                     .ease("bounce")
                     .duration(400)
                     .attr("r", r);
-            }else {
+            } else {
                 _overlayCircles
                     .transition()
                     .ease("quad")
@@ -108,7 +107,7 @@
             }
         };
 
-        var _getBubbleClass = function(mechanism, id, micon) {
+        var _getBubbleClass = function (mechanism, id, micon) {
             if (mechanism != null) {
                 var score = mechanism.values[id];
                 if (micon.useInverseScore()) {
@@ -162,7 +161,7 @@
                                 .style("opacity", _overlayOpac);
                         });
 
-                }else {
+                } else {
                     delay = 600;
                     _overlayCircles
                         .attr("r", r)
@@ -175,59 +174,82 @@
                 }
             }
 
-            _mainCircles.transition()
-                .delay(delay)
-                .duration(800)
-                .style("fill", function (d) {
-                    var score = scores[d.id];
-                    if (score == null) return "#CCCCCC";
-                    var adjScore = score;
-                    if (adjScore != 0) {//--a hack to move away from the center (to make it more obvious whether small value are +ve or -ve)
-                        adjScore += (adjScore > 0) ? 0.5 : -0.5;
-                    }
-                    var scoreFrac = (adjScore + bigScore) / (bigScore * 2);
-                    return _getGradientColor(colorRamp, scoreFrac);
-                });
+            var mainCircleFill = function (d) {
+                var score = scores[d.id];
+                if (score == null) return "#CCCCCC";
+                var adjScore = score;
+                if (adjScore != 0) {//--a hack to move away from the center (to make it more obvious whether small value are +ve or -ve)
+                    adjScore += (adjScore > 0) ? 0.5 : -0.5;
+                }
+                var scoreFrac = (adjScore + bigScore) / (bigScore * 2);
+                return _getGradientColor(colorRamp, scoreFrac);
+            };
+
+            if (_backgroundMode) {
+                _mainCircles.style("fill", mainCircleFill);
+            } else {
+                _mainCircles.transition()
+                    .delay(delay)
+                    .duration(800)
+                    .style("fill", mainCircleFill);
+            }
+
         };
 
         var _colorBySize = function () {
             _mainCircles
                 .style("fill", function (d) {
-                return d3.interpolateRgb(_sizeColorRamp[0], _sizeColorRamp[1])(d.value / 100);
-            });
+                    return d3.interpolateRgb(_sizeColorRamp[0], _sizeColorRamp[1])(d.value / 100);
+                });
         };
 
-        var _resizeBubbles = function (duration) {
-            if (duration == null) duration = 1500;
-            _mainGrp.selectAll("g.node")
-                .data(_bubble.nodes(_priorityList.getPriorities()))
-                .transition()
-                .duration(duration)
-                .attr("transform", function (d) {
-                    return "translate(" + d.x + "," + d.y + ") scale(" + d.r / 100 + "," + d.r / 100 + ")";
-                });
+        var _resizeBubbles = function () {
+            var duration = 1500;
 
+            var mainGrp = _mainGrp.selectAll("g.node").data(_bubble.nodes(_priorityList.getPriorities()));
+            var translateFn = function (d) {
+                return "translate(" + d.x + "," + d.y + ") scale(" + d.r / 100 + "," + d.r / 100 + ")";
+            };
+
+            if (_backgroundMode) {
+                mainGrp.attr("transform", translateFn);
+            } else {
+                mainGrp.transition()
+                    .duration(duration)
+                    .attr("transform", translateFn);
+            }
+
+            var strokeWidthFn = function (d) {
+                return 1.5 * (100 / d.r);//--inverse scale
+            };
 
             if (_colorMode == PRIORITY) {
-                _mainCircles.transition()
-                    .duration(duration)
-                    .style("fill", function (d) {
-                        return d3.interpolateRgb(_sizeColorRamp[0], _sizeColorRamp[1])(d.value / 100)
-                    })
-                    .style("stroke-width", function (d) {
-                        return 1.5 * (100 / d.r);//--inverse scale
-                    });
+                var priorityFill = function (d) {
+                    return d3.interpolateRgb(_sizeColorRamp[0], _sizeColorRamp[1])(d.value / 100)
+                };
+                if (_backgroundMode) {
+                    _mainCircles
+                        .style("fill", priorityFill)
+                        .style("stroke-width", strokeWidthFn);
+                } else {
+                    _mainCircles.transition()
+                        .duration(duration)
+                        .style("fill", priorityFill)
+                        .style("stroke-width", strokeWidthFn);
+                }
             } else {
-                _mainCircles.transition()
-                    .duration(duration)
-                    .style("stroke-width", function (d) {
-                        return 1.5 * (100 / d.r);//--inverse scale
-                    });
+                if (_backgroundMode) {
+                    _mainCircles.style("stroke-width", strokeWidthFn);
+                } else {
+                    _mainCircles.transition()
+                        .duration(duration)
+                        .style("stroke-width", strokeWidthFn);
+                }
             }
         };
 
         var _updateTitle = function (sel) {
-            SAS.localizr.live(function(val) {
+            SAS.localizr.live(function (val) {
                 sel.attr("title", function (d) {
                     return SAS.localizr.get(d.data.title);// + ": " + d.value;
                 });
@@ -238,7 +260,7 @@
             var data = {};
             _mainCircles.each(function (d) {
                 var color = d3.rgb(d3.select(this).style("fill")).toString().substr(1);
-                data[d.id] = {x:Math.round(d.x), y:Math.round(d.y), r:Math.round(d.r), c:color};
+                data[d.id] = {x: Math.round(d.x), y: Math.round(d.y), r: Math.round(d.r), c: color};
             });
             return data;
         };
@@ -281,20 +303,20 @@
                 });
 
             $('svg image').tipsy({
-                gravity:'n',
-                html:true,
-                opacity:0.95,
-                title:function () {
+                gravity: 'n',
+                html: true,
+                opacity: 0.95,
+                title: function () {
                     var d = this.__data__;
                     return SAS.localizr.get(d.data.title);
                 }
             });
 
             $('svg circle').tipsy({//--on 'clickable' screens images are not interactive so we need to use circles
-                gravity:'n',
-                html:true,
-                opacity:0.95,
-                title:function () {
+                gravity: 'n',
+                html: true,
+                opacity: 0.95,
+                title: function () {
                     var d = this.__data__;
                     var tip = SAS.localizr.get(d.data.title);
                     if (!d3.select(this).classed("score_na")) tip += "<br/>(click for more)";
@@ -377,8 +399,8 @@
             _createBubbles();
         };
 
-        this.resizeBubbles = function (duration) {
-            _resizeBubbles(duration);
+        this.resizeBubbles = function () {
+            _resizeBubbles();
         };
 
         this.onBubbleClick = function (fn) {
