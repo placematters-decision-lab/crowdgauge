@@ -111,7 +111,7 @@
                     } else {  // project
                         actionDiv = $("<div id='" + action.aId + "' class='mech_action_div'>").appendTo(_mechSubDivsById[mechanism.id]);
 //                        action.data.aId = action.aId;
-                        micons[0] = new SAS.MoneyVoteIcon(mechanism, action.data, _actionDefs[action.aId]);
+                        micons[0] = new SAS.MoneyVoteIcon(mechanism, action.data, _actionDefs[action.aId], {thumbState:'non',thumbs:0});
                     }
                     $.each(micons, function(i,micon){
                         _moneyIcons[mechanism.id].push(micon);
