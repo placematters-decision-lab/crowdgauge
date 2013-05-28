@@ -159,7 +159,7 @@
         this.load = function (data) {
             _priorities = data;
 //            _totalStars = Math.ceil(_priorities.length * 2.5);
-            _totalStars = 25;
+            _totalStars = 30;
             _createList();
             _onLoad();
         };

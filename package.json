@@ -4,7 +4,7 @@
   "scripts": {
     "start": "server.js"
   },
-  "version": "0.0.1-87",
+  "version": "0.0.1-91",
   "dependencies": {
     "socket.io": "0.9.x",
     "formidable": "1.0.x",

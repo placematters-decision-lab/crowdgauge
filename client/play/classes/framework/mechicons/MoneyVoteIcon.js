@@ -10,12 +10,14 @@
         var OFF = "off";
         var HLITE = "hlite";
         var DISABLED = "disabled";
-        var _options = options;
+//        var _options = $.extend(options, {thumbState:null});
+        var _options = options || $.extend(options, {thumbState:null});
 
         //region private fields and methods
         var _mState = OFF;
         var _mechanism = mechanism;
         var _mAction = action;
+        var _ActionDef = actionDef;
         /** @type SAS.ActionDef */
         var _actionDef = actionDef;
         var _moneyDiv;
@@ -26,8 +28,7 @@
         var _netCoins = _totalCoins;
         var _onSelectionChange = function () {};
         var _type = 'coins';
-        var _thumbState;
-        var _thumbs = 0;
+        var _thumbState = null;
 
         var _currentClass = function () {
             return _type + "_" + _mState + "_" + (_type == 'thumbs' ? _thumbState : _totalCoins);
@@ -43,14 +44,13 @@
             if (_actionDef.value == 0) {
                 _type = 'thumbs';
                 _thumbState = _options.thumbState;
-                _thumbs = _options.thumbs;
 //                $('#mech' + _mechanism.id + ' .mechText').hide();
                 _moneyDiv = $("<div class='thumbs_" + _thumbState + " " + _currentClass() + "'></div>").appendTo(sel);
             } else {
                 _type = 'coins';
                 _moneyDiv = $("<div class='coins " + _currentClass() + "'></div>").appendTo(sel);
             }
-            if(_thumbState == 'down' || !_thumbState) {
+            if (_thumbState == 'down' || !_thumbState) {
                 _textDiv = $("<div class='mech_action' data-toggle='popover' data-placement='right' data-original-title='" + SAS.localizr.get(_mAction.title) + "' data-content='" + SAS.localizr.get(_mAction.description) + "'></div>")
                     .appendTo(sel);
                 SAS.localizr.live(SAS.localizr.get(_mAction.description), _textDiv);   //replaced description with title
@@ -132,10 +132,6 @@
             return _totalCoins;
         };
 
-        this.getThumbs = function () {
-            return _thumbs;
-        }
-
         this.getThumbState = function () {
             return _thumbState;
         }
@@ -148,9 +144,13 @@
             var val = 0;
             if (_mAction.value) val = _mAction.value;
             if (max) return Math.min(val, max);
+            if (_self.useInverseScore()) val *= -1;
             return val;
         };
-        this.setTHIS_IS_TO_STOP_WEBSTORM_THROWING_AN_ERROR = function () { };
+
+        this.useInverseScore = function () {
+            return _thumbState == 'down';
+        };
 
         this.setEnabled = function (enabled) {
             if (_isOn && !enabled) return;//you can't disable it if its on!
@@ -169,7 +169,7 @@
          @type ActionItem
          */
         this.getAction = function () {
-            return _mAction;
+            return _ActionDef;
         };
 
         this.setState = function (value) {

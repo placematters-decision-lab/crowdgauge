@@ -169,9 +169,15 @@
 
         this.showCredits = function () {
             var txt = "<p>Planning trade-offs can be a tough topic to explore in-depth. ImagineMyNEO is a tool designed to help dive into challenging issues, offering users a chance to weigh different choices and understand the real challenges and trade-offs beneath them.</p>";
-            txt += "<p>ImagineMyNEO prioritizes issues that both <strong>spatial</strong> and <strong>regional</strong> because Vibrant NEO 2040 is a regional visioning and decision-making framework.  Priorities, policies, and projects with a spatial impact are prioritized so that the results from ImagineMyNEO can be incorporated into scenario development.   It does not include issues like &#8220;having strong schools&#8220; that are very important but have less of a spatial impact at the regional scale.</p>";
+            txt += "<p>ImagineMyNEO prioritizes issues that are both <strong>spatial</strong> and <strong>regional</strong> because Vibrant NEO 2040 is a regional visioning and decision-making framework. Priorities, policies, and projects with a spatial impact are prioritized so that the results from ImagineMyNEO can be incorporated into scenario development. It does not include issues like &#8220;having strong schools&#8220; that are very important but have less of a spatial impact at the regional scale.</p>";
             txt += "<p>Input from users will be used to shape the preferred scenario.</p>";
            _showInstructionDialog(txt, "Purpose of ImagineMyNEO");
+        };
+
+        this.showWhy = function () {
+            var txt = "<p>Good planning builds upon local opinions.  We want to make sure that we&#8216;re able to reach a broad group of people, so that we can understand the range of opinions across the region.  These questions help us see if we&#8216;re reaching a diverse audience.</p>";
+            txt += "<p>These responses will not be used to identify any individual. Your individual responses to these questions will remain anonymous.</p>";
+            _showInstructionDialog(txt, "Why are we asking?");
         };
 
         this.showSharingDialog = function (responseId, header, pages, bubblechart, sortedPriorities) {

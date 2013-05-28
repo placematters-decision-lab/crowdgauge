@@ -96,7 +96,8 @@
         };
 
         var _showMoreInfo = function (show) {
-            $("#moreInfo").toggle(show);
+//            $("#moreInfo").toggle(show);
+            $("#moreInfo").hide();   // TODO: TEMP
         };
 
         var _gotoIntro = function () {

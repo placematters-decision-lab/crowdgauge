@@ -15,6 +15,7 @@
         var _$ethnicityInput;
         var _$btnStart;
 
+        var _instructions = new SAS.Instructions();
         var _cacheVersion = SAS.mainInstance.getCacheVersion();
         var _zipLookup = {};
         var _onStartClick = function () {};
@@ -43,12 +44,16 @@
 
         var _populateControls = function ($holder) {
             $holder.append('<div id="promptTxt"><p>First, please provide us with some basic details:</p></div>');
+            var $why = $('<div class="promptTxtS"><p><a href=#>Why are we asking?</a></p></div>').click(function () {
+                _instructions.showWhy();
+            });
+            $holder.append($why);
             var $zip = $('<div class="demoInput">').appendTo($holder);
             $zip.append('<label class="demoLabel" for="zipInput">Zip</label>');
             _$zipInput = $('<input id="zipInput" type="text" size="5">').appendTo($zip);
 
             var $age = $('<div class="demoInput">').appendTo($holder);
-            $age.append('<label class="demoLabel" for="ageInput">Age</label>');
+            $age.append('<label class="depromptTxtmoLabel" for="ageInput">Age</label>');
             _$ageInput = $('<select id="ageInput"></select>').appendTo($age);
             var ages = ["under 12", "12-18", "19-25", "26-35", "36-45", "46-55", "56-65", "66-75", "76+", "Prefer not to say"];
             SAS.controlUtilsInstance.populateSelectList(_$ageInput, "[Select Age Range]", ages);

@@ -29,7 +29,8 @@
         var _format = d3.format(",d");
         var _nodes;
 
-        var _sizeColorRamp = ["#ff0000", "#EC7623"];
+        var _sizeColorRamp = ["#EC7623", "#ff0000"];
+//        var _sizeColorRamp = ["#ff0000", "#EC7623"];
 
         var _bubble = d3.layout.pack()
             .sort(null)
@@ -71,13 +72,13 @@
             return score != "na";// && score != 0;
         };
 
-        var _previewMoney = function (mechanism, micon, thumbState) {
-            _thumbState = thumbState;
+        var _previewMoney = function (mechanism, micon) {
+            //_thumbState = thumbState;
 
             var delay = 100;
             var maxFill = 0.8;//--otherwise preview circles overwhelm others
             if (mechanism && micon) {
-                var r = maxFill * Math.sqrt(100 * micon.getMultiplier(1.2)) * 10;
+                var r = maxFill * Math.sqrt(100 * Math.abs(micon.getMultiplier(1.2))) * 10;
                 _overlayCircles
                     .style("fill", null)
                     .style("opacity", _overlayOpac)
@@ -89,17 +90,7 @@
                         return 0;
                     })
                     .attr("class", function (d) {
-                        if (mechanism != null) {
-                            var score = mechanism.values[d.id];
-                            if (thumbState == "up" || thumbState == undefined) {
-                                if (_scoreCounts(score)) return "score_" + score;
-                            }
-                            else if (thumbState == "down")  {
-                                if (_scoreCounts(score)) return "score_" + 0;  // TODO: down thumb score
-                            }
-                            return "nofill";
-                        }
-                        return "nofill";
+                        return _getBubbleClass(mechanism, d.id, micon);
                     })
                     .attr("r", r/1.5);
 
@@ -117,14 +108,27 @@
             }
         };
 
-        var _colorByMoney = function (mechanism, micon, scores, thumbState) {
+        var _getBubbleClass = function(mechanism, id, micon) {
+            if (mechanism != null) {
+                var score = mechanism.values[id];
+                if (micon.useInverseScore()) {
+                    if (_scoreCounts(score)) return "score_" + (-score);
+                } else {
+                    if (_scoreCounts(score)) return "score_" + score;
+                }
+                return "nofill";
+            }
+            return "nofill";
+        };
+
+        var _colorByMoney = function (mechanism, micon, scores) {
             var colorRamp = ["#ec7623", "#fbc917", "#EAD9C4", "#afd7cc", "#2BBEC5"];
             var bigScore = 5;
             //var currentColors = {};
 
             var delay = 100;
             if (mechanism && micon) {
-                var r = Math.sqrt(100 * micon.getMultiplier()) * 10;
+                var r = Math.sqrt(100 * Math.abs(micon.getMultiplier())) * 10;
                 _overlayCircles
                     .style("fill", null)
                     .style("opacity", _overlayOpac)
@@ -136,16 +140,7 @@
                         return 0;
                     })
                     .attr("class", function (d) {
-                        if (mechanism != null) {
-                            var score = mechanism.values[d.id];
-                            if (_scoreCounts(score)) return "score_" + score;
-//                            if (thumbState == "up"  || thumbState == undefined){
-//                                var score = mechanism.values[d.id];
-//                                if (_scoreCounts(score)) return "score_" + score;
-//                            }
-                            return "nofill";
-                        }
-                        return "nofill";
+                        return _getBubbleClass(mechanism, d.id, micon);
                     });
 
                 if (micon.isOn()) {
@@ -362,14 +357,14 @@
             _colorBySize();
         };
 
-        this.previewMoney = function (mechanism, micon, thumbState) {
-            _previewMoney(mechanism, micon, thumbState);
+        this.previewMoney = function (mechanism, micon) {
+            _previewMoney(mechanism, micon);
         };
 
-        this.colorByMoney = function (mechanism, micon, scores, thumbState) {
+        this.colorByMoney = function (mechanism, micon, scores) {
             _setClickable(false);
             _setColorMode(MONEY);
-            _colorByMoney(mechanism, micon, scores, thumbState);
+            _colorByMoney(mechanism, micon, scores);
         };
 
         this.colorForMechanism = function (mechanism) {
