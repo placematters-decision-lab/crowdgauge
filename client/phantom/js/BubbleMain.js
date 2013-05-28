@@ -52,12 +52,15 @@
             _recalcMoney();
             _bubbleChart.updateLayout();
 
-            console.log('calling phantom');
-            setTimeout(function () {
-                if (typeof window.callPhantom === 'function') {
-                    window.callPhantom({ meth: 'screenshot' });
-                }
-            }, 100);//not sure why we need the 100ms delay, but without it the positioning is not updated even though the duration is set to 0
+            console.log('calling phantom (no delay)');
+            if (typeof window.callPhantom === 'function') {
+                window.callPhantom({ meth: 'screenshot' });
+            }
+//            setTimeout(function () {
+//                if (typeof window.callPhantom === 'function') {
+//                    window.callPhantom({ meth: 'screenshot' });
+//                }
+//            }, 100);//not sure why we need the 100ms delay, but without it the positioning is not updated even though the duration is set to 0
         };
 
         var _initialize = function () {
