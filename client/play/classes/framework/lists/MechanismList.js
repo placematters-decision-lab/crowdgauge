@@ -100,8 +100,8 @@
                     if (SAS.localizr.get(action.data.description) == "" && SAS.localizr.get(mechanism.data.category) == "policy") {   // policy
                         actionDiv = $("<div>").appendTo(_mechIconDivsById[mechanism.id]);
                         _super._addPolicyDiv(SAS.localizr.get(mechanism.data.category));
-                        micons[0] = new SAS.MoneyVoteIcon(mechanism, action.data, _actionDefs[action.aId], {thumbState:'up',thumbs:1});
-                        micons[1] = new SAS.MoneyVoteIcon(mechanism, action.data, _actionDefs[action.aId], {thumbState:'down',thumbs:-1});
+                        micons[0] = new SAS.MoneyVoteIcon(mechanism, action.data, _actionDefs[action.aId], {thumbState:'up'});
+                        micons[1] = new SAS.MoneyVoteIcon(mechanism, action.data, _actionDefs[action.aId], {thumbState:'down'});
                         //TODO: this is a hacky fix to force divs to not show policies when on the budget page and vice versa when first loading, should work on creating a sequential loading of actions and hiding of policies/budget
 //                        if(_policies) {
 //                            _showDivs(true, true);
@@ -111,7 +111,7 @@
                     } else {  // project
                         actionDiv = $("<div id='" + action.aId + "' class='mech_action_div'>").appendTo(_mechSubDivsById[mechanism.id]);
 //                        action.data.aId = action.aId;
-                        micons[0] = new SAS.MoneyVoteIcon(mechanism, action.data, _actionDefs[action.aId], {thumbState:'non',thumbs:0});
+                        micons[0] = new SAS.MoneyVoteIcon(mechanism, action.data, _actionDefs[action.aId]);
                     }
                     $.each(micons, function(i,micon){
                         _moneyIcons[mechanism.id].push(micon);
@@ -263,22 +263,11 @@
                          is a hack for a special case where you want to allocate individual coins to a single
                          TODO: abstract this so the admin can choose whether action votes are exclusive or not, maybe store the actual votes by action instead of mechanism
                          */
-                        var thumbs = micon.getThumbs();
-                        var aId = micon.getAction().aId;
-                        if(votes[mechanism.id + "_" + aId]) {
-                            if(thumbs != 0) {
-                                votes[mechanism.id + "_" + aId] = thumbs;
-                            } else {
-                                votes[mechanism.id + "_" + aId] = micon.getTotalCoins();
-                            }
-                        } else {
-                            if(thumbs != 0) {
-                                votes[mechanism.id + "_" + aId] = thumbs;
-                            } else {
-                                votes[mechanism.id + "_" + aId] = micon.getTotalCoins();
-                            }
-                        }
-                        votes[mechanism.id] = micon.getTotalCoins();
+                        var multiplier = micon.getMultiplier();
+                        var aId = micon.getAction().uid;
+                        if(!votes[mechanism.id])        votes[mechanism.id] = [];
+                                votes[mechanism.id].push({'actionId':aId, 'multiplier':multiplier, 'numCoins':micon.getTotalCoins()});
+//                        votes[mechanism.id].add({'actionId':aId, 'multiplier':multiplier, 'numCoins':micon.getTotalCoins()}); // TODO: what???
                     }
                 });
             });

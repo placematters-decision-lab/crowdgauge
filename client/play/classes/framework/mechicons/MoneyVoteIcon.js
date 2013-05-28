@@ -10,12 +10,14 @@
         var OFF = "off";
         var HLITE = "hlite";
         var DISABLED = "disabled";
-        var _options = options;
+//        var _options = $.extend(options, {thumbState:null});
+        var _options = options || $.extend(options, {thumbState:null});
 
         //region private fields and methods
         var _mState = OFF;
         var _mechanism = mechanism;
         var _mAction = action;
+        var _ActionDef = actionDef;
         /** @type SAS.ActionDef */
         var _actionDef = actionDef;
         var _moneyDiv;
@@ -26,8 +28,7 @@
         var _netCoins = _totalCoins;
         var _onSelectionChange = function () {};
         var _type = 'coins';
-        var _thumbState;
-        var _thumbs = 0;
+        var _thumbState = null;
 
         var _currentClass = function () {
             return _type + "_" + _mState + "_" + (_type == 'thumbs' ? _thumbState : _totalCoins);
@@ -43,7 +44,6 @@
             if (_actionDef.value == 0) {
                 _type = 'thumbs';
                 _thumbState = _options.thumbState;
-                _thumbs = _options.thumbs;
 //                $('#mech' + _mechanism.id + ' .mechText').hide();
                 _moneyDiv = $("<div class='thumbs_" + _thumbState + " " + _currentClass() + "'></div>").appendTo(sel);
             } else {
@@ -132,10 +132,6 @@
             return _totalCoins;
         };
 
-        this.getThumbs = function () {
-            return _thumbs;
-        }
-
         this.getThumbState = function () {
             return _thumbState;
         }
@@ -173,7 +169,7 @@
          @type ActionItem
          */
         this.getAction = function () {
-            return _mAction;
+            return _ActionDef;
         };
 
         this.setState = function (value) {
