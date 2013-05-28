@@ -34,7 +34,7 @@
         var _moneyIcons;
         var _mode = IMPACTS;
         var _policies = false;
-        var _totalCoins = 12;
+        var _totalCoins = 15;
 
         var _actionDefs = {};
 

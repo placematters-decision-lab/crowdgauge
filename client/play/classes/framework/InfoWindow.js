@@ -49,11 +49,11 @@
 
             //$('<a href="#"/></a>').appendTo(headerDiv);//hack to prevent scrolling to bottom, see: http://forum.jquery.com/topic/default-scroll-position-of-jquery-ui-dialog
 
-            $("<div class='info_hdr info_hdr_top'>").appendTo(headerDiv);
-            var lt_hdr = $("<div class='info_left_title'>").appendTo(headerDiv);
+//            $("<div class='info_hdr info_hdr_top'>").appendTo(headerDiv);
+//            var lt_hdr = $("<div class='info_left_title'>").appendTo(headerDiv);  // TODO: move to header
 //            lt_hdr.html(SAS.localizr.get(mechanism.data.progressive));
-            lt_hdr.html(SAS.localizr.get(mechanism.data.description));
-            $("<div class='info_hdr info_hdr_below'>").appendTo(headerDiv);
+//            lt_hdr.html(SAS.localizr.get(mechanism.data.description));  // select one of this
+//            $("<div class='info_hdr info_hdr_below'>").appendTo(headerDiv);
 
             var wrapper = $("<div class='right_wrapper'>").appendTo(mainDiv);
             var right = $("<div class='info_right'>").appendTo(wrapper);
@@ -105,7 +105,7 @@
             $("#dialog").dialog({
                 modal:true,
 //                title:'Additional Information',
-                title:'How might ' + text + ' contribute to a Vibrant Northeast Ohio where . . . ',
+                title:'<p class="info_hdr">How might</p><p class="info_left_title">' + text + '</p><p class="info_hdr">contribute to a Vibrant Northeast Ohio where . . . </p>',
                 buttons:{ "Ok":function () {
                     $(this).dialog("close");
                 } },

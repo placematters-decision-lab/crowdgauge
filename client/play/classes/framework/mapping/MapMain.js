@@ -44,7 +44,7 @@
         var _locationChart;
         /** @type SAS.Layout */
         var _layout;
-        var _topNum = 9; // Modify
+        var _topNum = 5; // Modify
 
         var _fileAndVersion = function () {
 //            return '?filename=' + encodeURIComponent(SAS.configInstance.getFileName()) + '&v=' + SAS.mainInstance.getCacheVersion();

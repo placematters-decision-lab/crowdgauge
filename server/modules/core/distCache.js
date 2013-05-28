@@ -25,7 +25,7 @@ DistCache = function (type, onReady) {
 
     //region private fields and methods
 //    var _type = type || cacheTypes.REDIS;
-    var _type = 1; //type || cacheTypes.MEMCACHE;
+    var _type = 0; //type || cacheTypes.MEMCACHE;
     var _onReady = onReady;
     var _redCli;
     var _memCli;

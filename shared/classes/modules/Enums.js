@@ -8,6 +8,7 @@ var Enums = {
     CTYPE_PRIORITY:"priority_def",
     CTYPE_ACTION:"action_def",
     CTYPE_MECH:"mech_def",
+    CTYPE_LOCATION: "community_def",
     NA:"N/A",
     MECH_PROJECT:"project",
     MECH_POLICY:"policy"

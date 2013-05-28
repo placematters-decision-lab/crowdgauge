@@ -50,7 +50,7 @@
                 _type = 'coins';
                 _moneyDiv = $("<div class='coins " + _currentClass() + "'></div>").appendTo(sel);
             }
-            if(_thumbState == 'down' || !_thumbState) {
+            if (_thumbState == 'down' || !_thumbState) {
                 _textDiv = $("<div class='mech_action' data-toggle='popover' data-placement='right' data-original-title='" + SAS.localizr.get(_mAction.title) + "' data-content='" + SAS.localizr.get(_mAction.description) + "'></div>")
                     .appendTo(sel);
                 SAS.localizr.live(SAS.localizr.get(_mAction.description), _textDiv);   //replaced description with title
@@ -148,9 +148,13 @@
             var val = 0;
             if (_mAction.value) val = _mAction.value;
             if (max) return Math.min(val, max);
+            if (_self.useInverseScore()) val *= -1;
             return val;
         };
-        this.setTHIS_IS_TO_STOP_WEBSTORM_THROWING_AN_ERROR = function () { };
+
+        this.useInverseScore = function () {
+            return _thumbState == 'down';
+        };
 
         this.setEnabled = function (enabled) {
             if (_isOn && !enabled) return;//you can't disable it if its on!

@@ -28,7 +28,7 @@ body {
 }
 
 .tabTitleHighlight {
-    border-bottom: 10px solid #24ccff;
+    border-bottom: 10px solid #AFBD21;
 
 }
 
@@ -95,7 +95,7 @@ body {
     max-width: 360px; }
 
 .info_right {
-    margin-left: 375px;
+    /*margin-left: 375px;*/
     display: block;
     margin-top: 28px; }
 
@@ -112,7 +112,7 @@ body {
 
 .mechText {
     color: saddlebrown;
-    margin-left: 42px;
+    /*margin-left: 42px;*/
     font-family: Arial, sans-serif;}
 
 .mech_action_div {
@@ -139,6 +139,10 @@ body {
     /*padding-left: 1cm;}*/
 
 #starsLeft {
+    left: 10px;
+    background-image: url('img/star-pile.png');
+    background-repeat: no-repeat;
+    background-position: left center;
     padding-left: 30px;
     height: 40px;
     position: absolute;
@@ -158,11 +162,15 @@ body {
 }
 
 #coinsLeft {
-    padding-left: 30px;
+    padding-left: 50px;
     height: 40px;
     position: absolute;
     color: white;
-    font-family: league-gothic, Arial, sans-serif;}
+    font-family: league-gothic, Arial, sans-serif;
+    background-image: url('img/coins/Coin_Illustrations_coin_pile.png');
+    background-repeat: no-repeat;
+    background-position: left center;
+    background-size: 49px 41px;}
 
 .coinsLeftNum {
     color: #24ccff;
@@ -272,9 +280,6 @@ body {
 }
 
 
-
-
-
 #langSel {
     float: right;
     width: 85%;
@@ -296,10 +301,11 @@ body {
     /*clear: right;*/
     /*float: right;*/
     /*cursor: pointer;*/
-    color: #9B8277;
+    color: #00456a;
     cursor: pointer;
-    font-size: 0.7em;
-    font-weight: bold;
+    font-family: league-gothic, Arial, sans-serif;
+    /*font-size: 0.7em;*/
+    /*font-weight: bold;*/
     left: 450px;
     position: absolute;
     top: 100px;
@@ -347,9 +353,11 @@ body {
 }
 
 .mechCatTitle {
-    color: #B33D1F;
+    color: #00456A;
     margin-left: 10px;
     text-transform: uppercase;
+    font-family: league-gothic, Arial, sans-serif;
+    font-size: 150%;
 }
 
 .sliderIcon {
@@ -371,12 +379,13 @@ body {
 
 .priorityTxtH3 {
     position: relative;
-    color: green;
+    color: #00456a;
     font-family: league-gothic, Arial, sans-serif;
-    font-size: 30%;
+    font-size: 48%;
     font-weight: normal;
     letter-spacing: 1px;
     line-height: 1.0;
+    padding-top: 5px;
 }
 
 #options {
@@ -384,13 +393,34 @@ body {
 }
 
 .optBtn {
-    color: #9B8277;
+    color: white;
     cursor: pointer;
     display: inline-block;
     font-size: 0.8em;
     font-weight: bold;
-    margin: 8px;
+    margin: 20px;
 }
 
 strong {
     font-weight: bold;}
+
+.promptTxtS {
+    color: #afbd21;
+}
+
+.info_hdr {
+    height: 24px;
+    width: 500px;
+    background-repeat: no-repeat;
+    background-position: left center;
+    font-style:italic;
+}
+
+.info_left_title {
+    font-weight: bold;
+    margin-bottom: 4px;
+    margin-top: 3px;
+    color: #b08c6d;
+    text-transform: lowercase;
+    font-size: 1.7em;
+}
