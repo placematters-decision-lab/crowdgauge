@@ -1,0 +1,163 @@
+
+.bigButton {
+    width: 155px;
+    height: 40px;
+    font-size: 1.1em;
+    background-repeat: no-repeat;
+    background-position: left center;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+    background-color: transparent;
+}
+
+/*.bigButton_next {*/
+    /*background-image: url('img/PNG_ELEMENTS__NEXT_button.png');*/
+/*}*/
+
+/*.bigButton_submit {*/
+    /*background-image: url('img/PNG_ELEMENTS__SUBMIT_button.png');*/
+/*}*/
+
+/*.bigButton_share {*/
+    /*background-image: url('img/PNG_ELEMENTS__SHARE_button.png');*/
+/*}*/
+
+/*.bigButton_start {*/
+    /*background-image: url('img/PNG_ELEMENTS__SEE_HOW_IT_WORKS.png');*/
+    /*margin-left: 36px;*/
+    /*margin-top: 10px;*/
+    /*width: 309px;*/
+/*}*/
+
+.colorRamp {
+    background-repeat: no-repeat;
+    background-position: left center;
+    position: absolute;
+    height: 40px;
+    width: 450px;
+}
+
+/*.colorRamp_money {*/
+    /*background-image: url('img/PNG_ELEMENTS__Color_ramp_RED-BLUE_GRADIENT.png');*/
+/*}*/
+
+/*.colorRamp_impacts {*/
+    /*background-image: url('img/PNG_ELEMENTS__Color_ramp_RED-BLUE.png');*/
+/*}*/
+
+.footerImg {
+    background-repeat: no-repeat;
+    background-position: left center;
+    height: 26px;
+}
+
+/*#footer_sasaki {*/
+    /*background-image: url('img/sasaki_logo_wht copy.png');*/
+    /*width: 89px;*/
+    /*position: absolute;*/
+/*}*/
+
+/*#footer_ttp {*/
+    /*background-image: url('img/PNG_ELEMENTS__tomorrow_plan_logo.png');*/
+    /*width: 396px;*/
+    /*position: absolute;*/
+    /*margin-left: 5px;*/
+/*}*/
+
+.titleImg {
+    background-repeat: no-repeat;
+    background-position: left center;
+    margin-top: 15px;
+    margin-left: 10px;
+    width: 985px;
+    height: 36px;
+}
+
+/*.underCons {*/
+    /*background-image: url('img/PNG_ELEMENTS__underconstruction.png');*/
+    /*background-repeat: no-repeat;*/
+    /*background-position: left center;*/
+    /*width: 237px;*/
+    /*height: 157px;*/
+/*}*/
+
+.titleImg_intro {
+    background-image: url('img/Titles/PNG_ELEMENTS__Intro_text.png');
+}
+
+.titleImg_priorities {
+    background-image: url('img/Titles/PNG_ELEMENTS__I_want_to_live.png');
+}
+
+.titleImg_impacts {
+    background-image: url('img/Titles/PNG_ELEMENTS__How_will_policies_affect.png');
+}
+
+.titleImg_compare {
+    background-image: url('img/Titles/PNG_ELEMENTS__How-your-priorities-fare.png');
+}
+
+.titleImg_money {
+    background-image: url('img/Titles/PNG_ELEMENTS__money_where_mouse_is.png');
+}
+
+.titleImg_map {
+    height: 0px;
+    margin-top: 0;
+}
+
+.fullScreenBtn {
+    margin: 0px 15px;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+    background-color: transparent;
+    background-repeat: no-repeat;
+    background-position: left center;
+    background-image: url('img/Buttons/PNG_ELEMENTS__full_screen.png');
+    width: 252px;
+    height: 60px;
+}
+
+.sharingBtn {
+    margin: 10px 5px 5px;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+    background-color: transparent;
+    background-repeat: no-repeat;
+    background-position: left center;
+}
+
+.sharingBtn_compare {
+    background-image: url('img/Buttons/PNG_ELEMENTS__compare_scenarios.png');
+    width: 252px;
+    height: 60px;
+    margin-left: 20px;
+}
+
+.sharingBtn_map {
+    background-image: url('img/Buttons/PNG_ELEMENTS__Map_it_button.png');
+    width: 252px;
+    height: 60px;
+    margin-left: 20px;
+}
+
+.sharingBtn_email {
+    background-image: url('img/Buttons/PNG_ELEMENTS__email.png');
+    width: 188px;/*170*/
+    height: 34px;
+}
+
+.sharingBtn_print {
+    background-image: url('img/Buttons/PNG_ELEMENTS__print_it.png');
+    width: 188px;
+    height: 34px;
+}
+
+.sharingBtn_facebook {
+    background-image: url('img/Buttons/PNG_ELEMENTS__facebook.png');
+    width: 188px;
+    height: 34px;
+}

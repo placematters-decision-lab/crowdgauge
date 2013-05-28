@@ -254,7 +254,8 @@ body {
     margin-left: 40px;
     /*padding-bottom: 5%;*/
     /*width: 60%;*/
-    color: rgb(169, 211, 226);
+    /*color: rgb(169, 211, 226);*/
+    color: #002b51;
     float: left;
     font-family: league-gothic, Arial, sans-serif;
     font-size: 500%;
