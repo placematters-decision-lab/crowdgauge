@@ -41,7 +41,7 @@ function start(route, securePaths, prehandle, handle, staticServer, persistentSt
     function onRequest(req, res) {
         var postDataStr = "";
         var pathname = url.parse(req.url).pathname;
-        logger.log('Request for ' + pathname + ' received.');
+        logger.log('Request for ' + pathname + ' received.', 3);
         if (route(prehandle, pathname, req, res, {})) return;
 
         req.setEncoding("utf8");

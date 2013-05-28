@@ -1,4 +1,5 @@
 //region includes
+var url = require('url');
 
 //endregion
 var config = require("../../config");
@@ -91,7 +92,7 @@ ADataHandler = function (dbName) {
                 });
             });
         } else {
-            db.insert(doc, {}, function (err, res) {
+            db.insert(doc, null, function (err, res) {
                 if (err) console.log("ERROR: problem adding doc: " + err.description);
                 if (callback) callback();
             });
@@ -126,6 +127,16 @@ ADataHandler = function (dbName) {
 
     this.p_deleteAllResults = function (body, callback) {
         _deleteAllResults(body, callback);
+    };
+
+    this.p_getQuery = function (req) {
+        var url_parts = url.parse(req.url, true);
+        return url_parts.query;
+    };
+
+    this.p_getUID = function () {
+        var msSince2012 = new Date().getTime()-1325376000000;
+        return msSince2012 + "-" + Math.floor(Math.random()*10000);
     };
 //endregion
 };

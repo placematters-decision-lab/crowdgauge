@@ -180,8 +180,10 @@
             _showInstructionDialog(txt, "Why are we asking?");
         };
 
-        this.showSharingDialog = function (entryId, header, pages, bubblechart, sortedPriorities) {
-            //TODO
+        this.showSharingDialog = function (responseId, header, pages, bubblechart, sortedPriorities) {
+            var txt = '<p>Share your badge</p>';
+            txt += '<img src="/png?responseId='+responseId+'">';
+            _showInstructionDialog(txt);
         };
         //endregion
 

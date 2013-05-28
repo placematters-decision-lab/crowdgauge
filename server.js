@@ -23,8 +23,8 @@ var socketHandler = require("./server/modules/socketHandler");
 var personaServer = require("./server/modules/personaServer");
 var persistentStore = require("./server/modules/persistentStore");
 
-/** @type PhantomProxy */
-var phantomProxy = require("./server/modules/phantomProxy");
+require('http').globalAgent.maxSockets = 100000;//allow plenty of connections for long-running Couch calls
+require('https').globalAgent.maxSockets = 1000;//mostly for loggly
 
 var persist = new persistentStore.PersistentStore();
 var ps = new personaServer.PersonaServer(persist, {
@@ -82,6 +82,7 @@ handle["/getMechanisms"] = dataHandler.getMechanisms;
 handle["/getMechanismInfo"] = dataHandler.getMechanismInfo;
 handle["/getActionDefs"] = dataHandler.getActionDefs;
 handle["/getActions"] = dataHandler.getActions;
+handle["/getAllActions"] = dataHandler.getAllActions;
 
 handle["/saveResponse"] = responseDataHandler.saveResponse;
 handle["/getResponse"] = responseDataHandler.getResponse;
@@ -93,7 +94,7 @@ handle["/getLocations"] = settingDataHandler.getLocations;
 handle["/persona_login"] = ps.login;
 handle["/persona_logout"] = ps.logout;
 
-handle["/png"] = phantomProxy.png;
+handle["/png"] = responseDataHandler.png;
 
 //handle["/TEMP_fixLangs"] = dataHandler.TEMP_fixLangs();
 

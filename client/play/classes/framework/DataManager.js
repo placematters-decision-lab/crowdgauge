@@ -13,7 +13,7 @@
         var _voteData;
         var _priorityData;
         var _timeData;
-        var _entryId;
+        var _responseId;
         var _infoWinCnt = 0;
 
         //var _ws = new SAS.JsonRestWS("http://localhost:59159/svc/", "DataService.svc", false, false);
@@ -26,9 +26,9 @@
 
         var _saveData = function (onSave) {
             $.post("/saveResponse", {data:JSON.stringify(_getData())},
-                function (entryId) {
-                    _entryId = entryId;
-                    onSave(_entryId);
+                function (result) {
+                    _responseId = result.responseId;
+                    onSave(_responseId);
                 });
         };
         //endregion
@@ -53,8 +53,8 @@
         this.storeVotes = function (voteData) {
             _voteData = voteData;
         };
-        this.getEntryId = function () {
-            return _entryId;
+        this.getResponseId = function () {
+            return _responseId;
         };
 
         this.setIsSaved = function (value) {
