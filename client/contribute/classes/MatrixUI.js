@@ -34,7 +34,7 @@
         /** @type SAS.AMechGrid */
         var _currentMechGrid;
 
-        var _dataHandler = new SAS.DataHandler(userId, "test1");
+        var _dataHandler = new SAS.DataHandler(userId, SAS.configInstance.getFileName());
 
         var _getKeyForStructureId = function (/**Content*/content) {
             if (content.structureId.priority) return content.structureId.mechanism + "_" + content.structureId.priority;

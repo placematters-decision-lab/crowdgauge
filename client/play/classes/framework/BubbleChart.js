@@ -197,11 +197,12 @@
             });
         };
 
-        var _resizeBubbles = function () {
+        var _resizeBubbles = function (duration) {
+            if (duration == null) duration = 1500;
             _mainGrp.selectAll("g.node")
                 .data(_bubble.nodes(_priorityList.getPriorities()))
                 .transition()
-                .duration(1500)
+                .duration(duration)
                 .attr("transform", function (d) {
                     return "translate(" + d.x + "," + d.y + ") scale(" + d.r / 100 + "," + d.r / 100 + ")";
                 });
@@ -209,7 +210,7 @@
 
             if (_colorMode == PRIORITY) {
                 _mainCircles.transition()
-                    .duration(1500)
+                    .duration(duration)
                     .style("fill", function (d) {
                         return d3.interpolateRgb(_sizeColorRamp[0], _sizeColorRamp[1])(d.value / 100)
                     })
@@ -218,7 +219,7 @@
                     });
             } else {
                 _mainCircles.transition()
-                    .duration(1500)
+                    .duration(duration)
                     .style("stroke-width", function (d) {
                         return 1.5 * (100 / d.r);//--inverse scale
                     });
@@ -312,8 +313,9 @@
         };
 
         var _updateLayout = function () {
-            var w = $("#chart").width();
-            var h = $("#chart").height();
+            var $chart = $("#chart");
+            var w = $chart.width();
+            var h = $chart.height();
             var scale = Math.min(w, h) / 1000;
             _mSvg.attr("width", w).attr("height", h);
             _mainGrp.attr("transform", "scale(" + scale + ")");
@@ -375,8 +377,8 @@
             _createBubbles();
         };
 
-        this.resizeBubbles = function () {
-            _resizeBubbles();
+        this.resizeBubbles = function (duration) {
+            _resizeBubbles(duration);
         };
 
         this.onBubbleClick = function (fn) {
