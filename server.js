@@ -28,7 +28,7 @@ require('https').globalAgent.maxSockets = 1000;//mostly for loggly
 
 var persist = new persistentStore.PersistentStore();
 var ps = new personaServer.PersonaServer(persist, {
-    audience:config.appURL
+    audience: config.appURL
 });
 
 // set Handlers
@@ -39,7 +39,7 @@ responseDataHandler.setHandlers(settingDataHandler);
 //var client = path.resolve(__dirname, "client");
 var file = new (nodeStatic.Server)(__dirname);
 fileManager.options({
-    uploadDir:__dirname + '/tmp'
+    uploadDir: __dirname + '/tmp'
 });
 
 var prehandle = {};
@@ -101,3 +101,11 @@ handle["/png"] = responseDataHandler.png;
 //handle["/upload"] = requestHandlers.upload;
 server.start(router.route, securePaths, prehandle, handle, file, persist);
 server.startSockets(socketHandler.onConnect);
+
+//----start phantomJS
+var childproc = require('child_process');
+var phantom_proc = childproc.spawn('phantomjs', ['phantom-js/server-phantom.js']);
+phantom_proc.stdout.setEncoding("utf8");
+phantom_proc.stdout.on('data', function (data) {
+    console.log('phantom>' + data);
+});
