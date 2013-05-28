@@ -111,6 +111,14 @@ ContributeDataHandler = function () {
                         }
                     }
                 },
+                byContentAndCellType: {
+                    map: function (/**Content*/doc) {
+                        if (doc.structureId) {
+                            var cellType = doc.structureId.priority ? 'priority' : 'action';
+                            emit([doc.contentType, cellType], doc);
+                        }
+                    }
+                },
                 byFullStructureId: {
                     map: function (/**Content*/doc) {
                         if (doc.structureId) {
@@ -422,6 +430,17 @@ ContributeDataHandler = function () {
         });
     };
 
+    var _getAllActions = function (req, res) {
+       _self.p_view('byContentAndCellType', { key: ['cell', 'action'] }, function (err, body) {
+            if (err) {
+                console.log('Error in byContentType: '+err);
+                _self.p_returnBasicFailure(res, err);
+                return;
+            }
+            _self.p_returnJsonObj(res, body.rows.map(function(row) { return row.value}));
+        });
+    };
+
     var _getActionsDefs = function (req, res) {
         var query = _getQuery(req);
         _self.p_view('byContentType', { key: [query.filename, Enums.CTYPE_ACTION] }, function (err, body) {
@@ -609,6 +628,10 @@ ContributeDataHandler = function () {
 
     this.getActions = function (req, res, postData) {
         _getActions(req, res);
+    };
+
+    this.getAllActions = function (req, res, postData) {
+        _getAllActions(req, res);
     };
 
     this.getActionDefs = function (req, res, postData) {

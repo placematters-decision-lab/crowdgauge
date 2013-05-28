@@ -1,15 +1,59 @@
-var page = require('webpage').create(),
-    Routes = require('./Routes.js'),
-    app = new Routes();
+var webpage = require('webpage');
+var Routes = require('./Routes.js');
+var app = new Routes();
 
-page.viewportSize = {width: 500, height: 500};
-page.open('http://localhost:8080/client/phantom/bubbleChart.html');
+var viewportSize = {width: 500, height: 500};//could have one preloaded page for each size then match that to the incoming request...?
+var queue = [];
+var busy = true;
+var _activePage = null;
+var _processNext = function () {
+    console.log('_processNext: ' + busy + ':' + queue.length);
+    if (busy || queue.length == 0) return;
+    var r = queue.shift();
+    busy = true;
+    _processRequest(r.req, r.res, function () {
+        busy = false;
+        _processNext();
+    });
+};
 
-app.get('/png', function(req, res) {
-    console.log('png get req received');
-    //page.render('got.png');
-    var base64Data = page.renderBase64('png');
-    res.send(base64Data);
+var _processRequest = function (req, res, callback) {
+    console.log('_processRequest: ' + req.post.responseData);
+    if (req.post.responseData == null) {
+        res.send(400);//bad request
+        return;
+    }
+
+    _activePage.onCallback = function (data) {
+        //console.log('CALLBACK: ' + JSON.stringify(data));  // Prints 'CALLBACK: { "hello": "world" }'
+        console.log('----CLICK---- screenshot taken')
+        var base64Data = page.renderBase64('png');
+        res.send(base64Data);
+        if (callback) callback();
+    };
+
+    var escaped = req.post.responseData.replace(/"/g, '\\"');
+    var fnBody = 'SAS.mainInstance.loadResponse("' + escaped + '")';
+    //console.log(fnBody);
+    _activePage.evaluate(new Function(fnBody));
+};
+
+var page = webpage.create();
+_activePage = page;
+
+page.viewportSize = viewportSize;
+page.onConsoleMessage = function (msg) {
+    console.log('CONSOLE>' + msg);
+};
+page.open('http://localhost:8080/client/phantom/bubbleChart.html', function (status) {
+    console.log('Open: ' + status);
+    busy = false;
+    _processNext();
+});
+
+app.post('/png', function (req, res) {
+    queue.push({req: req, res: res});
+    _processNext();
 });
 
 app.listen(8000);

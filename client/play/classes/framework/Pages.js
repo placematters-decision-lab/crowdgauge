@@ -207,8 +207,8 @@
             _setClickToInfoWin();
         };
 
-        var _showSharingDialog = function (entryId, headerTxt) {
-            _instructions.showSharingDialog(entryId, headerTxt, _self, _bubbleChart, _priorityList.getSortedPriorities());
+        var _showSharingDialog = function (responseId, headerTxt) {
+            _instructions.showSharingDialog(responseId, headerTxt, _self, _bubbleChart, _priorityList.getSortedPriorities());
         };
 
         var _storeData = function (pageId) {
@@ -333,7 +333,7 @@
                         _showSharingDialog(entryId, "Your response has been submitted. Thank you for your time. ");
                     });
                 } else if ($(this).hasClass("bigButton_" + BTN_SHARE)) {
-                    _showSharingDialog(_dataManager.getEntryId(), "");
+                    _showSharingDialog(_dataManager.getResponseId(), "");
                 } else {
                     _showNext();
                 }

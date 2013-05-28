@@ -66,7 +66,7 @@
             $.each(orderedArr, function (i, priority) {
                 /** @type SAS.PriorityDef */
                 var pDef = priority.data;
-                console.log(i+": "+pDef.title.en);
+               // console.log(i+": "+pDef.title.en);
                 var uid = priority.data.uid;
                 _priorityLookup[uid] = priority;
                 priority.score = 0;
@@ -166,8 +166,11 @@
 
         this.setValues = function (priorityStars) {
             $.each(_priorities, function (i, priority) {
-                if (!priorityStars[priority.id]) return true;//continue
-                priority.score = priorityStars[priority.id];
+                if (priorityStars[priority.id]) {
+                    priority.score = priorityStars[priority.id];
+                } else {
+                    priority.score = 0;
+                }
                 priority.value = _starAsPerc(priority.score);
             });
         };
