@@ -1,6 +1,14 @@
 var webpage = require('webpage');
+var system = require('system');
 var Routes = require('./Routes.js');
 var app = new Routes();
+
+if (system.args.length <= 1) {
+    console.log('Usage: server-phantom.js <base url>');
+    phantom.exit();
+}
+
+var baseURL = system.args[1];
 
 var viewportSize = {width: 500, height: 500};//could have one preloaded page for each size then match that to the incoming request...?
 var queue = [];
@@ -45,7 +53,7 @@ page.viewportSize = viewportSize;
 page.onConsoleMessage = function (msg) {
     console.log('CONSOLE>' + msg);
 };
-page.open('http://localhost:8080/client/phantom/bubbleChart.html', function (status) {
+page.open(baseURL+'/client/phantom/bubbleChart.html', function (status) {
     console.log('Open: ' + status);
     busy = false;
     _processNext();
@@ -58,4 +66,4 @@ app.post('/png', function (req, res) {
 
 app.listen(8000);
 
-console.log('PhantomJS listening on port 8000.');
+console.log('PhantomJS listening on port 8000, talking to '+baseURL);

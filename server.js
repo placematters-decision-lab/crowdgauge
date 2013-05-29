@@ -103,8 +103,10 @@ server.start(router.route, securePaths, prehandle, handle, file, persist);
 server.startSockets(socketHandler.onConnect);
 
 //----start phantomJS
+
+var baseUrl = 'http://localhost:' + config.port;
 var childproc = require('child_process');
-var phantom_proc = childproc.spawn('phantomjs', ['phantom-js/server-phantom.js']);
+var phantom_proc = childproc.spawn('phantomjs', ['phantom-js/server-phantom.js', baseUrl]);
 phantom_proc.stdout.setEncoding("utf8");
 phantom_proc.stdout.on('data', function (data) {
     console.log('phantom>' + data);
