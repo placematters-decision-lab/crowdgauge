@@ -50,18 +50,24 @@ function start(route, securePaths, prehandle, handle, staticServer, persistentSt
         });
         req.addListener("end", function () {
             var postData = qs.parse(postDataStr);
+            var _redirect = function (res, path) {
+                res.writeHead(302, {
+                    'Location': path
+                });
+                res.end();
+            };
             _checkAuthorization(req, pathname, securePaths, persistentStore, function (success) {
                 if (success) {
                     //TODO create test to ensure that all possible routes that resolve in 'route' function are checked by securePaths
                     if (!route(handle, pathname, req, res, postData)) {
-                        staticServer.serve(req, res);
+                        if (pathname == '/') {
+                            _redirect(res, '/client/play/');
+                        } else {
+                            staticServer.serve(req, res);
+                        }
                     }
                 } else {
-                    res.writeHead(302, {
-                        'Location': '/client/login/index.html'
-                        //add other headers here...
-                    });
-                    res.end();
+                    _redirect(res, '/client/login/');
                     //--if its a web service call, then it should probably not redirect... but there is no way to determine this here?
                     //res.writeHead(403);
                     //res.end('Sorry you are not authorized.');
