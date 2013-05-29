@@ -45,7 +45,7 @@ a:visited {
     cursor: pointer;
     padding: 0;
     background-color: transparent;
-    background-image: url('img/entries/PNG_ELEMENTS__Create_your_own_design_profile.png');
+    /*background-image: url('img/entries/PNG_ELEMENTS__Create_your_own_design_profile.png');*/
     float: right;
 }
 

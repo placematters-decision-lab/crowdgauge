@@ -197,6 +197,21 @@
                 window.open('http://www.facebook.com/sharer.php?s=100&p[title]=My+Design+Profile&p[summary]=' + summary + '&p[url]='+sharedUrl+'&p[images][0]=' + imageUrl, 'sharer', 'status=0,width=800,height=600,resizable=yes');
             });
 
+            var btnsBelow = $("<div class='share_btns'>").appendTo(mainDiv);
+            $("<button class='sharingBtn sharingBtn_map'>")
+                .appendTo(btnsBelow)
+                .click(function () {
+                    _closeDialog();
+                    window.location.replace("http://imaginemyneo.crowdgauge.org/client/play/map.html");
+//                    pages.gotoMap();
+                });
+            $("<button class='sharingBtn sharingBtn_compare'>")
+                .appendTo(btnsBelow)
+                .click(function () {
+                    _closeDialog();
+                    window.location.replace("http://vibrantneo.org/");
+//                    pages.gotoCompare();
+                });
 
             _showInstructionDialog2(600);
         };

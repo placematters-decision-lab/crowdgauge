@@ -12,6 +12,7 @@
         var MONEY = "money";
 
         var BTN_NEXT = "next";
+        var BTN_BACK = "back";
         var BTN_SUBMIT = "submit";
         var BTN_SHARE = "share";
 
@@ -91,6 +92,19 @@
             });
             SAS.controlUtilsInstance.setButtonText($("#btnNext"), btnState);
             $("#btnNext").toggle(show);
+            $("#reshowInstr").toggle(show);
+        };
+
+        var _showBackButton = function (show, btnState) {
+            $.each(_btnStates, function (i, btn) {
+                if (btn == btnState) {
+                    $("#btnBack").addClass("bigButton_" + btn);
+                } else {
+                    $("#btnBack").removeClass("bigButton_" + btn);
+                }
+            });
+            SAS.controlUtilsInstance.setButtonText($("#btnBack"), btnState);
+            $("#btnBack").toggle(show);
         };
 
         var _setClickToInfoWin = function (acompList) {
@@ -123,6 +137,7 @@
             _bubbleChart.showDivs(false);
             _showMoreInfo(false);
             _showNextButton(false, BTN_NEXT);
+            _showBackButton(false, BTN_BACK);
         };
 
         var _fileAndVersion = function () {
@@ -139,6 +154,7 @@
             _bubbleChart.showDivs(true);
             _showMoreInfo(true);//--will allow more info to be shown when bubbles are colored by a later option... will be empty otherwise
             _showNextButton(true, BTN_NEXT);
+            _showBackButton(true, BTN_BACK);
             if (!_priorityList.hasData()) {
 
                 d3.json('/getPriorities' + _fileAndVersion(), function (data) {
@@ -167,6 +183,7 @@
             //_map.showDivs(false);
             _showMoreInfo(true);
             _showNextButton(true, BTN_NEXT);
+            _showBackButton(true, BTN_BACK);
             if (!_mechanismList.hasData()) {
                 d3.json('/getMechanisms' + _fileAndVersion(), function (data) {
                     _mechanismList.load(data);
@@ -198,6 +215,7 @@
             //_map.showDivs(false);
             _showMoreInfo(false);
             _showNextButton(true, (_submitted) ? BTN_SHARE : BTN_SUBMIT);
+            _showBackButton(true, BTN_BACK);
             if (!_mechanismList.hasData()) {
                 d3.json('/getMechanisms' + _fileAndVersion(), function (data) {
                     _mechanismList.load(data);
@@ -258,6 +276,13 @@
             var activePos = _pageIds.indexOf(_activePage);
             if (activePos < 0 || activePos == _pageIds.length - 1) return;
             _gotoPage(_pageIds[activePos + 1]);
+            _selectTab(_activePage);
+        };
+
+        var _showBack = function () {
+            var activePos = _pageIds.indexOf(_activePage);
+            if (activePos < 1 || activePos == _pageIds.length) return;
+            _gotoPage(_pageIds[activePos - 1]);
             _selectTab(_activePage);
         };
 
@@ -339,6 +364,7 @@
                     _dataManager.saveData(function (entryId) {
                         _submitted = true;
                         _showNextButton(true, BTN_SHARE);
+                        _showBackButton(false, BTN_BACK);
                         _showSharingDialog(entryId, "Your response has been submitted. Thank you for your time. ");
                     });
                 } else if ($(this).hasClass("bigButton_" + BTN_SHARE)) {
@@ -346,6 +372,11 @@
                 } else {
                     _showNext();
                 }
+            });
+
+            $("#btnBack").button();
+            $("#btnBack").click(function () {
+                _showBack();
             });
 
             _gotoPage(INTRO);

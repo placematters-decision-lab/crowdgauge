@@ -61,9 +61,11 @@
             if (_mode == SCENARIO  || _mode == POLICIES) {
                 _showMoneyIcons(true);
                 $("#coinsLeft").show();
+                $("#coinsReset").show();
                 $("#colorRampLegend").show();
             } else {
                 $("#coinsLeft").hide();
+                $("#coinsReset").hide();
 //                $("#colorRampLegend").hide();
                 $(".mechSub").hide();
             }
@@ -230,6 +232,7 @@
         var _showDivs = function (show) {
             $("#mechanismList").toggle(show);
             $("#coinsLeft").toggle(show && _mode == SCENARIO);
+            $("#coinsReset").toggle(show && _mode == SCENARIO);
             $("#clickInstr").toggle(show && _mode == IMPACTS);
             if (show) {
                 $("#leftPanel").css("width", "445px");

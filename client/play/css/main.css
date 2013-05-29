@@ -290,7 +290,7 @@ body {
     width: 85%;
 }
 
-.bigButton {
+.bigButtonNext {
     color: white;
     background-color: #24ccff;
     background-image: linear-gradient(to bottom, #11B6FF, #0099DD);
@@ -298,6 +298,18 @@ body {
     /*float: right;*/
     position: absolute;
     right: 0;
+    top: 55px;
+    text-transform: capitalize;
+}
+
+.bigButtonBack {
+    color: white;
+    background-color: #24ccff;
+    background-image: linear-gradient(to bottom, #11B6FF, #0099DD);
+    /*font-family: league-gothic, Arial, sans-serif;;*/
+    /*float: right;*/
+    position: absolute;
+    right: 100px;
     top: 55px;
     text-transform: capitalize;
 }
@@ -445,4 +457,19 @@ strong {
     background-repeat: no-repeat;
     background-position: left center;
     background-size: 20px 20px;
+}
+
+.share_btns {
+    clear: left;
+}
+
+#mapDiv {
+    left: 0;
+    position: absolute;
+}
+
+/*override tipsy.css*/
+tipsy.tipsy-n.tipsy-inner.a:link {
+    color:#afbd21;
+    text-decoration:none;
 }
