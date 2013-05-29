@@ -49,10 +49,9 @@
 
             //$('<a href="#"/></a>').appendTo(headerDiv);//hack to prevent scrolling to bottom, see: http://forum.jquery.com/topic/default-scroll-position-of-jquery-ui-dialog
 
-//            $("<div class='info_hdr info_hdr_top'>").appendTo(headerDiv);
-//            var lt_hdr = $("<div class='info_left_title'>").appendTo(headerDiv);  // TODO: move to header
-//            lt_hdr.html(SAS.localizr.get(mechanism.data.progressive));
-//            lt_hdr.html(SAS.localizr.get(mechanism.data.description));  // select one of this
+//            var t_hdr = $("<div class='info_hdr info_hdr_top'>").appendTo(headerDiv);
+            var lt_hdr = $("<div class='info_left_title'>").appendTo(headerDiv);  // TODO: move to header
+            lt_hdr.html('<p class="info_hdr">How might</p><p class="info_left_title">' + SAS.localizr.get(mechanism.data.progressive) + '</p><p class="info_hdr">contribute to a Vibrant Northeast Ohio where . . . </p>');
 //            $("<div class='info_hdr info_hdr_below'>").appendTo(headerDiv);
 
             var wrapper = $("<div class='right_wrapper'>").appendTo(mainDiv);
@@ -75,7 +74,7 @@
             var lt_box = $("<div class='info_left_box'>").appendTo(left);
 
             var lt_def = $("<div class='info_defin'>").appendTo(lt_box);
-            lt_def.html(SAS.localizr.get(mechanism.data.description));
+            lt_def.html();
 
             d3.json('/getMechanismInfo?mechId=' + mechanism.id + ((priorityId) ? "&priorityId=" + priorityId : ""), function (data) {
                 $.each(data.pictures, function (i, pic) {
@@ -101,11 +100,10 @@
             //var link = mechanism.id + "_" + priorityId + ".html";
             //$("#dialog").load("moreInfo/" + link, function () {
             _buildHtml(mechanism, priorities, priorityId);
-            var text = SAS.localizr.get(mechanism.data.progressive).toLowerCase();
             $("#dialog").dialog({
                 modal:true,
-//                title:'Additional Information',
-                title:'<p class="info_hdr">How might</p><p class="info_left_title">' + text + '</p><p class="info_hdr">contribute to a Vibrant Northeast Ohio where . . . </p>',
+                title:'Additional Information',
+//                title:'<p class="info_hdr">How might</p><p class="info_left_title">' + text + '</p><p class="info_hdr">contribute to a Vibrant Northeast Ohio where . . . </p>',
                 buttons:{ "Ok":function () {
                     $(this).dialog("close");
                 } },

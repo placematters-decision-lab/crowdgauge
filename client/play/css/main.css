@@ -147,7 +147,8 @@ body {
     height: 40px;
     position: absolute;
     color: white;
-    font-family: league-gothic, Arial, sans-serif;}
+    font-family: league-gothic, Arial, sans-serif;
+    font-size: 150%;}
 
 .starsLeftNum {
     color: #24ccff;
@@ -159,6 +160,7 @@ body {
     position: absolute;
     color: white;
     font-family: league-gothic, Arial, sans-serif;
+    font-size: 150%;
 }
 
 #coinsLeft {
@@ -170,7 +172,8 @@ body {
     background-image: url('img/coins/Coin_Illustrations_coin_pile.png');
     background-repeat: no-repeat;
     background-position: left center;
-    background-size: 49px 41px;}
+    background-size: 49px 41px;
+    font-size: 150%;}
 
 .coinsLeftNum {
     color: #24ccff;
@@ -242,7 +245,7 @@ body {
     top: 100px;
     width: 30%;
     font-family: league-gothic, Arial, sans-serif;
-    font-size: 100%;
+    font-size: 120%;
     color: #4d4048;
     height: 400px;
     text-transform: uppercase;
@@ -263,6 +266,7 @@ body {
     letter-spacing: 1px;
     line-height: 1.0;
     text-transform: uppercase;
+    margin-bottom: -50px;
 }
 
 .introTxt {
@@ -277,7 +281,7 @@ body {
     letter-spacing: 1px;
     line-height: 1.4;
     height: 32px;
-
+    padding-right: 5px;
 }
 
 
@@ -310,6 +314,7 @@ body {
     left: 450px;
     position: absolute;
     top: 100px;
+    letter-spacing: 1px;
 }
 
 #priorityList {
@@ -423,5 +428,11 @@ strong {
     margin-top: 3px;
     color: #b08c6d;
     text-transform: lowercase;
-    font-size: 1.7em;
 }
+
+.demoLabel {
+    padding-right: 5px;
+}
+
+/*.coinsReset {*/
+/*}*/

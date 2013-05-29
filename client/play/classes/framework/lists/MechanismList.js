@@ -39,6 +39,7 @@
         var _actionDefs = {};
 
         //var _transTime = 1000;
+        var _onRatingChange = function () {};
 
         var _setMode = function (mode) {
             _mode = mode;
@@ -147,12 +148,13 @@
 
         var _recalcCoinBalance = function (coinsUsed) {
             var coinsLeft = (_totalCoins - coinsUsed);
+            var $coinsLeft;
+            var ratingDiv = "<img src='../../../img/cancel-off.png'>";
             if (coinsLeft == 0) {
-                $("#coinsLeft").html("<span class='coinsLeftNum'>0</span><small> coins left (to redistribute, uncheck current selections)</small>");
+                $coinsLeft = $("#coinsLeft").html("<span class='coinsLeftNum'>0</span><small> coins left (to redistribute, uncheck current selections)</small>");
             } else {
-                $("#coinsLeft").html("You have <span class='coinsLeftNum'>" + coinsLeft + "</span> coin" + ((coinsLeft > 1) ? "s" : "") + " left");
+                $coinsLeft = $("#coinsLeft").html("You have <span class='coinsLeftNum'>" + coinsLeft + "</span> coin" + ((coinsLeft > 1) ? "s" : "") + " left " + "<img src='../../../img/cancel-off.png'>");
             }
-//            $("#colorRampLegend").html("<div class='colorRamp colorRamp_money' style='display: block;'></div>");
 
             $.each(_moneyIcons, function (mechId, micons) {
                 $.each(micons, function (i, micon) {

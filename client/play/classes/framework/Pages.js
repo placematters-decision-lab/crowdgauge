@@ -60,7 +60,7 @@
                     text = "I want to live in a Northeast Ohio where...";
                     break;
                 case IMPACTS:
-                    text = "How might planning affect your priorities?";
+                    text = "How do Northeast Ohio's choices affect your priorities?";
                     break;
                 case MONEY:
                     text = "Put your money where your mouse is";
@@ -68,8 +68,16 @@
             }
             $("#titleBar").addClass("priorityTxtH2").text(text);
 
+            if (pageId == PRIORITIES) {
+                $("<div></div>").appendTo('#titleBar').addClass("priorityTxtH3").text("Show your priorities by clicking on the stars below.");
+            }
+
             if (pageId == IMPACTS) {
                 $("<div></div>").appendTo('#titleBar').addClass("priorityTxtH3").text("Click through the projects and policies below to understand their potential impacts.");
+            }
+
+            if (pageId == MONEY) {
+                $("<div></div>").appendTo('#titleBar').addClass("priorityTxtH3").text("Choose projects and policies that support your priorities.");
             }
         };
 
