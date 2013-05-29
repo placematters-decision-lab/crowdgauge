@@ -190,7 +190,7 @@
             var btnHolder = $("<div style='width:200px'>").appendTo(right);
 
             $("<button class='sharingBtn sharingBtn_facebook'></button>").appendTo(btnHolder).click(function () {
-                var summary = encodeURIComponent("I just 'Designed my DSM!' See what my priorities are for the future of our region and how I would allocate our limited resources and assign policies to achieve this future.");
+                var summary = encodeURIComponent("This is how I 'ImagineMyNEO!' See what my priorities are for the future of our region and how I would allocate our limited resources and assign policies to achieve this future.");
                 var imageUrl = encodeURIComponent('/png?responseId='+responseId);
                 var sharedUrl = encodeURIComponent('http://imaginemyneo.crowdgauge.org/client/play/entries.html?responseId=' + responseId);
 //                var sharedUrl = encodeURIComponent('http://127.0.0.1:8080/client/play/entries.html?responseId=' + responseId);
