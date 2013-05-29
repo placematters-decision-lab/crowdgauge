@@ -107,42 +107,47 @@ server.start(router.route, securePaths, prehandle, handle, file, persist);
 server.startSockets(socketHandler.onConnect);
 
 //--test child process (running from monit)
-console.log('---testing exec');
-var exec = require('child_process').exec;
-exec('echo foo', function (err, stdout, stderr) {
-    console.log('---testing exec stdout:', stdout);
-});
-
-console.log('---testing spawn');
-var echo_proc = require('child_process').spawn(config.ifLocal('cmd', 'bash'));
-echo_proc.stdout.setEncoding("utf8");
-echo_proc.stdout.on('data', function (data) {
-    console.log('---testing spawn: echo>' + data);
-});
-setTimeout(function () {
-    console.log('Sending stdin to echo_proc');
-    echo_proc.stdin.write('bar2');
-    echo_proc.stdin.end();
-}, 1000);
+//console.log('---testing exec');
+//var exec = require('child_process').exec;
+//exec('echo foo', function (err, stdout, stderr) {
+//    console.log('---testing exec stdout:', stdout);
+//});
+//
+//console.log('---testing spawn');
+//var echo_proc = require('child_process').spawn(config.ifLocal('cmd', 'bash'));
+//echo_proc.stdout.setEncoding("utf8");
+//echo_proc.stdout.on('data', function (data) {
+//    console.log('---testing spawn: echo>' + data);
+//});
+//setTimeout(function () {
+//    console.log('Sending stdin to echo_proc');
+//    echo_proc.stdin.write('bar2');
+//    echo_proc.stdin.end();
+//}, 1000);
 
 //----start phantomJS
 var baseUrl = 'http://localhost:' + config.port;
 var childproc = require('child_process');
 
-setTimeout(function () {
-    console.log('exec phantomjs process: ' + baseUrl);
-    childproc.exec('phantomjs phantom-js/server-phantom.js ' + baseUrl, function (error, stdout, stderr) {
-        console.log('phantom>stdout: ' + stdout);
-        console.log('phantom>stderr: ' + stderr);
-        if (error !== null) {
-            console.log('phantom>exec error: ' + error);
-        }
+config.doIfLocal(function () {
+    var phantom_proc = childproc.spawn('phantomjs', ['phantom-js/server-phantom.js', baseUrl]);
+    phantom_proc.stdout.setEncoding("utf8");
+    phantom_proc.stdout.on('data', function (data) {
+        console.log('phantom>' + data);
     });
-}, 1000);
+}, function () {
+    var binPath = '/usr/local/bin/phantomjs';
+    var phantomJsPath = path.join(__dirname, 'phantom-js/server-phantom.js');
+    var childArgs = [phantomJsPath, baseUrl];
+
+    console.log(binPath + ' ' + phantomJsPath + ' ' + baseUrl);
+
+    childproc.execFile(binPath, childArgs, function (err, stdout, stderr) {
+        if (err) console.log('phantom err>' + err);
+        if (stdout) console.log('phantom stdout>' + stdout);
+        if (stderr) console.log('phantom stderr>' + stderr);
+    });
+});
 
 
-//var phantom_proc = childproc.spawn('phantomjs', ['phantom-js/server-phantom.js', baseUrl]);
-//phantom_proc.stdout.setEncoding("utf8");
-//phantom_proc.stdout.on('data', function (data) {
-//    console.log('phantom>' + data);
-//});
+
