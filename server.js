@@ -99,6 +99,10 @@ handle["/png"] = responseDataHandler.png;
 //handle["/TEMP_fixLangs"] = dataHandler.TEMP_fixLangs();
 
 //handle["/upload"] = requestHandlers.upload;
+process.on('uncaughtException', function(err) {
+    console.log('****************** uncaught exception:'+err);
+});
+
 server.start(router.route, securePaths, prehandle, handle, file, persist);
 server.startSockets(socketHandler.onConnect);
 
