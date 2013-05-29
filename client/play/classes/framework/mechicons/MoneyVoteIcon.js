@@ -10,7 +10,6 @@
         var OFF = "off";
         var HLITE = "hlite";
         var DISABLED = "disabled";
-//        var _options = $.extend(options, {thumbState:null});
         var _options = options || $.extend(options, {thumbState:null});
 
         //region private fields and methods

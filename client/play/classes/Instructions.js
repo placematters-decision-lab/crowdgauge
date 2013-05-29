@@ -133,10 +133,9 @@
             };
             $("#dialog").html("");
             var txtAbove = $("<div></div>").appendTo("#dialog");
-            $("<p>Ever wonder how planning affects you?</p><p>Click through the <b>list of actions on the left</b> to see how different projects and policies might affect your priorities.</p>").appendTo(txtAbove);
-            $("<div class='clickTheIcon' style='height:40px'>Then click on any of the bubbles to open up an explanation.</div>").appendTo(txtAbove);
-            $("<p>The colors of your priority chart show how each project or policy impacts your priorities, in a <span style='background-color: #2BBEC5'>positive</span> , <span style='background-color: #EAD9C4'>neutral</span>, or <span style='background-color: #ec7623'>negative</span> way.</p>").appendTo(txtAbove);
-            $("<p>Look for actions that make your biggest bubbles turn blue. To get started, we've picked the action that appears to have the greatest positive impact on your priorities:</p>.").appendTo(txtAbove);
+            $("<p>Find out how to further your priorities&#8230;</p><p>Click through the <b>list of projects and policies on the left</b> to see how they might affect your priorities and then click on any of the priority bubbles to open up an explanation.</p>").appendTo(txtAbove);
+            $("<p>The colors of your priority chart show how each project or policy impacts your priorities, in a <span style='background-color: #2BBEC5'>positive</span> , <span style='background-color: #EAD9C4'>neutral</span>, or <span style='background-color: #ec7623'>negative</span> way. Look for projects or policies that make your biggest bubbles turn blue.</p>").appendTo(txtAbove);
+            $("<p>To get started, we've picked the action that appears to have the greatest positive impact on your priorities:</p>").appendTo(txtAbove);
 
             var mechDivIns = $("<div class='mechGrp' style='min-height: 30px'></div>").appendTo("#dialog");
             $("<div class='mechIcon'></div>").appendTo(mechDivIns).attr("id", "mechInsExample");
@@ -162,28 +161,43 @@
             _showAgainFn = function() {
                 _self.showMoneyDialog(numCoins);
             };
-            var txt = "<p>Put your money where your 'mouse' is!</p>";
-            txt += "<p>You have " + numCoins + " coins in your budget. You may choose as many policies as you want and as many projects as you can afford. See how the colors change in your priority chart to show how well the options you select help achieve your priorities.</p>";
+            var txt = "<p>You have " + numCoins + " coins in your budget and face two categories of choices projects and policies. You may choose as many projects as you can afford. Policies do not cost coins and you can choose as many as you want. See how the colors change in your priority chart to show how well the options you select help achieve your priorities.</p>";
             _showInstructionDialog(txt);
         };
 
         this.showCredits = function () {
             var txt = "<p>Planning trade-offs can be a tough topic to explore in-depth. ImagineMyNEO is a tool designed to help dive into challenging issues, offering users a chance to weigh different choices and understand the real challenges and trade-offs beneath them.</p>";
             txt += "<p>ImagineMyNEO prioritizes issues that are both <strong>spatial</strong> and <strong>regional</strong> because Vibrant NEO 2040 is a regional visioning and decision-making framework. Priorities, policies, and projects with a spatial impact are prioritized so that the results from ImagineMyNEO can be incorporated into scenario development. It does not include issues like &#8220;having strong schools&#8220; that are very important but have less of a spatial impact at the regional scale.</p>";
-            txt += "<p>Input from users will be used to shape the preferred scenario.</p>";
+            txt += "<p>We will be taking your input and presenting preliminary findings at our workshops occurring at the end of July. Ultimately, your priorities will be used to shape the preferred scenario.</p>";
            _showInstructionDialog(txt, "Purpose of ImagineMyNEO");
         };
 
         this.showWhy = function () {
-            var txt = "<p>Good planning builds upon local opinions.  We want to make sure that we&#8216;re able to reach a broad group of people, so that we can understand the range of opinions across the region.  These questions help us see if we&#8216;re reaching a diverse audience.</p>";
+            var txt = "<p>A regional vision is only successful if it is based upon local opinions. We want to make sure that we&#8216;re able to reach a broad group of people, so that we can understand the range of opinions across the region.  These questions help us see if we&#8216;re reaching a diverse audience.</p>";
             txt += "<p>These responses will not be used to identify any individual. Your individual responses to these questions will remain anonymous.</p>";
             _showInstructionDialog(txt, "Why are we asking?");
         };
 
         this.showSharingDialog = function (responseId, header, pages, bubblechart, sortedPriorities) {
-            var txt = '<p>Share your badge</p>';
-            txt += '<img src="/png?responseId='+responseId+'">';
-            _showInstructionDialog(txt);
+            $("#dialog").html("");
+            var mainDiv = $("<div></div>").appendTo("#dialog");
+            $("<p>"+header+"Share your badge?</p>").appendTo(mainDiv);
+
+            var wrapper = $("<div class='right_wrapper'>").appendTo(mainDiv);
+            var right = $("<div class='share_right'>").appendTo(wrapper);
+            var left = $("<div class='share_left'>").appendTo(mainDiv);
+            $('<img src="/png?responseId='+responseId+'">').appendTo(left);
+            var btnHolder = $("<div style='width:200px'>").appendTo(right);
+
+            $("<button class='sharingBtn sharingBtn_facebook'></button>").appendTo(btnHolder).click(function () {
+                var summary = encodeURIComponent("I just 'Designed my DSM!' See what my priorities are for the future of our region and how I would allocate our limited resources and assign policies to achieve this future.");
+                var imageUrl = encodeURIComponent("/png?responseId='+responseId+'");
+                var sharedUrl = encodeURIComponent('http://127.0.0.1:8080/client/play/entries.html?responseId=' + responseId);
+                window.open('http://www.facebook.com/sharer.php?s=100&p[title]=My+Design+Profile&p[summary]=' + summary + '&p[url]='+sharedUrl+'&p[images][0]=' + imageUrl, 'sharer', 'status=0,width=800,height=600,resizable=yes');
+            });
+
+
+            _showInstructionDialog2(600);
         };
         //endregion
 
