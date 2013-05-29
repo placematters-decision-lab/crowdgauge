@@ -127,6 +127,7 @@
                             }
                             _recalcMoney(mechanism, micon, micon.getThumbState());
                         });
+
                     });
                 });
             });
@@ -148,13 +149,24 @@
 
         var _recalcCoinBalance = function (coinsUsed) {
             var coinsLeft = (_totalCoins - coinsUsed);
-            var $coinsLeft;
-            var ratingDiv = "<img src='../../../img/cancel-off.png'>";
             if (coinsLeft == 0) {
-                $coinsLeft = $("#coinsLeft").html("<span class='coinsLeftNum'>0</span><small> coins left (to redistribute, uncheck current selections)</small>");
+                $("#coinsLeft").html("<span class='coinsLeftNum'>0</span><small> coins left (to redistribute, uncheck current selections)</small>");
             } else {
-                $coinsLeft = $("#coinsLeft").html("You have <span class='coinsLeftNum'>" + coinsLeft + "</span> coin" + ((coinsLeft > 1) ? "s" : "") + " left " + "<img src='../../../img/cancel-off.png'>");
+                $("#coinsLeft").html("You have <span class='coinsLeftNum'>" + coinsLeft + "</span> coin" + ((coinsLeft > 1) ? "s" : "") + " left ");
             }
+
+
+            $('#coinsReset').html("<div class='coinsReset'></div>").click(function() {
+                $.each(_moneyIcons, function (mechId, micons) {
+                    $.each(micons, function (i, micon) {
+                        micon.setOn(false);
+                    });
+                });
+
+                _recalcMoney();
+                _onRatingChange();
+                _recalcCoinBalance(0);
+            });
 
             $.each(_moneyIcons, function (mechId, micons) {
                 $.each(micons, function (i, micon) {

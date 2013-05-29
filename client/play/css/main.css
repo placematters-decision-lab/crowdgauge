@@ -434,5 +434,15 @@ strong {
     padding-right: 5px;
 }
 
-/*.coinsReset {*/
-/*}*/
+.coinsReset {
+    padding-left: 100px;
+    height: 40px;
+    left: 27px;
+    top: 18px;
+    position: absolute;
+    color: white;
+    background-image: url('../img/raty-img/cancel-off.png');
+    background-repeat: no-repeat;
+    background-position: left center;
+    background-size: 20px 20px;
+}
