@@ -99,8 +99,8 @@ handle["/png"] = responseDataHandler.png;
 //handle["/TEMP_fixLangs"] = dataHandler.TEMP_fixLangs();
 
 //handle["/upload"] = requestHandlers.upload;
-process.on('uncaughtException', function(err) {
-    console.log('****************** uncaught exception:'+err);
+process.on('uncaughtException', function (err) {
+    console.log('****************** uncaught exception:' + err);
 });
 
 server.start(router.route, securePaths, prehandle, handle, file, persist);
@@ -109,7 +109,7 @@ server.startSockets(socketHandler.onConnect);
 //--test child process (running from monit)
 console.log('---testing exec');
 var exec = require('child_process').exec;
-exec('echo foo', function(err, stdout, stderr) {
+exec('echo foo', function (err, stdout, stderr) {
     console.log('---testing exec stdout:', stdout);
 });
 
@@ -119,22 +119,30 @@ echo_proc.stdout.setEncoding("utf8");
 echo_proc.stdout.on('data', function (data) {
     console.log('---testing spawn: echo>' + data);
 });
-setTimeout(function() {
+setTimeout(function () {
     console.log('Sending stdin to echo_proc');
     echo_proc.stdin.write('bar2');
     echo_proc.stdin.end();
 }, 1000);
 
-
-
 //----start phantomJS
 var baseUrl = 'http://localhost:' + config.port;
 var childproc = require('child_process');
 
-console.log('spawning phantomjs process: '+baseUrl);
+setTimeout(function () {
+    console.log('exec phantomjs process: ' + baseUrl);
+    childproc.exec('phantomjs phantom-js/server-phantom.js ' + baseUrl, function (error, stdout, stderr) {
+        console.log('phantom>stdout: ' + stdout);
+        console.log('phantom>stderr: ' + stderr);
+        if (error !== null) {
+            console.log('phantom>exec error: ' + error);
+        }
+    });
+}, 1000);
 
-var phantom_proc = childproc.spawn('phantomjs', ['phantom-js/server-phantom.js', baseUrl]);
-phantom_proc.stdout.setEncoding("utf8");
-phantom_proc.stdout.on('data', function (data) {
-    console.log('phantom>' + data);
-});
+
+//var phantom_proc = childproc.spawn('phantomjs', ['phantom-js/server-phantom.js', baseUrl]);
+//phantom_proc.stdout.setEncoding("utf8");
+//phantom_proc.stdout.on('data', function (data) {
+//    console.log('phantom>' + data);
+//});
