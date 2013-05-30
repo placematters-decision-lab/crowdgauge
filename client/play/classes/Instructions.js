@@ -191,7 +191,7 @@
 
             $("<button class='sharingBtn sharingBtn_facebook'></button>").appendTo(btnHolder).click(function () {
                 var summary = encodeURIComponent("This is how I 'ImagineMyNEO!' See what my priorities are for the future of our region and how I would allocate our limited resources and assign policies to achieve this future.");
-                var imageUrl = encodeURIComponent('/png?responseId='+responseId);
+                var imageUrl = encodeURIComponent('http://imaginemyneo.crowdgauge.org/png?responseId=' + responseId);
                 var sharedUrl = encodeURIComponent('http://imaginemyneo.crowdgauge.org/client/play/entries.html?responseId=' + responseId);
 //                var sharedUrl = encodeURIComponent('http://127.0.0.1:8080/client/play/entries.html?responseId=' + responseId);
                 window.open('http://www.facebook.com/sharer.php?s=100&p[title]=My+Design+Profile&p[summary]=' + summary + '&p[url]='+sharedUrl+'&p[images][0]=' + imageUrl, 'sharer', 'status=0,width=800,height=600,resizable=yes');

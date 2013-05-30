@@ -22,6 +22,7 @@
         var _$title;
         var _$description;
         var _$nickname;
+        var _$color;
 
         var _$imagePane;
 
@@ -30,6 +31,7 @@
             _$title = _super.p_mkShortTextField('pd_title', "Title", $inputsDiv, _priority.title);
             _$nickname = _super.p_mkShortTextField('pd_nickname', "Nickname (optional short version of title)", $inputsDiv, _priority.nickname);
             _$description = _super.p_mkLongTextField('pd_description', 'Description', $inputsDiv, _priority.description);
+            _$color = _super.p_mkColorPickerField('pd_color', 'Color', $inputsDiv, _priority.color);
 
             _$imagePane = $("<div class='panel'>").appendTo($inputsDiv);
             _addImagePane();
@@ -72,6 +74,9 @@
             vals.description = _$description.val();
             vals.nickname = _$nickname.val();
             SAS.localizr.set(_priority, vals);
+            _priority.color = {};
+            _priority.color.background = _$color.val();
+            _priority.color.textShift = "brighter"; // TODO
         };
 
         var _showDialog = function (onAccept, onCancel) {

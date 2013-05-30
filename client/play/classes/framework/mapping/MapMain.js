@@ -4,13 +4,8 @@
  * Time: 3:42 PM
  */
 (function () { // self-invoking function
-    const MODE_PRIORITY = 'priorities';
-//    const MODE_MECH = 'MODEMODE_PRIORITY';
-//    const MODE_MECH = 'MODE_MECH';
-    const MODE_MECH = 'mechanisms';
-//    var PRIORITIES = "priorities";
-//    var MECHANISMS = "mechanisms";
-//    var _pageIds = [PRIORITIES, MECHANISMS];
+    var MODE_PRIORITY = 'priorities';
+    var MODE_MECH = 'mechanisms';
     var _pageIds = [MODE_PRIORITY, MODE_MECH];
 
     SAS.MapMain = function () {

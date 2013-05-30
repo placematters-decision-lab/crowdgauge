@@ -20,7 +20,8 @@
             title: "",
             description: "",
             nickname: "",
-            uid: "p"+_getUID()
+            uid: "p"+_getUID(),
+            color: ""
         };
         var _settings = $.extend({}, _defaults, data);
         //endregion
@@ -46,6 +47,9 @@
 
         /** @type {String} unique id*/
         this.uid = _settings.uid;
+
+        /** @type {Object} color*/
+        this.color = _settings.color;
 
         /** @type {String} svgPath*/
         this.svgPath = _settings.svgPath;

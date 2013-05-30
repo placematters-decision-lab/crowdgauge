@@ -1,0 +1,155 @@
+$titleWidth: 400px;
+$labelWidth: 200px;
+$colorWidth: 30px; //100px;
+$cbWidth: 50px;
+$fullWidth: $cbWidth + $colorWidth + $titleWidth + $labelWidth + 5px;
+$bgColr: #aaa;
+@mixin dept_row_item($w) {
+  width: $w;
+  display: inline-block;
+}
+
+@mixin image_div($url, $w, $h) {
+  width: $w;
+  height: $h;
+  background-image: $url;
+  background-repeat: no-repeat;
+}
+
+body {
+  font-family: Arial;
+  background-color: $bgColr;
+}
+
+a.help_link {
+  font-size: 0.8em;
+  margin-top: 5px;
+  margin-right: 5px;
+}
+
+.opt_grp {
+  padding: 1px;
+  display: inline-block;
+  margin: 0 10px;
+  border: 1px solid lighten($bgColr, 15%);
+}
+
+.gen_opt {
+  display: inline-block;
+}
+
+.gen_opt > span {
+  font-size: 0.8em;
+  margin-left: 8px;
+  margin-right: 6px;
+}
+
+.cb_gen_opt {
+  font-size: 0.7em;
+}
+
+.btn_gen {
+  margin-left: 2px;
+}
+
+.cat_header {
+  //width: $fullWidth;
+  background-color: #333;
+  color: #eee;
+  padding-top: 0.2em;
+  padding-bottom: 0.2em;
+  padding-left: 0.5em;
+  font-size: 0.8em;
+  font-weight: bold;
+}
+
+.dept_row {
+  //width: $fullWidth;
+  border-bottom: 1px solid #808080;
+  background-color: #fffff1;
+}
+
+.row_excluded {
+  background-color: #ccc;
+}
+
+.main_header_row {
+  color: white;
+  background-color: #666;
+}
+
+.table_hdr {
+  font-weight: bold;
+  font-size: 11px;
+}
+
+.dept_row_custom_fields {
+  display: inline-block;
+}
+
+.cf_row {
+  display: inline-block;
+}
+
+.dept_row_id_title {
+  @include dept_row_item($titleWidth);
+}
+
+.dept_row_id {
+  font-size: 11px;
+  @include dept_row_item($titleWidth);
+}
+
+.dept_row_label {
+  @include dept_row_item($labelWidth);
+}
+
+.dept_row_color {
+  @include dept_row_item($colorWidth);
+}
+
+.dept_row_cb {
+  @include dept_row_item($cbWidth);
+}
+
+.cv_btn {
+  font-size: 0.5em;
+  display: inline-block;
+}
+
+.align_right {
+  float: right;
+}
+
+.paste_area {
+  margin: 2px;
+  @include image_div(url('img/paste.png'), 24px, 25px);
+}
+
+.copy_btn {
+  margin: 2px;
+  cursor: pointer;
+  @include image_div(url('img/copy.png'), 20px, 23px);
+}
+
+.copy_div {
+  position: absolute;
+  left: 5px;
+  top: 5px;
+  background-color: #ffffff;
+}
+
+.copy_div_hdr {
+  background-color: #333;
+  color: #ffffff;
+  cursor: pointer;
+  padding: 5px;
+  text-align: right;
+}
+
+.warning_blk {
+  font-size: 0.8em;
+  display: inline-block;
+  padding: 5px;
+  background-color: #ff9d15;
+}

@@ -149,6 +149,3 @@ config.doIfLocal(function () {
         if (stderr) console.log('phantom stderr>' + stderr);
     });
 });
-
-
-

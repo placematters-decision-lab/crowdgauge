@@ -438,5 +438,5 @@ strong {
 .tabTitleActive {
   cursor: pointer; }
 
-a:link, a:visited {
-  color: white; }
+#options a {
+  color: white !important; }
