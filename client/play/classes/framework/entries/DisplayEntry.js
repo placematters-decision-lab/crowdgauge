@@ -9,7 +9,6 @@
 
         //region private fields and methods
         var _cacheVersion = 12;
-        var _ashxPath = "http://ws.sasakistrategies.com/ashx/regionalScoresService/";
 //        var _ws = SAS.configInstance.getRegionalScoresWS();
         var _mechanisms = null;
         var _entry = null;
@@ -26,7 +25,7 @@
             var results = regex.exec(window.location.href);
             if (results == null)    return "";
             else    return results[1];
-        }
+        };
 
         var _loadEntry = function () {
             $('<img src="/png?responseId=' + _entry.responseId + '">').appendTo("#bubbleChart");

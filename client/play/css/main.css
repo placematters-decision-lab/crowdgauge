@@ -1,5 +1,6 @@
 body {
-  normal: 100% Helvetica, Arial, sans-serif; }
+  normal: 100% Helvetica, Arial, sans-serif;
+  overflow: hidden; }
 
 .tabTitle {
   color: white;
@@ -19,7 +20,7 @@ body {
 .tabLogol {
   background-image: url("img/VibrantNEOlogo2040_40.png");
   background-repeat: no-repeat;
-  background-position: 20px;
+  background-position: 20px 0;
   cursor: pointer;
   display: block;
   float: left;

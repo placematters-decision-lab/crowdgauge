@@ -1,5 +1,6 @@
 body {
   normal: 100% Helvetica, Arial, sans-serif;
+  overflow: hidden;
 }
 
 .tabTitle {
@@ -485,6 +486,8 @@ strong {
 .share_btns {
   clear: left;
 }
+
+
 
 #mapDiv {
   left: 0;

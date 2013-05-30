@@ -1,3 +1,5 @@
+$mainMargin: 30px;
+
 #rtPane {
     float: right;
     width: 500px;
@@ -15,7 +17,7 @@ a:visited {
 }
 
 #mainGrp {
-    margin: 30px;
+    margin: $mainMargin;
 }
 #designProfileGrp {
     padding: 15px;
@@ -23,4 +25,20 @@ a:visited {
     min-height: 550px;
     font-size: 0.85em;
     color: #48352d;
+}
+
+#share {
+  margin-left: $mainMargin;
+  margin-top: $mainMargin;
+}
+
+.share_title {
+  display: inline-block;
+  vertical-align: middle;
+}
+
+#addThisTools {
+  margin-left: 80px;
+  margin-top: -25px;
+  vertical-align: middle;
 }
