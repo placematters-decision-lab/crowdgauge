@@ -1,3 +1,10 @@
+.ajax_loader_blue {
+  background-image: url("img/ajax-loader.gif");
+  background-repeat: no-repeat;
+  background-position: left center;
+  width: 54px;
+  height: 55px; }
+
 #rtPane {
   float: right;
   width: 500px; }
@@ -20,3 +27,16 @@ a:visited {
   min-height: 550px;
   font-size: 0.85em;
   color: #48352d; }
+
+#share {
+  margin-left: 30px;
+  margin-top: 30px; }
+
+.share_title {
+  display: inline-block;
+  vertical-align: middle; }
+
+#addThisTools {
+  margin-left: 80px;
+  margin-top: -25px;
+  vertical-align: middle; }

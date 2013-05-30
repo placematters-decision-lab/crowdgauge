@@ -9,7 +9,6 @@
 
         //region private fields and methods
         var _cacheVersion = 12;
-        var _ashxPath = "http://ws.sasakistrategies.com/ashx/regionalScoresService/";
 //        var _ws = SAS.configInstance.getRegionalScoresWS();
         var _mechanisms = null;
         var _entry = null;
@@ -26,7 +25,7 @@
             var results = regex.exec(window.location.href);
             if (results == null)    return "";
             else    return results[1];
-        }
+        };
 
         var _loadEntry = function () {
             $('<img src="/png?responseId=' + _entry.responseId + '">').appendTo("#bubbleChart");
@@ -64,16 +63,19 @@
             var responseId = _gup("responseId");
             d3.json('/getResponse' + _params({responseId: responseId}), function (data) {
                 console.log('loaded R: ' + data);
+                $('.loader').hide();
                 _entry = data;
                 _loadEntry();
             });
         };
 
         var _initialize = function () {
-            $("#btnCreateYours").click(function () {
-                window.location = "index.html";
-            });
-//            d3.json("getMmechanisms?v=" + _cacheVersion, function (data) {
+            $("#btnCreateYours")
+                .button()
+                .click(function (event) {
+                    event.preventDefault();
+                    window.location = "index.html";
+                });
             d3.json("/getMechanisms" + _params(), function (data) {
                 _mechanisms = {};
                 $.each(data, function (i, mechanism) {

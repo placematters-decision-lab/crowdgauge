@@ -1,0 +1,11 @@
+@mixin bg_img($path, $w, $h) {
+  background-image: url($path);
+  background-repeat: no-repeat;
+  background-position: left center;
+  width: $w;
+  height: $h;
+}
+
+.ajax_loader_blue {
+  @include bg_img('img/ajax-loader.gif', 54px, 55px);
+}
