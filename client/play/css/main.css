@@ -427,6 +427,12 @@ strong {
   position: absolute; }
 
 /*override tipsy.css*/
-tipsy.tipsy-n.tipsy-inner.a:link {
+.tipsy-inner a {
   color: #afbd21;
   text-decoration: none; }
+
+.tabTitleActive {
+  cursor: pointer; }
+
+a:link, a:visited {
+  color: white; }
