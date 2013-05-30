@@ -4,13 +4,14 @@
  * Time: 2:23 PM
  */
 (function () { // self-invoking function
-    SAS.MoneyVoteIcon = function (mechanism, action, actionDef, options) {
+    SAS.MoneyVoteIcon = function (mechanism, action, actionDef, options, mechanismList) {
         var _self = this;
         var ON = "on";
         var OFF = "off";
         var HLITE = "hlite";
         var DISABLED = "disabled";
         var _options = options || $.extend(options, {thumbState:null});
+        var _instructions = new SAS.Instructions();
 
         //region private fields and methods
         var _mState = OFF;
@@ -19,6 +20,8 @@
         var _ActionDef = actionDef;
         /** @type SAS.ActionDef */
         var _actionDef = actionDef;
+        /** @type SAS.MechanismList */
+        var _mechanismList = mechanismList;
         var _moneyDiv;
         var _textDiv;
         var _enabled = true;
@@ -72,7 +75,10 @@
                 });
 
             _moneyDiv.click(function () {
-                if (!_enabled) return;
+                if (!_enabled) {
+                    _instructions.showMoneyWarning(_mechanismList.getLeftCoins());
+                    return;
+                }
                 _isOn = !_isOn;
                 _updateState();
                 _onSelectionChange();
@@ -133,7 +139,7 @@
 
         this.getThumbState = function () {
             return _thumbState;
-        }
+        };
 
         /**
          * @param {Number} [max] optional maximum for return value

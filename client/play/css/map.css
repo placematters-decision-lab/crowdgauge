@@ -118,3 +118,6 @@ div#barChart {
   text-anchor: middle;
   font-size: 7pt;
   font-family: Helvetica, sans-serif; }
+
+#options a {
+  color: white; }
