@@ -1,3 +1,10 @@
+.ajax_loader_blue {
+  background-image: url("img/ajax-loader.gif");
+  background-repeat: no-repeat;
+  background-position: left center;
+  width: 54px;
+  height: 55px; }
+
 #rtPane {
   float: right;
   width: 500px; }

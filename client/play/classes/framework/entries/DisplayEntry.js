@@ -63,16 +63,19 @@
             var responseId = _gup("responseId");
             d3.json('/getResponse' + _params({responseId: responseId}), function (data) {
                 console.log('loaded R: ' + data);
+                $('.loader').hide();
                 _entry = data;
                 _loadEntry();
             });
         };
 
         var _initialize = function () {
-            $("#btnCreateYours").click(function () {
-                window.location = "index.html";
-            });
-//            d3.json("getMmechanisms?v=" + _cacheVersion, function (data) {
+            $("#btnCreateYours")
+                .button()
+                .click(function (event) {
+                    event.preventDefault();
+                    window.location = "index.html";
+                });
             d3.json("/getMechanisms" + _params(), function (data) {
                 _mechanisms = {};
                 $.each(data, function (i, mechanism) {
