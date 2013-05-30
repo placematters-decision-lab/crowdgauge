@@ -17,6 +17,9 @@ body {
   width: 175px; }
 
 .tabLogol {
+  background-image: url("img/VibrantNEOlogo2040_40.png");
+  background-repeat: no-repeat;
+  background-position: 20px;
   cursor: pointer;
   display: block;
   float: left;
