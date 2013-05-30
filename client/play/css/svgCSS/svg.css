@@ -1,11 +1,8 @@
 circle.mainCircle {
-    stroke: hotpink;
-    stroke-width: 1.5px;
-    cursor: pointer;
-}
+  stroke: hotpink;
+  stroke-width: 1.5px;
+  cursor: pointer; }
 
-circle.mainCircle:hover
-{
-    stroke: #836557;
-    stroke-width: 5px;
-}
+circle.mainCircle:hover {
+  stroke: #836557;
+  stroke-width: 5px; }
