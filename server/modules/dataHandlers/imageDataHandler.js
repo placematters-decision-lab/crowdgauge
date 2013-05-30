@@ -139,13 +139,13 @@ ImageDataHandler = function () {
     };
 
     var _serveAttachment = function (filename, version, req, res) {
-        logger.log("_serveAttachment: " + filename, 1);
+        logger.log("_serveAttachment: " + filename, 2);
         //--how do we identify unique images (since they could have the same file name?)
         _self.p_view('byFilename', {"key": filename}, function (err, body) {
             if (!err) {
                 if (body.rows && body.rows.length > 0) {
                     var docId = body.rows[0].value;
-                    logger.log("Serving image: " + docId + " : " + filename + " : " + version, 1);
+                    logger.log("Serving image: " + docId + " : " + filename + " : " + version, 2);
                     _self.p_db.attachment.get(docId, version).pipe(res);
                 }
             } else {

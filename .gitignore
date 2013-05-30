@@ -149,4 +149,6 @@ pip-log.txt
 # Mac crap
 .DS_Store
 
+#this repo
 node_modules
+tmp/cache

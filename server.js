@@ -39,7 +39,8 @@ responseDataHandler.setHandlers(settingDataHandler);
 //var client = path.resolve(__dirname, "client");
 var file = new (nodeStatic.Server)(__dirname);
 fileManager.options({
-    uploadDir: __dirname + '/tmp'
+    uploadDir: __dirname + '/tmp',
+    cacheDir: __dirname + '/tmp/cache'
 });
 
 var prehandle = {};

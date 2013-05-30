@@ -1,4 +1,6 @@
 //region includes
+var path = require('path');
+
 var fs = require("fs");
 var url = require('url');
 var formidable = require('formidable');
@@ -13,29 +15,30 @@ var svgHandler = require("./svgHandler");
  @module fileManager
  @class FileManager
  */
-var FileManager = function () {
+var FileManager = function (cacheDir) {
     var _self = this;
 
     var _imageDataHandler;
 
     var _options = {
-        bitmapTypes:/\.(gif|jpe?g|png)$/i,
-        vectorImageTypes:/\.(svg)$/i,
-        bitmapVersions:{
-            'thumbnail':{//--make sure to (manually) create a folder for each of these in temp
-                width:120,
-                height:120
+        bitmapTypes: /\.(gif|jpe?g|png)$/i,
+        vectorImageTypes: /\.(svg)$/i,
+        bitmapVersions: {
+            'thumbnail': {//--make sure to (manually) create a folder for each of these in temp
+                width: 120,
+                height: 120
             },
-            'panel':{
-                width:400,
-                height:300
+            'panel': {
+                width: 400,
+                height: 300
             }
         },
-        accessControl:{
-            allowOrigin:'*',
-            allowMethods:'OPTIONS, HEAD, GET, POST, PUT, DELETE'
+        accessControl: {
+            allowOrigin: '*',
+            allowMethods: 'OPTIONS, HEAD, GET, POST, PUT, DELETE'
         },
-        uploadDir:""
+        uploadDir: "",
+        cacheDir: ""
     };
 
     var _handleResult = function (req, res, result) {
@@ -45,9 +48,74 @@ var FileManager = function () {
 
     var _returnData = function (req, res, contentType, data) {
         res.writeHead(200, {
-            'Content-Type':contentType
+            'Content-Type': contentType
         });
         res.end(data);
+    };
+
+    var _getCacheFilename = function (filename, query, makeDir, callback) {
+        var dirName = '';
+        Object.keys(query).forEach(function (k, i) {
+            if (i > 0) dirName += '_';
+            var val = query[k];
+            dirName += k + '-' + val;
+        });
+        var dirPath = path.resolve(_options.cacheDir, dirName);
+        var fullFileName = path.resolve(dirPath, filename);
+        if (makeDir) {
+            fs.exists(dirPath, function (exists) {
+                if (exists) {
+                    callback(fullFileName);
+                } else {
+                    fs.mkdir(dirPath, function () {
+                        callback(fullFileName);
+                    })
+                }
+            });
+        } else {
+            callback(fullFileName);
+        }
+    };
+
+    var _getContentType = function (file) {
+        if (_options.vectorImageTypes.test(file)) {
+            return "image/svg+xml";
+        }
+        if (_options.bitmapTypes.test(file)) {
+            return "image/png";//TODO figure out correct type!!!
+        }
+        return 'text/html';
+    };
+
+    var _serveFromCache = function (filename, file, query, res, callback) {
+        _getCacheFilename(filename, query, false, function (fullFileName) {
+            fs.exists(fullFileName, function (exists) {
+                if (exists) {
+                    var contentType = _getContentType(file);
+//                    res.writeHead(200, contentType);
+//                    var fileStream = fs.createReadStream(fullFileName);
+//                    fileStream.pipe(res);
+                    fs.readFile(fullFileName, "utf-8", function (err, file) {
+                        res.writeHead(200, { 'Content-Type': contentType });
+                        res.write(file);
+                        res.end();
+                        //console.log('Served up: ' + fullFileName + ' : ' + contentType);
+                    });
+
+                } else {
+                    if (callback) callback()
+                }
+            });
+        });
+
+    };
+    var _saveToCache = function (filename, query, data) {
+        _getCacheFilename(filename, query, true, function (fullFileName) {
+            fs.writeFile(fullFileName, data, function (err) {
+                if (err) throw err;
+                console.log('Saved: ' + fullFileName);
+            });
+        });
     };
 
     //region public API
@@ -72,8 +140,8 @@ var FileManager = function () {
             files.forEach(function (file, i) {
                 var thumbnailPath = _options.bitmapTypes.test(file.filename) ? 'thumbnail/' : 'main/';
                 list.push({
-                    name:file.filename,
-                    thumbnail_url:"/files/" + thumbnailPath + file.filename
+                    name: file.filename,
+                    thumbnail_url: "/files/" + thumbnailPath + file.filename
                 });
             });
             _handleResult(req, res, list);
@@ -90,14 +158,13 @@ var FileManager = function () {
                 if (ans) return;
                 var thumbnailPath = _options.bitmapTypes.test(file.filename) ? 'thumbnail/' : 'main/';
                 ans = {
-                    name:file.filename,
-                    thumbnail_url:"/files/" + thumbnailPath + file.filename
+                    name: file.filename,
+                    thumbnail_url: "/files/" + thumbnailPath + file.filename
                 };
                 _handleResult(req, res, ans);
             });
         });
     };
-
     /**
      * supports serving files from dataHandler (either as files/<version>/<filename> or as files/<filename> using default version.
      * @param req
@@ -111,19 +178,22 @@ var FileManager = function () {
         var sepPos = file.indexOf("/");
         var filename = (sepPos < 0) ? file : file.substring(sepPos + 1);
         filename = decodeURI(filename);
-        var version = (sepPos < 0) ? (_options.bitmapTypes.test(filename) ? 'panel' : 'main')
-            : file.substring(0, sepPos);
-        if (_options.vectorImageTypes.test(file)) {
-            var color = urlObj.query["color"];
-            if (color && color !== "black") {
-                _imageDataHandler.loadAttachment(filename, version, function (body) {
-                    var data = svgHandler.applyFillColor(body.toString(), color);
-                    _returnData(req, res, "image/svg+xml", data);
-                });//else fall through to straight-up serveAttachment below
-                return;
+        _serveFromCache(filename, file, urlObj.query, res, function () {
+            var version = (sepPos < 0) ? (_options.bitmapTypes.test(filename) ? 'panel' : 'main')
+                : file.substring(0, sepPos);
+            if (_options.vectorImageTypes.test(file)) {
+                var color = urlObj.query["color"];
+                if (color && color !== "black") {//else fall through to straight-up serveAttachment below
+                    _imageDataHandler.loadAttachment(filename, version, function (body) {
+                        var data = svgHandler.applyFillColor(body.toString(), color);
+                        _saveToCache(filename, urlObj.query, data);
+                        _returnData(req, res, _getContentType(file), data);
+                    });
+                    return;
+                }
             }
-        }
-        _imageDataHandler.serveAttachment(filename, version, req, res);
+            _imageDataHandler.serveAttachment(filename, version, req, res);
+        });
     };
 
     this.options = function (options) {
