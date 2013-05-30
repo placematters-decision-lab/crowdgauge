@@ -1,15 +1,15 @@
 
-.bigButton {
-    width: 155px;
-    height: 40px;
-    font-size: 1.1em;
-    background-repeat: no-repeat;
-    background-position: left center;
-    border: none;
-    cursor: pointer;
-    padding: 0;
-    background-color: transparent;
-}
+/*.bigButton {*/
+    /*width: 155px;*/
+    /*height: 40px;*/
+    /*font-size: 1.1em;*/
+    /*background-repeat: no-repeat;*/
+    /*background-position: left center;*/
+    /*border: none;*/
+    /*cursor: pointer;*/
+    /*padding: 0;*/
+    /*background-color: transparent;*/
+/*}*/
 
 /*.bigButton_next {*/
     /*background-image: url('img/PNG_ELEMENTS__NEXT_button.png');*/
@@ -131,7 +131,8 @@
 }
 
 .sharingBtn_compare {
-    background-image: url('img/Buttons/PNG_ELEMENTS__compare_scenarios.png');
+    /*background-image: url('img/Buttons/PNG_ELEMENTS__compare_scenarios.png');*/
+    background-image: url('../img/VibrantNEOlogo2040.png');
     width: 252px;
     height: 60px;
     margin-left: 20px;

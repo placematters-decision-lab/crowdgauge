@@ -190,13 +190,28 @@
             var btnHolder = $("<div style='width:200px'>").appendTo(right);
 
             $("<button class='sharingBtn sharingBtn_facebook'></button>").appendTo(btnHolder).click(function () {
-                var summary = encodeURIComponent("I just 'Designed my DSM!' See what my priorities are for the future of our region and how I would allocate our limited resources and assign policies to achieve this future.");
-                var imageUrl = encodeURIComponent("/png?responseId='+responseId+'");
-                var sharedUrl = encodeURIComponent('http://imaginemyneo.crowdgauge.org/entries.html?responseId=' + responseId);
+                var summary = encodeURIComponent("This is how I 'ImagineMyNEO!' See what my priorities are for the future of our region and how I would allocate our limited resources and assign policies to achieve this future.");
+                var imageUrl = encodeURIComponent('/png?responseId='+responseId);
+                var sharedUrl = encodeURIComponent('http://imaginemyneo.crowdgauge.org/client/play/entries.html?responseId=' + responseId);
 //                var sharedUrl = encodeURIComponent('http://127.0.0.1:8080/client/play/entries.html?responseId=' + responseId);
                 window.open('http://www.facebook.com/sharer.php?s=100&p[title]=My+Design+Profile&p[summary]=' + summary + '&p[url]='+sharedUrl+'&p[images][0]=' + imageUrl, 'sharer', 'status=0,width=800,height=600,resizable=yes');
             });
 
+            var btnsBelow = $("<div class='share_btns'>").appendTo(mainDiv);
+            $("<button class='sharingBtn sharingBtn_map'>")
+                .appendTo(btnsBelow)
+                .click(function () {
+                    _closeDialog();
+                    window.location.replace("http://imaginemyneo.crowdgauge.org/client/play/map.html");
+//                    pages.gotoMap();
+                });
+            $("<button class='sharingBtn sharingBtn_compare'>")
+                .appendTo(btnsBelow)
+                .click(function () {
+                    _closeDialog();
+                    window.location.replace("http://vibrantneo.org/");
+//                    pages.gotoCompare();
+                });
 
             _showInstructionDialog2(600);
         };
