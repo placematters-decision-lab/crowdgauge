@@ -4,8 +4,14 @@
  * Time: 3:42 PM
  */
 (function () { // self-invoking function
-    const MODE_PRIORITY = 'MODE_PRIORITY';
-    const MODE_MECH = 'MODE_MECH';
+    const MODE_PRIORITY = 'priorities';
+//    const MODE_MECH = 'MODEMODE_PRIORITY';
+//    const MODE_MECH = 'MODE_MECH';
+    const MODE_MECH = 'mechanisms';
+//    var PRIORITIES = "priorities";
+//    var MECHANISMS = "mechanisms";
+//    var _pageIds = [PRIORITIES, MECHANISMS];
+    var _pageIds = [MODE_PRIORITY, MODE_MECH];
 
     SAS.MapMain = function () {
         var _self = this;
@@ -30,7 +36,7 @@
         var _itemCountsByLocation;
         var _itemPercsByLocation;
 
-        var _mode = MODE_MECH; // start from Mechanism Mode
+        var _mode = MODE_PRIORITY; // start from Mechanism Mode
         // locations
         var _locations;
         var _locationData;
@@ -45,6 +51,22 @@
         /** @type SAS.Layout */
         var _layout;
         var _topNum = 5; // Modify
+
+        var _setMode = function (mode) {
+            _mode = mode;
+            _tryLoadData();
+        };
+
+        var _selectTab = function (pageId) {
+            $(".tabTitle").removeClass("tabTitleHighlight");
+            $("#tab_" + pageId).addClass("tabTitleHighlight");
+
+//            if (_lastPage != null) {
+//                $("#titleBar").removeClass("titleImg_" + _lastPage);
+//            }
+//            $("#titleBar").addClass("titleImg_" + pageId);
+            _setMode(pageId);
+        };
 
         var _fileAndVersion = function () {
 //            return '?filename=' + encodeURIComponent(SAS.configInstance.getFileName()) + '&v=' + SAS.mainInstance.getCacheVersion();
@@ -202,6 +224,9 @@
             _layout.addHeightFillers({sel: "#itemList", leave: 0});
             _layout.addWidthFillers({sel: "#svgDiv", leave: 0});
 
+            _selectTab(MODE_PRIORITY);  // highlight tabs
+            _addClickEvents(_pageIds);
+
             // display events
             _map.onSelectLocation(function (location) {
                 _showLocationData(location);
@@ -314,6 +339,17 @@
             }
         };
 
+        var _addClickEvents = function (pids) {
+            $.each(pids, function (i, pageId) {
+                $("#tab_" + pageId)
+                    .addClass("tabTitleActive")
+                    .click(function () {
+                        _selectTab(pageId);
+                        _setMode(pageId);
+                    });
+            });
+        };
+
         //endregion
 
         //region public API
@@ -321,11 +357,6 @@
             $(document).ready(function () {
                 _initialize();
             });
-        };
-
-        this.setMode = function (mode) {
-            _mode = mode;
-            _tryLoadData();
         };
 
         // for test
