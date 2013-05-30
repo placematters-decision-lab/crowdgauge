@@ -1,5 +1,6 @@
 $imgW: 42px;
 $imgH: 22px;
+$gap: 2px;
 @mixin listcoins($pfx, $states, $nums) {
   @each $state in $states {
     @each $num in $nums {
@@ -16,10 +17,10 @@ $imgH: 22px;
     @each $num in $nums {
       .#{$pfx}_#{$state}_#{$num} {
         background-image: url($img);
-        background-position: $x (1-$num)*$imgH;
+        background-position: $x (1-$num)*($imgH+$gap);
       }
     }
-    $x: $x - $imgW;
+    $x: $x - $imgW - $gap;
   }
 }
 
