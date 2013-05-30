@@ -1,6 +1,6 @@
-$states: 'hlite', 'off', 'on', 'disabled';
-
-@mixin listcoins($pfx, $nums) {
+$imgW: 42px;
+$imgH: 22px;
+@mixin listcoins($pfx, $states, $nums) {
   @each $state in $states {
     @each $num in $nums {
       .#{$pfx}_#{$state}_#{$num} {
@@ -9,13 +9,25 @@ $states: 'hlite', 'off', 'on', 'disabled';
     }
   }
 }
+@mixin sprite($pfx, $states, $nums, $img) {
+  $x: 0;
+  @each $state in $states {
+    $y: 0;
+    @each $num in $nums {
+      .#{$pfx}_#{$state}_#{$num} {
+        background-image: url($img);
+        background-position: $x (1-$num)*$imgH;
+      }
+    }
+    $x: $x - $imgW;
+  }
+}
 
-@include listcoins('coins', ('0', '1','2','3','4','5','6','7','8','9','12','15' ));
-@include listcoins('thumbs', ('up', 'down' ));
+@include sprite('coins',('off', 'hlite', 'on', 'disabled'), (1,2,3,4,5,6,7,8,9,12,15), 'img/coin_sprite.png');
+@include listcoins('thumbs', ('off','hlite','on'), ('up', 'down'));
 
 .coins {
   background-repeat: no-repeat;
-  background-position: left center;
   width: 42px;
   height: 22px;
   float: left;
@@ -25,9 +37,8 @@ $states: 'hlite', 'off', 'on', 'disabled';
 
 .coins, .thumbs_up, .thumbs_down {
   background-repeat: no-repeat;
-  background-position: left center;
-  width: 42px;
-  height: 22px;
+  width: $imgW;
+  height: $imgH;
   float: left;
   clear: left;
   cursor: pointer;
