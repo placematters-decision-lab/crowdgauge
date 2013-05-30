@@ -3,23 +3,32 @@ body {
 }
 
 .tabTitle {
-    color: rgb(255, 255, 255);
+     color: rgb(255, 255, 255);
+     cursor: pointer;
+     display: block;
+     float: left;
+     font-family: league-gothic, Arial, sans-serif;
+     font-size: 30px;
+     font-weight: normal;
+     letter-spacing: 1px;
+     height: 32px;
+     margin-left: 35px;
+     margin-top: 5px;
+     text-transform: uppercase;
+     width: 175px;
+ }
+
+.tabLogol {
     cursor: pointer;
     display: block;
     float: left;
-    font-family: league-gothic, Arial, sans-serif;
-    font-size: 30px;
-    font-weight: normal;
-    letter-spacing: 1px;
-    height: 32px;
-    margin-left: 35px;
-    margin-top: 5px;
-    text-transform: uppercase;
-    width: 175px;
+    width: 180px;
+    height: 40px;
+    /*margin-right: 10px;*/
 }
 
 .tabTitleHighlight {
-    border-bottom: 10px solid #24ccff;
+    border-bottom: 10px solid #AFBD21;
 
 }
 
@@ -30,6 +39,7 @@ body {
 }
 
 .sliderPanel {
+    width: 600px;
     float: left;
     padding: 5px;
     padding-left: 8px;
@@ -47,7 +57,9 @@ body {
     margin-left: 8px;
     vertical-align: middle;
     float: left;
-    margin-top: 5px; }
+    margin-top: 5px;
+    font-family: Arial, sans-serif; }
+    /*font-family: "Helvetica Neue" ; }*/
 
 .sliderGrp {
     margin-top: 5px;
@@ -83,7 +95,7 @@ body {
     max-width: 360px; }
 
 .info_right {
-    margin-left: 375px;
+    /*margin-left: 375px;*/
     display: block;
     margin-top: 28px; }
 
@@ -99,23 +111,73 @@ body {
     margin-top: 12px; }
 
 .mechText {
-    margin-left: 42px; }
+    color: saddlebrown;
+    /*margin-left: 42px;*/
+    font-family: Arial, sans-serif;}
 
 .mech_action_div {
     vertical-align: middle;
     margin-top: 8px;
     min-height: 24px; }
 
+.mech_action {
+    font-size: 0.70em;
+    margin-left: 42px;
+    color: #654A3F;
+    font-weight: bold;
+    vertical-align: middle;
+    margin-top: 8px;
+    min-height: 24px;
+    font-family: Arial, sans-serif;}
+
 #chart {
     display: block;
-    left: 510px;
+    /*left: 510px;*/
+    left: 600px;
     position: absolute;
-    top: 80px; }
+    top: 80px;}
+    /*padding-left: 1cm;}*/
 
 #starsLeft {
+    left: 10px;
+    background-image: url('img/star-pile.png');
+    background-repeat: no-repeat;
+    background-position: left center;
     padding-left: 30px;
     height: 40px;
-    position: absolute; }
+    position: absolute;
+    color: white;
+    font-family: league-gothic, Arial, sans-serif;
+    font-size: 150%;}
+
+.starsLeftNum {
+    color: #24ccff;
+    font-size: 2em;}
+
+#clickInstr {
+    padding-left: 30px;
+    height: 40px;
+    position: absolute;
+    color: white;
+    font-family: league-gothic, Arial, sans-serif;
+    font-size: 150%;
+}
+
+#coinsLeft {
+    padding-left: 50px;
+    height: 40px;
+    position: absolute;
+    color: white;
+    font-family: league-gothic, Arial, sans-serif;
+    background-image: url('img/coins/Coin_Illustrations_coin_pile.png');
+    background-repeat: no-repeat;
+    background-position: left center;
+    background-size: 49px 41px;
+    font-size: 150%;}
+
+.coinsLeftNum {
+    color: #24ccff;
+    font-size: 2em;}
 
 #itemsLeft {
     position: absolute;
@@ -154,11 +216,23 @@ body {
 #footer {
     background: #4d4048;
     width: 100%;
-    height: 27px;
+    height: 50px;
     overflow: hidden;
     position: fixed;
     bottom:0;
     z-index:999999
+}
+
+.leftPanel {
+    width: 580px !important;
+    /*width: 600px;*/
+    /*background: #4d4048;*/
+    /*width: 100%;*/
+    /*height: 40px;*/
+    /*overflow: hidden;*/
+    /*position: fixed;*/
+    /*bottom:0;*/
+    /*z-index:999999*/
 }
 
 .introFrm {
@@ -171,7 +245,7 @@ body {
     top: 100px;
     width: 30%;
     font-family: league-gothic, Arial, sans-serif;
-    font-size: 100%;
+    font-size: 120%;
     color: #4d4048;
     height: 400px;
     text-transform: uppercase;
@@ -181,9 +255,10 @@ body {
 .introTxtH1 {
     position:relative;
     margin-left: 40px;
-    padding-bottom: 5%;
-    width: 60%;
-    color: rgb(169, 211, 226);
+    /*padding-bottom: 5%;*/
+    /*width: 60%;*/
+    /*color: rgb(169, 211, 226);*/
+    color: #002b51;
     float: left;
     font-family: league-gothic, Arial, sans-serif;
     font-size: 500%;
@@ -191,6 +266,7 @@ body {
     letter-spacing: 1px;
     line-height: 1.0;
     text-transform: uppercase;
+    margin-bottom: -50px;
 }
 
 .introTxt {
@@ -205,14 +281,196 @@ body {
     letter-spacing: 1px;
     line-height: 1.4;
     height: 32px;
-
+    padding-right: 5px;
 }
-
-
-
 
 
 #langSel {
     float: right;
     width: 85%;
+}
+
+.bigButtonNext {
+    color: white;
+    background-color: #24ccff;
+    background-image: linear-gradient(to bottom, #11B6FF, #0099DD);
+    /*font-family: league-gothic, Arial, sans-serif;;*/
+    /*float: right;*/
+    position: absolute;
+    right: 0;
+    top: 55px;
+    text-transform: capitalize;
+}
+
+.bigButtonBack {
+    color: white;
+    background-color: #24ccff;
+    background-image: linear-gradient(to bottom, #11B6FF, #0099DD);
+    /*font-family: league-gothic, Arial, sans-serif;;*/
+    /*float: right;*/
+    position: absolute;
+    right: 100px;
+    top: 55px;
+    text-transform: capitalize;
+}
+
+#reshowInstr {
+    /*clear: right;*/
+    /*float: right;*/
+    /*cursor: pointer;*/
+    color: #00456a;
+    cursor: pointer;
+    font-family: league-gothic, Arial, sans-serif;
+    /*font-size: 0.7em;*/
+    /*font-weight: bold;*/
+    left: 450px;
+    position: absolute;
+    top: 100px;
+    letter-spacing: 1px;
+}
+
+#priorityList {
+     overflow-y: auto;
+     /*height: 384.5px;*/
+ }
+
+.colorRamp {
+    background-position: left center;
+    background-repeat: no-repeat;
+    height: 40px;
+    position: absolute;
+    width: 450px;
+}
+
+.colorRamp_money {
+    background-image: url("../img/colorramp_Color_ramp_RED-BLUE_GRADIENT.png");
+}
+
+.colorRamp_impacts {
+    background-image: url("../img/colorramp_Color_ramp_RED-BLUE.png");
+}
+
+.nonvalid {
+    color: orange;
+}
+
+#moreInfo {
+    display: block;
+    font-size: 0.85em;
+    font-style: italic;
+    position: absolute;
+    text-align: right;
+    top: 80px;
+    width: 800px;
+}
+
+.mechPanel {
+    border-bottom: 1px solid #E0D5D0;
+    height: 500px;
+    overflow-y: auto;
+}
+
+.mechCatTitle {
+    color: #00456A;
+    margin-left: 10px;
+    text-transform: uppercase;
+    font-family: league-gothic, Arial, sans-serif;
+    font-size: 150%;
+}
+
+.sliderIcon {
+    float: left;
+}
+
+.priorityTxtH2 {
+    position: relative;
+    margin-left: 40px;
+    color: rgb(169, 211, 226);
+    /*float: left;*/
+    font-family: league-gothic, Arial, sans-serif;
+    font-size: 400%;
+    /*padding-bottom: 1%;*/
+    font-weight: normal;
+    letter-spacing: 1px;
+    line-height: 1.0;
+}
+
+.priorityTxtH3 {
+    position: relative;
+    color: #00456a;
+    font-family: league-gothic, Arial, sans-serif;
+    font-size: 48%;
+    font-weight: normal;
+    letter-spacing: 1px;
+    line-height: 1.0;
+    padding-top: 5px;
+}
+
+#options {
+    float: right;
+}
+
+.optBtn {
+    color: white;
+    cursor: pointer;
+    display: inline-block;
+    font-size: 0.8em;
+    font-weight: bold;
+    margin: 20px;
+}
+
+strong {
+    font-weight: bold;}
+
+.promptTxtS {
+    color: #afbd21;
+}
+
+.info_hdr {
+    height: 24px;
+    width: 500px;
+    background-repeat: no-repeat;
+    background-position: left center;
+    font-style:italic;
+    color: #002b51;
+}
+
+.info_left_title {
+    font-weight: bold;
+    margin-bottom: 4px;
+    margin-top: 3px;
+    color: #A9D3E2;
+    text-transform: lowercase;
+}
+
+.demoLabel {
+    padding-right: 5px;
+}
+
+.coinsReset {
+    padding-left: 100px;
+    height: 40px;
+    left: 27px;
+    top: 18px;
+    position: absolute;
+    color: white;
+    background-image: url('../img/raty-img/cancel-off.png');
+    background-repeat: no-repeat;
+    background-position: left center;
+    background-size: 20px 20px;
+}
+
+.share_btns {
+    clear: left;
+}
+
+#mapDiv {
+    left: 0;
+    position: absolute;
+}
+
+/*override tipsy.css*/
+tipsy.tipsy-n.tipsy-inner.a:link {
+    color:#afbd21;
+    text-decoration:none;
 }

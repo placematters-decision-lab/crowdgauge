@@ -30,9 +30,19 @@ body {
 
 .mechText {
     font-size: 0.75em;
-    margin-left: 42px;
+    /*margin-left: 42px;*/
     color: #654A3F;
     font-weight: bold; }
 
 .selected {
     border: 2px solid #bebebe; }
+
+#colorRampLegend {
+    background-repeat: no-repeat;
+    clear: right;
+    float: right;
+    display: block;
+    height: 50px;
+    width: 450px;
+    padding-left:2cm;
+}

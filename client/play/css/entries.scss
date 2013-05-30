@@ -1,0 +1,51 @@
+#rtPane {
+    float: right;
+    width: 500px;
+}
+
+p {
+    color: #654A3F;
+}
+
+a:link {
+    color: #654A3F;
+}
+a:visited {
+    color: #654A3F;
+}
+
+#mainGrp {
+    margin: 30px;
+}
+#designProfileGrp {
+    padding: 15px;
+    background-color: white;
+    min-height: 550px;
+    font-size: 0.85em;
+    color: #48352d;
+}
+
+.titleIJust {
+    width: 433px;
+    height: 35px;
+    background-repeat: no-repeat;
+    background-position: left center;
+    border: none;
+    padding: 0;
+    background-color: transparent;
+    background-image: url('img/entries/PNG_ELEMENTS__I-just-designed.png');
+}
+
+.createYours {
+    width: 309px;
+    height: 40px;
+    background-repeat: no-repeat;
+    background-position: left center;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+    background-color: transparent;
+    /*background-image: url('img/entries/PNG_ELEMENTS__Create_your_own_design_profile.png');*/
+    float: right;
+}
+
