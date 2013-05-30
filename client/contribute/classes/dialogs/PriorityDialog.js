@@ -73,8 +73,10 @@
             vals.title = _$title.val();
             vals.description = _$description.val();
             vals.nickname = _$nickname.val();
-//            vals.color = _$color.val();
             SAS.localizr.set(_priority, vals);
+            _priority.color = {};
+            _priority.color.background = _$color.val();
+            _priority.color.textShift = "brighter"; // TODO
         };
 
         var _showDialog = function (onAccept, onCancel) {
