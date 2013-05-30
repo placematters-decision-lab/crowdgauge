@@ -24,7 +24,7 @@ $gap: 2px;
   }
 }
 
-@include sprite('coins',('off', 'hlite', 'on', 'disabled'), (1,2,3,4,5,6,7,8,9,12,15), 'img/coin_sprite.png');
+@include sprite('coins',('off', 'hlite', 'on', 'disabled'), (1,2,3,4,5,6,7,8,9,12,15), 'img/coins_sprite.png');
 @include listcoins('thumbs', ('off','hlite','on'), ('up', 'down'));
 
 .coins {
