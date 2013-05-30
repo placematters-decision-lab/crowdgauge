@@ -1,217 +1,173 @@
 .coins_off_1 {
-  background-image: url("img/coins_sprite.png");
   background-position: 0 0px; }
 
 .coins_off_2 {
-  background-image: url("img/coins_sprite.png");
   background-position: 0 -24px; }
 
 .coins_off_3 {
-  background-image: url("img/coins_sprite.png");
   background-position: 0 -48px; }
 
 .coins_off_4 {
-  background-image: url("img/coins_sprite.png");
   background-position: 0 -72px; }
 
 .coins_off_5 {
-  background-image: url("img/coins_sprite.png");
   background-position: 0 -96px; }
 
 .coins_off_6 {
-  background-image: url("img/coins_sprite.png");
   background-position: 0 -120px; }
 
 .coins_off_7 {
-  background-image: url("img/coins_sprite.png");
   background-position: 0 -144px; }
 
 .coins_off_8 {
-  background-image: url("img/coins_sprite.png");
   background-position: 0 -168px; }
 
 .coins_off_9 {
-  background-image: url("img/coins_sprite.png");
   background-position: 0 -192px; }
 
 .coins_off_12 {
-  background-image: url("img/coins_sprite.png");
   background-position: 0 -264px; }
 
 .coins_off_15 {
-  background-image: url("img/coins_sprite.png");
   background-position: 0 -336px; }
 
 .coins_hlite_1 {
-  background-image: url("img/coins_sprite.png");
   background-position: -44px 0px; }
 
 .coins_hlite_2 {
-  background-image: url("img/coins_sprite.png");
   background-position: -44px -24px; }
 
 .coins_hlite_3 {
-  background-image: url("img/coins_sprite.png");
   background-position: -44px -48px; }
 
 .coins_hlite_4 {
-  background-image: url("img/coins_sprite.png");
   background-position: -44px -72px; }
 
 .coins_hlite_5 {
-  background-image: url("img/coins_sprite.png");
   background-position: -44px -96px; }
 
 .coins_hlite_6 {
-  background-image: url("img/coins_sprite.png");
   background-position: -44px -120px; }
 
 .coins_hlite_7 {
-  background-image: url("img/coins_sprite.png");
   background-position: -44px -144px; }
 
 .coins_hlite_8 {
-  background-image: url("img/coins_sprite.png");
   background-position: -44px -168px; }
 
 .coins_hlite_9 {
-  background-image: url("img/coins_sprite.png");
   background-position: -44px -192px; }
 
 .coins_hlite_12 {
-  background-image: url("img/coins_sprite.png");
   background-position: -44px -264px; }
 
 .coins_hlite_15 {
-  background-image: url("img/coins_sprite.png");
   background-position: -44px -336px; }
 
 .coins_on_1 {
-  background-image: url("img/coins_sprite.png");
   background-position: -88px 0px; }
 
 .coins_on_2 {
-  background-image: url("img/coins_sprite.png");
   background-position: -88px -24px; }
 
 .coins_on_3 {
-  background-image: url("img/coins_sprite.png");
   background-position: -88px -48px; }
 
 .coins_on_4 {
-  background-image: url("img/coins_sprite.png");
   background-position: -88px -72px; }
 
 .coins_on_5 {
-  background-image: url("img/coins_sprite.png");
   background-position: -88px -96px; }
 
 .coins_on_6 {
-  background-image: url("img/coins_sprite.png");
   background-position: -88px -120px; }
 
 .coins_on_7 {
-  background-image: url("img/coins_sprite.png");
   background-position: -88px -144px; }
 
 .coins_on_8 {
-  background-image: url("img/coins_sprite.png");
   background-position: -88px -168px; }
 
 .coins_on_9 {
-  background-image: url("img/coins_sprite.png");
   background-position: -88px -192px; }
 
 .coins_on_12 {
-  background-image: url("img/coins_sprite.png");
   background-position: -88px -264px; }
 
 .coins_on_15 {
-  background-image: url("img/coins_sprite.png");
   background-position: -88px -336px; }
 
 .coins_disabled_1 {
-  background-image: url("img/coins_sprite.png");
   background-position: -132px 0px; }
 
 .coins_disabled_2 {
-  background-image: url("img/coins_sprite.png");
   background-position: -132px -24px; }
 
 .coins_disabled_3 {
-  background-image: url("img/coins_sprite.png");
   background-position: -132px -48px; }
 
 .coins_disabled_4 {
-  background-image: url("img/coins_sprite.png");
   background-position: -132px -72px; }
 
 .coins_disabled_5 {
-  background-image: url("img/coins_sprite.png");
   background-position: -132px -96px; }
 
 .coins_disabled_6 {
-  background-image: url("img/coins_sprite.png");
   background-position: -132px -120px; }
 
 .coins_disabled_7 {
-  background-image: url("img/coins_sprite.png");
   background-position: -132px -144px; }
 
 .coins_disabled_8 {
-  background-image: url("img/coins_sprite.png");
   background-position: -132px -168px; }
 
 .coins_disabled_9 {
-  background-image: url("img/coins_sprite.png");
   background-position: -132px -192px; }
 
 .coins_disabled_12 {
-  background-image: url("img/coins_sprite.png");
   background-position: -132px -264px; }
 
 .coins_disabled_15 {
-  background-image: url("img/coins_sprite.png");
   background-position: -132px -336px; }
 
 .thumbs_off_up {
-  background-image: url("img/coins/off_up.png"); }
+  background-position: 0 0; }
 
 .thumbs_off_down {
-  background-image: url("img/coins/off_down.png"); }
+  background-position: 0 -24px; }
 
 .thumbs_hlite_up {
-  background-image: url("img/coins/hlite_up.png"); }
+  background-position: -23px 0; }
 
 .thumbs_hlite_down {
-  background-image: url("img/coins/hlite_down.png"); }
+  background-position: -23px -24px; }
 
 .thumbs_on_up {
-  background-image: url("img/coins/on_up.png"); }
+  background-position: -46px 0; }
 
 .thumbs_on_down {
-  background-image: url("img/coins/on_down.png"); }
+  background-position: -46px -24px; }
 
 .coins {
-  background-repeat: no-repeat;
-  width: 42px;
-  height: 22px;
-  float: left;
   clear: left;
-  cursor: pointer; }
-
-.coins, .thumbs_up, .thumbs_down {
   background-repeat: no-repeat;
-  width: 42px;
-  height: 22px;
+  background-image: url("img/coins_sprite.png");
   float: left;
-  clear: left;
   cursor: pointer;
-  margin-right: 10px; }
+  margin-right: 10px;
+  width: 42px;
+  height: 22px; }
 
 .thumbs_up, .thumbs_down {
+  margin-top: -5px;
   clear: none;
-  width: 30px; }
+  background-repeat: no-repeat;
+  background-image: url("img/thumbs_sprite.png");
+  float: left;
+  cursor: pointer;
+  margin-right: 10px;
+  width: 21px;
+  height: 22px; }
 
 .thumbs_up {
-  margin-right: 0; }
+  margin-right: 5px; }

@@ -1,56 +1,66 @@
-$imgW: 42px;
+$coinW: 42px;
+$thumbW: 21px;
 $imgH: 22px;
 $gap: 2px;
-@mixin listcoins($pfx, $states, $nums) {
+//@mixin listcoins($pfx, $states, $nums) {
+//  @each $state in $states {
+//    @each $num in $nums {
+//      .#{$pfx}_#{$state}_#{$num} {
+//        background-image: url("img/coins/#{$state}_#{$num}.png");
+//      }
+//    }
+//  }
+//}
+@mixin sprite($pfx, $states, $types) {
+  $x: 0;
   @each $state in $states {
-    @each $num in $nums {
-      .#{$pfx}_#{$state}_#{$num} {
-        background-image: url("img/coins/#{$state}_#{$num}.png");
+    $y: 0;
+    @each $t in $types {
+      .#{$pfx}_#{$state}_#{$t} {
+        background-position: $x $y;
       }
+      $y: $y - $imgH - $gap;
     }
+    $x: $x - $thumbW - $gap;
   }
 }
-@mixin sprite($pfx, $states, $nums, $img) {
+@mixin spriten($pfx, $states, $nums) {
   $x: 0;
   @each $state in $states {
     $y: 0;
     @each $num in $nums {
       .#{$pfx}_#{$state}_#{$num} {
-        background-image: url($img);
         background-position: $x (1-$num)*($imgH+$gap);
       }
     }
-    $x: $x - $imgW - $gap;
+    $x: $x - $coinW - $gap;
   }
 }
 
-@include sprite('coins',('off', 'hlite', 'on', 'disabled'), (1,2,3,4,5,6,7,8,9,12,15), 'img/coins_sprite.png');
-@include listcoins('thumbs', ('off','hlite','on'), ('up', 'down'));
-
-.coins {
+@mixin action_icon($w, $img) {
   background-repeat: no-repeat;
-  width: 42px;
-  height: 22px;
+  background-image: url($img);
   float: left;
-  clear: left;
-  cursor: pointer;
-}
-
-.coins, .thumbs_up, .thumbs_down {
-  background-repeat: no-repeat;
-  width: $imgW;
-  height: $imgH;
-  float: left;
-  clear: left;
   cursor: pointer;
   margin-right: 10px;
+  width: $w;
+  height: $imgH;
+}
+
+@include spriten('coins',('off', 'hlite', 'on', 'disabled'), (1,2,3,4,5,6,7,8,9,12,15));
+@include sprite('thumbs', ('off','hlite','on'), ('up', 'down'));
+
+.coins {
+  clear: left;
+  @include action_icon($coinW, 'img/coins_sprite.png');
 }
 
 .thumbs_up, .thumbs_down {
+  margin-top: -5px;
   clear: none;
-  width: 30px;
+  @include action_icon($thumbW, 'img/thumbs_sprite.png');
 }
 
 .thumbs_up {
-  margin-right: 0;
+  margin-right: 5px;
 }
