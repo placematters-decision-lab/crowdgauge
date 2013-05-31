@@ -244,7 +244,7 @@ body {
   float: left;
   right: 20px;
   top: 100px;
-  width: 30%;
+  width: 400px;
   font-family: league-gothic, Arial, sans-serif;
   font-size: 120%;
   color: #4d4048;
@@ -403,7 +403,8 @@ strong {
   font-weight: bold; }
 
 .promptTxtS {
-  color: #afbd21; }
+  color: #afbd21;
+  width: 130px; }
 
 .info_hdr {
   height: 24px;
@@ -421,7 +422,17 @@ strong {
   text-transform: lowercase; }
 
 .demoLabel {
-  padding-right: 5px; }
+  padding-right: 5px;
+  display: inline-block;
+  width: 100px; }
+
+.depromptTxtmoLabel {
+  padding-right: 5px;
+  display: inline-block;
+  width: 100px; }
+
+#relationshipInput {
+  width: 255px; }
 
 .coinsReset {
   padding-left: 100px;

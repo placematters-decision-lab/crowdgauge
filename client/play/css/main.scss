@@ -265,7 +265,8 @@ body {
   float: left;
   right: 20px;
   top: 100px;
-  width: 30%;
+  //width: 30%;
+  width: 400px;
   font-family: league-gothic, Arial, sans-serif;
   font-size: 120%;
   color: #4d4048;
@@ -293,6 +294,7 @@ body {
 .introTxt {
   float: left;
   margin-left: 40px;
+  //width: 60%;
   width: 60%;
   padding-bottom: 60%;
   color: rgb(58, 40, 37);
@@ -454,6 +456,7 @@ strong {
 
 .promptTxtS {
   color: #afbd21;
+  width: 130px;
 }
 
 .info_hdr {
@@ -475,6 +478,19 @@ strong {
 
 .demoLabel {
   padding-right: 5px;
+  display: inline-block;
+  width: 100px;
+}
+
+.depromptTxtmoLabel {
+  padding-right: 5px;
+  display: inline-block;
+  width: 100px;
+
+}
+
+#relationshipInput {
+  width: 255px;
 }
 
 .coinsReset {
