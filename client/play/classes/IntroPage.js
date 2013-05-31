@@ -91,8 +91,7 @@
         };
 
         var _validate = function () {
-            //TEMP
-//            return true;
+            if (document.location.hostname == "localhost") return true;
             var valid = true;
             var zip = _$zipInput.val();
             $('label').removeClass("nonvalid");

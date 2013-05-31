@@ -1,20 +1,21 @@
 {
-  "name": "crowdgaugeneo",
-  "subdomain": "crowdgaugeneo",
-  "scripts": {
-    "start": "server.js"
-  },
-  "version": "0.0.1-91",
-  "dependencies": {
-    "socket.io": "0.9.x",
-    "imagemagick": "0.1.x",
-    "formidable": "1.0.x",
-    "nano": "3.2.x",
-    "node-static": "0.6.x",
-    "loggly": "0.3.x",
-    "mc": "1.0.x"
-  },
-  "engines": {
-    "node": "0.8.x"
-  }
+    "name": "crowdgaugeneo",
+    "subdomain": "crowdgaugeneo",
+    "scripts": {
+        "start": "server.js"
+    },
+    "version": "0.0.1-91",
+    "dependencies": {
+        "socket.io": "0.9.x",
+        "imagemagick": "0.1.x",
+        "formidable": "1.0.x",
+        "nano": "3.2.x",
+        "node-static": "0.6.x",
+        "loggly": "0.3.x",
+        "mc": "1.0.x",
+        "mu2": "0.5.x"
+    },
+    "engines": {
+        "node": "0.8.x"
+    }
 }

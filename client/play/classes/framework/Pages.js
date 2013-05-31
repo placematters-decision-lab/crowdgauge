@@ -235,7 +235,8 @@
         };
 
         var _showSharingDialog = function (responseId, headerTxt) {
-            _instructions.showSharingDialog(responseId, headerTxt, _self, _bubbleChart, _priorityList.getSortedPriorities());
+            window.location = '/client/play/entries.html?sharing=yes&responseId=' + responseId;
+            //_instructions.showSharingDialog(responseId, headerTxt, _self, _bubbleChart, _priorityList.getSortedPriorities());
         };
 
         var _storeData = function (pageId) {

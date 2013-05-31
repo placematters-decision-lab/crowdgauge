@@ -1,6 +1,8 @@
 body {
   normal: 100% Helvetica, Arial, sans-serif;
-  overflow: hidden; }
+  overflow: hidden;
+  margin: 0;
+  padding: 0; }
 
 .tabTitle {
   color: white;
@@ -110,7 +112,7 @@ body {
 
 .mechText {
   color: saddlebrown;
-  /*margin-left: 42px;*/
+  margin-left: 40px;
   font-family: Arial, sans-serif; }
 
 .mech_action_div {
@@ -278,23 +280,20 @@ body {
   color: white;
   background-color: #24ccff;
   background-image: linear-gradient(to bottom, #11b6ff, #0099dd);
-  /*font-family: league-gothic, Arial, sans-serif;;*/
-  /*float: right;*/
-  position: absolute;
-  right: 0;
-  top: 55px;
-  text-transform: capitalize; }
+  text-transform: capitalize;
+  float: right; }
 
 .bigButtonBack {
   color: white;
   background-color: #24ccff;
   background-image: linear-gradient(to bottom, #11b6ff, #0099dd);
-  /*font-family: league-gothic, Arial, sans-serif;;*/
-  /*float: right;*/
+  text-transform: capitalize;
+  float: right; }
+
+#bigButtonHolder {
   position: absolute;
-  right: 100px;
-  top: 55px;
-  text-transform: capitalize; }
+  right: 7px;
+  top: 47px; }
 
 #reshowInstr {
   /*clear: right;*/
@@ -305,9 +304,8 @@ body {
   font-family: league-gothic, Arial, sans-serif;
   /*font-size: 0.7em;*/
   /*font-weight: bold;*/
-  left: 450px;
   position: absolute;
-  top: 100px;
+  top: 90px;
   letter-spacing: 1px; }
 
 #priorityList {
@@ -354,13 +352,17 @@ body {
 .sliderIcon {
   float: left; }
 
+#titleBar {
+  padding-top: 10px;
+  padding-left: 10px;
+  height: 100px; }
+
 .priorityTxtH2 {
   position: relative;
-  margin-left: 40px;
   color: #a9d3e2;
   /*float: left;*/
   font-family: league-gothic, Arial, sans-serif;
-  font-size: 400%;
+  font-size: 350%;
   /*padding-bottom: 1%;*/
   font-weight: normal;
   letter-spacing: 1px;
@@ -380,12 +382,13 @@ body {
   float: right; }
 
 .optBtn {
-  color: white;
+  color: #dac8cb;
   cursor: pointer;
   display: inline-block;
   font-size: 0.8em;
   font-weight: bold;
-  margin: 20px; }
+  margin-top: 8px;
+  margin-right: 8px; }
 
 strong {
   font-weight: bold; }
