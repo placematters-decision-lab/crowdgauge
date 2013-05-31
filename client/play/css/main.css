@@ -1,8 +1,28 @@
+.ajax_loader_blue {
+  background-image: url("img/ajax-loader.gif");
+  background-repeat: no-repeat;
+  background-position: left center;
+  width: 54px;
+  height: 55px; }
+
+.tabLogol {
+  background-image: url("img/VibrantNEOlogo2040_40.png");
+  background-repeat: no-repeat;
+  background-position: left center;
+  width: 180px;
+  height: 40px;
+  /*margin-right: 10px;*/ }
+
 body {
   normal: 100% Helvetica, Arial, sans-serif;
   overflow: hidden;
   margin: 0;
   padding: 0; }
+
+#tab_logo {
+  float: left;
+  cursor: pointer;
+  background-position: 20px 0; }
 
 .tabTitle {
   color: white;
@@ -18,17 +38,6 @@ body {
   margin-top: 5px;
   text-transform: uppercase;
   width: 175px; }
-
-.tabLogol {
-  background-image: url("img/VibrantNEOlogo2040_40.png");
-  background-repeat: no-repeat;
-  background-position: 20px 0;
-  cursor: pointer;
-  display: block;
-  float: left;
-  width: 180px;
-  height: 40px;
-  /*margin-right: 10px;*/ }
 
 .tabTitleHighlight {
   border-bottom: 10px solid #AFBD21; }

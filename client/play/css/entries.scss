@@ -1,31 +1,47 @@
 @import "core";
+
 $mainMargin: 30px;
 
+body {
+  background-color: #f2f2f2;
+}
+
 #rtPane {
-    float: right;
-    width: 500px;
+  float: right;
+  width: 500px;
 }
 
 p {
-    color: #654A3F;
+  color: #654A3F;
 }
 
 a:link {
-    color: #654A3F;
+  color: #654A3F;
 }
+
 a:visited {
-    color: #654A3F;
+  color: #654A3F;
+}
+
+.bubbleImg {
+  width: 500px;
+  height: 500px;
 }
 
 #mainGrp {
-    margin: $mainMargin;
+  margin: $mainMargin;
 }
+
 #designProfileGrp {
-    padding: 15px;
-    background-color: white;
-    min-height: 550px;
-    font-size: 0.85em;
-    color: #48352d;
+  padding: 15px;
+  background-color: white;
+  min-height: 500px;
+  font-size: 0.85em;
+  color: #48352d;
+}
+
+.button_bar {
+  margin-top: 12px;
 }
 
 #share {

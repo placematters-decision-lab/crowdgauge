@@ -11,7 +11,7 @@
         //var _ashxPath = "http://localhost:59159/ashx/";
         var _ashxPath = "http://ws.sasakistrategies.com/ashx/regionalScoresService/";
         var _showAgainFn;
-        var _initialize = function() {
+        var _initialize = function () {
             $("#reshowInstr").click(function () {
                 if (_showAgainFn != null) _showAgainFn();
             });
@@ -31,7 +31,7 @@
             _showAgainButtonVisible(false);
             if (!w) w = 600;
             if (!title) title = 'Instructions';
-            if (!buttonLabel) buttonLabel ='Ok';
+            if (!buttonLabel) buttonLabel = 'Ok';
 
             var btns = {};
             btns[buttonLabel] = function () {
@@ -39,14 +39,14 @@
                 _closeDialog();
             };
             $("#dialog").dialog({
-                modal:true,
-                title:title,
-                buttons:btns,
-                width:w,
-                height:'auto',
-                minWidth:400,
-                position:'center',
-                dialogClass:''
+                modal: true,
+                title: title,
+                buttons: btns,
+                width: w,
+                height: 'auto',
+                minWidth: 400,
+                position: 'center',
+                dialogClass: ''
             });
         };
 
@@ -84,8 +84,8 @@
             var emailTb = $('<input type="text" size="30" name="email">').appendTo($('<label>To:</label>').appendTo(form));
             var emailTbFrom = $('<label>From:<input type="text" size="30" name="from"></label>').appendTo(form);
             var messageTb = $('<input type="text" size="50" name="message">').appendTo($('<label>Message:</label>').appendTo(form));
-            $('<input type="hidden" name="img" value="'+bubbleStr+'">').appendTo(form);
-            $('<input type="hidden" name="entry_id" value="'+entryId+'">').appendTo(form);
+            $('<input type="hidden" name="img" value="' + bubbleStr + '">').appendTo(form);
+            $('<input type="hidden" name="entry_id" value="' + entryId + '">').appendTo(form);
             var emailBtn = $('<input type="submit" value="Send">').appendTo(form);
             messageTb.val("I created my priority chart on CrowdGauge.");
             messageTb.css("font-size", "0.85em");
@@ -93,7 +93,7 @@
                 $(sel).slideUp(400);
                 return false;
             });
-            form.submit(function(event) {
+            form.submit(function (event) {
                 if (_validateEmail(emailTb.val())) {
                     $(sel).slideUp(400);
                     return true;
@@ -109,17 +109,17 @@
             _showInstructionDialog(html);
         };
 
-        this.showIntroDialog = function() {
+        this.showIntroDialog = function () {
             _showAgainFn = null;
             var txt = "<p>This is the intro</p>";
-            _showInstructionDialog(txt, "Introduction", "Get Started", function() {
+            _showInstructionDialog(txt, "Introduction", "Get Started", function () {
                 SAS.mainInstance.preventAccidentalLeaving();
             });
             $(".ui-button").focus();
         };
 
         this.showStarsDialog = function (numStars) {
-            _showAgainFn = function() {
+            _showAgainFn = function () {
                 _self.showStarsDialog(numStars);
             };
             var txt = "<p>Use the stars to rate how important each value is to you. You can allocate up to " + numStars + " stars.</p>";
@@ -128,7 +128,7 @@
         };
 
         this.showMechanismInstructions = function (mechanisms, priorities, bubblechart, topScorer) {
-            _showAgainFn = function() {
+            _showAgainFn = function () {
                 _self.showMechanismInstructions(mechanisms, priorities, bubblechart, topScorer);
             };
             $("#dialog").html("");
@@ -158,7 +158,7 @@
         };
 
         this.showMoneyDialog = function (numCoins) {
-            _showAgainFn = function() {
+            _showAgainFn = function () {
                 _self.showMoneyDialog(numCoins);
             };
             var txt = "<p>You have " + numCoins + " coins in your budget and face two categories of choices projects and policies. You may choose as many projects as you can afford. Policies do not cost coins and you can choose as many as you want. See how the colors change in your priority chart to show how well the options you select help achieve your priorities.</p>";
@@ -169,7 +169,7 @@
             var txt = "<p>Planning trade-offs can be a tough topic to explore in-depth. ImagineMyNEO is a tool designed to help dive into challenging issues, offering users a chance to weigh different choices and understand the real challenges and trade-offs beneath them.</p>";
             txt += "<p>ImagineMyNEO prioritizes issues that are both <strong>spatial</strong> and <strong>regional</strong> because Vibrant NEO 2040 is a regional visioning and decision-making framework. Priorities, policies, and projects with a spatial impact are prioritized so that the results from ImagineMyNEO can be incorporated into scenario development. It does not include issues like &#8220;having strong schools&#8220; that are very important but have less of a spatial impact at the regional scale.</p>";
             txt += "<p>We will be taking your input and presenting preliminary findings at our workshops occurring at the end of July. Ultimately, your priorities will be used to shape the preferred scenario.</p>";
-           _showInstructionDialog(txt, "Purpose of ImagineMyNEO");
+            _showInstructionDialog(txt, "Purpose of ImagineMyNEO");
         };
 
         this.showWhy = function () {
@@ -181,12 +181,12 @@
         this.showSharingDialog = function (responseId, header, pages, bubblechart, sortedPriorities) {
             $("#dialog").html("");
             var mainDiv = $("<div></div>").appendTo("#dialog");
-            $("<p>"+header+"Share your badge?</p>").appendTo(mainDiv);
+            $("<p>" + header + "Share your badge?</p>").appendTo(mainDiv);
 
             var wrapper = $("<div class='right_wrapper'>").appendTo(mainDiv);
             var right = $("<div class='share_right'>").appendTo(wrapper);
             var left = $("<div class='share_left'>").appendTo(mainDiv);
-            $('<img src="/png?responseId='+responseId+'">').appendTo(left);
+            $('<img src="/png?responseId=' + responseId + '">').appendTo(left);
             var btnHolder = $("<div style='width:200px'>").appendTo(right);
 
             $("<button class='sharingBtn sharingBtn_facebook'></button>").appendTo(btnHolder).click(function () {
@@ -194,7 +194,7 @@
                 var imageUrl = encodeURIComponent('http://imaginemyneo.crowdgauge.org/png?responseId=' + responseId);
                 var sharedUrl = encodeURIComponent('http://imaginemyneo.crowdgauge.org/client/play/entries.html?responseId=' + responseId);
 //                var sharedUrl = encodeURIComponent('http://127.0.0.1:8080/client/play/entries.html?responseId=' + responseId);
-                window.open('http://www.facebook.com/sharer.php?s=100&p[title]=My+Design+Profile&p[summary]=' + summary + '&p[url]='+sharedUrl+'&p[images][0]=' + imageUrl, 'sharer', 'status=0,width=800,height=600,resizable=yes');
+                window.open('http://www.facebook.com/sharer.php?s=100&p[title]=My+Design+Profile&p[summary]=' + summary + '&p[url]=' + sharedUrl + '&p[images][0]=' + imageUrl, 'sharer', 'status=0,width=800,height=600,resizable=yes');
             });
 
             var btnsBelow = $("<div class='share_btns'>").appendTo(mainDiv);
@@ -216,9 +216,9 @@
             _showInstructionDialog2(600);
         };
 
-        this.showMoneyWarning = function (numCoins) {
-            var txt = "<p>Sorry, you only have " + numCoins + " coins in your budget. You can&#8216;t afford this project.</p>";
-            txt += "<p>To redistribute, please uncheck current selections.</p>";
+        this.showMoneyWarning = function (numCoins, coinsLeft) {
+            var txt = '<p>Sorry, you can&#8216;t allocate  ' + numCoins + ' coins, because you ' + ((coinsLeft == 0) ? ('don&#8216;t have any left') : (' have only ' + coinsLeft + ' available')) + '.</p>';
+            txt += '<p>Please first uncheck one of your current selections.</p>';
             _showInstructionDialog(txt);
         };
         //endregion
