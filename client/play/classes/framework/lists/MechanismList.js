@@ -339,7 +339,7 @@
                 });
                 _recalcMoney();
             } else {
-                //_showMoneyIcons(true);
+                _showMoneyIcons(true);  // TODO!!!!!!!!!!DELETE
                 _recalcMoney();
             }
             _super._updateSelectionDisplay();

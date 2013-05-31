@@ -156,16 +156,16 @@
             _showNextButton(true, BTN_NEXT);
             _showBackButton(true, BTN_BACK);
             if (!_priorityList.hasData()) {
-
                 d3.json('/getPriorities' + _fileAndVersion(), function (data) {
                     _priorityList.load(data);
                     _bubbleChart.resizeBubbles();
-                    _instructions.showStarsDialog(_priorityList.getTotalStars());
+                    _instructions.showStarsDialog(_priorityList.getTotalStars(), true);
                     _bubbleChart.colorByPriority();
                     _layout.positionElements();
                 });
             } else {
                 _layout.positionElements();
+                _instructions.showStarsDialog(_priorityList.getTotalStars(), false);
                 //_bubbleChart.colorByPriority();--keep the coloring from the later screens
             }
             //_bubbleChart.onBubbleClick(function () {});//--if its colored by a later screen, keep the info available...
@@ -191,11 +191,15 @@
                     var priorities = _priorityList.getPriorities();
                     var topScorer = _mechanismList.getTopScorer(priorities);
                     _mechanismList.setActiveMechanism(topScorer);
-                    _instructions.showMechanismInstructions(data, priorities, _bubbleChart, topScorer);
+                    _instructions.showMechanismInstructions(data, priorities, _bubbleChart, topScorer, true);
                     _bubbleChart.colorForMechanism(topScorer);
                     _layout.positionElements();
                 });
             } else {
+                var priorities = _priorityList.getPriorities();
+                var topScorer = _mechanismList.getTopScorer(priorities);
+                _instructions.showMechanismInstructions(null, priorities, _bubbleChart, topScorer, false);  // TODO: null hacky
+
                 _mechanismList.ensureShowMiniBubbleCharts();
                 _bubbleChart.colorForMechanism(_mechanismList.getActiveMechanism());
                 _layout.positionElements();
@@ -228,7 +232,9 @@
             }
             if (!_moneyShown) {
                 _moneyShown = true;
-                _instructions.showMoneyDialog(_mechanismList.getNumCoins());
+                _instructions.showMoneyDialog(_mechanismList.getNumCoins(), true);
+            } else {
+                _instructions.showMoneyDialog(_mechanismList.getNumCoins(), false);
             }
             _mechanismList.showDivs(true);
             _setClickToInfoWin();

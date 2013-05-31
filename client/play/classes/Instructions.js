@@ -118,18 +118,21 @@
             $(".ui-button").focus();
         };
 
-        this.showStarsDialog = function (numStars) {
+        this.showStarsDialog = function (numStars, show) {
             _showAgainFn = function () {
-                _self.showStarsDialog(numStars);
+                _self.showStarsDialog(numStars, true);
             };
             var txt = "<p>Use the stars to rate how important each value is to you. You can allocate up to " + numStars + " stars.</p>";
             txt += "<p>Watch your priority chart change as you indicate your highest priorities.</p>";
-            _showInstructionDialog(txt);
+
+            if (show) {
+                _showInstructionDialog(txt);
+            }
         };
 
-        this.showMechanismInstructions = function (mechanisms, priorities, bubblechart, topScorer) {
+        this.showMechanismInstructions = function (mechanisms, priorities, bubblechart, topScorer, show) {
             _showAgainFn = function () {
-                _self.showMechanismInstructions(mechanisms, priorities, bubblechart, topScorer);
+                _self.showMechanismInstructions(mechanisms, priorities, bubblechart, topScorer, true);
             };
             $("#dialog").html("");
             var txtAbove = $("<div></div>").appendTo("#dialog");
@@ -146,7 +149,10 @@
             mechDivIns.click(function () {
                 _closeDialog();
             });
-            _showInstructionDialog2();
+
+            if (show) {
+                _showInstructionDialog2();
+            }
         };
 
         this.showMapResultsDialog = function () {
@@ -157,12 +163,15 @@
             _showInstructionDialog(txt);
         };
 
-        this.showMoneyDialog = function (numCoins) {
+        this.showMoneyDialog = function (numCoins, show) {
             _showAgainFn = function () {
-                _self.showMoneyDialog(numCoins);
+                _self.showMoneyDialog(numCoins, true);
             };
             var txt = "<p>You have " + numCoins + " coins in your budget and face two categories of choices projects and policies. You may choose as many projects as you can afford. Policies do not cost coins and you can choose as many as you want. See how the colors change in your priority chart to show how well the options you select help achieve your priorities.</p>";
-            _showInstructionDialog(txt);
+
+            if (show) {
+                _showInstructionDialog(txt);
+            }
         };
 
         this.showCredits = function () {
