@@ -220,6 +220,10 @@
             SAS.localizr.live(mechanism.data.title, $titleTxt);
             _mechSubDivsById[mechanism.id] = $("<div class='mechSub'></div>").appendTo(mechDiv);
 //            $("<div class='coins coins_off_4'></div>").appendTo(mechDiv);
+
+            // tipsy
+            $('.mechText a').tipsy({gravity:'n', live: true});
+
             mechDiv.click(function () {
                 if (_mode == IMPACTS) {
                     _super._setActiveMechanism(mechanism);
