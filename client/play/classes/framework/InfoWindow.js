@@ -35,6 +35,10 @@
                 .attr("xlink:href", "/files/" + pDef.svgPath + "?color=white");
 
             var rt_hdr = $("<div class='info_right_title'>").appendTo(titleDiv);
+
+            // tipsy
+            $('.info_right_title a').tipsy({gravity:'n', live: true});
+
             rt_hdr.html(SAS.localizr.get(pDef.title));
             var rd_bdy = $("<div class='info_body'>").appendTo(right);
             var infoText = SAS.localizr.get(cell.description);
