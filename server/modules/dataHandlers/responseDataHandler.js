@@ -101,6 +101,7 @@ var ResponseDataHandler = function () {
         var responseId = _self.p_getUID();
         response.responseId = responseId;
         response.data = p;
+        response.filename = _filename;
         _updateResponse(response, function () {
             _self.p_returnJsonObj(res, {responseId: responseId});
         });
