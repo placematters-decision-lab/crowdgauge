@@ -216,9 +216,8 @@
             _showInstructionDialog2(600);
         };
 
-        this.showMoneyWarning = function (numCoins) {
-            var txt = "<p>Sorry, you only have " + numCoins + " coins in your budget. You can&#8216;t afford this project.</p>";
-            txt += "<p>To redistribute, please uncheck current selections.</p>";
+        this.showMoneyWarning = function (numCoins, leftCoins) {
+            var txt = "<p>You cannot allocate " + numCoins + " coins, because you only have " + leftCoins + " available. Please first uncheck one of your current selections.</p>";
             _showInstructionDialog(txt);
         };
         //endregion

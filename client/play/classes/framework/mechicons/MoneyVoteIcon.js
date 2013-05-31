@@ -76,7 +76,7 @@
 
             _moneyDiv.click(function () {
                 if (!_enabled) {
-                    _instructions.showMoneyWarning(_mechanismList.getLeftCoins());
+                    _instructions.showMoneyWarning(_netCoins, _mechanismList.getLeftCoins());
                     return;
                 }
                 _isOn = !_isOn;
