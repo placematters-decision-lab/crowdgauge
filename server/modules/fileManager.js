@@ -19,6 +19,7 @@ var FileManager = function (cacheDir) {
     var _self = this;
 
     var _imageDataHandler;
+    var _persist;
 
     var _options = {
         bitmapTypes: /\.(gif|jpe?g|png)$/i,
@@ -44,6 +45,13 @@ var FileManager = function (cacheDir) {
     var _handleResult = function (req, res, result) {
         var ct = req.headers.accept.indexOf('application/json') !== -1 ? 'application/json' : 'text/plain';
         _returnData(req, res, ct, JSON.stringify(result));
+    };
+
+
+    var _returnError = function (res, data) {
+        res.writeHeader(200, {"Content-Type": "application/json"});
+        res.write(JSON.stringify(data));
+        res.end();
     };
 
     var _returnData = function (req, res, contentType, data) {
@@ -96,9 +104,15 @@ var FileManager = function (cacheDir) {
 //                    var fileStream = fs.createReadStream(fullFileName);
 //                    fileStream.pipe(res);
                     fs.readFile(fullFileName, "utf-8", function (err, file) {
-                        res.writeHead(200, { 'Content-Type': contentType });
-                        res.write(file);
-                        res.end();
+                        if (err) {
+                            res.writeHead(404);
+                            console.log(err);
+                            res.end();
+                        } else {
+                            res.writeHead(200, { 'Content-Type': contentType });
+                            res.write(file);
+                            res.end();
+                        }
                         //console.log('Served up: ' + fullFileName + ' : ' + contentType);
                     });
 
@@ -120,7 +134,7 @@ var FileManager = function (cacheDir) {
 
     //region public API
     this.handleUpload = function (req, res, postData) {
-        var uploader = new fileUploader.FileUploader(_options);
+        var uploader = new fileUploader.FileUploader(_options, _persist);
         uploader.handleUpload(req, res);
     };
 
@@ -178,6 +192,10 @@ var FileManager = function (cacheDir) {
         var sepPos = file.indexOf("/");
         var filename = (sepPos < 0) ? file : file.substring(sepPos + 1);
         filename = decodeURI(filename);
+        if (filename == null) {
+            _returnError(res, {success:false, message:'No filename specified'});
+            return;
+        }
         _serveFromCache(filename, file, urlObj.query, res, function () {
             var version = (sepPos < 0) ? (_options.bitmapTypes.test(filename) ? 'panel' : 'main')
                 : file.substring(0, sepPos);
@@ -202,8 +220,9 @@ var FileManager = function (cacheDir) {
         });
     };
 
-    this.setHandlers = function (imageDataHandler) {
+    this.setHandlers = function (imageDataHandler, persist) {
         _imageDataHandler = imageDataHandler;
+        _persist = persist;
     };
     //endregion
 

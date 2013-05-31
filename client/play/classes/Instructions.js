@@ -169,7 +169,7 @@
             var txt = "<p>Planning trade-offs can be a tough topic to explore in-depth. ImagineMyNEO is a tool designed to help dive into challenging issues, offering users a chance to weigh different choices and understand the real challenges and trade-offs beneath them.</p>";
             txt += "<p>ImagineMyNEO prioritizes issues that are both <strong>spatial</strong> and <strong>regional</strong> because Vibrant NEO 2040 is a regional visioning and decision-making framework. Priorities, policies, and projects with a spatial impact are prioritized so that the results from ImagineMyNEO can be incorporated into scenario development. It does not include issues like &#8220;having strong schools&#8220; that are very important but have less of a spatial impact at the regional scale.</p>";
             txt += "<p>We will be taking your input and presenting preliminary findings at our workshops occurring at the end of July. Ultimately, your priorities will be used to shape the preferred scenario.</p>";
-            _showInstructionDialog(txt, "Purpose of ImagineMyNEO");
+            _showInstructionDialog(txt, "More about ImagineMyNEO");
         };
 
         this.showWhy = function () {

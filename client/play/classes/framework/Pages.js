@@ -61,7 +61,7 @@
                     text = "I want to live in a Northeast Ohio where...";
                     break;
                 case IMPACTS:
-                    text = "How do Northeast Ohio's choices affect your priorities?";
+                    text = "How might civic projects and policies impact your priorities?";
                     break;
                 case MONEY:
                     text = "Put your money where your mouse is";

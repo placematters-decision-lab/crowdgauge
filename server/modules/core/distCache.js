@@ -175,7 +175,6 @@ DistCache = function (type, onReady) {
      * @param {Function} callback
      */
     this.get = function (key, callback) {
-        console.log("INSIDE GET PUBLIC FUNCTION...");
         _get(key, callback);
     };
 

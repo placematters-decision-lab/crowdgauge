@@ -32,7 +32,7 @@ var ps = new personaServer.PersonaServer(persist, {
 });
 
 // set Handlers
-fileManager.setHandlers(imageDataHandler);
+fileManager.setHandlers(imageDataHandler, persist);
 dataHandler.setHandlers(socketHandler, imageDataHandler);
 responseDataHandler.setHandlers(settingDataHandler);
 
@@ -100,8 +100,10 @@ handle["/png"] = responseDataHandler.png;
 //handle["/TEMP_fixLangs"] = dataHandler.TEMP_fixLangs();
 
 //handle["/upload"] = requestHandlers.upload;
-process.on('uncaughtException', function (err) {
-    console.log('****************** uncaught exception:' + err);
+config.ifLocal(null, function() {
+    process.on('uncaughtException', function (err) {
+        console.log('****************** uncaught exception:' + err);
+    });
 });
 
 server.start(router.route, securePaths, prehandle, handle, file, persist);
@@ -127,7 +129,8 @@ server.startSockets(socketHandler.onConnect);
 //}, 1000);
 
 //----start phantomJS
-var baseUrl = 'http://localhost:' + config.port;
+//var baseUrl = 'http://localhost:' + config.port;
+var baseUrl = 'http://127.0.0.1:' + config.port;
 var childproc = require('child_process');
 
 config.doIfLocal(function () {

@@ -473,7 +473,7 @@ strong {
   margin-bottom: 4px;
   margin-top: 3px;
   color: #A9D3E2;
-  text-transform: lowercase;
+  //text-transform: lowercase;
 }
 
 .demoLabel {
@@ -514,6 +514,10 @@ strong {
 .tipsy-inner a {
   color: #afbd21;
   text-decoration: none;
+}
+
+.tipsy-n {
+  font-size: 105%;
 }
 
 .tabTitleActive {

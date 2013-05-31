@@ -12,13 +12,12 @@ var formidable = require('formidable');
 /** @type ImageDataHandler */
 var dataHandler = require("./dataHandlers/imageDataHandler");
 var logger = require("./logger");
-var persistentStore = require("./persistentStore");
 //endregion
 
 /**
  @class FileUploader
  */
-FileUploader = function (options) {
+FileUploader = function (options, persist) {
     var _self = this;
 
     var _options = options;
@@ -27,7 +26,7 @@ FileUploader = function (options) {
     var _filesStored = false;
     var _res;
     var _req;
-    var _persistentStore = new persistentStore.PersistentStore();
+    var _persistentStore = persist;
 
     var _handleUpload = function () {
         //logger.log("(NOT) HANDLING UPLOAD uploadDir:" + _options.uploadDir);

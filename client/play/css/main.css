@@ -418,8 +418,7 @@ strong {
   font-weight: bold;
   margin-bottom: 4px;
   margin-top: 3px;
-  color: #A9D3E2;
-  text-transform: lowercase; }
+  color: #A9D3E2; }
 
 .demoLabel {
   padding-right: 5px;
@@ -453,6 +452,9 @@ strong {
 .tipsy-inner a {
   color: #afbd21;
   text-decoration: none; }
+
+.tipsy-n {
+  font-size: 105%; }
 
 .tabTitleActive {
   cursor: pointer; }

@@ -48,7 +48,6 @@ var PersistentStore = function (prefix, onReady) {
     };
 
     var _load = function (key, callback) {
-        console.log("_PREFIX = " + _prefix);
         _distCache.get(_prefix + key, callback);
     };
     //endregion
