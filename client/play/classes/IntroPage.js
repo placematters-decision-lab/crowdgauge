@@ -53,7 +53,7 @@
             _$zipInput = $('<input id="zipInput" type="text" size="5">').appendTo($zip);
 
             var $age = $('<div class="demoInput">').appendTo($holder);
-            $age.append('<label class="depromptTxtmoLabel" for="ageInput">Age</label>');
+            $age.append('<label class="demoLabel" for="ageInput">Age</label>');
             _$ageInput = $('<select id="ageInput"></select>').appendTo($age);
             var ages = ["under 12", "12-18", "19-25", "26-35", "36-45", "46-55", "56-65", "66-75", "76+", "Prefer not to say"];
             SAS.controlUtilsInstance.populateSelectList(_$ageInput, "[Select Age Range]", ages);

@@ -423,12 +423,8 @@ strong {
 .demoLabel {
   padding-right: 5px;
   display: inline-block;
-  width: 100px; }
-
-.depromptTxtmoLabel {
-  padding-right: 5px;
-  display: inline-block;
-  width: 100px; }
+  width: 100px;
+  text-align: right; }
 
 #relationshipInput {
   width: 255px; }
