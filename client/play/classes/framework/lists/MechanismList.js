@@ -35,6 +35,8 @@
         var _mode = IMPACTS;
         var _policies = false;
         var _totalCoins = 15;
+        var _usedCoins = 0;
+
 
         var _actionDefs = {};
 
@@ -103,8 +105,8 @@
                     if (SAS.localizr.get(action.data.description) == "" && SAS.localizr.get(mechanism.data.category) == "policy") {   // policy
                         actionDiv = $("<div>").appendTo(_mechIconDivsById[mechanism.id]);
                         _super._addPolicyDiv(SAS.localizr.get(mechanism.data.category));
-                        micons[0] = new SAS.MoneyVoteIcon(mechanism, action.data, _actionDefs[action.aId], {thumbState:'up'});
-                        micons[1] = new SAS.MoneyVoteIcon(mechanism, action.data, _actionDefs[action.aId], {thumbState:'down'});
+                        micons[0] = new SAS.MoneyVoteIcon(mechanism, action.data, _actionDefs[action.aId], {thumbState:'up'}, _self); // TODO!!!!!!!!!
+                        micons[1] = new SAS.MoneyVoteIcon(mechanism, action.data, _actionDefs[action.aId], {thumbState:'down'}, _self);
                         //TODO: this is a hacky fix to force divs to not show policies when on the budget page and vice versa when first loading, should work on creating a sequential loading of actions and hiding of policies/budget
 //                        if(_policies) {
 //                            _showDivs(true, true);
@@ -114,7 +116,7 @@
                     } else {  // project
                         actionDiv = $("<div id='" + action.aId + "' class='mech_action_div'>").appendTo(_mechSubDivsById[mechanism.id]);
 //                        action.data.aId = action.aId;
-                        micons[0] = new SAS.MoneyVoteIcon(mechanism, action.data, _actionDefs[action.aId]);
+                        micons[0] = new SAS.MoneyVoteIcon(mechanism, action.data, _actionDefs[action.aId], {thumbState:'non'}, _self);
                     }
                     $.each(micons, function(i,micon){
                         _moneyIcons[mechanism.id].push(micon);
@@ -150,6 +152,7 @@
         };
 
         var _recalcCoinBalance = function (coinsUsed) {
+            _usedCoins = coinsUsed; // TODO
             var coinsLeft = (_totalCoins - coinsUsed);
             if (coinsLeft == 0) {
                 $("#coinsLeft").html("<span class='coinsLeftNum'>0</span><small> coins left (to redistribute, uncheck current selections)</small>");
@@ -293,6 +296,10 @@
 
         this.getNumCoins = function () {
             return _totalCoins;
+        };
+
+        this.getLeftCoins = function () {
+            return _totalCoins - _usedCoins;
         };
 
         this.load = function (data) {

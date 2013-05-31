@@ -215,6 +215,12 @@
 
             _showInstructionDialog2(600);
         };
+
+        this.showMoneyWarning = function (numCoins) {
+            var txt = "<p>Sorry, you only have " + numCoins + " coins in your budget. You can&#8216;t afford this project.</p>";
+            txt += "<p>To redistribute, please uncheck current selections.</p>";
+            _showInstructionDialog(txt);
+        };
         //endregion
 
         _initialize();
