@@ -1,6 +1,16 @@
+@import "core";
+$headerHt: 40px;
 body {
   normal: 100% Helvetica, Arial, sans-serif;
   overflow: hidden;
+  margin: 0;
+  padding: 0;
+}
+
+#tab_logo {
+  float: left;
+  cursor: pointer;
+  background-position: 20px 0;
 }
 
 .tabTitle {
@@ -17,18 +27,6 @@ body {
   margin-top: 5px;
   text-transform: uppercase;
   width: 175px;
-}
-
-.tabLogol {
-  background-image: url('img/VibrantNEOlogo2040_40.png');
-  background-repeat: no-repeat;
-  background-position: 20px 0;
-  cursor: pointer;
-  display: block;
-  float: left;
-  width: 180px;
-  height: 40px;
-  /*margin-right: 10px;*/
 }
 
 .tabTitleHighlight {
@@ -129,7 +127,7 @@ body {
 
 .mechText {
   color: saddlebrown;
-  /*margin-left: 42px;*/
+  margin-left: 40px;
   font-family: Arial, sans-serif;
 }
 
@@ -225,7 +223,7 @@ body {
   cursor: auto;
   display: block;
   font-family: Arial, sans-serif;
-  height: 40px;
+  height: $headerHt;
   overflow-x: hidden;
   overflow-y: hidden;
   width: 100%;
@@ -312,28 +310,30 @@ body {
   width: 85%;
 }
 
-.bigButtonNext {
+@mixin bigButton() {
   color: white;
   background-color: #24ccff;
   background-image: linear-gradient(to bottom, #11B6FF, #0099DD);
-  /*font-family: league-gothic, Arial, sans-serif;;*/
-  /*float: right;*/
-  position: absolute;
-  right: 0;
-  top: 55px;
   text-transform: capitalize;
 }
 
+@mixin bigButtonRt() {
+  @include bigButton();
+  float: right;
+}
+
+.bigButtonNext {
+  @include bigButtonRt();
+}
+
 .bigButtonBack {
-  color: white;
-  background-color: #24ccff;
-  background-image: linear-gradient(to bottom, #11B6FF, #0099DD);
-  /*font-family: league-gothic, Arial, sans-serif;;*/
-  /*float: right;*/
+  @include bigButtonRt();
+}
+
+#bigButtonHolder {
   position: absolute;
-  right: 100px;
-  top: 55px;
-  text-transform: capitalize;
+  right: 7px;
+  top: $headerHt + 7px;
 }
 
 #reshowInstr {
@@ -345,9 +345,9 @@ body {
   font-family: league-gothic, Arial, sans-serif;
   /*font-size: 0.7em;*/
   /*font-weight: bold;*/
-  left: 450px;
+  //left: 450px;
   position: absolute;
-  top: 100px;
+  top: $headerHt + 50px;
   letter-spacing: 1px;
 }
 
@@ -404,13 +404,19 @@ body {
   float: left;
 }
 
+#titleBar {
+  padding-top: 10px;
+  padding-left: 10px;
+  height: 100px;
+}
+
 .priorityTxtH2 {
   position: relative;
-  margin-left: 40px;
+  //margin-left: 40px;
   color: rgb(169, 211, 226);
   /*float: left;*/
   font-family: league-gothic, Arial, sans-serif;
-  font-size: 400%;
+  font-size: 350%;
   /*padding-bottom: 1%;*/
   font-weight: normal;
   letter-spacing: 1px;
@@ -433,12 +439,13 @@ body {
 }
 
 .optBtn {
-  color: white;
+  color: #dac8cb;
   cursor: pointer;
   display: inline-block;
   font-size: 0.8em;
   font-weight: bold;
-  margin: 20px;
+  margin-top: 8px;
+  margin-right: 8px;
 }
 
 strong {

@@ -52,11 +52,11 @@ ADataHandler = function (dbName) {
     };
 
     var _returnBasicSuccess = function (res) {
-        _returnJsonObj(res, {success:true});
+        _returnJsonObj(res, {success: true});
     };
 
     var _returnBasicFailure = function (res, message) {
-        _returnJsonObj(res, {success:false, message:message});
+        _returnJsonObj(res, {success: false, message: message});
     };
 //endregion
 
@@ -121,8 +121,12 @@ ADataHandler = function (dbName) {
         _returnBasicSuccess(res);
     };
 
-    this.p_returnBasicFailure = function (res, message) {
-        _returnBasicFailure(res, message);
+    this.p_returnBasicFailure = function (res, err) {
+        if (err.status_code && err.request && err.error && err.message) {//avoid returning full couch errors because they contain full get URLs that include passwords
+            _returnBasicFailure(res, err.status_code + ':' + err.error + ':' + err.message);
+        } else {
+            _returnBasicFailure(res, err);
+        }
     };
 
     this.p_deleteAllResults = function (body, callback) {
@@ -135,8 +139,8 @@ ADataHandler = function (dbName) {
     };
 
     this.p_getUID = function () {
-        var msSince2012 = new Date().getTime()-1325376000000;
-        return msSince2012 + "-" + Math.floor(Math.random()*10000);
+        var msSince2012 = new Date().getTime() - 1325376000000;
+        return msSince2012 + "-" + Math.floor(Math.random() * 10000);
     };
 //endregion
 };

@@ -28,7 +28,7 @@
         };
 
         var _loadEntry = function () {
-            $('<img src="/png?responseId=' + _entry.responseId + '">').appendTo("#bubbleChart");
+            $('<img class="bubbleImg" src="/png?responseId=' + _entry.responseId + '">').appendTo("#bubbleChart");
 
             $("#priorities").html("<h3>Priorities I chose:</h3>");
             var prioritiesByStar = {};
@@ -70,12 +70,14 @@
         };
 
         var _initialize = function () {
-            $("#btnCreateYours")
-                .button()
-                .click(function (event) {
-                    event.preventDefault();
-                    window.location = "index.html";
-                });
+            $(".btnPlay").button().click(function (event) {
+                event.preventDefault();
+                window.location = "/client/play/index.html";
+            });
+            $(".btnMap").button().click(function (event) {
+                event.preventDefault();
+                window.location = "/client/play/map.html";
+            });
             d3.json("/getMechanisms" + _params(), function (data) {
                 _mechanisms = {};
                 $.each(data, function (i, mechanism) {

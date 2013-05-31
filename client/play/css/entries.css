@@ -5,6 +5,17 @@
   width: 54px;
   height: 55px; }
 
+.tabLogol {
+  background-image: url("img/VibrantNEOlogo2040_40.png");
+  background-repeat: no-repeat;
+  background-position: left center;
+  width: 180px;
+  height: 40px;
+  /*margin-right: 10px;*/ }
+
+body {
+  background-color: #f2f2f2; }
+
 #rtPane {
   float: right;
   width: 500px; }
@@ -18,15 +29,22 @@ a:link {
 a:visited {
   color: #654A3F; }
 
+.bubbleImg {
+  width: 500px;
+  height: 500px; }
+
 #mainGrp {
   margin: 30px; }
 
 #designProfileGrp {
   padding: 15px;
   background-color: white;
-  min-height: 550px;
+  min-height: 500px;
   font-size: 0.85em;
   color: #48352d; }
+
+.button_bar {
+  margin-top: 12px; }
 
 #share {
   margin-left: 30px;
