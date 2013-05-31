@@ -202,14 +202,14 @@
                 .appendTo(btnsBelow)
                 .click(function () {
                     _closeDialog();
-                    window.location.replace("http://imaginemyneo.crowdgauge.org/client/play/map.html");
+                    window.location = "http://imaginemyneo.crowdgauge.org/client/play/map.html";
 //                    pages.gotoMap();
                 });
             $("<button class='sharingBtn sharingBtn_compare'>")
                 .appendTo(btnsBelow)
                 .click(function () {
                     _closeDialog();
-                    window.location.replace("http://vibrantneo.org/");
+                    window.location = "http://vibrantneo.org/";
 //                    pages.gotoCompare();
                 });
 

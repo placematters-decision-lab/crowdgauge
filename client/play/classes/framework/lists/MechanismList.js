@@ -99,7 +99,18 @@
             _moneyIcons[mechanism.id] = [];
             var micons = [];
             d3.json('/getActions?mechId=' + mechanism.id, function (mObj) {
-                $.each(mObj.actions, function (i, action) {
+                // sort actions by value (multiplier of cell)
+                var actions = [];
+                $.each( mObj.actions, function (i, action) {
+                    if (action.data) {
+                        actions.push(action);
+                    }
+                });
+                actions.sort(function(a, b) {
+                    return (a.data.value > b.data.value) ? 1 : -1;
+                });
+
+                $.each(actions, function (i, action) {
                     if (!action.data || action.data.value === 0) return true;//continue
                     var actionDiv;
                     if (SAS.localizr.get(action.data.description) == "" && SAS.localizr.get(mechanism.data.category) == "policy") {   // policy
