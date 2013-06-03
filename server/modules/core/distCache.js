@@ -24,7 +24,8 @@ DistCache = function (type, onReady) {
     var _self = this;
 
     //region private fields and methods
-    var _type = type || cacheTypes.NONDISTRIBUTED;
+//    var _type = type || cacheTypes.NONDISTRIBUTED;
+    var _type = type || cacheTypes.MEMCACHE;
     var _onReady = onReady;
     var _redCli;
     var _memCli;
@@ -115,6 +116,7 @@ DistCache = function (type, onReady) {
         } else {
             console.log("ENTERING MEMCACHE... onReady:"+_onReady);
             var mc = require('mc');
+            var util = require("util");
             _memCli = new mc.Client('sasakicache.s95c4z.cfg.use1.cache.amazonaws.com:11211', mc.Adapter.json);//:11211
             _memCli.connect(function () {
                 console.log("Connected to memcache");
@@ -123,47 +125,57 @@ DistCache = function (type, onReady) {
 
             _get = function (key, callback) {
                 if (_onReady) _onReady();
-                console.log("INSIDE GET MEMCACHE...");
                 _memCli.get(key, function (err, response) {
                         if (!err) {
-                            console.log("Got Value: "+response[key]+" for "+key);
+                            console.log("no error, inside _get()");
+                            console.log("Got Value: " + util.inspect(response[key])+" for "+key);
                             callback(response[key]);
                         }  else  {
-                            console.log("GET MEMCACHE Error: "+err);
+                            console.log("ERROR, INSIDE _GET(): " + util.inspect(err));
                         }
                     }
                 );
             };
 
-            _set = function (key, val, callback) {
+            _set = function (key, val, callback) { // TODO
                 console.log("INSIDE SET MEMCACHE..."+key+" : "+val);
                 var oneDay = 60 * 60 * 24;
-                _memCli.set(key, val, {flags:0, exptime:oneDay}, function () {
-                    if (callback) callback();
+
+                // type classification
+                var value = (val.type == "object") ? JSON.stringify(val) : val;
+
+                _memCli.set(key, value, {flags:0, exptime:oneDay}, function (err, status) {
+                    if (!err) {
+                        console.log("No error, inside _set()");
+                        console.log("STATUS: " + status);
+                        if (callback) callback();
+                    } else {
+                        console.log("ERROR, INSIDE _SET(): " + util.inspect(err));
+                    }
                 });
             };
 
             _appendList = function (key, val, callback) {
-                console.log("INSIDE APPENDLIST MEMCACHE...");
+                console.log("inside appendList memcache...");
                 _memCli.append(key, val, function (err, status) {
                     //console.log(status);
                     if (err) {
                         if (err == 'NOT_FOUND') {
                             _memCli.add(key, val, function (err, status) {
                                 if (!err) {
-                                    console.log("MEMCACHE Error " + err);
+                                    console.log("MEMCACHE Error " + util.inspect(err));
                                     if (callback) callback();
                                 }
                             });
                         }
-                        console.log("MEMCACHE Error " + err);
+                        console.log("MEMCACHE Error " + util.inspect(err));
                     } else {
                         if (callback) callback();
                     }
                 });
             }
 
-            console.log("END MEMCACHE...");
+            console.log("end memcache...");
         }
     };
 
