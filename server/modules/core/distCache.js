@@ -130,6 +130,9 @@ DistCache = function (type, onReady) {
                         if (!err) {
                             console.log("no error, inside _get()");
                             console.log("Got Value: " + util.inspect(response[key])+" for "+key);
+
+                            // type classification (object, string, number)
+
                             callback(response[key]);
                         }  else  {
                             console.log("ERROR, INSIDE _GET(): " + util.inspect(err));
@@ -142,7 +145,7 @@ DistCache = function (type, onReady) {
                 console.log("INSIDE SET MEMCACHE..."+key+" : "+ util.inspect(val));
                 var oneDay = 60 * 60 * 24;
 
-                // type classification
+                // type classification (object, string)
                 var value = (typeof val == "object") ? JSON.stringify(val) : val;
 
                 _memCli.set(key, value, {flags:0, exptime:oneDay}, function (err, status) {
