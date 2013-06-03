@@ -9,7 +9,7 @@
 
         //region private fields and methods
         var _cacheVersion = 12;
-//        var _ws = SAS.configInstance.getRegionalScoresWS();
+        var _responseId;
         var _mechanisms = null;
         var _entry = null;
         var _priorities = null;
@@ -18,17 +18,8 @@
             return '?' + $.param($.extend({filename: SAS.configInstance.getFileName()}, params));
         };
 
-        var _gup = function (name) {
-            name = name.replace(/[\[]/, "\\\[").replace(/[\]]/, "\\\]");
-            var regexS = "[\\?&]" + name + "=([^&#]*)";
-            var regex = new RegExp(regexS);
-            var results = regex.exec(window.location.href);
-            if (results == null)    return "";
-            else    return results[1];
-        };
-
         var _loadEntry = function () {
-            $('<img class="bubbleImg" src="/png?responseId=' + _entry.responseId + '">').appendTo("#bubbleChart");
+            $('<img class="bubbleImg" src="/png?responseId=' + _responseId + '">').appendTo("#bubbleChart");
 
             $("#priorities").html("<h3>Priorities I chose:</h3>");
             var prioritiesByStar = {};
@@ -60,8 +51,7 @@
         };
 
         var _getEntryData = function () {
-            var responseId = _gup("responseId");
-            d3.json('/getResponse' + _params({responseId: responseId}), function (data) {
+            d3.json('/getResponse' + _params({responseId: _responseId}), function (data) {
                 console.log('loaded R: ' + data);
                 $('.loader').hide();
                 _entry = data;
@@ -70,9 +60,10 @@
         };
 
         var _initialize = function () {
+            _responseId = SAS.utilsInstance.gup("responseId");
             $(".btnPlay").button().click(function (event) {
                 event.preventDefault();
-                window.location = "/client/play/index.html";
+                window.location = "/client/play/index.html?prId="+_responseId;
             });
             $(".btnMap").button().click(function (event) {
                 event.preventDefault();

@@ -4,7 +4,7 @@
  * Time: 10:11 PM
  */
 (function () { // self-invoking function
-    SAS.DataManager = function () {
+    SAS.DataManager = function (parentId) {
         var _self = this;
 
         //region private fields and methods
@@ -14,6 +14,7 @@
         var _priorityData;
         var _timeData;
         var _responseId;
+        var _parentId = parentId;
         var _infoWinCnt = 0;
 
         //var _ws = new SAS.JsonRestWS("http://localhost:59159/svc/", "DataService.svc", false, false);
@@ -21,7 +22,11 @@
         var _ws = SAS.configInstance.getRegionalScoresWS();
 
         var _getData = function () {
-            return {demographics:_demoData, priorities:_priorityData, mechanisms:_voteData, times:_timeData, infocnt:_infoWinCnt};
+            var data = {demographics:_demoData, priorities:_priorityData, mechanisms:_voteData, times:_timeData, infocnt:_infoWinCnt};
+            if (_parentId) {
+                data.parentId = _parentId;
+            }
+            return data;
         };
 
         var _saveData = function (onSave) {

@@ -64,7 +64,7 @@
                 _reportIncompatibleBrowser();
                 return;
             }
-            _dataManager = new SAS.DataManager();
+            _dataManager = new SAS.DataManager(SAS.utilsInstance.gup('prId'));
             _layout = new SAS.Layout();
 //            _map = new SAS.MapFrame();
             _priorityList = new SAS.PriorityList();
