@@ -97,6 +97,13 @@ handle["/persona_logout"] = ps.logout;
 
 handle["/png"] = responseDataHandler.png;
 
+handle["/health"] = function (req, res, postData) {
+    //--just a server health check for load balancer
+    res.writeHeader(200, {"Content-Type": "application/json"});
+    res.write(JSON.stringify({success:true}));
+    res.end();
+};
+
 //handle["/TEMP_fixLangs"] = dataHandler.TEMP_fixLangs();
 
 //handle["/upload"] = requestHandlers.upload;
