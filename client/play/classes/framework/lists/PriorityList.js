@@ -12,7 +12,7 @@
         var _onLoad = function () {};
         var _priorities = null;
         var _priorityLookup = {};
-        var _totalStars = 0;
+        var _totalStars = 35;
         var _numStars = 5;
         var _randomizeOrder = SAS.configInstance.randomizeOrder.priorities;
 
@@ -162,7 +162,7 @@
         this.load = function (data) {
             _priorities = data;
 //            _totalStars = Math.ceil(_priorities.length * 2.5);
-            _totalStars = 35;
+
             _createList();
             _onLoad();
         };

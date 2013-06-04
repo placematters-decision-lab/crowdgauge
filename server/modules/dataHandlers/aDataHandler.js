@@ -1,6 +1,6 @@
 //region includes
 var url = require('url');
-
+var crypto = require('crypto');
 //endregion
 var config = require("../../config");
 var nano = require('nano')(config.couchURL);
@@ -136,6 +136,10 @@ ADataHandler = function (dbName) {
     this.p_getQuery = function (req) {
         var url_parts = url.parse(req.url, true);
         return url_parts.query;
+    };
+
+    this.p_getHash = function (name) {
+        return crypto.createHash('md5').update(name).digest("hex");
     };
 
     this.p_getUID = function () {

@@ -64,3 +64,21 @@ a:visited {
   margin-top: -25px;
   vertical-align: middle;
 }
+
+#bookmarkThisPage {
+  text-decoration: underline;
+  color: blue;
+  font-weight: bold;
+  margin-left: 20px;
+  cursor: pointer;
+}
+
+.yourScore {
+  font-size: 30px;
+  font-weight: bold;
+  color: #00446a;
+}
+
+.myVibrantFive {
+  @include bg_img('img/ajax-loader.gif', 299px, 203px);
+}

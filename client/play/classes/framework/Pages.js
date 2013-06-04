@@ -20,7 +20,6 @@
         var _btnStates = [BTN_NEXT, BTN_SUBMIT, BTN_SHARE];
         var _cacheVersion = SAS.mainInstance.getCacheVersion();
         var _lastPage;
-        var _moneyShown = false;
         var _submitted = false;
 
         var _priorityStartTime;
@@ -41,6 +40,7 @@
         /** @type SAS.DataManager */
         var _dataManager = dataManager;
 
+        var _pagesVisited = [];
         var _instructions = new SAS.Instructions();
         var _introPage = new SAS.IntroPage(dataManager);
 
@@ -138,16 +138,22 @@
             _showMoreInfo(false);
             _showNextButton(false, BTN_NEXT);
             _showBackButton(false, BTN_BACK);
+            _showLoadIcon(false);
         };
 
         var _fileAndVersion = function () {
             return '?filename=' + encodeURIComponent(SAS.configInstance.getFileName()) + '&v=' + SAS.mainInstance.getCacheVersion();
         };
 
+        var _showLoadIcon = function (show) {
+            $("#listLoadIcon").toggle(show);
+        };
+
         var _gotoPriorities = function () {
+            _activePage = PRIORITIES;
+            if (!_priorityList.hasData()) return;//--will come back once data has loaded
             $("#titleBar").show();
             if (!_priorityStartTime) _priorityStartTime = new Date();
-            _activePage = PRIORITIES;
             _introPage.showDivs(false);
             _mechanismList.showDivs(false);
             _priorityList.showDivs(true);
@@ -155,26 +161,24 @@
             _showMoreInfo(true);//--will allow more info to be shown when bubbles are colored by a later option... will be empty otherwise
             _showNextButton(true, BTN_NEXT);
             _showBackButton(true, BTN_BACK);
-            if (!_priorityList.hasData()) {
-                d3.json('/getPriorities' + _fileAndVersion(), function (data) {
-                    _priorityList.load(data);
-                    _bubbleChart.resizeBubbles();
-                    _instructions.showStarsDialog(_priorityList.getTotalStars(), true);
-                    _bubbleChart.colorByPriority();
-                    _layout.positionElements();
-                });
+            if (_pagesVisited.indexOf(PRIORITIES) < 0) {
+                _pagesVisited.push(PRIORITIES);
+                _instructions.showStarsDialog(_priorityList.getTotalStars(), true);
             } else {
-                _layout.positionElements();
                 _instructions.showStarsDialog(_priorityList.getTotalStars(), false);
-                //_bubbleChart.colorByPriority();--keep the coloring from the later screens
             }
+            _bubbleChart.resizeBubbles();
+            _bubbleChart.colorByPriority();
+            _layout.positionElements();
             //_bubbleChart.onBubbleClick(function () {});//--if its colored by a later screen, keep the info available...
         };
 
         var _gotoImpacts = function () {
+            _activePage = IMPACTS;
+            if (!_mechanismList.hasData()) return;//--will come back once data has loaded
+
             $("#titleBar").show();
             if (!_impactsStartTime) _impactsStartTime = new Date();
-            _activePage = IMPACTS;
             _introPage.showDivs(false);
             _priorityList.showDivs(false);
 
@@ -184,34 +188,30 @@
             _showMoreInfo(true);
             _showNextButton(true, BTN_NEXT);
             _showBackButton(true, BTN_BACK);
-            if (!_mechanismList.hasData()) {
-                d3.json('/getMechanisms' + _fileAndVersion(), function (data) {
-                    _mechanismList.load(data);
-                    _mechanismList.ensureShowMiniBubbleCharts();
-                    var priorities = _priorityList.getPriorities();
-                    var topScorer = _mechanismList.getTopScorer(priorities);
-                    _mechanismList.setActiveMechanism(topScorer);
-                    _instructions.showMechanismInstructions(data, priorities, _bubbleChart, topScorer, true);
-                    _bubbleChart.colorForMechanism(topScorer);
-                    _layout.positionElements();
-                });
-            } else {
-                var priorities = _priorityList.getPriorities();
-                var topScorer = _mechanismList.getTopScorer(priorities);
-                _instructions.showMechanismInstructions(null, priorities, _bubbleChart, topScorer, false);  // TODO: null hacky
 
-                _mechanismList.ensureShowMiniBubbleCharts();
-                _bubbleChart.colorForMechanism(_mechanismList.getActiveMechanism());
-                _layout.positionElements();
+            var priorities = _priorityList.getPriorities();
+            var topScorer = _mechanismList.getTopScorer(priorities);
+
+            if (_pagesVisited.indexOf(IMPACTS) < 0) {
+                _pagesVisited.push(IMPACTS);
+                _instructions.showMechanismInstructions(priorities, _bubbleChart, topScorer, true);
+            } else {
+                _instructions.showMechanismInstructions(priorities, _bubbleChart, topScorer, false);
             }
+            _mechanismList.setActiveMechanism(topScorer);
+            _mechanismList.ensureShowMiniBubbleCharts();
+            _bubbleChart.colorForMechanism(_mechanismList.getActiveMechanism());
+            _layout.positionElements();
             _mechanismList.showDivs(true);
             _setClickToInfoWin(_mechanismList);
         };
 
         var _gotoMoney = function () {
+            _activePage = MONEY;
+            if (!_mechanismList.hasData()) return;//--will come back once data has loaded
+
             $("#titleBar").show();
             if (!_votingStartTime) _votingStartTime = new Date();
-            _activePage = MONEY;
             _introPage.showDivs(false);
             _priorityList.showDivs(false);
             //_scenarioList.showDivs(false);
@@ -220,18 +220,12 @@
             _showMoreInfo(false);
             _showNextButton(true, (_submitted) ? BTN_SHARE : BTN_SUBMIT);
             _showBackButton(true, BTN_BACK);
-            if (!_mechanismList.hasData()) {
-                d3.json('/getMechanisms' + _fileAndVersion(), function (data) {
-                    _mechanismList.load(data);
-                    _mechanismList.ensureShowMoneyAndVotes();
-                    _layout.positionElements();
-                });
-            } else {
-                _mechanismList.ensureShowMoneyAndVotes();
-                _layout.positionElements();
-            }
-            if (!_moneyShown) {
-                _moneyShown = true;
+
+            _mechanismList.ensureShowMoneyAndVotes();
+            _layout.positionElements();
+
+            if (_pagesVisited.indexOf(MONEY) < 0) {
+                _pagesVisited.push(MONEY);
                 _instructions.showMoneyDialog(_mechanismList.getNumCoins(), true);
             } else {
                 _instructions.showMoneyDialog(_mechanismList.getNumCoins(), false);
@@ -240,9 +234,9 @@
             _setClickToInfoWin();
         };
 
-        var _showSharingDialog = function (responseId, headerTxt) {
-            window.location = '/client/play/entries.html?sharing=yes&responseId=' + responseId;
-            //_instructions.showSharingDialog(responseId, headerTxt, _self, _bubbleChart, _priorityList.getSortedPriorities());
+        var _showSharingDialog = function (responseData, headerTxt) {
+            var p = $.extend(responseData, { sharing: 'yes' });
+            window.location = '/client/play/entries.html?' + $.param(p);
         };
 
         var _storeData = function (pageId) {
@@ -312,29 +306,49 @@
             });
         };
 
+        var _preloadData = function () {
+            d3.json('/getPriorities' + _fileAndVersion(), function (data) {
+                _priorityList.load(data);
+                if (_activePage == PRIORITIES) {
+                    _gotoPriorities();
+                }
+            });
+            d3.json('/getMechanisms' + _fileAndVersion(), function (data) {
+                _mechanismList.load(data);
+                _mechanismList.preloadActionDefs();
+                if (_activePage == IMPACTS) {
+                    _gotoImpacts();
+                } else if (_activePage == MONEY) {
+                    _gotoMoney();
+                }
+            });
+        };
+
         var _initialize = function () {
+            _preloadData();
+
             _layout.addRightAligners([
 //                {sel:$("#btnNext"), leave:10},
-                {sel:$("#reshowInstr"), leave:10},
-                {sel:$("#moreInfo"), leave:10},
-                {sel:$("#footer_sasaki"), leave:5},
-                {sel:$("#colorRampLegend"), leave:10}
+                {sel: $("#reshowInstr"), leave: 10},
+                {sel: $("#moreInfo"), leave: 10},
+                {sel: $("#footer_sasaki"), leave: 5},
+                {sel: $("#colorRampLegend"), leave: 10}
             ]);
             _layout.addBottomAligners([
-                {sel:$("#colorRampLegend"), leave:27},
-                {sel:$("#moreInfo"), leave:70},
-                {sel:$("#itemsLeft"), leave:24},
-                {sel:$("#footer")}
+                {sel: $("#colorRampLegend"), leave: 27},
+                {sel: $("#moreInfo"), leave: 70},
+                {sel: $("#itemsLeft"), leave: 24},
+                {sel: $("#footer")}
             ]);
             _layout.addHeightFillers([
-                {sel:".mechPanel", leave:73},
-                {sel:".mechPanelComp", leave:73},
-                {sel:"#priorityList", leave:73},
-                {sel:$("#chart"), leave:66}
+                {sel: ".mechPanel", leave: 73},
+                {sel: ".mechPanelComp", leave: 73},
+                {sel: "#priorityList", leave: 73},
+                {sel: $("#chart"), leave: 66}
                 //40 for image + 24 for footer + 2
             ]);
             _layout.addWidthFillers([
-                {sel:$("#chart")}
+                {sel: $("#chart")}
             ]);
 
             _addClickEvents([INTRO]);
@@ -368,11 +382,11 @@
                         var votingMs = _submitTime.getTime() - _votingStartTime.getTime();
                         _dataManager.storeTimeSpent(Math.round(priorityMs / 1000), Math.round(impactsMs / 1000), Math.round(votingMs / 1000));
                     }
-                    _dataManager.saveData(function (entryId) {
+                    _dataManager.saveData(function (responseData) {
                         _submitted = true;
                         _showNextButton(true, BTN_SHARE);
                         _showBackButton(false, BTN_BACK);
-                        _showSharingDialog(entryId, "Your response has been submitted. Thank you for your time. ");
+                        _showSharingDialog(responseData, "Your response has been submitted. Thank you for your time. ");
                     });
                 } else if ($(this).hasClass("bigButton_" + BTN_SHARE)) {
                     _showSharingDialog(_dataManager.getResponseId(), "");

@@ -143,8 +143,7 @@ body {
   display: block;
   /*left: 510px;*/
   left: 600px;
-  position: absolute;
-  top: 80px; }
+  position: absolute; }
 
 /*padding-left: 1cm;}*/
 #starsLeft {
@@ -320,6 +319,11 @@ body {
 #priorityList {
   overflow-y: auto;
   /*height: 384.5px;*/ }
+
+#listLoadIcon {
+  position: absolute;
+  top: 180px;
+  left: 40px; }
 
 .colorRamp {
   background-position: left center;

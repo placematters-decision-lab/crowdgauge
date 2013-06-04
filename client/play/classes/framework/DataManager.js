@@ -32,8 +32,7 @@
         var _saveData = function (onSave) {
             $.post("/saveResponse", {data:JSON.stringify(_getData())},
                 function (result) {
-                    _responseId = result.responseId;
-                    onSave(_responseId);
+                    onSave(result);
                 });
         };
         //endregion

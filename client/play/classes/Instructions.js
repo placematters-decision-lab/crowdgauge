@@ -130,13 +130,13 @@
             }
         };
 
-        this.showMechanismInstructions = function (mechanisms, priorities, bubblechart, topScorer, show) {
+        this.showMechanismInstructions = function (priorities, bubblechart, topScorer, show) {
             _showAgainFn = function () {
-                _self.showMechanismInstructions(mechanisms, priorities, bubblechart, topScorer, true);
+                _self.showMechanismInstructions(priorities, bubblechart, topScorer, true);
             };
             $("#dialog").html("");
             var txtAbove = $("<div></div>").appendTo("#dialog");
-            $("<p>Find out how to further your priorities&#8230;</p><p>Click through the <b>list of projects and policies on the left</b> to see how they might affect your priorities and then click on any of the priority bubbles to open up an explanation.</p>").appendTo(txtAbove);
+            $("<p>Find out how to further your priorities&#8230;</p><p>Click through the <b>list of projects and policies on the left</b> to see how they might affect your priorities.</p>").appendTo(txtAbove);
             $("<p>The colors of your priority chart show how each project or policy impacts your priorities, in a <span style='background-color: #2BBEC5'>positive</span> , <span style='background-color: #EAD9C4'>neutral</span>, or <span style='background-color: #ec7623'>negative</span> way. Look for projects or policies that make your biggest bubbles turn blue.</p>").appendTo(txtAbove);
             $("<p>To get started, we've picked the action that appears to have the greatest positive impact on your priorities:</p>").appendTo(txtAbove);
 
@@ -147,7 +147,7 @@
             insTxt.html(SAS.localizr.get(topScorer.data.title));
 
             // tipsy
-            $('.mechText a').tipsy({gravity:'n'});
+            $('.mechText a').tipsy({gravity: 'n'});
 
             mechDivIns.click(function () {
                 _closeDialog();
@@ -156,6 +156,12 @@
             if (show) {
                 _showInstructionDialog2();
             }
+        };
+
+        this.showClickInstructions = function (mech) {
+            var txt = "<p>The circles on the right have been updated to show the impact of "+SAS.localizr.get(mech.data.progressive)+"</p>";
+            txt += "<p>Click on any of the priority bubbles to open up an explanation.</p>";
+            _showInstructionDialog(txt);
         };
 
         this.showMapResultsDialog = function () {
@@ -229,7 +235,7 @@
         };
 
         this.showMoneyWarning = function (numCoins, coinsLeft) {
-            var txt = '<p>Sorry, you can&#8216;t allocate  ' + numCoins + ' coins, because you ' + ((coinsLeft == 0) ? ('don&#8216;t have any left') : (' have only ' + coinsLeft + ' available')) + '.</p>';
+            var txt = '<p>Sorry, you can&#8216;t allocate ' + numCoins + ' coins because you ' + ((coinsLeft == 0) ? ('don&#8216;t have any left') : (' have only ' + coinsLeft + ' available')) + '.</p>';
             txt += '<p>Please first uncheck one of your current selections.</p>';
             _showInstructionDialog(txt);
         };
