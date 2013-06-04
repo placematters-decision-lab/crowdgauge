@@ -205,8 +205,8 @@
             _mechanismList.setActiveMechanism(topScorer);
             _mechanismList.ensureShowMiniBubbleCharts();
             _bubbleChart.colorForMechanism(_mechanismList.getActiveMechanism());
-            _layout.positionElements();
             _mechanismList.showDivs(true);
+            _layout.positionElements();
             _setClickToInfoWin();
         };
 
@@ -263,7 +263,6 @@
             _lastPage = _activePage;
             switch (pageId) {
                 case INTRO:
-                    _logosMax(); // #header #logols animation
                     _gotoIntro();
                     break;
                 case PRIORITIES:
@@ -332,6 +331,7 @@
 
         var _initialize = function () {
             _preloadData();
+            var bottomoffset = 65;
 
             _layout.addRightAligners([
 //                {sel:$("#btnNext"), leave:10},
@@ -347,14 +347,16 @@
                 {sel: $("#footer")}
             ]);
             _layout.addHeightFillers([
-                {sel: ".mechPanel", leave: 73},
-                {sel: ".mechPanelComp", leave: 73},
-                {sel: "#priorityList", leave: 73},
-                {sel: $("#chart"), leave: 66}
+                {sel: ".mechPanel", leave: bottomoffset},
+                {sel: ".mechPanelComp", leave: bottomoffset},
+                {sel: "#priorityList", leave: bottomoffset},
+                {sel: $("#chart"), leave: 66},
+                {sel: $(".introTxt"), leave: 10}
                 //40 for image + 24 for footer + 2
             ]);
             _layout.addWidthFillers([
-                {sel: $("#chart")}
+                {sel: $("#chart")},
+                {sel: $(".introTxt"), leave: $(".introFrm").outerWidth() + 60}
             ]);
 
             _addClickEvents([INTRO]);
@@ -434,30 +436,6 @@
                 'height': '70%',
                 'background-size': '80%, 80%'
             });
-        };
-
-        var _logosMax = function () {
-//            $("#logols").animate({
-//                'height': '100px'
-//            });
-//            $("#footer").css(
-//                'height', '10px'  // css (Y), animate (N)
-//            );
-//            $("#noscc_logol").animate({
-//                    'background-size': '80%, 80%',
-//                    'height': '120%',
-//                    'width': '47%'
-//            });
-//            $("#vibrantneo_logol").animate({
-//                    'width': '15%',
-//                    'height': '90%',
-//                    'background-size': '100% 100%'
-//            });
-//            $("#imaginemyneo_logol").animate({
-//                    'width': '15%',
-//                    'heigh': '90%',
-//                    'background-size': '90%, 90%'
-//            });
         };
 
         //endregion

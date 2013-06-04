@@ -44,7 +44,7 @@
         };
 
         var _populateControls = function ($holder) {
-            $holder.append('<div id="promptTxt"><p>First, please provide us with some basic details:</p></div>');
+            $holder.append('<div id="promptTxt">First, please provide us with some basic details:</div>');
             var $why = $('<div class="promptTxtS"><p><a href=#>Why are we asking?</a></p></div>').click(function () {
                 _instructions.showWhy();
             });
@@ -108,7 +108,7 @@
             });
             var oktxt = "First, please provide us with some basic details:";
             var plsChange = "Please complete the <span class='nonvalid'>highlighted</span> items then try again.";
-            $("#promptTxt").html("<p>" + (valid ? oktxt : plsChange) + "</p>");
+            $("#promptTxt").html((valid ? oktxt : plsChange));
             return valid;
         };
 
