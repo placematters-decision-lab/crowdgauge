@@ -62,3 +62,22 @@ a:visited {
   margin-left: 80px;
   margin-top: -25px;
   vertical-align: middle; }
+
+#bookmarkThisPage {
+  text-decoration: underline;
+  color: blue;
+  font-weight: bold;
+  margin-left: 20px;
+  cursor: pointer; }
+
+.yourScore {
+  font-size: 30px;
+  font-weight: bold;
+  color: #00446a; }
+
+.myVibrantFive {
+  background-image: url("img/ajax-loader.gif");
+  background-repeat: no-repeat;
+  background-position: left center;
+  width: 299px;
+  height: 203px; }

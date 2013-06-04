@@ -37,6 +37,8 @@
         var _totalCoins = 15;
         var _usedCoins = 0;
 
+        var _clickInstrShown = false;
+        var _instructions = new SAS.Instructions();
 
         var _actionDefs = {};
 
@@ -55,12 +57,12 @@
                 //_super._getCatDiv("Baseline").slideUp(_transTime);
                 $(".mechGrp").removeClass("selected");
                 $(".mechGrp").css("minHeight", "24px");
-                if (_mode == SCENARIO  || _mode == POLICIES) {
+                if (_mode == SCENARIO || _mode == POLICIES) {
                     $(".mechSub").show();
                     $(".mechGrp").removeClass("mechGrpBtn").addClass("mechGrpBox");
                 }
             }
-            if (_mode == SCENARIO  || _mode == POLICIES) {
+            if (_mode == SCENARIO || _mode == POLICIES) {
                 _showMoneyIcons(true);
                 $("#coinsLeft").show();
                 $("#coinsReset").show();
@@ -95,70 +97,86 @@
             });
         };
 
+        var _actionsByMechId = null;
+        var _loadAllActions = function (callback) {
+            d3.json('/getAllActions', function (allActions) {
+                _actionsByMechId = {};
+                $.each(allActions, function (i, action) {
+                    if (!action.data) return;//continue
+                    var mechId = action.structureId.mechanism;
+                    if (!_actionsByMechId[mechId]) _actionsByMechId[mechId] = {actions:[]};
+                    _actionsByMechId[mechId].actions.push(action);
+                });
+                if (callback) callback();
+            });
+        };
+
         var _addMoneyAndVotes = function (mechanism) {
+            if (_actionsByMechId == null) return;
+
             _moneyIcons[mechanism.id] = [];
             var micons = [];
-            d3.json('/getActions?mechId=' + mechanism.id, function (mObj) {
-                // sort actions by value (multiplier of cell)
-                var actions = [];
-                $.each( mObj.actions, function (i, action) {
-                    if (action.data) {
-                        actions.push(action);
-                    }
-                });
-                actions.sort(function(a, b) {
-                    return (a.data.value > b.data.value) ? 1 : -1;
-                });
 
-                $.each(actions, function (i, action) {
-                    if (!action.data || action.data.value === 0) return true;//continue
-                    var actionDiv;
-                    if (SAS.localizr.get(action.data.description) == "" && SAS.localizr.get(mechanism.data.category) == "policy") {   // policy
-                        actionDiv = $("<div>").appendTo(_mechIconDivsById[mechanism.id]);
-                        _super._addPolicyDiv(SAS.localizr.get(mechanism.data.category));
-                        micons[0] = new SAS.MoneyVoteIcon(mechanism, action.data, _actionDefs[action.aId], {thumbState:'up'}, _self); // TODO!!!!!!!!!
-                        micons[1] = new SAS.MoneyVoteIcon(mechanism, action.data, _actionDefs[action.aId], {thumbState:'down'}, _self);
-                        //TODO: this is a hacky fix to force divs to not show policies when on the budget page and vice versa when first loading, should work on creating a sequential loading of actions and hiding of policies/budget
+            var mObj = _actionsByMechId[mechanism.id];
+            if (!mObj) return;
+            // sort actions by value (multiplier of cell)
+            var actions = mObj.actions;
+            actions.sort(function (a, b) {
+                return (a.data.value > b.data.value) ? 1 : -1;
+            });
+
+            $.each(actions, function (i, action) {
+                if (!action.data || action.data.value === 0) return true;//continue
+                var aId = action.structureId.action;
+                var actionDiv;
+                if (SAS.localizr.get(action.data.description) == "" && SAS.localizr.get(mechanism.data.category) == "policy") {   // policy
+                    actionDiv = $("<div>").appendTo(_mechIconDivsById[mechanism.id]);
+                    _super._addPolicyDiv(SAS.localizr.get(mechanism.data.category));
+                    micons[0] = new SAS.MoneyVoteIcon(mechanism, action.data, _actionDefs[aId], {thumbState: 'up'}, _self); // TODO!!!!!!!!!
+                    micons[1] = new SAS.MoneyVoteIcon(mechanism, action.data, _actionDefs[aId], {thumbState: 'down'}, _self);
+                    //TODO: this is a hacky fix to force divs to not show policies when on the budget page and vice versa when first loading, should work on creating a sequential loading of actions and hiding of policies/budget
 //                        if(_policies) {
 //                            _showDivs(true, true);
 //                        } else {
 //                            _showDivs(true);
 //                        }
-                    } else {  // project
-                        actionDiv = $("<div id='" + action.aId + "' class='mech_action_div'>").appendTo(_mechSubDivsById[mechanism.id]);
+                } else {  // project
+                    actionDiv = $("<div id='" + aId + "' class='mech_action_div'>").appendTo(_mechSubDivsById[mechanism.id]);
 //                        action.data.aId = action.aId;
-                        micons[0] = new SAS.MoneyVoteIcon(mechanism, action.data, _actionDefs[action.aId], {thumbState:'non'}, _self);
-                    }
-                    $.each(micons, function(i,micon){
-                        _moneyIcons[mechanism.id].push(micon);
-                        micon.addMoneyAndVotes(actionDiv, mechanism.values);
-                        micon.onSelectionChange(function () {
-                            /*
-                             Temporarily removed radio click as the options for this game are not exclusive
-                             TODO: abstract to make this optional so admin can select whether they want exclusive or non-exclusive actions
-                             */
-                            if(_actionDefs[action.aId].value == 0) {
-                                _radioClick(mechanism, micon); //exclusive selection between thumbs up and down
-                            }
-                            _recalcMoney(mechanism, micon, micon.getThumbState());
-                        });
-
+                    micons[0] = new SAS.MoneyVoteIcon(mechanism, action.data, _actionDefs[aId], {thumbState: 'non'}, _self);
+                }
+                $.each(micons, function (i, micon) {
+                    _moneyIcons[mechanism.id].push(micon);
+                    micon.addMoneyAndVotes(actionDiv, mechanism.values);
+                    micon.onSelectionChange(function () {
+                        /*
+                         Temporarily removed radio click as the options for this game are not exclusive
+                         TODO: abstract to make this optional so admin can select whether they want exclusive or non-exclusive actions
+                         */
+                        if (_actionDefs[aId].value == 0) {
+                            _radioClick(mechanism, micon); //exclusive selection between thumbs up and down
+                        }
+                        _recalcMoney(mechanism, micon, micon.getThumbState());
                     });
+
                 });
             });
+
         };
 
         var _ensureActionDefsLoaded = function (callback) {
             if ($.isEmptyObject(_actionDefs)) {
-                d3.json('/getActionDefs?filename='+_filename, function (actionDefs) {
+                d3.json('/getActionDefs?filename=' + _filename, function (actionDefs) {
                     _actionDefs = {};
                     $.each(actionDefs, function (i, /**SAS.ActionDef*/ value) {
                         _actionDefs[value.uid] = value;
                     });
-                    callback();
+                    _loadAllActions(function () {
+                        if (callback) callback();
+                    });
                 });
             } else {
-                callback();
+                if (callback) callback();//TODO possible scenario where this can get hit before all actions loaded?
             }
         };
 
@@ -171,8 +189,7 @@
                 $("#coinsLeft").html("You have <span class='coinsLeftNum'>" + coinsLeft + "</span> coin" + ((coinsLeft > 1) ? "s" : "") + " left ");
             }
 
-
-            $('#coinsReset').html("<div class='coinsReset'></div>").click(function() {
+            $('#coinsReset').html("<div class='coinsReset'></div>").click(function () {
                 $.each(_moneyIcons, function (mechId, micons) {
                     $.each(micons, function (i, micon) {
                         micon.setOn(false);
@@ -222,10 +239,14 @@
 //            $("<div class='coins coins_off_4'></div>").appendTo(mechDiv);
 
             // tipsy
-            $('.mechText a').tipsy({gravity:'n', live: true});
+            $('.mechText a').tipsy({gravity: 'n', live: true});
 
             mechDiv.click(function () {
                 if (_mode == IMPACTS) {
+                    if (!_clickInstrShown) {
+                        _clickInstrShown = true;
+                        _instructions.showClickInstructions(mechanism);
+                    }
                     _super._setActiveMechanism(mechanism);
                 }
             });
@@ -300,8 +321,8 @@
                          */
                         var multiplier = micon.getMultiplier();
                         var aId = micon.getAction().uid;
-                        if(!votes[mechanism.id])        votes[mechanism.id] = [];
-                                votes[mechanism.id].push({'actionId':aId, 'multiplier':multiplier, 'numCoins':micon.getTotalCoins()});
+                        if (!votes[mechanism.id])        votes[mechanism.id] = [];
+                        votes[mechanism.id].push({'actionId': aId, 'multiplier': multiplier, 'numCoins': micon.getTotalCoins()});
 //                        votes[mechanism.id].add({'actionId':aId, 'multiplier':multiplier, 'numCoins':micon.getTotalCoins()}); // TODO: what???
                     }
                 });
@@ -329,6 +350,10 @@
                 _super._resizeMiniBubbleCharts();
             }
             _setMode(IMPACTS);
+        };
+
+        this.preloadActionDefs = function () {
+            _ensureActionDefsLoaded();
         };
 
         this.ensureShowMoneyAndVotes = function () {

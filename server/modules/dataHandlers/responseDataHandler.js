@@ -25,7 +25,8 @@ var events = require("events");
  */
 var ResponseDataHandler = function () {
     var _self = this;
-    var _filename = "test1"; // TODO
+    var _filename = 'test1'; // TODO
+    var _responseIdPassword = '5EVu8EkA';
 
     aDataHandler.ADataHandler.call(this, 'responses');
     /** @type SettingDataHandler */
@@ -94,6 +95,10 @@ var ResponseDataHandler = function () {
         return ip_address;
     };
 
+    var _getReponseAuth = function (responseId) {
+        return  _self.p_getHash(responseId + '_' + _responseIdPassword).substr(0,12);//just return a shorter 12 char password
+    };
+
     var _saveResponse = function (/**Object*/p, req, res) {
         var response = new Response();
         response.ipAddress = _getIpAddress(req);
@@ -103,7 +108,7 @@ var ResponseDataHandler = function () {
         response.data = p;
         response.filename = _filename;
         _updateResponse(response, function () {
-            _self.p_returnJsonObj(res, {responseId: responseId});
+            _self.p_returnJsonObj(res, {responseId: responseId, responseAuth:_getReponseAuth(responseId)});
         });
     };
 
@@ -201,7 +206,7 @@ var ResponseDataHandler = function () {
             if (ans) {
                 phantomProxy.png(res, ans);
             } else {
-                _self.p_returnBasicFailure(res, 'response empty: '+ q.responseId);
+                _self.p_returnBasicFailure(res, 'response empty: ' + q.responseId);
             }
         }, function (err) {
             _self.p_returnBasicFailure(res, err);
