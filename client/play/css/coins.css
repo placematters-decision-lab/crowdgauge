@@ -1,173 +1,61 @@
-.coins_off_1 {
-  background-position: 0 0px; }
+/*
+Syntax error: Undefined mixin 'bg_img'.
+        on line 69 of coins.scss, in `bg_img'
+        from line 69 of coins.scss
 
-.coins_off_2 {
-  background-position: 0 -24px; }
+64: .thumbs_up {
+65:   margin-right: 5px;
+66: }
+67: 
+68: .tabLogo {
+69:   @include bg_img('img/VibrantNEOlogo2040_40.png', 180px, 40px);
+70:   /*margin-right: 10px;*/
+71: }
 
-.coins_off_3 {
-  background-position: 0 -48px; }
-
-.coins_off_4 {
-  background-position: 0 -72px; }
-
-.coins_off_5 {
-  background-position: 0 -96px; }
-
-.coins_off_6 {
-  background-position: 0 -120px; }
-
-.coins_off_7 {
-  background-position: 0 -144px; }
-
-.coins_off_8 {
-  background-position: 0 -168px; }
-
-.coins_off_9 {
-  background-position: 0 -192px; }
-
-.coins_off_12 {
-  background-position: 0 -264px; }
-
-.coins_off_15 {
-  background-position: 0 -336px; }
-
-.coins_hlite_1 {
-  background-position: -44px 0px; }
-
-.coins_hlite_2 {
-  background-position: -44px -24px; }
-
-.coins_hlite_3 {
-  background-position: -44px -48px; }
-
-.coins_hlite_4 {
-  background-position: -44px -72px; }
-
-.coins_hlite_5 {
-  background-position: -44px -96px; }
-
-.coins_hlite_6 {
-  background-position: -44px -120px; }
-
-.coins_hlite_7 {
-  background-position: -44px -144px; }
-
-.coins_hlite_8 {
-  background-position: -44px -168px; }
-
-.coins_hlite_9 {
-  background-position: -44px -192px; }
-
-.coins_hlite_12 {
-  background-position: -44px -264px; }
-
-.coins_hlite_15 {
-  background-position: -44px -336px; }
-
-.coins_on_1 {
-  background-position: -88px 0px; }
-
-.coins_on_2 {
-  background-position: -88px -24px; }
-
-.coins_on_3 {
-  background-position: -88px -48px; }
-
-.coins_on_4 {
-  background-position: -88px -72px; }
-
-.coins_on_5 {
-  background-position: -88px -96px; }
-
-.coins_on_6 {
-  background-position: -88px -120px; }
-
-.coins_on_7 {
-  background-position: -88px -144px; }
-
-.coins_on_8 {
-  background-position: -88px -168px; }
-
-.coins_on_9 {
-  background-position: -88px -192px; }
-
-.coins_on_12 {
-  background-position: -88px -264px; }
-
-.coins_on_15 {
-  background-position: -88px -336px; }
-
-.coins_disabled_1 {
-  background-position: -132px 0px; }
-
-.coins_disabled_2 {
-  background-position: -132px -24px; }
-
-.coins_disabled_3 {
-  background-position: -132px -48px; }
-
-.coins_disabled_4 {
-  background-position: -132px -72px; }
-
-.coins_disabled_5 {
-  background-position: -132px -96px; }
-
-.coins_disabled_6 {
-  background-position: -132px -120px; }
-
-.coins_disabled_7 {
-  background-position: -132px -144px; }
-
-.coins_disabled_8 {
-  background-position: -132px -168px; }
-
-.coins_disabled_9 {
-  background-position: -132px -192px; }
-
-.coins_disabled_12 {
-  background-position: -132px -264px; }
-
-.coins_disabled_15 {
-  background-position: -132px -336px; }
-
-.thumbs_off_up {
-  background-position: 0 0; }
-
-.thumbs_off_down {
-  background-position: 0 -24px; }
-
-.thumbs_hlite_up {
-  background-position: -23px 0; }
-
-.thumbs_hlite_down {
-  background-position: -23px -24px; }
-
-.thumbs_on_up {
-  background-position: -46px 0; }
-
-.thumbs_on_down {
-  background-position: -46px -24px; }
-
-.coins {
-  clear: left;
-  background-repeat: no-repeat;
-  background-image: url("img/coins_sprite.png");
-  float: left;
-  cursor: pointer;
-  margin-right: 10px;
-  width: 42px;
-  height: 22px; }
-
-.thumbs_up, .thumbs_down {
-  margin-top: -5px;
-  clear: none;
-  background-repeat: no-repeat;
-  background-image: url("img/thumbs_sprite.png");
-  float: left;
-  cursor: pointer;
-  margin-right: 10px;
-  width: 21px;
-  height: 22px; }
-
-.thumbs_up {
-  margin-right: 5px; }
+Backtrace:
+coins.scss:69:in `bg_img'
+coins.scss:69
+C:/Ruby193/lib/ruby/gems/1.9.1/gems/sass-3.2.8/lib/sass/tree/visitors/perform.rb:253:in `visit_mixin'
+C:/Ruby193/lib/ruby/gems/1.9.1/gems/sass-3.2.8/lib/sass/tree/visitors/base.rb:37:in `visit'
+C:/Ruby193/lib/ruby/gems/1.9.1/gems/sass-3.2.8/lib/sass/tree/visitors/perform.rb:100:in `visit'
+C:/Ruby193/lib/ruby/gems/1.9.1/gems/sass-3.2.8/lib/sass/tree/visitors/base.rb:53:in `block in visit_children'
+C:/Ruby193/lib/ruby/gems/1.9.1/gems/sass-3.2.8/lib/sass/tree/visitors/base.rb:53:in `map'
+C:/Ruby193/lib/ruby/gems/1.9.1/gems/sass-3.2.8/lib/sass/tree/visitors/base.rb:53:in `visit_children'
+C:/Ruby193/lib/ruby/gems/1.9.1/gems/sass-3.2.8/lib/sass/tree/visitors/perform.rb:109:in `block in visit_children'
+C:/Ruby193/lib/ruby/gems/1.9.1/gems/sass-3.2.8/lib/sass/tree/visitors/perform.rb:121:in `with_environment'
+C:/Ruby193/lib/ruby/gems/1.9.1/gems/sass-3.2.8/lib/sass/tree/visitors/perform.rb:108:in `visit_children'
+C:/Ruby193/lib/ruby/gems/1.9.1/gems/sass-3.2.8/lib/sass/tree/visitors/base.rb:37:in `block in visit'
+C:/Ruby193/lib/ruby/gems/1.9.1/gems/sass-3.2.8/lib/sass/tree/visitors/perform.rb:320:in `visit_rule'
+C:/Ruby193/lib/ruby/gems/1.9.1/gems/sass-3.2.8/lib/sass/tree/visitors/base.rb:37:in `visit'
+C:/Ruby193/lib/ruby/gems/1.9.1/gems/sass-3.2.8/lib/sass/tree/visitors/perform.rb:100:in `visit'
+C:/Ruby193/lib/ruby/gems/1.9.1/gems/sass-3.2.8/lib/sass/tree/visitors/base.rb:53:in `block in visit_children'
+C:/Ruby193/lib/ruby/gems/1.9.1/gems/sass-3.2.8/lib/sass/tree/visitors/base.rb:53:in `map'
+C:/Ruby193/lib/ruby/gems/1.9.1/gems/sass-3.2.8/lib/sass/tree/visitors/base.rb:53:in `visit_children'
+C:/Ruby193/lib/ruby/gems/1.9.1/gems/sass-3.2.8/lib/sass/tree/visitors/perform.rb:109:in `block in visit_children'
+C:/Ruby193/lib/ruby/gems/1.9.1/gems/sass-3.2.8/lib/sass/tree/visitors/perform.rb:121:in `with_environment'
+C:/Ruby193/lib/ruby/gems/1.9.1/gems/sass-3.2.8/lib/sass/tree/visitors/perform.rb:108:in `visit_children'
+C:/Ruby193/lib/ruby/gems/1.9.1/gems/sass-3.2.8/lib/sass/tree/visitors/base.rb:37:in `block in visit'
+C:/Ruby193/lib/ruby/gems/1.9.1/gems/sass-3.2.8/lib/sass/tree/visitors/perform.rb:128:in `visit_root'
+C:/Ruby193/lib/ruby/gems/1.9.1/gems/sass-3.2.8/lib/sass/tree/visitors/base.rb:37:in `visit'
+C:/Ruby193/lib/ruby/gems/1.9.1/gems/sass-3.2.8/lib/sass/tree/visitors/perform.rb:100:in `visit'
+C:/Ruby193/lib/ruby/gems/1.9.1/gems/sass-3.2.8/lib/sass/tree/visitors/perform.rb:7:in `visit'
+C:/Ruby193/lib/ruby/gems/1.9.1/gems/sass-3.2.8/lib/sass/tree/root_node.rb:20:in `render'
+C:/Ruby193/lib/ruby/gems/1.9.1/gems/sass-3.2.8/lib/sass/engine.rb:315:in `_render'
+C:/Ruby193/lib/ruby/gems/1.9.1/gems/sass-3.2.8/lib/sass/engine.rb:262:in `render'
+C:/Ruby193/lib/ruby/gems/1.9.1/gems/sass-3.2.8/lib/sass/plugin/compiler.rb:341:in `update_stylesheet'
+C:/Ruby193/lib/ruby/gems/1.9.1/gems/sass-3.2.8/lib/sass/plugin/compiler.rb:203:in `block in update_stylesheets'
+C:/Ruby193/lib/ruby/gems/1.9.1/gems/sass-3.2.8/lib/sass/plugin/compiler.rb:201:in `each'
+C:/Ruby193/lib/ruby/gems/1.9.1/gems/sass-3.2.8/lib/sass/plugin/compiler.rb:201:in `update_stylesheets'
+C:/Ruby193/lib/ruby/gems/1.9.1/gems/sass-3.2.8/lib/sass/plugin.rb:81:in `update_stylesheets'
+C:/Ruby193/lib/ruby/gems/1.9.1/gems/sass-3.2.8/lib/sass/exec.rb:432:in `watch_or_update'
+C:/Ruby193/lib/ruby/gems/1.9.1/gems/sass-3.2.8/lib/sass/exec.rb:315:in `process_result'
+C:/Ruby193/lib/ruby/gems/1.9.1/gems/sass-3.2.8/lib/sass/exec.rb:41:in `parse'
+C:/Ruby193/lib/ruby/gems/1.9.1/gems/sass-3.2.8/lib/sass/exec.rb:21:in `parse!'
+C:/Ruby193/lib/ruby/gems/1.9.1/gems/sass-3.2.8/bin/scss:9:in `<top (required)>'
+C:/Ruby193/bin/scss:23:in `load'
+C:/Ruby193/bin/scss:23:in `<main>'
+*/
+body:before {
+  white-space: pre;
+  font-family: monospace;
+  content: "Syntax error: Undefined mixin 'bg_img'.\A         on line 69 of coins.scss, in `bg_img'\A         from line 69 of coins.scss\A \A 64: .thumbs_up {\A 65:   margin-right: 5px;\A 66: }\A 67: \A 68: .tabLogo {\A 69:   @include bg_img('img/VibrantNEOlogo2040_40.png', 180px, 40px);\A 70:   /*margin-right: 10px;*/\A 71: }"; }

@@ -64,3 +64,8 @@ $gap: 2px;
 .thumbs_up {
   margin-right: 5px;
 }
+
+.tabLogo {
+  @include bg_img('img/VibrantNEOlogo2040_40.png', 180px, 40px);
+  /*margin-right: 10px;*/
+}
