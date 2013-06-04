@@ -436,6 +436,9 @@
 //            $("#logols").animate({
 //                'height': '100px'
 //            });
+//            $("#footer").css(
+//                'height', '10px'  // css (Y), animate (N)
+//            );
 //            $("#noscc_logol").animate({
 //                    'background-size': '80%, 80%',
 //                    'height': '120%',
