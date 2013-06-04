@@ -101,6 +101,10 @@
         var _loadAllActions = function (callback) {
             d3.json('/getAllActions', function (allActions) {
                 _actionsByMechId = {};
+                if (!allActions) {
+                    console.log('getAllActions failed: '+allActions);
+                    return;
+                }
                 $.each(allActions, function (i, action) {
                     if (!action.data) return;//continue
                     var mechId = action.structureId.mechanism;

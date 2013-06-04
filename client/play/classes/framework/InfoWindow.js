@@ -4,13 +4,22 @@
  * Time: 10:30 AM
  */
 (function () { // self-invoking function
+    var GENERIC_DESCRIPTION = 'Unclear effect - In some instances this project might have a positive impact on this priority, but in other cases, the impact might be negative.';
     SAS.InfoWindow = function () {
         var _self = this;
 
         //region private fields and methods
         var _iconSize = 50;
-        var _addPriority = function (pId, /*SAS.CellDef*/cell, right, mechanism) {
-            var titleDiv = $("<div class='info_right_title_grp'>").appendTo(right);
+        var _allwaysListAllPriorities = true;
+
+        var _addPriority = function (pId, /*SAS.CellDef*/cell, prepend, right, mechanism) {
+            var $priorityDiv = $("<div class='info_right_prio_grp'>");
+            if (prepend) {
+                $priorityDiv.prependTo(right);
+            }else {
+                $priorityDiv.appendTo(right);
+            }
+            var titleDiv = $("<div class='info_right_title_grp'>").appendTo($priorityDiv);
             var iconDiv = $("<div class='info_icon'>").appendTo(titleDiv);
             var iconSvg = d3.select(iconDiv[0]).append("svg")
                 .attr("width", _iconSize + 2)
@@ -37,13 +46,21 @@
             var rt_hdr = $("<div class='info_right_title'>").appendTo(titleDiv);
 
             // tipsy
-            $('.info_right_title a').tipsy({gravity:'n'});
+            $('.info_right_title a').tipsy({gravity: 'n'});
 
             rt_hdr.html(SAS.localizr.get(pDef.title));
-            var rd_bdy = $("<div class='info_body'>").appendTo(right);
+            var rd_bdy = $("<div class='info_body'>").appendTo($priorityDiv);
             var infoText = SAS.localizr.get(cell.description);
             if (infoText == "") infoText = "It is unlikely that " + SAS.localizr.get(mechanism.data.progressive) + " will have a great contribution to creating a future where " + SAS.localizr.get(pDef.title);
             rd_bdy.html(infoText);
+
+            return $priorityDiv;
+        };
+
+        var _isNotInteresting = function (data) {
+            if (data.score == 'na') return true;
+            var descrip = SAS.localizr.get(data.description);
+            return !descrip || descrip == '' || descrip == GENERIC_DESCRIPTION;
         };
 
         var _buildHtml = function (mechanism, priorities, priorityId) {
@@ -80,7 +97,10 @@
             var lt_def = $("<div class='info_defin'>").appendTo(lt_box);
             lt_def.html();
 
-            d3.json('/getMechanismInfo?mechId=' + mechanism.id + ((priorityId) ? "&priorityId=" + priorityId : ""), function (data) {
+            var p = {mechId: mechanism.id};
+            if (!_allwaysListAllPriorities && priorityId) p.priorityId = priorityId;
+
+            d3.json('/getMechanismInfo?' + $.param(p), function (data) {
                 $.each(data.pictures, function (i, pic) {
                     var img = $("<img>").appendTo(lt_box);
                     img.attr("src", "/files/panel/" + pic.filename);
@@ -88,14 +108,13 @@
                     var cap = $("<div class='info_caption'>").appendTo(lt_box);
                     cap.html(pic.caption);
                 });
+
                 $.each(data.priorities, function (k, pCell) {
-                    if (pCell.data && SAS.localizr.get(pCell.data.description)) {
-                        _addPriority(pCell.pId, pCell.data, right, mechanism);
+                    if (pCell.data && (!_isNotInteresting(pCell.data) || priorityId == pCell.pId)) {
+                        var $priorityDiv = _addPriority(pCell.pId, pCell.data, priorityId == pCell.pId, right, mechanism);
                     }
                 });
             });
-
-
         };
 
         var _createMechanismWindow = function (mechanism, priorities, priorityId) {
@@ -105,18 +124,18 @@
             //$("#dialog").load("moreInfo/" + link, function () {
             _buildHtml(mechanism, priorities, priorityId);
             $("#dialog").dialog({
-                modal:true,
-                title:'Additional Information',
+                modal: true,
+                title: 'Additional Information',
 //                title:'<p class="info_hdr">How might</p><p class="info_left_title">' + text + '</p><p class="info_hdr">contribute to a Vibrant Northeast Ohio where . . . </p>',
-                buttons:{ "Ok":function () {
+                buttons: { "Ok": function () {
                     $(this).dialog("close");
                 } },
 //                height:650,
-                width:800,
-                minWidth:600,
-                maxHeight:$(window).height() - 80,
-                position:[10, 20],
-                dialogClass:'noTitle'
+                width: 800,
+                minWidth: 600,
+                maxHeight: $(window).height() - 80,
+                position: [10, 20],
+                dialogClass: 'noTitle'
             });
         };
         //endregion
