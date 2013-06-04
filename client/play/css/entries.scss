@@ -83,11 +83,15 @@ a:visited {
   @include bg_img('img/ajax-loader.gif', 299px, 203px);
 }
 
-
 .tabLogo {
   background-image: url("img/VibrantNEOlogo2040_40.png");
   background-repeat: no-repeat;
   background-position: left center;
   width: 180px;
   height: 40px;
-  /*margin-right: 10px;*/ }
+  /*margin-right: 10px;*/
+}
+
+.your_friend {
+
+}
