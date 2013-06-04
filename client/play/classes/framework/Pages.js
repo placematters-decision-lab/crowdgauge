@@ -263,7 +263,6 @@
             _lastPage = _activePage;
             switch (pageId) {
                 case INTRO:
-                    _logosMax(); // #header #logols animation
                     _gotoIntro();
                     break;
                 case PRIORITIES:
@@ -437,30 +436,6 @@
                 'height': '70%',
                 'background-size': '80%, 80%'
             });
-        };
-
-        var _logosMax = function () {
-//            $("#logols").animate({
-//                'height': '100px'
-//            });
-//            $("#footer").css(
-//                'height', '10px'  // css (Y), animate (N)
-//            );
-//            $("#noscc_logol").animate({
-//                    'background-size': '80%, 80%',
-//                    'height': '120%',
-//                    'width': '47%'
-//            });
-//            $("#vibrantneo_logol").animate({
-//                    'width': '15%',
-//                    'height': '90%',
-//                    'background-size': '100% 100%'
-//            });
-//            $("#imaginemyneo_logol").animate({
-//                    'width': '15%',
-//                    'heigh': '90%',
-//                    'background-size': '90%, 90%'
-//            });
         };
 
         //endregion
