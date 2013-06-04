@@ -12,6 +12,7 @@
         /** @type SAS.PriorityList */
         var _priorityList;
         var _bubbleChart;
+        /** @type SAS.MechanismList */
         var _mechanismList;
         var _pages;
         var _layout;
@@ -40,10 +41,10 @@
             $("#moreInfo").html("");
             if (activeMech != null) {
                 var $link = $("<a href='#'>See all explanations for </a>").appendTo("#moreInfo").click(function () {
-                    new SAS.InfoWindow().createMechanismWindow(activeMech, _priorityList.getPriorities());
+                    new SAS.InfoWindow().createImpactsWindow(activeMech, _priorityList.getPriorities());
                 });
                 var $boldSpan = $('<span>').appendTo($link);
-                SAS.localizr.live(activeMech.data.progressive, function(str) {
+                SAS.localizr.live(activeMech.data.progressive, function (str) {
                     $boldSpan.html(str.toLowerCase());
                 });
                 _bubbleChart.colorForMechanism(activeMech);
@@ -104,7 +105,7 @@
         };
 
         /** @return {SAS.BubbleChart} */
-        this.getBubbleChart = function() {
+        this.getBubbleChart = function () {
             return _bubbleChart;
         };
 
@@ -119,6 +120,22 @@
          */
         this.getPriorityDef = function (pId) {
             return _priorityList.getPriorityDef(pId);
+        };
+
+        /**
+         * @param {String} mechId
+         * @return {SAS.MechanismDef}
+         */
+        this.getMechanismDef = function (mechId) {
+            return _mechanismList.getMechanismDef(mechId);
+        };
+
+        /**
+         * @param {String} mechId
+         * @return {SAS.PriorityDef}
+         */
+        this.getActionCells = function (mechId) {
+            return _mechanismList.getActionCells(mechId);
         };
 
         this.initialize = function () {

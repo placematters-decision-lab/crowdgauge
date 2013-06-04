@@ -102,17 +102,29 @@
             d3.json('/getAllActions', function (allActions) {
                 _actionsByMechId = {};
                 if (!allActions) {
-                    console.log('getAllActions failed: '+allActions);
+                    console.log('getAllActions failed: ' + allActions);
                     return;
                 }
                 $.each(allActions, function (i, action) {
                     if (!action.data) return;//continue
                     var mechId = action.structureId.mechanism;
-                    if (!_actionsByMechId[mechId]) _actionsByMechId[mechId] = {actions:[]};
+                    if (!_actionsByMechId[mechId]) _actionsByMechId[mechId] = {actions: []};
                     _actionsByMechId[mechId].actions.push(action);
                 });
                 if (callback) callback();
             });
+        };
+
+        var _getActionCells = function (mechId) {
+            var ans = {};
+            var mObj = _actionsByMechId[mechId];
+            if (!mObj) return ans;
+            $.each(mObj.actions, function (i, action) {
+                if (!action.data || action.data.value === 0) return true;//continue
+                var aId = action.structureId.action;
+                ans[aId] = action.data;
+            });
+            return ans;
         };
 
         var _addMoneyAndVotes = function (mechanism) {
@@ -376,6 +388,10 @@
                 _recalcMoney();
             }
             _super._updateSelectionDisplay();
+        };
+
+        this.getActionCells = function (mechId) {
+            return _getActionCells(mechId);
         };
         //endregion
 

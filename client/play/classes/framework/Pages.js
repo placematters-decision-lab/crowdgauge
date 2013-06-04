@@ -107,10 +107,14 @@
             $("#btnBack").toggle(show);
         };
 
-        var _setClickToInfoWin = function (acompList) {
-            if (acompList) {
+        var _setClickToInfoWin = function () {
+            if (_activePage == IMPACTS) {
                 _bubbleChart.onBubbleClick(function (id) {
-                    new SAS.InfoWindow().createMechanismWindow(acompList.getActiveMechanism(), _priorityList.getPriorities(), id);
+                    new SAS.InfoWindow().createImpactsWindow(_mechanismList.getActiveMechanism(), _priorityList.getPriorities(), id);
+                });
+            } else if (_activePage == MONEY) {
+                _bubbleChart.onBubbleClick(function (id) {
+                    new SAS.InfoWindow().createActionsWindow(_priorityList.getPriorityDef(id), _mechanismList.getVotes());
                 });
             } else {
                 _bubbleChart.onBubbleClick(function () {});
@@ -203,7 +207,7 @@
             _bubbleChart.colorForMechanism(_mechanismList.getActiveMechanism());
             _layout.positionElements();
             _mechanismList.showDivs(true);
-            _setClickToInfoWin(_mechanismList);
+            _setClickToInfoWin();
         };
 
         var _gotoMoney = function () {

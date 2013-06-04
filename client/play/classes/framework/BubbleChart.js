@@ -320,6 +320,7 @@
                     var d = this.__data__;
                     var tip = SAS.localizr.get(d.data.title);
                     if (_colorMode == IMPACTS && !d3.select(this).classed("score_na")) tip += "<br/>(click for more)";
+                    if (_colorMode == MONEY) tip += "<br/>(click to see components)";
                     return tip;
                 }
             });
