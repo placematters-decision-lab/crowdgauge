@@ -29,6 +29,22 @@ body {
   width: 175px;
 }
 
+.tabLogo {
+  color: rgb(255, 255, 255);
+  cursor: pointer;
+  display: block;
+  float: left;
+  font-family: league-gothic, Arial, sans-serif;
+  font-size: 30px;
+  font-weight: normal;
+  letter-spacing: 1px;
+  height: 32px;
+  margin-left: 35px;
+  margin-top: 5px;
+  text-transform: uppercase;
+  width: 175px;
+}
+
 .tabTitleHighlight {
   border-bottom: 10px solid #AFBD21;
 }
@@ -216,14 +232,14 @@ body {
   -webkit-background-size: auto;
   background-attachment: scroll;
   background-clip: border-box;
-  background-color: rgb(77, 64, 72);
+  //background-color: rgb(77, 64, 72);
   background-image: none;
   background-origin: padding-box;
   background-size: auto;
   cursor: auto;
   display: block;
   font-family: Arial, sans-serif;
-  height: $headerHt;
+  //height: $headerHt;
   overflow-x: hidden;
   overflow-y: hidden;
   width: 100%;
@@ -238,7 +254,8 @@ body {
 #footer {
   background: #4d4048;
   width: 100%;
-  height: 50px;
+  //height: 50px;
+  height: 10px;
   overflow: hidden;
   position: fixed;
   bottom: 0;
@@ -264,7 +281,8 @@ body {
   /*float: top;*/
   float: left;
   right: 20px;
-  top: 100px;
+  //top: 100px;
+  top: 400px;
   //width: 30%;
   width: 360px;
   font-family: league-gothic, Arial, sans-serif;
@@ -337,7 +355,7 @@ body {
 #bigButtonHolder {
   position: absolute;
   right: 7px;
-  top: $headerHt + 7px;
+  top: $headerHt + 50px;
 }
 
 #reshowInstr {
@@ -351,7 +369,7 @@ body {
   /*font-weight: bold;*/
   //left: 450px;
   position: absolute;
-  top: $headerHt + 50px;
+  top: $headerHt + 90px;
   letter-spacing: 1px;
 }
 
@@ -524,4 +542,66 @@ strong {
 
 .tabTitleActive {
   cursor: pointer;
+}
+
+#vibrantneo_logo {
+  background-image: url("img/VibrantNEOlogo2040_40.png");
+  //background-image: url("img/header.jpg");
+  background-repeat: no-repeat;
+  background-position: left center;
+  width: 15%;
+  height: 90%;
+  background-size: 100% 100%;
+  /*margin-right: 10px;*/ }
+
+#noscc_logo {
+  background-image: url("img/bottombar_neoscc text.png");
+  background-repeat: no-repeat;
+  padding-top: 20px;
+  background-size: 80%, 80%;
+  height: 120%;
+  width: 47%;
+  /*margin-right: 10px;*/ }
+
+#imaginemyneo_logo {
+  background-image: url("img/bottombar_imaginemyneologo.png");
+  background-repeat: no-repeat;
+  float: right;
+  background-size: 90%, 90%;
+  height: 90%;
+  width: 15%;}
+
+#tabs {
+  background-color: #4d4048;
+  position: relative;
+  float: left;
+  display: block;
+  width: 100%
+}
+
+#logos {
+  position: relative;
+  float: left;
+  display: block;
+  width: 100%;
+  height: 100px;
+}
+
+#intro {
+}
+
+#introImage {
+  background-image: url("img/3D_counties.jpg");
+  background-repeat: no-repeat;
+  background-size: 60%;
+  background-position-x: 80px;
+  opacity: 0.2;
+  position:absolute;
+  top: 150px;
+  width: 60%;
+  height: 80%;
+}
+
+#introContent {
+  display: block;
 }

@@ -21,6 +21,7 @@
         var _onStartClick = function () {};
         var _showDivs = function (show) {
             $("#intro").toggle(show);
+            $("#introImage").toggle(show);
             //$("#btnNext").
         };
 
