@@ -342,6 +342,10 @@ body {
   overflow-y: auto;
   /*height: 384.5px;*/ }
 
+#mechanismList {
+  overflow-y: auto;
+  /*height: 384.5px;*/ }
+
 #listLoadIcon {
   position: absolute;
   top: 180px;
@@ -374,7 +378,7 @@ body {
 
 .mechPanel {
   border-bottom: 1px solid #E0D5D0;
-  height: 500px;
+  height: auto;
   overflow-y: auto; }
 
 .mechCatTitle {
