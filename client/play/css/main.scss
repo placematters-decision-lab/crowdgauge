@@ -154,7 +154,7 @@ body {
 
 .mechText {
   color: saddlebrown;
-  margin-left: 40px;
+  margin-left: 5px;
   font-family: Arial, sans-serif;
 }
 
@@ -162,6 +162,21 @@ body {
   vertical-align: middle;
   margin-top: 8px;
   min-height: 24px;
+}
+
+.priority_spending_grp {
+  background-color: white;
+  border: 1px solid #333333;
+  padding: 5px 12px;
+  margin-right: 10px;
+}
+
+.priority_spending {
+  margin-top: 8px;
+}
+
+.priority_spending_title {
+  min-height: 45px;
 }
 
 .mech_action {

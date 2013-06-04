@@ -19,6 +19,8 @@
         var _catDivs;
         var _mechPanel;
         var _mechanisms = null;
+        var _mechDefs = {};
+
         var _activeMechanism;
         var _onActiveMechanismChange = function () {
         };
@@ -35,8 +37,8 @@
         var _addCatDiv = function (category) {
             if (!_catDivs[category]) {
                 var catClass = 'cat';
-                if(category != '') {
-                    catClass = "cat_" + category.replace(/ /g,"_").toLowerCase();
+                if (category != '') {
+                    catClass = "cat_" + category.replace(/ /g, "_").toLowerCase();
                 }
                 var catDiv = $("<div class='mechCat'></div>").appendTo(_mechPanel);
                 var catTitleDiv = $("<div class='mechCatTitle'></div>").appendTo(catDiv);
@@ -45,12 +47,12 @@
             }
         };
 
-        var _addPolicyDiv = function(category) {
-            if(!_policyDivs[category]) {
-                var catClass = "cat_" + category.replace(/ /g,"_").toLowerCase();
+        var _addPolicyDiv = function (category) {
+            if (!_policyDivs[category]) {
+                var catClass = "cat_" + category.replace(/ /g, "_").toLowerCase();
                 _policyDivs[category] = $('.' + catClass);
             }
-        }
+        };
 
         var _resizeMiniBubbleCharts = function () {
             if (_miniCharts == null) return;
@@ -76,8 +78,8 @@
             return maxMech;
         };
 
-        var _getTopScorer = function(priorities) {
-           return _getHighestScoringMechanism(_mechanisms, priorities);
+        var _getTopScorer = function (priorities) {
+            return _getHighestScoringMechanism(_mechanisms, priorities);
         };
 
         //endregion
@@ -95,6 +97,10 @@
         this._mechanisms = function (p) {
             if (p) {
                 _mechanisms = p;
+                _mechDefs = {};
+                $.each(_mechanisms, function (i, mechanism) {
+                    _mechDefs[mechanism.data.uid] = mechanism.data;
+                });
             } else {
                 return _mechanisms;
             }
@@ -134,11 +140,11 @@
 
         this._getPolicyDivs = function () {
             return _policyDivs;
-        }
+        };
 
-        this._addPolicyDiv = function(category) {
+        this._addPolicyDiv = function (category) {
             _addPolicyDiv(category);
-        }
+        };
 
         this._setActiveMechanism = function (mechanism) {
             _activeMechanism = mechanism;
@@ -170,6 +176,10 @@
             _activeMechanism = mech;
             _updateSelectionDisplay();
             _onActiveMechanismChange();
+        };
+
+        this.getMechanismDef = function (mechId) {
+            return _mechDefs[mechId];
         };
 
         this.onActiveMechanismChange = function (fn) {//this _self is called within the context of the MechanismList (the one with the prototype)

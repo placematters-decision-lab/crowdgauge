@@ -4,7 +4,7 @@
  * Time: 10:30 AM
  */
 (function () { // self-invoking function
-    var GENERIC_DESCRIPTION = 'Unclear effect - In some instances this project might have a positive impact on this priority, but in other cases, the impact might be negative.';
+    var GENERIC_DESCRIPTION = 'unclear effect - in some instances this project might have a positive impact on this priority, but in other cases, the impact might be negative.';
     SAS.InfoWindow = function () {
         var _self = this;
 
@@ -12,11 +12,11 @@
         var _iconSize = 50;
         var _allwaysListAllPriorities = true;
 
-        var _addPriority = function (pId, /*SAS.CellDef*/cell, prepend, right, mechanism) {
+        var _addPIcon = function (/**SAS.PriorityDef*/pDef, /*SAS.CellDef*/cell, title, prepend, right, defaultText) {
             var $priorityDiv = $("<div class='info_right_prio_grp'>");
             if (prepend) {
                 $priorityDiv.prependTo(right);
-            }else {
+            } else {
                 $priorityDiv.appendTo(right);
             }
             var titleDiv = $("<div class='info_right_title_grp'>").appendTo($priorityDiv);
@@ -32,8 +32,6 @@
                 .attr("class", "score_" + cell.score)
                 .attr("r", "100");
 
-            var pDef = SAS.mainInstance.getPriorityDef(pId);
-
             var imgScale = 1; //0.65;//scale down to fit square SVG icons within circles (multiply the diameter by 1/sqrt(2) = 0.707) + inset from the edge a little
             var siz = 200 * imgScale;
             grp.append("image")
@@ -48,10 +46,10 @@
             // tipsy
             $('.info_right_title a').tipsy({gravity: 'n'});
 
-            rt_hdr.html(SAS.localizr.get(pDef.title));
+            rt_hdr.html(SAS.localizr.get(title));
             var rd_bdy = $("<div class='info_body'>").appendTo($priorityDiv);
             var infoText = SAS.localizr.get(cell.description);
-            if (infoText == "") infoText = "It is unlikely that " + SAS.localizr.get(mechanism.data.progressive) + " will have a great contribution to creating a future where " + SAS.localizr.get(pDef.title);
+            if (infoText == "") infoText = defaultText;
             rd_bdy.html(infoText);
 
             return $priorityDiv;
@@ -60,40 +58,21 @@
         var _isNotInteresting = function (data) {
             if (data.score == 'na') return true;
             var descrip = SAS.localizr.get(data.description);
-            return !descrip || descrip == '' || descrip == GENERIC_DESCRIPTION;
+            return !descrip || descrip == '' || descrip.toLowerCase() == GENERIC_DESCRIPTION;
         };
 
-        var _buildHtml = function (mechanism, priorities, priorityId) {
+        var _buildImpactsHtml = function (mechanism, priorities, priorityId) {
             $("#dialog").html("");
             var mainDiv = $("<div></div>").appendTo("#dialog");
             var headerDiv = $("<div class='info_header'>").appendTo(mainDiv);
 
-            //$('<a href="#"/></a>').appendTo(headerDiv);//hack to prevent scrolling to bottom, see: http://forum.jquery.com/topic/default-scroll-position-of-jquery-ui-dialog
-
-//            var t_hdr = $("<div class='info_hdr info_hdr_top'>").appendTo(headerDiv);
             var lt_hdr = $("<div class='info_left_title'>").appendTo(headerDiv);  // TODO: move to header
             lt_hdr.html('<p class="info_hdr">How might</p><p class="info_left_title">' + SAS.localizr.get(mechanism.data.progressive) + '</p><p class="info_hdr">contribute to a Vibrant Northeast Ohio where . . . </p>');
-//            $("<div class='info_hdr info_hdr_below'>").appendTo(headerDiv);
 
             var wrapper = $("<div class='right_wrapper'>").appendTo(mainDiv);
             var right = $("<div class='info_right'>").appendTo(wrapper);
-//            if (priorityId != null) {
-//                var priorityLookup = d3.nest().key(
-//                    function (d) { return d.id; }).map(priorities.children);
-//                var priority = priorityLookup[priorityId][0];
-//                _addPriority(priority, right, mechanism);
-//            } else {
-//                $.each(priorities.children, function (k, priority) {
-//                    if (mechanism.values[priority.id].infoText != "") {
-//                        _addPriority(priority, right, mechanism);
-//                    }
-//                });
-//            }
-
             var left = $("<div class='info_left'>").appendTo(mainDiv);
-
             var lt_box = $("<div class='info_left_box'>").appendTo(left);
-
             var lt_def = $("<div class='info_defin'>").appendTo(lt_box);
             lt_def.html();
 
@@ -111,38 +90,109 @@
 
                 $.each(data.priorities, function (k, pCell) {
                     if (pCell.data && (!_isNotInteresting(pCell.data) || priorityId == pCell.pId)) {
-                        var $priorityDiv = _addPriority(pCell.pId, pCell.data, priorityId == pCell.pId, right, mechanism);
+                        var pDef = SAS.mainInstance.getPriorityDef(pCell.pId);
+                        var defaultText = "It is unlikely that " + SAS.localizr.get(mechanism.data.progressive) + " will have a great contribution to creating a future where " + SAS.localizr.get(pDef.title);
+                        _addPIcon(pDef, pCell.data, pDef.title, priorityId == pCell.pId, right, defaultText);
                     }
                 });
             });
         };
 
-        var _createMechanismWindow = function (mechanism, priorities, priorityId) {
-            if (mechanism == null) return;
-            SAS.mainInstance.getDataManager().incrementInfoWinCount();
-            //var link = mechanism.id + "_" + priorityId + ".html";
-            //$("#dialog").load("moreInfo/" + link, function () {
-            _buildHtml(mechanism, priorities, priorityId);
-            $("#dialog").dialog({
+        var _buildActionsHtml = function (/**SAS.PriorityDef*/pDef, votes) {
+            //votes[mechanism.id].push({'actionId': aId, 'multiplier': multiplier, 'numCoins': micon.getTotalCoins()});
+
+            $("#dialog").html("");
+            var mainDiv = $("<div></div>").appendTo("#dialog");
+            var headerDiv = $("<div class='info_header'>").appendTo(mainDiv);
+
+            var lt_hdr = $("<div class='info_left_title'>").appendTo(headerDiv);  // TODO: move to header
+            lt_hdr.html('<p class="info_hdr">How do my choices contribute to a vibrant Northeast Ohio where...</p><p class="info_left_title">' + SAS.localizr.get(pDef.title) + '</p>');
+
+            var wrapper = $("<div class='right_wrapper'>").appendTo(mainDiv);
+            var right = $("<div class='info_right'>").appendTo(wrapper);
+            var left = $("<div class='info_left'>").appendTo(mainDiv);
+            var lt_box = $("<div class='info_left_box'>").appendTo(left);
+            var lt_def = $("<div class='info_defin'>").appendTo(lt_box);
+            lt_def.html();
+
+            $.each(votes, function (mechId, mechVotes) {
+                var actionCells = SAS.mainInstance.getActionCells(mechId);
+                var mech = SAS.mainInstance.getMechanismDef(mechId);
+                var p = {mechId: mechId, priorityId: pDef.uid};
+                d3.json('/getMechanismInfo?' + $.param(p), function (data) {
+                    $.each(data.priorities, function (k, pCell) {
+                        var $priorityDiv = _addPIcon(pDef, pCell.data, mech.progressive, false, right, null);
+                        $priorityDiv.find('.info_right_title_grp').addClass('priority_spending_title');
+                        $priorityDiv.addClass('priority_spending_grp');
+                        var $priorityVotesDiv = $('<div class="priority_spending">').appendTo($priorityDiv);
+                        $.each(mechVotes, function (i, vote) {
+                            var action = actionCells[vote.actionId];
+                            if (action) {
+                                var iconClasses = [];
+                                var descrip = '';
+                                if (vote.numCoins > 0) {
+                                    descrip = SAS.localizr.get(action.description);
+                                    iconClasses = ['coins', 'coins_on_' + vote.numCoins];
+                                } else {
+                                    var dir = vote.multiplier > 0 ? 'up' : 'down';
+                                    iconClasses = ['thumbs_' + dir, 'thumbs_on_' + dir];
+                                    descrip = vote.multiplier > 0 ? 'vote for' : 'vote against (has opposite effect)';
+                                }
+                                var $actionDiv = $("<div class='mech_action_div'>").appendTo($priorityVotesDiv);
+                                $('<div>').addClass(iconClasses.join(' ')).appendTo($actionDiv);
+                                $('<div class="mech_action">').html(descrip).appendTo($actionDiv);
+                            }
+                        });
+                    });
+                });
+            });
+        };
+
+        var _showDialog = function () {
+            var $dialog = $("#dialog");
+            var resizeDlg = function () {
+                $('.right_wrapper').height(function () {
+                    return $dialog.height() - $(this).position().top;
+                });
+            };
+            $dialog.dialog({
                 modal: true,
                 title: 'Additional Information',
-//                title:'<p class="info_hdr">How might</p><p class="info_left_title">' + text + '</p><p class="info_hdr">contribute to a Vibrant Northeast Ohio where . . . </p>',
                 buttons: { "Ok": function () {
                     $(this).dialog("close");
                 } },
-//                height:650,
+                height: $(window).height() - 80,
                 width: 800,
                 minWidth: 600,
                 maxHeight: $(window).height() - 80,
                 position: [10, 20],
-                dialogClass: 'noTitle'
+                dialogClass: 'noTitle',
+                resize: resizeDlg
             });
+            resizeDlg();
+        };
+
+        var _createImpactsWindow = function (mechanism, priorities, priorityId) {
+            if (mechanism == null) return;
+            SAS.mainInstance.getDataManager().incrementInfoWinCount();
+            _buildImpactsHtml(mechanism, priorities, priorityId);
+            _showDialog();
+        };
+
+        var _createActionsWindow = function (priority, votes) {
+            if (priority == null) return;
+            SAS.mainInstance.getDataManager().incrementInfoWinCount();
+            _buildActionsHtml(priority, votes);
+            _showDialog();
         };
         //endregion
 
         //region public API
-        this.createMechanismWindow = function (mechanism, priorities, priorityId) {
-            _createMechanismWindow(mechanism, priorities, priorityId);
+        this.createImpactsWindow = function (mechanism, priorities, priorityId) {
+            _createImpactsWindow(mechanism, priorities, priorityId);
+        };
+        this.createActionsWindow = function (priority, votes) {
+            _createActionsWindow(priority, votes);
         };
         //endregion
     }
