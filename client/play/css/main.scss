@@ -277,7 +277,7 @@ body {
   right: 20px;
   top: 100px;
   //width: 30%;
-  width: 400px;
+  width: 360px;
   font-family: league-gothic, Arial, sans-serif;
   font-size: 120%;
   color: #4d4048;
@@ -307,15 +307,17 @@ body {
   margin-left: 40px;
   //width: 60%;
   width: 60%;
-  padding-bottom: 60%;
+  //padding-bottom: 60%;
   color: rgb(58, 40, 37);
   font-family: Arial, sans-serif;
   font-size: 110%;
   font-weight: normal;
   letter-spacing: 1px;
   line-height: 1.4;
-  height: 32px;
+  //height: 32px;
+  height: 300px;
   padding-right: 5px;
+  overflow-y: auto;
 }
 
 #langSel {

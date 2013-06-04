@@ -252,7 +252,7 @@ body {
   float: left;
   right: 20px;
   top: 100px;
-  width: 400px;
+  width: 360px;
   font-family: league-gothic, Arial, sans-serif;
   font-size: 120%;
   color: #4d4048;
@@ -279,15 +279,15 @@ body {
   float: left;
   margin-left: 40px;
   width: 60%;
-  padding-bottom: 60%;
   color: #3a2825;
   font-family: Arial, sans-serif;
   font-size: 110%;
   font-weight: normal;
   letter-spacing: 1px;
   line-height: 1.4;
-  height: 32px;
-  padding-right: 5px; }
+  height: 300px;
+  padding-right: 5px;
+  overflow-y: auto; }
 
 #langSel {
   float: right;
