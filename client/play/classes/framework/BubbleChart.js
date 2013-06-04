@@ -266,8 +266,8 @@
         };
 
         var _setClickable = function (clickable) {
-            //pointer-events: none;
-            _imageIcons.classed("bubbleIconNoMouse", clickable);
+
+            //_imageIcons.classed("bubbleIconNoMouse", true); --this is no longer needed as all bubbleIcons now have pointer-events:none;
         };
 
         var _createBubbles = function () {
@@ -319,7 +319,7 @@
                 title: function () {
                     var d = this.__data__;
                     var tip = SAS.localizr.get(d.data.title);
-                    if (!d3.select(this).classed("score_na")) tip += "<br/>(click for more)";
+                    if (_colorMode == IMPACTS && !d3.select(this).classed("score_na")) tip += "<br/>(click for more)";
                     return tip;
                 }
             });

@@ -107,6 +107,9 @@ body {
 .right_wrapper {
   float: left;
   width: 100%;
+  margin-top: 8px;
+  height: 500px;
+  overflow-y: scroll;
 }
 
 .info_left {
@@ -125,7 +128,15 @@ body {
 .info_right {
   /*margin-left: 375px;*/
   display: block;
-  margin-top: 28px;
+}
+
+.info_right_prio_grp {
+  margin-bottom: 15px;
+  min-height: 70px;
+}
+
+.info_body {
+  font-size: 0.8em;
 }
 
 .info_icon {
@@ -137,7 +148,7 @@ body {
 
 .info_right_title {
   font-weight: bold;
-  font-size: 1.3em;
+  font-size: 1em;
   margin-top: 12px;
 }
 
@@ -486,12 +497,12 @@ strong {
 }
 
 .info_hdr {
-  height: 24px;
-  width: 500px;
   background-repeat: no-repeat;
   background-position: left center;
   font-style: italic;
-  color: #002b51;
+  color: #002B51;
+  margin-bottom: 8px;
+  margin-top: 8px;
 }
 
 .info_left_title {

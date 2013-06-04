@@ -62,11 +62,11 @@
             $("#leftPanel").addClass("sliderPanel");
             $("#priorityList").html("");
             var orderedArr = _priorities.slice(0);//clone
-            if (_randomizeOrder) orderedArr.sort(function() { return 0.5 - Math.random();});
+            if (_randomizeOrder) orderedArr.sort(function () { return 0.5 - Math.random();});
             $.each(orderedArr, function (i, priority) {
                 /** @type SAS.PriorityDef */
                 var pDef = priority.data;
-               // console.log(i+": "+pDef.title.en);
+                // console.log(i+": "+pDef.title.en);
                 var uid = priority.data.uid;
                 _priorityLookup[uid] = priority;
                 priority.score = 0;
@@ -81,14 +81,14 @@
                 var $titleTxt = $("<div class='sliderTitle'></div>").appendTo(div);
                 SAS.localizr.live(pDef.title, $titleTxt);
 
-                $('.sliderTitle a').tipsy({gravity:'n'});
+                $('.sliderTitle a').tipsy({gravity: 'n'});
 
                 ratingDiv.raty({
-                    path:'img/raty-img',
-                    cancel:true,
-                    cancelHint:'put all stars back',
-                    hintList:['1', '2', '3', '4', '5'],
-                    click:function (score, evt) {
+                    path: 'img/raty-img',
+                    cancel: true,
+                    cancelHint: 'put all stars back',
+                    hintList: ['1', '2', '3', '4', '5'],
+                    click: function (score, evt) {
                         priority.score = (score == null) ? 0 : parseInt(score);
                         priority.value = _starAsPerc(priority.score);
                         _onRatingChange();
@@ -112,13 +112,15 @@
         //region public API
         this.getData = function () {
             var priorityData = {};
-            $.each(_priorities, function (i, priority) {
-                if (priority.score > 0) {
-                    /** @type SAS.PriorityDef */
-                    var pDef = priority.data;
-                    priorityData[pDef.uid] = priority.score;
-                }
-            });
+            if (_priorities) {
+                $.each(_priorities, function (i, priority) {
+                    if (priority.score > 0) {
+                        /** @type SAS.PriorityDef */
+                        var pDef = priority.data;
+                        priorityData[pDef.uid] = priority.score;
+                    }
+                });
+            }
             return priorityData;
         };
 
@@ -132,7 +134,7 @@
         };
 
         this.getPriorities = function () {
-            return {children:_priorities};//--d3 layout expects 'children'
+            return {children: _priorities};//--d3 layout expects 'children'
         };
 
         this.getSortedPriorities = function () {
