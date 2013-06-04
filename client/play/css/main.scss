@@ -192,13 +192,9 @@ body {
 
 #chart {
   display: block;
-  /*left: 510px;*/
   left: 600px;
   position: absolute;
-  //top: 80px;
 }
-
-/*padding-left: 1cm;}*/
 
 #starsLeft {
   left: 10px;
@@ -258,7 +254,6 @@ body {
   -webkit-background-size: auto;
   background-attachment: scroll;
   background-clip: border-box;
-  //background-color: rgb(77, 64, 72);
   background-image: none;
   background-origin: padding-box;
   background-size: auto;
@@ -303,27 +298,20 @@ body {
 .introFrm {
   background-color: #ecf1ef;
   padding: 1%;
-  /*float: top-left;*/
-  /*float: top;*/
   float: left;
   right: 20px;
-  //top: 100px;
-  top: 400px;
-  //width: 30%;
   width: 360px;
   font-family: league-gothic, Arial, sans-serif;
   font-size: 120%;
   color: #4d4048;
-  height: 400px;
   text-transform: uppercase;
 }
 
 .introTxtH1 {
   position: relative;
   margin-left: 40px;
-  /*padding-bottom: 5%;*/
-  /*width: 60%;*/
-  /*color: rgb(169, 211, 226);*/
+  margin-top: 40px;
+  margin-bottom: 40px;
   color: #002b51;
   float: left;
   font-family: league-gothic, Arial, sans-serif;
@@ -332,22 +320,18 @@ body {
   letter-spacing: 1px;
   line-height: 1.0;
   text-transform: uppercase;
-  margin-bottom: -50px;
 }
 
 .introTxt {
   float: left;
   margin-left: 40px;
-  //width: 60%;
   width: 60%;
-  //padding-bottom: 60%;
   color: rgb(58, 40, 37);
   font-family: Arial, sans-serif;
   font-size: 110%;
   font-weight: normal;
   letter-spacing: 1px;
   line-height: 1.4;
-  //height: 32px;
   height: 300px;
   padding-right: 5px;
   overflow-y: auto;
@@ -385,15 +369,9 @@ body {
 }
 
 #reshowInstr {
-  /*clear: right;*/
-  /*float: right;*/
-  /*cursor: pointer;*/
   color: #00456a;
   cursor: pointer;
   font-family: league-gothic, Arial, sans-serif;
-  /*font-size: 0.7em;*/
-  /*font-weight: bold;*/
-  //left: 450px;
   position: absolute;
   top: $headerHt + 90px;
   letter-spacing: 1px;
@@ -401,12 +379,10 @@ body {
 
 #priorityList {
   overflow-y: auto;
-  /*height: 384.5px;*/
 }
 
 #mechanismList {
   overflow-y: auto;
-  /*height: 384.5px;*/
 }
 
 #listLoadIcon {
@@ -447,7 +423,6 @@ body {
 
 .mechPanel {
   border-bottom: 1px solid #E0D5D0;
-  //height: 500px;
   height: auto;
   overflow-y: auto;
 }
@@ -472,12 +447,9 @@ body {
 
 .priorityTxtH2 {
   position: relative;
-  //margin-left: 40px;
   color: rgb(169, 211, 226);
-  /*float: left;*/
   font-family: league-gothic, Arial, sans-serif;
   font-size: 350%;
-  /*padding-bottom: 1%;*/
   font-weight: normal;
   letter-spacing: 1px;
   line-height: 1.0;
@@ -531,7 +503,6 @@ strong {
   margin-bottom: 4px;
   margin-top: 3px;
   color: #A9D3E2;
-  //text-transform: lowercase;
 }
 
 .demoLabel {
@@ -578,13 +549,11 @@ strong {
 
 #vibrantneo_logo {
   background-image: url("img/VibrantNEOlogo2040_40.png");
-  //background-image: url("img/header.jpg");
   background-repeat: no-repeat;
   background-position: left center;
   width: 15%;
   height: 90%;
-  background-size: 100% 100%;
-  /*margin-right: 10px;*/ }
+  background-size: 100% 100%;}
 
 #noscc_logo {
   background-image: url("img/bottombar_neoscc text.png");
@@ -592,8 +561,7 @@ strong {
   padding-top: 20px;
   background-size: 80%, 80%;
   height: 120%;
-  width: 47%;
-  /*margin-right: 10px;*/ }
+  width: 47%; }
 
 #imaginemyneo_logo {
   background-image: url("img/bottombar_imaginemyneologo.jpg");
@@ -632,6 +600,7 @@ strong {
   top: 150px;
   width: 60%;
   height: 80%;
+  z-index: -10;
 }
 
 #introContent {
