@@ -1,9 +1,27 @@
+//----------------------colors
+$titleColor: #002b51;
+//----------------------
 @mixin bg_img($path, $w, $h) {
   background-image: url($path);
   background-repeat: no-repeat;
   background-position: left center;
   width: $w;
   height: $h;
+}
+
+@mixin fontFam($family, $size: 100%) {
+  font-family: $family;
+  @if $size != 100% {
+    font-size: $size
+  }
+}
+
+@mixin titleFont($size: 100%) {
+  @include fontFam((league-gothic, Arial, sans-serif), $size);
+}
+
+@mixin mainFont($size: 100%) {
+  @include fontFam((Arial, sans-serif), $size);
 }
 
 .ajax_loader_blue {
