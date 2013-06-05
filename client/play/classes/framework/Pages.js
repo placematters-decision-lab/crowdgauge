@@ -408,6 +408,10 @@
                 _showBack();
             });
 
+            $("#vibrantneo_logo").click(function () {
+                window.open("http://vibrantneo.org/");
+            });
+
             _gotoPage(INTRO);
             _selectTab(_activePage);
         };
