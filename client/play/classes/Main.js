@@ -94,12 +94,20 @@
         };
 
         var _resizeMe = function () {
-            var fontsize = 12;  //TODO: initial font
+            var fontsize_introTxtH1 = 50;
+            var fontsize_introTxt = 12;  //TODO: initial font
+
+
             var preferredHeight = 768;
             var displayHeight = $(window).width();
             var percentage = displayHeight / preferredHeight;
-            var newFontSize = Math.floor(fontsize * percentage) - 1;
-            $(".introTxt").css("font-size", newFontSize);
+            var newFontSize_introTxt = Math.floor(fontsize_introTxt * percentage) - 1;
+            var newFontSize_introTxtH1 = Math.floor(fontsize_introTxtH1 * percentage) - 1;
+
+            $(".introTxtH1").css("font-size", newFontSize_introTxtH1);
+            if (newFontSize_introTxt > 10) {
+                $(".introTxt").css("font-size", newFontSize_introTxt);
+            }
         };
         //endregion
 
