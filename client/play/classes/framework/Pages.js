@@ -420,21 +420,21 @@
                 'height', '50px'  // css (Y), animate (N)
             );
             $("#noscc_logo").animate({
-                'width': '40%',
-                'height': '90%',
-                'background-size':'80%, 80%',
-                'padding-top': '2px'
+                width: '40%',
+                height: '90%',
+                backgroundSize:'80%, 80%',
+                paddingTop: '2px'
             });
             $("#vibrantneo_logo").animate({
-                'width': '10%',
-                'height': '70%',
-                'background-size': '80%, 80%',
-                'padding-top': '2px'
+                width: '10%',
+                height: '70%',
+                backgroundSize: '80%, 80%',
+                paddingTop: '2px'
             });
             $("#imaginemyneo_logo").animate({
-                'width': '10%',
-                'height': '70%',
-                'background-size': '80%, 80%'
+                width: '10%',
+                height: '70%',
+                backgroundSize: '80%, 80%'
             });
         };
 
