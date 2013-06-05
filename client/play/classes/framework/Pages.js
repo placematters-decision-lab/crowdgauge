@@ -356,7 +356,8 @@
             ]);
             _layout.addWidthFillers([
                 {sel: $("#chart")},
-                {sel: $(".introTxt"), leave: $(".introFrm").outerWidth() + 60}
+                {sel: $(".introTxt"), leave: $(".introFrm").outerWidth() + 60},
+                {sel: $("#tab_group"), leave: $("#options").outerWidth() + 5}//add 5 to prevent resize flicker
             ]);
 
             _addClickEvents([INTRO]);

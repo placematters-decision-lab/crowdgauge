@@ -1,48 +1,52 @@
 body {
-    background-color: #f8f8f8; }
-
-.tabTitle {
-    margin: 0px 5px;
-    padding: 2px 3px; }
+  background-color: #f8f8f8;
+}
 
 .sliderTitle {
-    color: #654A3F; }
+  color: #654A3F;
+}
 
 .mechGrp {
-    margin: 5px;
-    padding: 5px; }
+  margin: 5px;
+  padding: 5px;
+}
 
 .mechGrpBtn {
-    background: white;
-    border-right: 1px solid #D1C4B3;
-    border-bottom: 1px solid #D1C4B3; }
+  background: white;
+  border-right: 1px solid #D1C4B3;
+  border-bottom: 1px solid #D1C4B3;
+}
 
 .mechGrpBox {
-    background: white;
-    border-right: 1px solid #D1C4B3;
-    border-bottom: 1px solid #D1C4B3;
-    padding: 5px 4px 4px 5px; }
+  background: white;
+  border-right: 1px solid #D1C4B3;
+  border-bottom: 1px solid #D1C4B3;
+  padding: 5px 4px 4px 5px;
+}
 
 .mechText {
-    font-size: 0.75em;
-    color: #654A3F;
-    font-weight: bold; }
+  font-size: 0.75em;
+  color: #654A3F;
+  font-weight: bold;
+}
 
 .mechText {
-    font-size: 0.75em;
-    /*margin-left: 42px;*/
-    color: #654A3F;
-    font-weight: bold; }
+  font-size: 0.75em;
+  /*margin-left: 42px;*/
+  color: #654A3F;
+  font-weight: bold;
+}
 
 .selected {
-    border: 2px solid #bebebe; }
+  border: 2px solid #bebebe;
+}
 
 #colorRampLegend {
-    background-repeat: no-repeat;
-    clear: right;
-    float: right;
-    display: block;
-    height: 50px;
-    width: 450px;
-    padding-left:2cm;
+  background-repeat: no-repeat;
+  clear: right;
+  float: right;
+  display: block;
+  height: 50px;
+  width: 450px;
+  padding-left: 2cm;
 }

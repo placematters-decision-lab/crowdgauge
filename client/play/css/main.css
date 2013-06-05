@@ -6,7 +6,7 @@
   height: 55px; }
 
 .tabLogo {
-  background-image: url("img/VibrantNEOlogo2040_40.png");
+  background-image: url("img/VibrantNEOlogo2040.png");
   background-repeat: no-repeat;
   background-position: left center;
   width: 180px;
@@ -24,38 +24,29 @@ body {
   cursor: pointer;
   background-position: 20px 0; }
 
-.tabTitle {
-  color: white;
-  cursor: pointer;
-  display: block;
+.tabTitle_wrapper {
+  width: 24%;
   float: left;
+  display: block; }
+
+.tabTitle {
   font-family: league-gothic, Arial, sans-serif;
   font-size: 30px;
+  color: white;
+  cursor: pointer;
   font-weight: normal;
   letter-spacing: 1px;
-  height: 32px;
-  margin-left: 35px;
-  margin-top: 5px;
+  height: 35px;
   text-transform: uppercase;
-  width: 175px; }
+  margin: 0px 6px; }
 
 .tabLogo {
-  color: white;
   cursor: pointer;
-  display: block;
   float: left;
-  font-family: league-gothic, Arial, sans-serif;
-  font-size: 30px;
-  font-weight: normal;
-  letter-spacing: 1px;
-  height: 32px;
-  margin-left: 35px;
-  margin-top: 5px;
-  text-transform: uppercase;
   width: 175px; }
 
 .tabTitleHighlight {
-  border-bottom: 10px solid #AFBD21; }
+  border-bottom: 6px solid #AFBD21; }
 
 .bars {
   width: 100%;
@@ -76,13 +67,13 @@ body {
   margin-left: 6px; }
 
 .sliderTitle {
-  font-size: 0.8em;
   margin-bottom: 2px;
   margin-left: 8px;
   vertical-align: middle;
   float: left;
   margin-top: 5px;
-  font-family: Arial, sans-serif; }
+  font-family: Arial, sans-serif;
+  font-size: 0.8em; }
 
 /*font-family: "Helvetica Neue" ; }*/
 .sliderGrp {
@@ -166,14 +157,14 @@ body {
   min-height: 45px; }
 
 .mech_action {
-  font-size: 0.70em;
   margin-left: 42px;
   color: #654A3F;
   font-weight: bold;
   vertical-align: middle;
   margin-top: 8px;
   min-height: 24px;
-  font-family: Arial, sans-serif; }
+  font-family: Arial, sans-serif;
+  font-size: 0.7em; }
 
 #chart {
   display: block;
@@ -210,11 +201,11 @@ body {
   position: absolute;
   color: white;
   font-family: league-gothic, Arial, sans-serif;
+  font-size: 150%;
   background-image: url("img/Coin_Illustrations_coin_pile.png");
   background-repeat: no-repeat;
   background-position: left center;
-  background-size: 49px 41px;
-  font-size: 150%; }
+  background-size: 49px 41px; }
 
 .coinsLeftNum {
   color: #24ccff;
@@ -298,13 +289,16 @@ body {
   width: 60%;
   color: #3a2825;
   font-family: Arial, sans-serif;
-  font-size: 108%;
+  font-size: 120%;
   font-weight: normal;
   letter-spacing: 1px;
-  line-height: 1.4;
+  line-height: 1.2;
   height: 300px;
   padding-right: 5px;
   overflow-y: auto; }
+
+.introTxt p {
+  background-color: rgba(255, 255, 255, 0.5); }
 
 #langSel {
   float: right;
@@ -481,7 +475,7 @@ strong {
   cursor: pointer; }
 
 #vibrantneo_logo {
-  background-image: url("img/VibrantNEOlogo2040_40.png");
+  background-image: url("img/VibrantNEOlogo2040.png");
   background-repeat: no-repeat;
   background-position: left center;
   width: 15%;
@@ -497,12 +491,13 @@ strong {
   width: 47%; }
 
 #imaginemyneo_logo {
-  background-image: url("img/bottombar_imaginemyneologo.jpg");
+  background-image: url("img/bottombar_imaginemyneologo.png");
   background-repeat: no-repeat;
+  background-position: left center;
+  width: 299px;
+  height: 75px;
   float: right;
-  background-size: 90%, 90%;
-  height: 90%;
-  width: 15%; }
+  margin-right: 8px; }
 
 #tabs {
   background-color: #4d4048;
