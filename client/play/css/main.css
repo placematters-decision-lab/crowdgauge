@@ -25,27 +25,27 @@ body {
   background-position: 20px 0; }
 
 .tabTitle {
+  font-family: league-gothic, Arial, sans-serif;
+  font-size: 30px;
   color: white;
   cursor: pointer;
   display: block;
   float: left;
-  font-family: league-gothic, Arial, sans-serif;
-  font-size: 30px;
   font-weight: normal;
   letter-spacing: 1px;
   height: 32px;
   margin-left: 35px;
   margin-top: 5px;
   text-transform: uppercase;
-  width: 175px; }
+  width: 25%; }
 
 .tabLogo {
+  font-family: league-gothic, Arial, sans-serif;
+  font-size: 30px;
   color: white;
   cursor: pointer;
   display: block;
   float: left;
-  font-family: league-gothic, Arial, sans-serif;
-  font-size: 30px;
   font-weight: normal;
   letter-spacing: 1px;
   height: 32px;
@@ -76,13 +76,13 @@ body {
   margin-left: 6px; }
 
 .sliderTitle {
-  font-size: 0.8em;
   margin-bottom: 2px;
   margin-left: 8px;
   vertical-align: middle;
   float: left;
   margin-top: 5px;
-  font-family: Arial, sans-serif; }
+  font-family: Arial, sans-serif;
+  font-size: 0.8em; }
 
 /*font-family: "Helvetica Neue" ; }*/
 .sliderGrp {
@@ -166,14 +166,14 @@ body {
   min-height: 45px; }
 
 .mech_action {
-  font-size: 0.70em;
   margin-left: 42px;
   color: #654A3F;
   font-weight: bold;
   vertical-align: middle;
   margin-top: 8px;
   min-height: 24px;
-  font-family: Arial, sans-serif; }
+  font-family: Arial, sans-serif;
+  font-size: 0.7em; }
 
 #chart {
   display: block;
@@ -210,11 +210,11 @@ body {
   position: absolute;
   color: white;
   font-family: league-gothic, Arial, sans-serif;
+  font-size: 150%;
   background-image: url("img/Coin_Illustrations_coin_pile.png");
   background-repeat: no-repeat;
   background-position: left center;
-  background-size: 49px 41px;
-  font-size: 150%; }
+  background-size: 49px 41px; }
 
 .coinsLeftNum {
   color: #24ccff;
@@ -298,13 +298,16 @@ body {
   width: 60%;
   color: #3a2825;
   font-family: Arial, sans-serif;
-  font-size: 110%;
+  font-size: 120%;
   font-weight: normal;
   letter-spacing: 1px;
-  line-height: 1.4;
+  line-height: 1.2;
   height: 300px;
   padding-right: 5px;
   overflow-y: auto; }
+
+.introTxt p {
+  background-color: rgba(255, 255, 255, 0.5); }
 
 #langSel {
   float: right;
@@ -497,7 +500,7 @@ strong {
   width: 47%; }
 
 #imaginemyneo_logo {
-  background-image: url("img/bottombar_imaginemyneologo.jpg");
+  background-image: url("img/bottombar_imaginemyneologo.png");
   background-repeat: no-repeat;
   float: right;
   background-size: 90%, 90%;

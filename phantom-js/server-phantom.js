@@ -34,7 +34,8 @@ var _processRequest = function (req, res, callback) {
 
     _activePage.onCallback = function (data) {
         //console.log('CALLBACK: ' + JSON.stringify(data));  // Prints 'CALLBACK: { "hello": "world" }'
-        console.log('----CLICK---- screenshot taken')
+        console.log('----CLICK---- screenshot taken');
+        page.clipRect = { top: 0, left: 0, width: viewportSize.width, height: viewportSize.height };
         var base64Data = page.renderBase64('png');
         res.send(base64Data);
         if (callback) callback();

@@ -85,7 +85,6 @@
             return {
                 zip:_$zipInput.val(),
                 age:_$ageInput.val(),
-                gender:_$genderInput.val(),
                 relationship:_$relationshipInput.val(),
                 ethnicity:_$ethnicityInput.val()
             };

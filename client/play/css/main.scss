@@ -1,5 +1,6 @@
 @import "core";
 $headerHt: 40px;
+
 body {
   normal: 100% Helvetica, Arial, sans-serif;
   overflow: hidden;
@@ -14,28 +15,26 @@ body {
 }
 
 .tabTitle {
+  @include titleFont(30px);
   color: rgb(255, 255, 255);
   cursor: pointer;
   display: block;
   float: left;
-  font-family: league-gothic, Arial, sans-serif;
-  font-size: 30px;
   font-weight: normal;
   letter-spacing: 1px;
   height: 32px;
   margin-left: 35px;
   margin-top: 5px;
   text-transform: uppercase;
-  width: 175px;
+  width: 25%;
 }
 
 .tabLogo {
+  @include titleFont(30px);
   color: rgb(255, 255, 255);
   cursor: pointer;
   display: block;
   float: left;
-  font-family: league-gothic, Arial, sans-serif;
-  font-size: 30px;
   font-weight: normal;
   letter-spacing: 1px;
   height: 32px;
@@ -71,13 +70,12 @@ body {
 }
 
 .sliderTitle {
-  font-size: 0.8em;
   margin-bottom: 2px;
   margin-left: 8px;
   vertical-align: middle;
   float: left;
   margin-top: 5px;
-  font-family: Arial, sans-serif;
+  @include mainFont(0.8em);
 }
 
 /*font-family: "Helvetica Neue" ; }*/
@@ -155,7 +153,7 @@ body {
 .mechText {
   color: saddlebrown;
   margin-left: 5px;
-  font-family: Arial, sans-serif;
+  @include mainFont();
 }
 
 .mech_action_div {
@@ -180,14 +178,13 @@ body {
 }
 
 .mech_action {
-  font-size: 0.70em;
   margin-left: 42px;
   color: #654A3F;
   font-weight: bold;
   vertical-align: middle;
   margin-top: 8px;
   min-height: 24px;
-  font-family: Arial, sans-serif;
+  @include mainFont(0.70em);
 }
 
 #chart {
@@ -205,8 +202,7 @@ body {
   height: 40px;
   position: absolute;
   color: white;
-  font-family: league-gothic, Arial, sans-serif;
-  font-size: 150%;
+  @include titleFont(150%);
 }
 
 .starsLeftNum {
@@ -219,8 +215,7 @@ body {
   height: 40px;
   position: absolute;
   color: white;
-  font-family: league-gothic, Arial, sans-serif;
-  font-size: 150%;
+  @include titleFont(150%);
 }
 
 #coinsLeft {
@@ -228,12 +223,11 @@ body {
   height: 40px;
   position: absolute;
   color: white;
-  font-family: league-gothic, Arial, sans-serif;
+  @include titleFont(150%);
   background-image: url('img/Coin_Illustrations_coin_pile.png');
   background-repeat: no-repeat;
   background-position: left center;
   background-size: 49px 41px;
-  font-size: 150%;
 }
 
 .coinsLeftNum {
@@ -259,7 +253,7 @@ body {
   background-size: auto;
   cursor: auto;
   display: block;
-  font-family: Arial, sans-serif;
+  @include mainFont();
   //height: $headerHt;
   overflow-x: hidden;
   overflow-y: hidden;
@@ -301,8 +295,7 @@ body {
   float: left;
   right: 20px;
   width: 360px;
-  font-family: league-gothic, Arial, sans-serif;
-  font-size: 120%;
+  @include titleFont(120%);
   color: #4d4048;
   text-transform: uppercase;
 }
@@ -312,10 +305,9 @@ body {
   margin-left: 40px;
   margin-top: 40px;
   margin-bottom: 40px;
-  color: #002b51;
+  color: $titleColor;
   float: left;
-  font-family: league-gothic, Arial, sans-serif;
-  font-size: 500%;
+  @include titleFont(500%);
   font-weight: normal;
   letter-spacing: 1px;
   line-height: 1.0;
@@ -327,14 +319,16 @@ body {
   margin-left: 40px;
   width: 60%;
   color: rgb(58, 40, 37);
-  font-family: Arial, sans-serif;
-  font-size: 110%;
+  @include mainFont(120%);
   font-weight: normal;
   letter-spacing: 1px;
-  line-height: 1.4;
+  line-height: 1.2;
   height: 300px;
   padding-right: 5px;
   overflow-y: auto;
+}
+.introTxt p {
+  background-color: rgba(255,255,255,0.5);
 }
 
 #langSel {
@@ -371,7 +365,7 @@ body {
 #reshowInstr {
   color: #00456a;
   cursor: pointer;
-  font-family: league-gothic, Arial, sans-serif;
+  @include titleFont(100%);
   position: absolute;
   top: $headerHt + 90px;
   letter-spacing: 1px;
@@ -431,8 +425,7 @@ body {
   color: #00456A;
   margin-left: 10px;
   text-transform: uppercase;
-  font-family: league-gothic, Arial, sans-serif;
-  font-size: 150%;
+  @include titleFont(150%);
 }
 
 .sliderIcon {
@@ -448,8 +441,7 @@ body {
 .priorityTxtH2 {
   position: relative;
   color: rgb(169, 211, 226);
-  font-family: league-gothic, Arial, sans-serif;
-  font-size: 350%;
+  @include titleFont(350%);
   font-weight: normal;
   letter-spacing: 1px;
   line-height: 1.0;
@@ -458,8 +450,7 @@ body {
 .priorityTxtH3 {
   position: relative;
   color: #00456a;
-  font-family: league-gothic, Arial, sans-serif;
-  font-size: 48%;
+  @include titleFont(48%);
   font-weight: normal;
   letter-spacing: 1px;
   line-height: 1.0;
@@ -564,7 +555,7 @@ strong {
   width: 47%; }
 
 #imaginemyneo_logo {
-  background-image: url("img/bottombar_imaginemyneologo.jpg");
+  background-image: url("img/bottombar_imaginemyneologo.png");
   background-repeat: no-repeat;
   float: right;
   background-size: 90%, 90%;

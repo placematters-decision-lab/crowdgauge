@@ -36,15 +36,18 @@ a:visited {
 #mainGrp {
   margin: 30px; }
 
+.button_bar {
+  margin-top: 10px;
+  margin-bottom: 6px;
+  float: right; }
+
 #designProfileGrp {
+  clear: right;
   padding: 15px;
   background-color: white;
   min-height: 500px;
   font-size: 0.85em;
   color: #48352d; }
-
-.button_bar {
-  margin-top: 12px; }
 
 #share {
   margin-left: 30px;
@@ -70,22 +73,31 @@ a:visited {
   margin-left: 20px;
   cursor: pointer; }
 
+#btnCreateYours {
+  color: #002b51; }
+
 .yourScore {
   font-size: 30px;
   font-weight: bold;
-  color: #00446a; }
+  color: #002b51; }
 
-.myVibrantFive {
-  background-image: url("img/ajax-loader.gif");
+.your_friend {
+  vertical-align: top; }
+
+.your_friend_title {
+  font-family: league-gothic, Arial, sans-serif;
+  font-size: 70px;
+  padding: 10px 5px;
+  color: #002b51;
+  text-transform: uppercase;
+  margin-right: 20px;
+  display: inline-block; }
+
+.imagine_my_neo {
+  background-image: url("img/bottombar_imaginemyneologo.png");
   background-repeat: no-repeat;
   background-position: left center;
   width: 299px;
-  height: 203px; }
-
-.tabLogo {
-  background-image: url("img/VibrantNEOlogo2040_40.png");
-  background-repeat: no-repeat;
-  background-position: left center;
-  width: 180px;
-  height: 40px;
-  /*margin-right: 10px;*/ }
+  height: 75px;
+  vertical-align: top;
+  margin-top: 10px; }
