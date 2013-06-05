@@ -34,10 +34,10 @@
             var zip = $("#zipInput").val();
             var zipCity = "";
             if (_zipLookup[zip]) {
-                zipCity = _zipLookup[zip][0].name;
+                zipCity = _zipLookup[zip];
             } else {
                 if (_isValidZip(zip)) {
-                    zipCity = "Other City";
+                    zipCity = "Other County";
                 }
             }
             if (zipCity != "") $('label[for="zipInput"]').removeClass("nonvalid");
@@ -118,6 +118,9 @@
             _populateControls($('#introFrm'));
             $('.demoInput select').change(function () {
                 $('label[for="'+$(this).attr("id")+'"]').toggleClass("nonvalid", SAS.controlUtilsInstance.isPrompt($(this).val()));
+            });
+           _$zipInput.change(function () {
+               _checkZip();
             });
             _$btnStart.click(function () {
                 if (_validate()) _onStartClick();

@@ -110,6 +110,7 @@
             // show the top items
             _showTopItems();
             _layout.positionElements();
+            $('.loader').hide();
         };
 
         var _getTopItems = function (limit) {
@@ -315,11 +316,20 @@
             $(window).resize(function () {
                 _updateLayout();
             });
+
+            $("#vibrantneo_logo").click(function () {
+                window.open("http://vibrantneo.org/");
+            });
+
+            $("#imaginemyneo_logo").click(function () {
+                window.open("http://imaginemyneo.crowdgauge.org/" || process.env.APP_URL); //TODO
+            });
         };
 
         var _resetCharts = function () {
             _locationChart.reset();
         };
+
         var _tryLoadData = function () {
             _resetCharts();
             if (_mode == MODE_MECH) {
