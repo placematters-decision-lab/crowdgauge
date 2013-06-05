@@ -9,6 +9,7 @@
 
         //region private fields and methods
         var _$zipInput;
+        var _$zipCity;
         var _$ageInput;
         var _$genderInput;
         var _$relationshipInput;
@@ -52,6 +53,7 @@
             var $zip = $('<div class="demoInput">').appendTo($holder);
             $zip.append('<label class="demoLabel" for="zipInput">Zip</label>');
             _$zipInput = $('<input id="zipInput" type="text" size="5">').appendTo($zip);
+            _$zipCity = $('<label id="zipCity">').appendTo($zip);
 
             var $age = $('<div class="demoInput">').appendTo($holder);
             $age.append('<label class="demoLabel" for="ageInput">Age</label>');
@@ -99,6 +101,7 @@
                 $('label[for="zipInput"]').addClass("nonvalid");
                 valid = false;
             }
+            _checkZip();
             $('.demoInput select').each(function () {
                 if (SAS.controlUtilsInstance.isPrompt($(this).val())) {
                     $('label[for="'+$(this).attr("id")+'"]').addClass("nonvalid");
