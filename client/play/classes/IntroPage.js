@@ -16,6 +16,11 @@
         var _$ethnicityInput;
         var _$btnStart;
 
+        var _fileAndVersion = function () {
+//            return '?filename=' + encodeURIComponent(SAS.configInstance.getFileName()) + '&v=' + SAS.mainInstance.getCacheVersion();
+            return '?filename=' + encodeURIComponent(SAS.configInstance.getFileName());
+        };
+
         var _instructions = new SAS.Instructions();
         var _cacheVersion = SAS.mainInstance.getCacheVersion();
         var _zipLookup = {};
@@ -101,7 +106,7 @@
                 $('label[for="zipInput"]').addClass("nonvalid");
                 valid = false;
             }
-            _checkZip();
+//            _checkZip();
             $('.demoInput select').each(function () {
                 if (SAS.controlUtilsInstance.isPrompt($(this).val())) {
                     $('label[for="'+$(this).attr("id")+'"]').addClass("nonvalid");
@@ -125,6 +130,15 @@
             _$btnStart.click(function () {
                 if (_validate()) _onStartClick();
 //                _onStartClick();
+            });
+
+            d3.json('/getLocations' + _fileAndVersion(), function (data) {
+                _locations = data; // array
+                $.each(_locations, function (i, location) {
+                    $.each(location.data.zips, function (i, zip) {
+                        _zipLookup[zip] = location.data.name;
+                    });
+                });
             });
         };
         //endregion
