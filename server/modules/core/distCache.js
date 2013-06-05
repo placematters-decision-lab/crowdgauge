@@ -117,10 +117,11 @@ DistCache = function (type, onReady) {
             console.log("ENTERING MEMCACHE... onReady:"+_onReady);
             var mc = require('mc');
             var util = require("util");
-            _memCli = new mc.Client('sasakicache.s95c4z.cfg.use1.cache.amazonaws.com:11211', mc.Adapter.json);// remote
-//            _memCli = new mc.Client('127.0.0.1', mc.Adapter.json);// local
+//            _memCli = new mc.Client('sasakicache.s95c4z.cfg.use1.cache.amazonaws.com:11211', mc.Adapter.json);// remote
+            _memCli = new mc.Client('127.0.0.1', mc.Adapter.json);// local
             var client = _memCli.connect(function () {
                 console.log("Connected to memcache");
+                console.log("APP_URL: " + process.env.APP_URL);
                 if (_onReady) _onReady();
             });
 
@@ -169,7 +170,6 @@ DistCache = function (type, onReady) {
             };
 
             _appendList = function (key, val, callback) {
-                console.log("inside appendList memcache...");
                 _memCli.append(key, val, function (err, status) {
                     //console.log(status);
                     if (err) {
