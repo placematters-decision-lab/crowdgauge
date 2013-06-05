@@ -92,6 +92,15 @@
                 _bubbleChart.updateLayout();
             });
         };
+
+        var _resizeMe = function () {
+            var fontsize = 12;  //TODO: initial font
+            var preferredHeight = 768;
+            var displayHeight = $(window).width();
+            var percentage = displayHeight / preferredHeight;
+            var newFontSize = Math.floor(fontsize * percentage) - 1;
+            $(".introTxt").css("font-size", newFontSize);
+        };
         //endregion
 
         //region public API
@@ -147,6 +156,12 @@
         };
 
         //endregion
+        $(function() {
+            $(window).bind('resize', function()
+            {
+                _resizeMe();
+            }).trigger('resize');
+        });
     };
     /**
      @type SAS.Main
