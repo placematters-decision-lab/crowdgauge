@@ -74,7 +74,6 @@ var PersistentStore = function (prefix, onReady) {
     this.checkAuthorization = function (req, callback) {
         var cookies = _parseCookies(req);
         console.log("-------------cookies.email: " + cookies.email + " cookies.auth: " + cookies.auth + "---------------");
-
         if (cookies.email && cookies.auth) {
             //check redis store for this auth and cookie combo
             _load(cookies.email, function (obj) {
