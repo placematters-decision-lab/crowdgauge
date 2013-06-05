@@ -155,10 +155,10 @@
 
         var _gotoPriorities = function () {
             _activePage = PRIORITIES;
+            _introPage.showDivs(false);
             if (!_priorityList.hasData()) return;//--will come back once data has loaded
             $("#titleBar").show();
             if (!_priorityStartTime) _priorityStartTime = new Date();
-            _introPage.showDivs(false);
             _mechanismList.showDivs(false);
             _priorityList.showDivs(true);
             _bubbleChart.showDivs(true);
@@ -261,12 +261,14 @@
         var _gotoPage = function (pageId) {
             _storeData(_activePage);
             _lastPage = _activePage;
+            if (_lastPage == INTRO) {
+                _logosMin(); // #header #logos animation
+            }
             switch (pageId) {
                 case INTRO:
                     _gotoIntro();
                     break;
                 case PRIORITIES:
-                    _logosMin(); // #header #logols animation
                     _gotoPriorities();
                     break;
                 case IMPACTS:
@@ -329,6 +331,20 @@
             });
         };
 
+        var _resizeFonts = function () {
+            var fontsize_introTxtH1 = 50;
+            var fontsize_introTxt = 12;  //TODO: initial font
+
+            var preferredWidth = 768;
+            var displayWidth = $(window).width();
+            var percentage = displayWidth / preferredWidth;
+            var newFontSize_introTxt = Math.max(14, Math.floor(fontsize_introTxt * percentage) - 1);
+            var newFontSize_introTxtH1 =  Math.max(20, Math.floor(fontsize_introTxtH1 * percentage) - 1);
+
+            $(".introTxtH1").css("font-size", newFontSize_introTxtH1);
+            $(".introTxt").css("font-size", newFontSize_introTxt);
+        };
+
         var _initialize = function () {
             _preloadData();
             var bottomoffset = 65;
@@ -337,11 +353,11 @@
 //                {sel:$("#btnNext"), leave:10},
                 {sel: $("#reshowInstr"), leave: 10},
                 {sel: $("#moreInfo"), leave: 10},
-                {sel: $("#footer_sasaki"), leave: 5},
-                {sel: $("#colorRampLegend"), leave: 10}
+                {sel: $("#footer_sasaki"), leave: 5}
+                //{sel: $("#colorRampLegend"), leave: 10}
             ]);
             _layout.addBottomAligners([
-                {sel: $("#colorRampLegend"), leave: 27},
+                //{sel: $("#colorRampLegend"), leave: 27},
                 {sel: $("#moreInfo"), leave: 70},
                 {sel: $("#itemsLeft"), leave: 24},
                 {sel: $("#footer")}
@@ -356,7 +372,7 @@
             ]);
             _layout.addWidthFillers([
                 {sel: $("#chart")},
-                {sel: $(".introTxt"), leave: $(".introFrm").outerWidth() + 60},
+                {sel: $(".introTxt"), leave: $(".introFrm").outerWidth() + 70},
                 {sel: $("#tab_group"), leave: $("#options").outerWidth() + 5}//add 5 to prevent resize flicker
             ]);
 
@@ -418,29 +434,44 @@
         };
 
         var _logosMin = function () {
+            $("#imaginemyneo_logo").animate({
+                width: 150,
+                marginTop: 1
+            });
+
+            $("#vibrantneo_logo").animate({
+                width: 70,
+                marginTop: 1
+            });
+
             $("#logos").animate({
                 height: '40px'
             });
-            $("#footer").css(
-                'height', '50px'  // css (Y), animate (N)
-            );
-            $("#noscc_logo").animate({
-                width: '40%',
-                height: '90%',
-                backgroundSize:'80%, 80%',
-                paddingTop: '2px'
+            var $footer =$("#footer");
+            var expandedFooterHeight = 50;
+            var ht = $footer.height();
+            var top = $footer.offset().top;
+            $footer.animate({
+                top: top - (expandedFooterHeight - ht),
+                height: expandedFooterHeight
             });
-            $("#vibrantneo_logo").animate({
-                width: '10%',
-                height: '70%',
-                backgroundSize: '80%, 80%',
-                paddingTop: '2px'
-            });
-            $("#imaginemyneo_logo").animate({
-                width: '10%',
-                height: '70%',
-                backgroundSize: '80%, 80%'
-            });
+//            $("#noscc_logo").animate({
+//                width: '40%',
+//                height: '90%',
+//                backgroundSize:'80%, 80%',
+//                paddingTop: '2px'
+//            });
+//            $("#vibrantneo_logo").animate({
+//                width: '10%',
+//                height: '70%',
+//                backgroundSize: '80%, 80%',
+//                paddingTop: '2px'
+//            });
+//            $("#imaginemyneo_logo").animate({
+//                width: '10%',
+//                height: '70%',
+//                backgroundSize: '80%, 80%'
+//            });
         };
 
         //endregion
@@ -448,6 +479,10 @@
         //region public API
         this.updateLayout = function () {
             _layout.positionElements();
+        };
+
+        this.afterLayout = function () {
+            _resizeFonts();
         };
         //endregion
 

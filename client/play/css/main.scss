@@ -16,7 +16,8 @@ body {
 }
 
 .tabTitle_wrapper {
-  width: 24%;//slightly less than a quarter to prevent flicker
+  width: 24%;
+  //slightly less than a quarter to prevent flicker
   float: left;
   display: block;
 }
@@ -33,9 +34,7 @@ body {
 }
 
 .tabLogo {
-  cursor: pointer;
-  float: left;
-  width: 175px;
+  display: inline-block;
 }
 
 .tabTitleHighlight {
@@ -69,7 +68,8 @@ body {
   vertical-align: middle;
   float: left;
   margin-top: 5px;
-  @include mainFont(0.8em);
+  @include mainFont(0.76em);
+  //calibrated for longest priority title to fit on 1 line
 }
 
 /*font-family: "Helvetica Neue" ; }*/
@@ -201,11 +201,12 @@ body {
 
 .starsLeftNum {
   color: #24ccff;
-  font-size: 2em;
+  font-size: 1.8em;
 }
 
 #clickInstr {
   padding-left: 30px;
+  margin-top: 5px;
   height: 40px;
   position: absolute;
   color: white;
@@ -284,10 +285,11 @@ body {
 }
 
 .introFrm {
-  background-color: #ecf1ef;
+  background-color: #e2edc6;
   padding: 1%;
-  float: left;
-  right: 20px;
+  position: absolute;
+  right: 0;
+  bottom: 10px;
   width: 360px;
   @include titleFont(120%);
   color: #4d4048;
@@ -381,19 +383,15 @@ body {
 }
 
 .colorRamp {
-  background-position: left center;
-  background-repeat: no-repeat;
-  height: 40px;
   position: absolute;
-  width: 450px;
 }
 
 .colorRamp_money {
-  background-image: url("../img/colorramp_Color_ramp_RED-BLUE_GRADIENT.png");
+  @include bg_img('img/colorramp_Color_ramp_RED-BLUE_GRADIENT.png', 450px, 35px);
 }
 
 .colorRamp_impacts {
-  background-image: url("../img/colorramp_Color_ramp_RED-BLUE.png");
+  @include bg_img('img/colorramp_Color_ramp_RED-BLUE.png', 450px, 36px);
 }
 
 .nonvalid {
@@ -491,6 +489,12 @@ strong {
   color: #A9D3E2;
 }
 
+.start_button {
+  color: $titleColor;
+  margin-top: 20px;
+  float: right;
+}
+
 .demoLabel {
   padding-right: 5px;
   display: inline-block;
@@ -533,28 +537,28 @@ strong {
   cursor: pointer;
 }
 
-#vibrantneo_logo {
-  background-image: url("img/VibrantNEOlogo2040.png");
-  background-repeat: no-repeat;
-  background-position: left center;
-  width: 15%;
-  height: 90%;
-  background-size: 100% 100%;
+@mixin resizable_logo() {
+  height: 100%;
+  background-size: contain;
 }
 
-#noscc_logo {
-  background-image: url("img/bottombar_neoscc text.png");
-  background-repeat: no-repeat;
-  padding-top: 20px;
-  background-size: 80%, 80%;
-  height: 120%;
-  width: 47%;
+#vibrantneo_logo {
+  @include bg_img("img/VibrantNEOlogo2040.png", 166px, 90px);
+  @include resizable_logo();
+  cursor: pointer;
+}
+
+#vibrantneo_cci {
+  @include bg_img("img/NEO_cci.png", 427px, 32px);
+  vertical-align: bottom;
 }
 
 #imaginemyneo_logo {
   @include bg_img("img/bottombar_imaginemyneologo.png", 299px, 75px);
+  @include resizable_logo();
   float: right;
-  margin-right: 8px;
+  margin-right: 12px;
+  margin-top: 5px;
 }
 
 #tabs {
@@ -570,7 +574,7 @@ strong {
   float: left;
   display: block;
   width: 100%;
-  height: 100px;
+  height: 94px;
 }
 
 #intro {
@@ -591,4 +595,11 @@ strong {
 
 #introContent {
   display: block;
+}
+
+#colorRampLegend {
+  clear: right;
+  float: right;
+  margin-top: 3px;
+  margin-right: 6px;
 }

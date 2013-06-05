@@ -77,7 +77,7 @@
             var relationships = ["Born and raised here", "Moved here from somewhere else", "From here, but moved away", "None of the above, but I'm interested in the region!"];
             SAS.controlUtilsInstance.populateSelectList(_$relationshipInput, "[Select Relationship to Northeast Ohio]", relationships);
 
-            _$btnStart = $('<button data-localize="buttons.start">START</button>').appendTo($holder);
+            _$btnStart = $('<button class="start_button" data-localize="buttons.start">START</button>').appendTo($holder);
             _$btnStart.button();
         };
 
