@@ -31,7 +31,10 @@
         };
 
         var _saveLeadername = function (text, callback) {
-            d3.json('/saveLeadername' + _params({leadername: text, responseId: _responseId}), function (ans) {
+            d3.json('/saveLeadername' + _params({leadername: text, responseId: _responseId, responseAuth:SAS.utilsInstance.gup('responseAuth')}), function (ans) {
+                if (!ans.success) {
+                    alert(ans.message);
+                }
                 callback(ans.success);
             });
         };
@@ -72,12 +75,17 @@
                     validateText();
                 }
             });
+            var cancelBtn = (_leaderName && _leaderName.length > 0) ? 'Cancel' : 'Skip the leaderboard';
+
             var btns = {};
-            btns['Skip the leaderboard'] = function () {
+            btns[cancelBtn] = function () {
                 $dlg.dialog("close");
             };
             btns['Take the Challenge'] = function () {
-                if ($warning.is(":visible") || $loader.is(":visible")) return;
+                if (text.length == 0 || $warning.is(":visible") || $loader.is(":visible")) {
+                    validateText();
+                    return;
+                }
                 $loader.show();
                 _saveLeadername(text, function (success) {
                     $loader.hide();
@@ -166,14 +174,6 @@
             });
         };
 
-        var _getEntryData = function () {
-            d3.json('/getResponse' + _params({responseId: _responseId}), function (entry) {
-                _entry = entry;
-                _updateGender();
-                _tryLoadEntry();
-            });
-        };
-
         var _initialize = function () {
             _responseId = SAS.utilsInstance.gup('responseId');
             _sharing = SAS.utilsInstance.gup('sharing') === 'yes';
@@ -189,7 +189,11 @@
                 event.preventDefault();
                 _showMyVibrant5Dialog();
             });
-            _getEntryData();
+            d3.json('/getResponse' + _params({responseId: _responseId}), function (entry) {
+                _entry = entry;
+                _updateGender();
+                _tryLoadEntry();
+            });
             d3.json("/getMechanisms" + _params(), function (data) {
                 _mechanisms = {};
                 $.each(data, function (i, mechanism) {
@@ -211,11 +215,18 @@
                 _setLeaderName(ans.leadername);
             });
 
+            d3.json('/descendantCount' + _params({responseId: _responseId}), function (ans) {
+                $('.yourScore').text(ans.count);
+            });
         };
 
         var _setLeaderName = function (leadername) {
             _leaderName = leadername;
-            $('.leadername').text(_leaderName);
+            var displayName = _leaderName;
+            if (!displayName || displayName.length == 0) {
+                displayName = 'no leaderboard name';
+            }
+            $('.leadername').text(displayName);
         };
         //endregion
 
