@@ -238,8 +238,8 @@
             _setClickToInfoWin();
         };
 
-        var _showSharingDialog = function (responseData, headerTxt) {
-            var p = $.extend(responseData, { sharing: 'yes' });
+        var _gotoSharingPage = function (saveObj, headerTxt) {
+            var p = $.extend(saveObj, { sharing: 'yes' });
             window.location = '/client/play/entries.html?' + $.param(p);
         };
 
@@ -261,8 +261,10 @@
         var _gotoPage = function (pageId) {
             _storeData(_activePage);
             _lastPage = _activePage;
-            if (_lastPage == INTRO) {
-                _logosMin(); // #header #logos animation
+            if (pageId != INTRO && _lastPage == INTRO) {
+                _logosMin(true); // #header #logos animation
+            } else if (pageId == INTRO) {
+                _logosMin(false);
             }
             switch (pageId) {
                 case INTRO:
@@ -403,7 +405,8 @@
             $("#btnNext").click(function () {
                 if ($(this).hasClass("bigButton_" + BTN_SUBMIT)) {
                     _submitTime = new Date();
-                    _showNextButton(false, "");//--hide the button to prevent multiple clicks...
+                    _showNextButton(false, '');//--hide the button to prevent multiple clicks...
+                    _showBackButton(false, '');
                     _storeData(MONEY);
                     if (_impactsStartTime && _priorityStartTime && _votingStartTime) {
                         var priorityMs = _impactsStartTime.getTime() - _priorityStartTime.getTime();
@@ -411,14 +414,15 @@
                         var votingMs = _submitTime.getTime() - _votingStartTime.getTime();
                         _dataManager.storeTimeSpent(Math.round(priorityMs / 1000), Math.round(impactsMs / 1000), Math.round(votingMs / 1000));
                     }
-                    _dataManager.saveData(function (responseData) {
+                    _dataManager.saveData(function (saveObj) {
                         _submitted = true;
-                        _showNextButton(true, BTN_SHARE);
-                        _showBackButton(false, BTN_BACK);
-                        _showSharingDialog(responseData, "Your response has been submitted. Thank you for your time. ");
+                        _gotoSharingPage(saveObj);
+                        //_showNextButton(true, BTN_SHARE);
+                        //_showBackButton(false, BTN_BACK);
+                        //_showSharingDialog(responseData, "Your response has been submitted. Thank you for your time. ");
                     });
-                } else if ($(this).hasClass("bigButton_" + BTN_SHARE)) {
-                    _showSharingDialog(_dataManager.getResponseId(), "");
+//                } else if ($(this).hasClass("bigButton_" + BTN_SHARE)) {
+//                    _gotoSharingPage(_dataManager.getResponseId(), "");
                 } else {
                     _showNext();
                 }
@@ -437,45 +441,42 @@
             _selectTab(_activePage);
         };
 
-        var _logosMin = function () {
-            $("#imaginemyneo_logo").animate({
-                width: 150,
-                marginTop: 1
-            });
-
-            $("#vibrantneo_logo").animate({
-                width: 70,
-                marginTop: 1
-            });
-
-            $("#logos").animate({
-                height: '40px'
-            });
-            var $footer =$("#footer");
+        var _logosMin = function (min) {
+            var collapsedFooterHeight = 10;
             var expandedFooterHeight = 50;
-            var ht = $footer.height();
+
+            var $footer = $("#footer");
             var top = $footer.offset().top;
-            $footer.animate({
-                top: top - (expandedFooterHeight - ht),
-                height: expandedFooterHeight
-            });
-//            $("#noscc_logo").animate({
-//                width: '40%',
-//                height: '90%',
-//                backgroundSize:'80%, 80%',
-//                paddingTop: '2px'
-//            });
-//            $("#vibrantneo_logo").animate({
-//                width: '10%',
-//                height: '70%',
-//                backgroundSize: '80%, 80%',
-//                paddingTop: '2px'
-//            });
-//            $("#imaginemyneo_logo").animate({
-//                width: '10%',
-//                height: '70%',
-//                backgroundSize: '80%, 80%'
-//            });
+            if (min) {
+                var duration = 500;
+                $("#imaginemyneo_logo").animate({
+                    width: 150,
+                    marginTop: 1
+                }, duration);
+
+                $("#vibrantneo_logo").animate({
+                    width: 70,
+                    marginTop: 1
+                }, duration);
+
+                $("#logos").animate({
+                    height: '40px'
+                }, duration);
+                $footer.animate({
+                    top: top - (expandedFooterHeight - collapsedFooterHeight),
+                    height: expandedFooterHeight
+                }, duration, function() {
+                    _layout.positionElements();
+                });
+            } else {
+                //going back to intro page...
+                $footer.animate({
+                    top: top + (expandedFooterHeight - collapsedFooterHeight),
+                    height: collapsedFooterHeight
+                }, 300, function() {
+                    _layout.positionElements();
+                });
+            }
         };
 
         //endregion

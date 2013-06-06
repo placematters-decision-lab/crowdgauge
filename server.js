@@ -92,6 +92,7 @@ handle["/getPriCountForZip"] = responseDataHandler.getPriCountForZip;
 handle["/saveLeadername"] = responseDataHandler.saveLeadername;
 handle["/validateLeadername"] = responseDataHandler.validateLeadername;
 handle["/getLeadername"] = responseDataHandler.getLeadername;
+handle["/descendantCount"] = responseDataHandler.descendantCount;
 
 handle["/getLocations"] = settingDataHandler.getLocations;
 

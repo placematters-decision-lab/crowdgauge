@@ -86,6 +86,16 @@ var ResponseDataHandler = function () {
                             emit(doc.responseId, doc.data.leadername);
                         }
                     }
+                },
+                "descendantCount": {
+                    map: function (doc) {
+                        if (doc.parentArr) {
+                            doc.parentArr.forEach(function(value, i) {
+                                emit(value, 1)
+                            });
+                        }
+                    },
+                    reduce: '_sum'
                 }
             }
         });
@@ -110,6 +120,23 @@ var ResponseDataHandler = function () {
         return  _self.p_getHash(responseId + '_' + _responseIdPassword).substr(0, 12);//just return a shorter 12 char password
     };
 
+    var _storeParentage = function (response, callback) {
+        response.parentArr = [response.responseId];//default, parentArr also includes responseId
+        if (response.data && response.data.parentId) {
+            _getResponse(response.data.parentId, function (parent) {
+                if (parent) {
+                    response.parentArr = parent.parentArr || [parent.responseId];//parentArr includes the full path, including the responseId
+                    response.parentArr.push(response.responseId);
+                }
+                callback();
+            }, function () {//if error, still save response!
+                callback();
+            });
+        } else {
+            callback();
+        }
+    };
+
     var _saveResponse = function (/**Object*/p, req, res) {
         var response = new Response();
         response.ipAddress = _getIpAddress(req);
@@ -118,8 +145,11 @@ var ResponseDataHandler = function () {
         response.responseId = responseId;
         response.data = p;
         response.filename = _filename;
-        _updateResponse(response, function () {
-            _self.p_returnJsonObj(res, {responseId: responseId, responseAuth: _getReponseAuth(responseId)});
+
+        _storeParentage(response, function () {
+            _updateResponse(response, function () {
+                _self.p_returnJsonObj(res, {responseId: responseId, responseAuth: _getReponseAuth(responseId)});
+            });
         });
     };
 
@@ -233,6 +263,25 @@ var ResponseDataHandler = function () {
             _self.p_returnBasicFailure(res, err);
         });
     };
+    var _descendantCount = function (req, res) {
+        var q = _self.p_getQuery(req);
+        if (!q.responseId) {
+            _self.p_returnBasicFailure(res, 'responseId not specified');
+            return;
+        }
+        _self.p_view('descendantCount', {key: q.responseId}, function (err, body) {
+            if (err) {
+                console.log('Error in descendantCount: ' + err);
+                _self.p_returnBasicFailure(res, err);
+                return;
+            }
+            var count = 0;
+            if (body && body.rows && body.rows.length > 0) {
+                count = body.rows[0].value - 1;//subtract 1 since the sum includes doc itself
+            }
+            _self.p_returnJsonObj(res, {count: count});
+        });
+    };
     //region public API
     this.saveResponse = function (req, res, postData) {
         var dataObj = JSON.parse(postData.data);
@@ -274,6 +323,9 @@ var ResponseDataHandler = function () {
     };
     this.getLeadername = function (req, res, postData) {
         _getLeadername(req, res);
+    };
+    this.descendantCount = function (req, res, postData) {
+        _descendantCount(req, res);
     };
 
     this.png = function (req, res, postData) {
