@@ -93,6 +93,7 @@ handle["/saveLeadername"] = responseDataHandler.saveLeadername;
 handle["/validateLeadername"] = responseDataHandler.validateLeadername;
 handle["/getLeadername"] = responseDataHandler.getLeadername;
 handle["/descendantCount"] = responseDataHandler.descendantCount;
+handle["/getLeaderboard"] = responseDataHandler.getLeaderboard;
 
 handle["/getLocations"] = settingDataHandler.getLocations;
 

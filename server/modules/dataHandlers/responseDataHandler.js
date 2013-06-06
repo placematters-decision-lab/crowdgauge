@@ -90,7 +90,7 @@ var ResponseDataHandler = function () {
                 "descendantCount": {
                     map: function (doc) {
                         if (doc.parentArr) {
-                            doc.parentArr.forEach(function(value, i) {
+                            doc.parentArr.forEach(function (value, i) {
                                 emit(value, 1)
                             });
                         }
@@ -262,17 +262,58 @@ var ResponseDataHandler = function () {
             _self.p_returnBasicFailure(res, 'responseId not specified');
             return;
         }
-        _self.p_view('descendantCount', {key: q.responseId}, function (err, body) {
+        _countDescendentsForResponse(q.responseId, function (count) {
+            _self.p_returnJsonObj(res, {count: count});
+        }, function (err) {
+            console.log('Error in descendantCount: ' + err);
+            _self.p_returnBasicFailure(res, err);
+        })
+
+    };
+    var _countDescendentsForResponse = function (responseId, callback, errback) {
+        _self.p_view('descendantCount', {key: responseId}, function (err, body) {
             if (err) {
-                console.log('Error in descendantCount: ' + err);
-                _self.p_returnBasicFailure(res, err);
+                errback(err);
                 return;
             }
             var count = 0;
             if (body && body.rows && body.rows.length > 0) {
                 count = body.rows[0].value - 1;//subtract 1 since the sum includes doc itself
             }
-            _self.p_returnJsonObj(res, {count: count});
+            callback(count);
+        });
+    };
+
+    var _getLeaderboard = function (req, res) {
+        var leaderboardMin = 2;//TODO update to 5
+        _self.p_view('getLeaderName', {}, function (err, body) {
+            if (err) {
+                console.log('Error in getLeaderboard: ' + err);
+                _self.p_returnBasicFailure(res, err);
+                return;
+            }
+            var ans = [];
+            if (body && body.rows && body.rows.length > 0) {
+                var total = body.rows.length;
+                var cnt = 0;
+                var done = function () {
+                    cnt++;
+                    if (cnt == total) {
+                        _self.p_returnJsonObj(res, ans);
+                    }
+                };
+                body.rows.forEach(function (row, i) {
+                    var leadername = row.value;
+                    _countDescendentsForResponse(row.key, function (count) {
+                        if (count >= leaderboardMin) ans.push({leadername:leadername, score:count});
+                        done();
+                    }, function () {
+                        done();
+                    });
+                });
+            } else {
+                _self.p_returnJsonObj(res, ans);
+            }
         });
     };
     //region public API
@@ -319,6 +360,9 @@ var ResponseDataHandler = function () {
     };
     this.descendantCount = function (req, res, postData) {
         _descendantCount(req, res);
+    };
+    this.getLeaderboard = function (req, res, postData) {
+        _getLeaderboard(req, res);
     };
 
     this.png = function (req, res, postData) {
