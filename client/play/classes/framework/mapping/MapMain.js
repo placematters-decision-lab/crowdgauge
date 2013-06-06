@@ -349,6 +349,8 @@
                 $("#tab_" + pageId)
                     .addClass("tabTitleActive")
                     .click(function () {
+                        _locationChart.hide(); // hide _locationChart, _barChart
+                        _barChart.hide();
                         _selectTab(pageId);
                         _setMode(pageId);
                     });
