@@ -21,7 +21,6 @@
         var _container = container;
         var _svg = d3.select(svgNode);
         var _dataByLocation;
-        var _cloudMade = {styleId: '998', apiKey: 'F5b3b4d1159f463ead3d1c183c4a30fb'};
         var map;
         var po = org.polymaps;
 
@@ -40,11 +39,13 @@
                     .zoom(10)
                     .add(po.interact());
 
-                map.add(po.image() // CloudMade API
-                    .url(po.url('http://{S}tile.cloudmade.com'
-                            + '/' + _cloudMade.apiKey + '/' + _cloudMade.styleId + '/'
-                            + '256/{Z}/{X}/{Y}.png')
-                        .hosts(['a.', 'b.', 'c.', ''])));
+                var lightness = 45;
+                var gamma = 0.8;
+                map.add(po.image() // Google Custom API
+                    .url(po.url('http://mt1.googleapis.com/vt?lyrs=m@218132396&src=apiv3&hl=en-US'
+                            + '&x={X}&y={Y}&z={Z}&s={S}'
+                            + '&apistyle=p.w%3A0.4%7Cp.v%3Aoff%2Cp.v%3Aon%7Cp.l%3A' + lightness + '%7Cp.g%3A' + gamma + '%2Cs.t%3A3%7Cs.e%3Al%7Cp.g%3A0.85%7Cp.l%3A48&style=59,37%7Csmartmaps')
+                        .hosts(['G', 'Ga', 'Gal', 'Gali'])));//Galileo
 
                 map.add(po.compass()
                     .pan("none"));
