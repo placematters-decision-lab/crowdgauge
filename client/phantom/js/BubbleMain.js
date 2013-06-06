@@ -47,12 +47,18 @@
 
         var _loadEntry = function () {
             if (!(_data.priorities && _data.mechanisms)) return;//_loadEntry could be called before priorities and mechs load
-            _priorityList.setValues(_data.entry.data.priorities);
-            _bubbleChart.resizeBubbles();
-            _recalcMoney();
-            _bubbleChart.updateLayout();
 
-            console.log('calling phantom (no delay)');
+            try {
+                _priorityList.setValues(_data.entry.data.priorities);
+                _bubbleChart.resizeBubbles();
+                _recalcMoney();
+                _bubbleChart.updateLayout();
+            }
+            catch (err) {
+                console.log('Error in _loadEntry: ' + err.message);
+            }
+
+            //console.log('calling phantom (no delay)');
             if (typeof window.callPhantom === 'function') {
                 window.callPhantom({ meth: 'screenshot' });
             }
@@ -73,12 +79,12 @@
             });
 
             d3.json('/getPriorities' + _params(), function (data) {
-                console.log('loaded Priorities');
+                //console.log('loaded Priorities');
                 _data.priorities = data;
                 _tryStart();
             });
             d3.json('/getMechanisms' + _params(), function (data) {
-                console.log('loaded Mechs');
+                //console.log('loaded Mechs');
                 _data.mechanisms = data;
                 _tryStart();
             });
@@ -105,16 +111,16 @@
         };
 
         this.loadResponseById = function (responseId) {
-            console.log('loadResponse: ' + responseId);
+            //console.log('loadResponse: ' + responseId);
             d3.json('/getResponse' + _params({responseId: responseId}), function (data) {
-                console.log('loaded R: ' + data);
+                //console.log('loaded R: ' + data);
                 _data.entry = data;
                 _loadEntry();
             });
         };
 
         this.loadResponse = function (responseJson) {
-            console.log('load response: ' + responseJson);
+            //console.log('load response: ' + responseJson);
             _data.entry = JSON.parse(responseJson);
             _loadEntry();
         };

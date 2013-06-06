@@ -53,8 +53,7 @@ var ResponseDataHandler = function () {
                         if (doc.responseId) emit(doc.responseId, doc);
                     }
                 },
-
-                getPriCountForZip: {
+                "getPriCountForZip": {
                     map: function (/**Content*/doc) {
                         if (doc.data && doc.data.demographics && doc.data.demographics.zip && doc.data.priorities) {
                             Object.keys(doc.data.priorities).forEach(function (k) {
@@ -64,8 +63,7 @@ var ResponseDataHandler = function () {
                     },
                     reduce: '_sum'
                 },
-
-                getMechCountForZip: {
+                "getMechCountForZip": {
                     map: function (/**Content*/doc) {
                         if (doc.data && doc.data.demographics && doc.data.demographics.zip && doc.data.mechanisms) {
                             Object.keys(doc.data.mechanisms).forEach(function (k) {
@@ -74,6 +72,20 @@ var ResponseDataHandler = function () {
                         }
                     },
                     reduce: '_sum'
+                },
+                "leaderNameExists": {
+                    map: function (/**Content*/doc) {
+                        if (doc.data && doc.data.leadername) {
+                            emit(doc.data.leadername, true);
+                        }
+                    }
+                },
+                "getLeaderName": {
+                    map: function (/**Content*/doc) {
+                        if (doc.data && doc.responseId && doc.data.leadername) {
+                            emit(doc.responseId, doc.data.leadername);
+                        }
+                    }
                 }
             }
         });
@@ -95,7 +107,7 @@ var ResponseDataHandler = function () {
     };
 
     var _getReponseAuth = function (responseId) {
-        return  _self.p_getHash(responseId + '_' + _responseIdPassword).substr(0,12);//just return a shorter 12 char password
+        return  _self.p_getHash(responseId + '_' + _responseIdPassword).substr(0, 12);//just return a shorter 12 char password
     };
 
     var _saveResponse = function (/**Object*/p, req, res) {
@@ -107,7 +119,7 @@ var ResponseDataHandler = function () {
         response.data = p;
         response.filename = _filename;
         _updateResponse(response, function () {
-            _self.p_returnJsonObj(res, {responseId: responseId, responseAuth:_getReponseAuth(responseId)});
+            _self.p_returnJsonObj(res, {responseId: responseId, responseAuth: _getReponseAuth(responseId)});
         });
     };
 
@@ -167,6 +179,60 @@ var ResponseDataHandler = function () {
             }
         });
     };
+    var _validateLeadername = function (req, res) {
+        var q = _self.p_getQuery(req);
+        _self.p_view('leaderNameExists', {key: q.leadername}, function (err, body) {
+            if (err) {
+                console.log('Error in validateLeadername: ' + err);
+                _self.p_returnBasicFailure(res, err);
+                return;
+            }
+            var exists = (body && body.rows && body.rows.length > 0);
+            _self.p_returnJsonObj(res, {unique: !exists});
+        });
+    };
+    var _getLeadername = function (req, res) {
+        var q = _self.p_getQuery(req);
+        if (!q.responseId) {
+            _self.p_returnBasicFailure(res, 'responseId not specified');
+            return;
+        }
+        _self.p_view('getLeaderName', {key: q.responseId}, function (err, body) {
+            if (err) {
+                console.log('Error in getLeadername: ' + err);
+                _self.p_returnBasicFailure(res, err);
+                return;
+            }
+            var leadername = '';
+            if (body && body.rows && body.rows.length > 0) {
+                leadername = body.rows[0].value;
+            }
+            _self.p_returnJsonObj(res, {leadername: leadername});
+        });
+    };
+    var _saveLeadername = function (req, res) {
+        var q = _self.p_getQuery(req);
+        if (!q.responseId) {
+            _self.p_returnBasicFailure(res, 'responseId not specified');
+            return;
+        }
+        if (!q.leadername) {
+            _self.p_returnBasicFailure(res, 'leadername not specified');
+            return;
+        }
+        _getResponse(q.responseId, function (ans) {
+            if (ans) {
+                ans.data.leadername = q.leadername;
+                _self.p_addOrUpdate(ans, ans._id, function () {
+                    _self.p_returnBasicSuccess(res);
+                });
+            } else {
+                _self.p_returnBasicFailure(res, 'response empty: ' + q.responseId);
+            }
+        }, function (err) {
+            _self.p_returnBasicFailure(res, err);
+        });
+    };
     //region public API
     this.saveResponse = function (req, res, postData) {
         var dataObj = JSON.parse(postData.data);
@@ -197,6 +263,17 @@ var ResponseDataHandler = function () {
 
     this.getMechCountForZip = function (req, res, postData) {
         _getMechCountForZip(req, res);
+    };
+
+    this.saveLeadername = function (req, res, postData) {
+        _saveLeadername(req, res);
+    };
+
+    this.validateLeadername = function (req, res, postData) {
+        _validateLeadername(req, res);
+    };
+    this.getLeadername = function (req, res, postData) {
+        _getLeadername(req, res);
     };
 
     this.png = function (req, res, postData) {

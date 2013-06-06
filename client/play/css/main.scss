@@ -387,11 +387,11 @@ body {
 }
 
 .colorRamp_money {
-  @include bg_img('img/colorramp_Color_ramp_RED-BLUE_GRADIENT.png', 450px, 35px);
+  @include bg_img(url('img/colorramp_Color_ramp_RED-BLUE_GRADIENT.png'), 450px, 35px);
 }
 
 .colorRamp_impacts {
-  @include bg_img('img/colorramp_Color_ramp_RED-BLUE.png', 450px, 36px);
+  @include bg_img(url('img/colorramp_Color_ramp_RED-BLUE.png'), 450px, 36px);
 }
 
 .nonvalid {
@@ -543,18 +543,18 @@ strong {
 }
 
 #vibrantneo_logo {
-  @include bg_img("img/VibrantNEOlogo2040.png", 166px, 90px);
+  @include bg_img(url("img/VibrantNEOlogo2040.png"), 166px, 90px);
   @include resizable_logo();
   cursor: pointer;
 }
 
 #vibrantneo_cci {
-  @include bg_img("img/NEO_cci.png", 427px, 32px);
+  @include bg_img(url("img/NEO_cci.png"), 427px, 32px);
   vertical-align: bottom;
 }
 
 #imaginemyneo_logo {
-  @include bg_img("img/bottombar_imaginemyneologo.png", 299px, 75px);
+  @include bg_img(url("img/bottombar_imaginemyneologo.png"), 299px, 75px);
   @include resizable_logo();
   float: right;
   margin-right: 12px;

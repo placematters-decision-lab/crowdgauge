@@ -67,6 +67,6 @@ $gap: 2px;
 }
 
 .tabLogo {
-  @include bg_img('img/VibrantNEOlogo2040_40.png', 180px, 40px);
+  @include bg_img(url('img/VibrantNEOlogo2040_40.png'), 180px, 40px);
   /*margin-right: 10px;*/
 }

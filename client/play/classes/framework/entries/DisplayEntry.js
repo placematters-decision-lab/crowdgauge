@@ -15,8 +15,88 @@
         var _entry = null;
         var _priorities = null;
 
+        var _leaderName = '';
+
         var _params = function (params) {
             return '?' + $.param($.extend({filename: SAS.configInstance.getFileName()}, params));
+        };
+
+        var _lastLeadernameXhr = null;
+        var _validateLeadername = function (text, callback) {
+            //abort previous query first
+            if (_lastLeadernameXhr) _lastLeadernameXhr.abort();
+            _lastLeadernameXhr = $.getJSON('/validateLeadername' + _params({leadername: text}), function (ans) {
+                callback(ans.unique);
+            });
+        };
+
+        var _saveLeadername = function (text, callback) {
+            d3.json('/saveLeadername' + _params({leadername: text, responseId: _responseId}), function (ans) {
+                callback(ans.success);
+            });
+        };
+
+        var _showMyVibrant5Dialog = function () {
+            $('#my_vibrant_dlg').remove();
+            var $dlg = $('<div id="my_vibrant_dlg">').appendTo('body');
+            $('<div class="take_txt btn_take">Take the <div class="my_vibrant_5"></div> challenge</div>').appendTo($dlg);
+            $('<p>Share with at least 5 friends and <strong>get your name on our leaderboard</strong>.</p>').appendTo($dlg);
+            $('<p>When you share this page by email or social media (e.g. Facebook) we give you points for how many referrals you make. You also get points for each person you friend refers and for each person your friend&#8216;s friend refers - and so on.</p>').appendTo($dlg);
+            $('<p>The challenge is completely optional, and you can still share with your friends even if you don&#8216;t want your name on the leaderboard.</p>').appendTo($dlg);
+            var $showMe = $('<p>Show me on the leaderboard as:</p>').appendTo($dlg);
+            var $leaderText = $('<input id="leaderboardName" type="text" size=16>').val(_leaderName).appendTo($showMe);
+            var $warning = $('<div class="invalid">').appendTo($showMe).hide();
+            var $ok = $('<div class="valid">').text('ok').appendTo($showMe).hide();
+            var $loader = $('<div class="valid_loader ajax_loader_small">').appendTo($showMe).hide();
+            var text = '';
+            var updateWarning = function (warning, valid) {
+                $warning.text(warning);
+                $warning.toggle(!valid);
+                $ok.toggle(valid);
+            };
+            var validateText = function () {
+                if (text.length < 3) {
+                    updateWarning('too short', false);
+                    return;
+                }
+                $loader.show();
+                $ok.hide();
+                _validateLeadername(text, function (unique) {
+                    updateWarning('taken', unique);
+                    $loader.hide();
+                });
+            };
+            $leaderText.keyup(function (event) {
+                if ($leaderText.val() != text) {
+                    text = $leaderText.val();
+                    validateText();
+                }
+            });
+            var btns = {};
+            btns['Skip the leaderboard'] = function () {
+                $dlg.dialog("close");
+            };
+            btns['Take the Challenge'] = function () {
+                if ($warning.is(":visible") || $loader.is(":visible")) return;
+                $loader.show();
+                _saveLeadername(text, function (success) {
+                    $loader.hide();
+                    if (success) {
+                        _setLeaderName(text);
+                        $dlg.dialog("close");
+                    } else {
+                        validateText();
+                    }
+                });
+            };
+            $dlg.dialog({
+                modal: true,
+                title: 'Instructions',
+                buttons: btns,
+                width: 620,
+                height: 500,
+                position: 'center'
+            });
         };
 
         var _loadEntry = function () {
@@ -105,6 +185,10 @@
                 event.preventDefault();
                 window.location = "/client/play/map.html";
             });
+            $(".btn_take").click(function (event) {
+                event.preventDefault();
+                _showMyVibrant5Dialog();
+            });
             _getEntryData();
             d3.json("/getMechanisms" + _params(), function (data) {
                 _mechanisms = {};
@@ -123,7 +207,15 @@
                 });
                 _tryLoadEntry();
             });
+            d3.json('/getLeadername' + _params({responseId: _responseId}), function (ans) {
+                _setLeaderName(ans.leadername);
+            });
 
+        };
+
+        var _setLeaderName = function (leadername) {
+            _leaderName = leadername;
+            $('.leadername').text(_leaderName);
         };
         //endregion
 
@@ -136,5 +228,4 @@
         });
     };
     new SAS.DisplayEntry();
-})
-    ();
+})();
