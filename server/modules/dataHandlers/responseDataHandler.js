@@ -105,17 +105,6 @@ var ResponseDataHandler = function () {
         _self.p_addOrUpdate(c, c._id, callback);
     };
 
-    var _getIpAddress = function (req) {
-        var ip_address = "unknown";
-        try {
-            ip_address = req.headers['x-forwarded-for'];
-        }
-        catch (error) {
-            ip_address = req.connection.remoteAddress;
-        }
-        return ip_address;
-    };
-
     var _getReponseAuth = function (responseId) {
         return  _self.p_getHash(responseId + '_' + _responseIdPassword).substr(0, 12);//just return a shorter 12 char password
     };
@@ -139,7 +128,7 @@ var ResponseDataHandler = function () {
 
     var _saveResponse = function (/**Object*/p, req, res) {
         var response = new Response();
-        response.ipAddress = _getIpAddress(req);
+        response.ipAddress = _self.p_getIpAddress(req);
         response.dateCreated = new Date();
         var responseId = _self.p_getUID();
         response.responseId = responseId;
@@ -244,6 +233,10 @@ var ResponseDataHandler = function () {
         var q = _self.p_getQuery(req);
         if (!q.responseId) {
             _self.p_returnBasicFailure(res, 'responseId not specified');
+            return;
+        }
+        if (q.responseAuth != _getReponseAuth(q.responseId)) {
+            _self.p_returnBasicFailure(res, 'not authorized to save leaderboard name');
             return;
         }
         if (!q.leadername) {

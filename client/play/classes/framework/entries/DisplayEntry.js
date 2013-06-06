@@ -31,7 +31,10 @@
         };
 
         var _saveLeadername = function (text, callback) {
-            d3.json('/saveLeadername' + _params({leadername: text, responseId: _responseId}), function (ans) {
+            d3.json('/saveLeadername' + _params({leadername: text, responseId: _responseId, responseAuth:SAS.utilsInstance.gup('responseAuth')}), function (ans) {
+                if (!ans.success) {
+                    alert(ans.message);
+                }
                 callback(ans.success);
             });
         };
@@ -79,7 +82,10 @@
                 $dlg.dialog("close");
             };
             btns['Take the Challenge'] = function () {
-                if ($warning.is(":visible") || $loader.is(":visible")) return;
+                if (text.length == 0 || $warning.is(":visible") || $loader.is(":visible")) {
+                    validateText();
+                    return;
+                }
                 $loader.show();
                 _saveLeadername(text, function (success) {
                     $loader.hide();

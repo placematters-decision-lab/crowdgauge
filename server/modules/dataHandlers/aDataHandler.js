@@ -146,6 +146,17 @@ ADataHandler = function (dbName) {
         var msSince2012 = new Date().getTime() - 1325376000000;
         return msSince2012 + "-" + Math.floor(Math.random() * 10000);
     };
+
+    this.p_getIpAddress = function (req) {
+        var ip_address = 'unavailable';
+        if (req.headers) {
+            ip_address = req.headers['x-forwarded-for'];
+        }
+        if (ip_address == null) {
+            ip_address = req.connection.remoteAddress;
+        }
+        return ip_address;
+    };
 //endregion
 };
 
