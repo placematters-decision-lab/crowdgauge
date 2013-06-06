@@ -122,6 +122,12 @@ div#barChart {
 #options a {
   color: white; }
 
-/*#content {*/
-    /*top: 60px;*/
-/*}*/
+.tabTitle_wrapper_priority {
+  width: 9%;
+  float: left;
+  display: block; }
+
+.tabTitle_wrapper_mechanism {
+  width: 19%;
+  float: left;
+  display: block; }

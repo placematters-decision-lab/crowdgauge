@@ -36,11 +36,6 @@ body {
   float: left;
   display: block; }
 
-.tabTitle_wrapper_narrow {
-  width: 14%;
-  float: left;
-  display: block; }
-
 .tabTitle {
   font-family: league-gothic, Arial, sans-serif;
   font-size: 30px;
