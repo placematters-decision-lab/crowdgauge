@@ -130,7 +130,7 @@
                 .attr("height", function (d) {
                     return y(d.percent);
                 })
-                .style("fill", _item.data.color.background) // set color
+                .style("fill", _item.data.color.background); // set color
 
             bar.transition()
                 .duration(750)
@@ -148,7 +148,7 @@
 
         var _updateLayout = function() {
             if (!_mainGroup) return;
-            var fullHeight = $(window).height();
+            var fullHeight = $(window).height() - 140; // TODO 140?
             _mainGroup.attr("transform", "translate(10, " + (fullHeight - height - 10) + ")");
 
         };
@@ -185,7 +185,7 @@
             } else {
                 //--update the percent on exist data
                 var dataByLocation = d3.nest().key(
-                    function (d) { return d.location; }).map(locationArr)
+                    function (d) { return d.location; }).map(locationArr);
                 $.each(_data, function (i, dv) {
                     dv.percent = dataByLocation[dv.location][0].perc * 100;
                 });

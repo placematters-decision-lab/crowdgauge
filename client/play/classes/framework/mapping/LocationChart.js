@@ -110,7 +110,8 @@
         };
 
         var _loadData = function (percs) {
-            _h = $(window).height() - 10;
+//            _h = $(window).height() - 10;
+            _h = $(window).height() - 150; // TODO
 
             _setupArr(percs);
             var stackedData = d3.layout.stack()(_yArr);
@@ -196,7 +197,8 @@
         var _updateLayout = function () {
             if (!_mainGroup) return;
             var fullWidth = $(window).width();
-            var fullHeight = $(window).height();
+//            var fullHeight = $(window).height();
+            var fullHeight = $(window).height() - 140;  // TODO
             var leftPos = $("#svgDiv").position().left;
             var ypos = _h - _p[2] - 5;
             _mainGroup.attr("transform", "translate(" + (fullWidth - _w - leftPos) + ", " + ypos + ")");

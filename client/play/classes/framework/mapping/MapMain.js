@@ -253,7 +253,7 @@
                         priority.props.textColor = color.darker(2);
                     }
 
-                    if (priority.data.nickname) {
+                    if (priority.data.nickname && SAS.localizr.getProp(priority.data, 'nickname')  != "") {
                         priority.props.tooltipLabel = SAS.localizr.getProp(priority.data, 'nickname'); // TODO: nickname
                     } else if (priority.data.title) {
                         priority.props.tooltipLabel = SAS.localizr.getProp(priority.data, 'title');

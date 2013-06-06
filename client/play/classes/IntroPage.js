@@ -129,7 +129,9 @@
             });
             _$btnStart.click(function () {
                 if (_validate()) _onStartClick();
-//                _onStartClick();
+            });
+            $(".tabTitle").click(function () {
+                if (_validate()) _onStartClick();
             });
 
             d3.json('/getLocations' + _fileAndVersion(), function (data) {
