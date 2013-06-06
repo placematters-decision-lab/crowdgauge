@@ -131,8 +131,9 @@
             _$btnStart.click(function () {
                 if (_validate()) _onStartClick();
             });
+
             $(".tabTitle").click(function () {
-                if (_validate()) _onStartClick();
+                _validate();
             });
 
             d3.json('/getLocations' + _fileAndVersion(), function (data) {
