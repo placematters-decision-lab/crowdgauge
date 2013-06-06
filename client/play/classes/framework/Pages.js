@@ -334,15 +334,18 @@
         var _resizeFonts = function () {
             var fontsize_introTxtH1 = 50;
             var fontsize_introTxt = 12;  //TODO: initial font
+            var fontsize_priorityTxtH2 = 35;  //TODO: initial font
 
             var preferredWidth = 768;
             var displayWidth = $(window).width();
             var percentage = displayWidth / preferredWidth;
             var newFontSize_introTxt = Math.max(14, Math.floor(fontsize_introTxt * percentage) - 1);
             var newFontSize_introTxtH1 =  Math.max(20, Math.floor(fontsize_introTxtH1 * percentage) - 1);
+            var newFontSize_priorityTxtH2 =  Math.max(20, Math.floor(fontsize_priorityTxtH2 * percentage) - 1);
 
             $(".introTxtH1").css("font-size", newFontSize_introTxtH1);
             $(".introTxt").css("font-size", newFontSize_introTxt);
+            $(".priorityTxtH2").css("font-size", newFontSize_priorityTxtH2);
         };
 
         var _initialize = function () {
@@ -373,7 +376,8 @@
             _layout.addWidthFillers([
                 {sel: $("#chart")},
                 {sel: $(".introTxt"), leave: $(".introFrm").outerWidth() + 70},
-                {sel: $("#tab_group"), leave: $("#options").outerWidth() + 5}//add 5 to prevent resize flicker
+                {sel: $("#tab_group"), leave: $("#options").outerWidth() + 5},//add 5 to prevent resize flicker
+                {sel: $("#titleBar"), leave: $("#bigButtonHolder").width() + 70}//add 5 to prevent resize flicker
             ]);
 
             _addClickEvents([INTRO]);

@@ -9,11 +9,17 @@
 
         //region private fields and methods
         var _$zipInput;
+        var _$zipCity;
         var _$ageInput;
         var _$genderInput;
         var _$relationshipInput;
         var _$ethnicityInput;
         var _$btnStart;
+
+        var _fileAndVersion = function () {
+//            return '?filename=' + encodeURIComponent(SAS.configInstance.getFileName()) + '&v=' + SAS.mainInstance.getCacheVersion();
+            return '?filename=' + encodeURIComponent(SAS.configInstance.getFileName());
+        };
 
         var _instructions = new SAS.Instructions();
         var _cacheVersion = SAS.mainInstance.getCacheVersion();
@@ -33,10 +39,10 @@
             var zip = $("#zipInput").val();
             var zipCity = "";
             if (_zipLookup[zip]) {
-                zipCity = _zipLookup[zip][0].name;
+                zipCity = _zipLookup[zip];
             } else {
                 if (_isValidZip(zip)) {
-                    zipCity = "Other City";
+                    zipCity = "Other County";
                 }
             }
             if (zipCity != "") $('label[for="zipInput"]').removeClass("nonvalid");
@@ -52,6 +58,7 @@
             var $zip = $('<div class="demoInput">').appendTo($holder);
             $zip.append('<label class="demoLabel" for="zipInput">Zip</label>');
             _$zipInput = $('<input id="zipInput" type="text" size="5">').appendTo($zip);
+            _$zipCity = $('<label id="zipCity">').appendTo($zip);
 
             var $age = $('<div class="demoInput">').appendTo($holder);
             $age.append('<label class="demoLabel" for="ageInput">Age</label>');
@@ -99,6 +106,7 @@
                 $('label[for="zipInput"]').addClass("nonvalid");
                 valid = false;
             }
+//            _checkZip();
             $('.demoInput select').each(function () {
                 if (SAS.controlUtilsInstance.isPrompt($(this).val())) {
                     $('label[for="'+$(this).attr("id")+'"]').addClass("nonvalid");
@@ -116,9 +124,21 @@
             $('.demoInput select').change(function () {
                 $('label[for="'+$(this).attr("id")+'"]').toggleClass("nonvalid", SAS.controlUtilsInstance.isPrompt($(this).val()));
             });
+           _$zipInput.change(function () {
+               _checkZip();
+            });
             _$btnStart.click(function () {
                 if (_validate()) _onStartClick();
 //                _onStartClick();
+            });
+
+            d3.json('/getLocations' + _fileAndVersion(), function (data) {
+                _locations = data; // array
+                $.each(_locations, function (i, location) {
+                    $.each(location.data.zips, function (i, zip) {
+                        _zipLookup[zip] = location.data.name;
+                    });
+                });
             });
         };
         //endregion

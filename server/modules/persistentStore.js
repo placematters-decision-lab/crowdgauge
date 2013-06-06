@@ -19,7 +19,7 @@ var PersistentStore = function (prefix, onReady) {
     //region private fields and methods
     var _distCache;
     var _client;
-    var _prefix = prefix || '';
+    var _prefix = prefix || process.env.APP_URL;
     var _onReady = onReady;
 
     var _init = function () {
