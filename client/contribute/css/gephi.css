@@ -1,0 +1,120 @@
+body {
+  font-family: Arial;
+  background-color: #aaaaaa; }
+
+a.help_link {
+  font-size: 0.8em;
+  margin-top: 5px;
+  margin-right: 5px; }
+
+.opt_grp {
+  padding: 1px;
+  display: inline-block;
+  margin: 0 10px;
+  border: 1px solid #d0d0d0; }
+
+.gen_opt {
+  display: inline-block; }
+
+.gen_opt > span {
+  font-size: 0.8em;
+  margin-left: 8px;
+  margin-right: 6px; }
+
+.cb_gen_opt {
+  font-size: 0.7em; }
+
+.btn_gen {
+  margin-left: 2px; }
+
+.cat_header {
+  background-color: #333;
+  color: #eee;
+  padding-top: 0.2em;
+  padding-bottom: 0.2em;
+  padding-left: 0.5em;
+  font-size: 0.8em;
+  font-weight: bold; }
+
+.dept_row {
+  border-bottom: 1px solid #808080;
+  background-color: #fffff1; }
+
+.row_excluded {
+  background-color: #ccc; }
+
+.main_header_row {
+  color: white;
+  background-color: #666; }
+
+.table_hdr {
+  font-weight: bold;
+  font-size: 11px; }
+
+.dept_row_custom_fields {
+  display: inline-block; }
+
+.cf_row {
+  display: inline-block; }
+
+.dept_row_id_title {
+  width: 400px;
+  display: inline-block; }
+
+.dept_row_id {
+  font-size: 11px;
+  width: 400px;
+  display: inline-block; }
+
+.dept_row_label {
+  width: 200px;
+  display: inline-block; }
+
+.dept_row_color {
+  width: 30px;
+  display: inline-block; }
+
+.dept_row_cb {
+  width: 50px;
+  display: inline-block; }
+
+.cv_btn {
+  font-size: 0.5em;
+  display: inline-block; }
+
+.align_right {
+  float: right; }
+
+.paste_area {
+  margin: 2px;
+  width: 24px;
+  height: 25px;
+  background-image: url("img/paste.png");
+  background-repeat: no-repeat; }
+
+.copy_btn {
+  margin: 2px;
+  cursor: pointer;
+  width: 20px;
+  height: 23px;
+  background-image: url("img/copy.png");
+  background-repeat: no-repeat; }
+
+.copy_div {
+  position: absolute;
+  left: 5px;
+  top: 5px;
+  background-color: #ffffff; }
+
+.copy_div_hdr {
+  background-color: #333;
+  color: #ffffff;
+  cursor: pointer;
+  padding: 5px;
+  text-align: right; }
+
+.warning_blk {
+  font-size: 0.8em;
+  display: inline-block;
+  padding: 5px;
+  background-color: #ff9d15; }
