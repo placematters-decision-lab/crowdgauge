@@ -63,7 +63,6 @@ var ResponseDataHandler = function () {
                         }
                     },
                     reduce: '_sum'
-
                 },
 
                 getMechCountForZip: {
