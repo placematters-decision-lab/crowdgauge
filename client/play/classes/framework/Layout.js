@@ -15,19 +15,24 @@
         var _onLayout = function () {
         };
 
-        var _getHeightAfter = function(selObj) {
+        var _getHeightAfter = function (selObj) {
             if (selObj.leave) {
                 if (typeof selObj.leave === "number") return selObj.leave;
                 return $(selObj.leave).height();
             }
             return 0;
         };
-        var _getWidthAfter = function(selObj) {
+        var _getWidthAfter = function (selObj) {
             if (selObj.leave) {
                 if (typeof selObj.leave === "number") return selObj.leave;
                 return $(selObj.leave).width();
             }
             return 0;
+        };
+
+        var _parseSize = function (textSize) {
+            if (textSize == 'none') return null;
+            return parseInt(textSize);
         };
 
         var _positionElements = function () {
@@ -43,13 +48,18 @@
                 var jqElem = $(selObj.sel);
                 var h = jqElem.height();
                 var leave = _getHeightAfter(selObj);
-                jqElem.css("top", (fullHeight - h- leave));
+                jqElem.css("top", (fullHeight - h - leave));
             });
             $.each(_widthFillers, function (i, selObj) {//jqElems can be a pre-selected element or a dynamic selector string
                 var jqElem = $(selObj.sel);
                 var x = jqElem.position().left;
                 var leave = _getWidthAfter(selObj);
-                jqElem.width((fullWidth - x - leave));
+                var w = fullWidth - x - leave;
+                var minW = _parseSize(jqElem.css('minWidth'));
+                var maxW = _parseSize(jqElem.css('maxWidth'));
+                if (minW != null) w = Math.max(minW, w);
+                if (maxW != null) w = Math.min(maxW, w);
+                jqElem.width(w);
             });
             $.each(_heightFillers, function (i, selObj) {//jqElems can be a pre-selected element or a dynamic selector string
                 var jqElem = $(selObj.sel);
@@ -104,7 +114,7 @@
             _positionElements();
         };
 
-        this.positionElements = function() {
+        this.positionElements = function () {
             _positionElements();
         };
 

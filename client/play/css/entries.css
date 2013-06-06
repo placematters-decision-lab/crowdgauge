@@ -12,14 +12,6 @@
   width: 16px;
   height: 16px; }
 
-.tabLogo {
-  background-image: url("img/VibrantNEOlogo2040_40.png");
-  background-repeat: no-repeat;
-  background-position: left center;
-  width: 180px;
-  height: 40px;
-  /*margin-right: 10px;*/ }
-
 body {
   background-color: #f2f2f2; }
 

@@ -148,7 +148,8 @@
 
         var _updateLayout = function() {
             if (!_mainGroup) return;
-            var fullHeight = $(window).height() - 140; // TODO 140?
+            var fullHeight = $(window).outerHeight() - 140; // TODO 140?
+//            var fullHeight = $(window).height() - 140; // TODO 140?
             _mainGroup.attr("transform", "translate(10, " + (fullHeight - height - 10) + ")");
 
         };

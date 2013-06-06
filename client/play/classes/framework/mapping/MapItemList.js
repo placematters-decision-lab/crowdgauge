@@ -26,7 +26,7 @@
         };
 
         var _loadData = function () {
-            $("#itemList").html("Projects and Policies");
+            $("#itemList").html('');
             _itemDivsById = {};
             var top5Div = $("<div class='itemLegendRow'></div>").appendTo("#itemList");
             $("<div class='itemColorItem'></div>").appendTo(top5Div);//used as spacer

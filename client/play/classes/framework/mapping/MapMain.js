@@ -49,7 +49,8 @@
 
         var _setMode = function (mode) {
             _mode = mode;
-            _tryLoadData();
+            console.log('set mode');
+            _tryLoadData(_mode);
         };
 
         var _selectTab = function (pageId) {
@@ -69,6 +70,7 @@
         };
 
         var _loadData = function (itemCountsByZip, itemData, data) {
+
             _itemList.loadData(data, _topNum); // load #itemList
 
             _itemCountsByZip = itemCountsByZip;
@@ -217,7 +219,9 @@
             _barChart = new SAS.BarChart(svg);
             _locationChart = new SAS.LocationChart(svg);
             _itemList = new SAS.MapItemList();
-            _layout.addHeightFillers({sel: "#itemList", leave: 0});
+            _layout.addHeightFillers({sel: "#content", leave: 0});
+
+            $('#svgDiv').css('left', $('#itemList').outerWidth());
             _layout.addWidthFillers({sel: "#svgDiv", leave: 0});
 
             _selectTab(MODE_PRIORITY);  // highlight tabs
@@ -240,6 +244,10 @@
             // get data from CouchDB
             //  priorities
             d3.json('/getPriorities' + _fileAndVersion(), function (data) {
+                if (!data) {
+                    console.log('missing data');
+                    return;
+                }
                 var cnt = "A".charCodeAt(0);
                 _priorities = data;
                 _priData = {};
@@ -265,12 +273,12 @@
                 $.each(_priorities, function (i, priority) {
                     _prioritiesById[priority.id] = priority;
                 });
-                _tryLoadData();
+                _tryLoadData(MODE_PRIORITY);
             });
 
             d3.json('/getPriCountForZip' + _fileAndVersion(), function (data) {
                 _priCountsByZip = data;
-                _tryLoadData();
+                _tryLoadData(MODE_PRIORITY);
             });
 
             // mechanisms
@@ -295,12 +303,12 @@
                 $.each(_mechanisms, function (i, mechanism) {
                     _mechanismsById[mechanism.id] = mechanism;
                 });
-                _tryLoadData();
+                _tryLoadData(MODE_MECH);
             });
 
             d3.json('/getMechCountForZip' + _fileAndVersion(), function (data) {
                 _mechCountsByZip = data;
-                _tryLoadData();
+                _tryLoadData(MODE_MECH);
             });
 
             d3.json('/getLocations' + _fileAndVersion(), function (data) {
@@ -310,7 +318,7 @@
                     _locationData[location.data.name] = location.data;
                 });
 
-                _tryLoadData();
+                _tryLoadData(_mode);
             });
 
             $(window).resize(function () {
@@ -330,15 +338,19 @@
             _locationChart.reset();
         };
 
-        var _tryLoadData = function () {
+        var _tryLoadData = function (loadMode) {
+            console.log('try load data');
+            if (!_locations) return;
             _resetCharts();
             if (_mode == MODE_MECH) {
-                if (_locations && _mechanismsById && _mechCountsByZip) {
+                if (loadMode == MODE_MECH && _mechanismsById && _mechCountsByZip) {
+                    console.log('MODE_MECH');
                     _loadData(_mechCountsByZip, _mechData, _mechanisms);
                 }
             }
             if (_mode == MODE_PRIORITY) {
-                if (_locations && _prioritiesById && _priCountsByZip) {
+                if (loadMode == MODE_PRIORITY &&_prioritiesById && _priCountsByZip) {
+                    console.log('MODE_PRIORITY');
                     _loadData(_priCountsByZip, _priData, _priorities);
                 }
             }
@@ -372,12 +384,12 @@
                 _mode = MODE_MECH;
                 _locationChart.hide(); // hide _locationChart, _barChart
                 _barChart.hide();
-                _tryLoadData();
+                _tryLoadData(_mode);
             } else if (_mode == MODE_MECH) {
                 _mode = MODE_PRIORITY;
                 _locationChart.hide(); // hide _locationChart, _barChart
                 _barChart.hide();
-                _tryLoadData();
+                _tryLoadData(_mode);
             }
         };
 

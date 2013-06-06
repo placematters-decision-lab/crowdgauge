@@ -1,3 +1,76 @@
+.ajax_loader_blue {
+  background-image: url("img/ajax-loader.gif");
+  background-repeat: no-repeat;
+  background-position: left center;
+  width: 54px;
+  height: 55px; }
+
+.ajax_loader_small {
+  background-image: url("img/ajax-loader-sm.gif");
+  background-repeat: no-repeat;
+  background-position: left center;
+  width: 16px;
+  height: 16px; }
+
+.tabLogo {
+  display: inline-block; }
+
+#vibrantneo_logo {
+  background-image: url("img/VibrantNEOlogo2040.png");
+  background-repeat: no-repeat;
+  background-position: left center;
+  width: 166px;
+  height: 90px;
+  height: 100%;
+  background-size: contain;
+  cursor: pointer; }
+
+#vibrantneo_cci {
+  background-image: url("img/NEO_cci.png");
+  background-repeat: no-repeat;
+  background-position: left center;
+  width: 427px;
+  height: 32px;
+  vertical-align: bottom; }
+
+#imaginemyneo_logo {
+  background-image: url("img/bottombar_imaginemyneologo.png");
+  background-repeat: no-repeat;
+  background-position: left center;
+  width: 299px;
+  height: 75px;
+  height: 100%;
+  background-size: contain;
+  float: right;
+  margin-right: 12px;
+  margin-top: 5px; }
+
+.tabTitle {
+  font-family: league-gothic, Arial, sans-serif;
+  font-size: 30px;
+  color: white;
+  cursor: pointer;
+  font-weight: normal;
+  letter-spacing: 1px;
+  height: 35px;
+  text-transform: uppercase;
+  margin: 0px 6px; }
+
+.tabTitleHighlight {
+  border-bottom: 6px solid #AFBD21; }
+
+#logos {
+  width: 100%;
+  height: 94px; }
+
+#tabs {
+  background-color: #4d4048;
+  position: relative;
+  width: 100%; }
+
+#header {
+  min-width: 913px; }
+
 body {
   overflow: hidden; }
 
@@ -17,21 +90,22 @@ svg {
   stroke: none;
   opacity: 0.6; }
 
-div#svgDiv {
+#svgDiv {
   position: absolute;
-  width: 300px;
   height: 100%;
-  left: 365px; }
+  top: 0; }
 
-div#itemList {
+#itemList_wrapper {
+  width: 400px;
   position: absolute;
-  background-color: white;
-  padding: 10px;
-  height: auto;
-  /* TODO: 200px; */
+  height: 100%;
+  top: 0;
   overflow-y: scroll; }
 
-div#barChart {
+#itemList {
+  padding: 10px; }
+
+#barChart {
   position: absolute;
   padding: 10px;
   left: 350px; }
@@ -123,11 +197,17 @@ div#barChart {
   color: white; }
 
 .tabTitle_wrapper_priority {
-  width: 9%;
-  float: left;
-  display: block; }
+  width: 160px;
+  display: inline-block; }
 
 .tabTitle_wrapper_mechanism {
-  width: 19%;
-  float: left;
-  display: block; }
+  width: 240px;
+  display: inline-block; }
+
+#content {
+  position: relative;
+  top: 0;
+  left: 0; }
+
+#tab_group {
+  width: 425px; }
