@@ -50,6 +50,7 @@ a:visited {
 #share {
   margin-left: $mainMargin;
   margin-top: $mainMargin;
+  margin-bottom: $mainMargin / 2;
 }
 
 .share_title {
@@ -57,13 +58,42 @@ a:visited {
   vertical-align: middle;
 }
 
+.tell_how {
+  @include titleFont(2em);
+  position: absolute;
+  right: 16px;
+  bottom: 10px;
+  color: $titleColor;
+}
+
+.btn_take {
+  cursor: pointer;
+}
+
 .challenge {
-  margin-top: -25px;
-  margin-left: 380px;
+  margin-top: 12px;
+  margin-left: $mainMargin;
+}
+
+.take_txt {
+  font-size: 20px;
+  display: inline-block;
+  margin-right: 30px;
+}
+
+#thanks_for_playing {
+  margin-left: 20px;
+}
+
+#take_the_challenge {
+  background-color: white;
+  border-top: 3px solid $titleColor;
+  height: 126px;
+  position: relative;//--to allow children to be positioned absolutely within
 }
 
 #addThisTools {
-  margin-left: 80px;
+  margin-left: 160px;
   margin-top: -25px;
   vertical-align: middle;
 }
@@ -84,13 +114,14 @@ a:visited {
   font-size: 30px;
   font-weight: bold;
   color: $titleColor;
+  vertical-align: middle;
 }
 
-.your_friend {
+.banner {
   vertical-align: top;
 }
 
-.your_friend_title {
+.banner_title {
   @include titleFont(70px);
   padding: 10px 5px;
   color: $titleColor;
@@ -100,8 +131,53 @@ a:visited {
 }
 
 .imagine_my_neo {
-  @include bg_img('img/bottombar_imaginemyneologo.png', 299px, 75px);
+  @include bg_img(url('img/bottombar_imaginemyneologo.png'), 299px, 75px);
+  display: inline-block;
   vertical-align: top;
   margin-top: 10px;
 }
 
+.my_vibrant_5 {
+  @include bg_img(url('img/my_vibrant_5.png'), 162px, 39px);
+  display: inline-block;
+  vertical-align: middle;
+  margin: 6px 3px;
+}
+
+.bookmark {
+  @include bg_img(url('img/bookmark.png'), null, 36px);
+  font-size: 0.8em;
+  background-position: left top;
+  position: absolute;
+  padding-top: 10px;
+  top: -6px;
+  right: 10px;
+}
+
+.leadername {
+  background-color: #eee;
+  border: 1px solid #666;
+  font-size: 0.9em;
+  padding: 5px 8px;
+  margin-left: 3px;
+}
+
+@mixin validity_flag() {
+  margin-left: 10px;
+  display: inline-block;
+}
+
+.valid {
+  @include validity_flag;
+  color: #b5c137;
+}
+
+.invalid {
+  @include validity_flag;
+  font-weight: bold;
+  color: #e9790b;
+}
+
+.valid_loader {
+  @include validity_flag;
+}

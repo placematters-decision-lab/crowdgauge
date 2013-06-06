@@ -117,7 +117,7 @@ function start(route, securePaths, prehandle, handle, staticServer, persistentSt
             };
             _checkAuthorization(req, pathname, securePaths, persistentStore, function (success) {
                 if (success) {
-                    console.log("*************success login***************");
+                    //console.log("*************success login***************");
                     //TODO create test to ensure that all possible routes that resolve in 'route' function are checked by securePaths
                     if (!route(handle, pathname, req, res, postData)) {
                         _serveFile(req, res, pathname, staticServer);

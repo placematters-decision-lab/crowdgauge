@@ -159,7 +159,7 @@
         };
 
         this.showClickInstructions = function (mech) {
-            var txt = "<p>The circles on the right have been updated to show the impact of "+SAS.localizr.get(mech.data.progressive)+"</p>";
+            var txt = "<p>The circles on the right have been updated to show the impact of " + SAS.localizr.get(mech.data.progressive) + "</p>";
             txt += "<p>Click on any of the priority bubbles to open up an explanation.</p>";
             _showInstructionDialog(txt);
         };
@@ -176,7 +176,10 @@
             _showAgainFn = function () {
                 _self.showMoneyDialog(numCoins, true);
             };
-            var txt = "<p>You have " + numCoins + " coins in your budget and face two categories of choices projects and policies. You may choose as many projects as you can afford. Policies do not cost coins and you can choose as many as you want. See how the colors change in your priority chart to show how well the options you select help achieve your priorities.</p>";
+            var txt = "<p>You have " + numCoins + " coins in your budget and face two categories of choices: projects and policies.</p>";
+            txt += "<p>You may choose as many projects as you can afford. Policies do not cost coins and you can choose as many as you want.</p>";
+            txt += "<p>See how the colors change in your priority chart to show how well the options you select help achieve your priorities.</p>";
+            txt += "<p>Click the priority bubbles for a summary.</p>";
 
             if (show) {
                 _showInstructionDialog(txt);

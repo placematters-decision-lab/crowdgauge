@@ -89,6 +89,9 @@ handle["/saveResponse"] = responseDataHandler.saveResponse;
 handle["/getResponse"] = responseDataHandler.getResponse;
 handle["/getMechCountForZip"] = responseDataHandler.getMechCountForZip;
 handle["/getPriCountForZip"] = responseDataHandler.getPriCountForZip;
+handle["/saveLeadername"] = responseDataHandler.saveLeadername;
+handle["/validateLeadername"] = responseDataHandler.validateLeadername;
+handle["/getLeadername"] = responseDataHandler.getLeadername;
 
 handle["/getLocations"] = settingDataHandler.getLocations;
 

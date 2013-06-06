@@ -5,8 +5,15 @@
   width: 54px;
   height: 55px; }
 
+.ajax_loader_small {
+  background-image: url("img/ajax-loader-sm.gif");
+  background-repeat: no-repeat;
+  background-position: left center;
+  width: 16px;
+  height: 16px; }
+
 .tabLogo {
-  background-image: url("img/VibrantNEOlogo2040.png");
+  background-image: url("img/VibrantNEOlogo2040_40.png");
   background-repeat: no-repeat;
   background-position: left center;
   width: 180px;
@@ -51,18 +58,44 @@ a:visited {
 
 #share {
   margin-left: 30px;
-  margin-top: 30px; }
+  margin-top: 30px;
+  margin-bottom: 15px; }
 
 .share_title {
   display: inline-block;
   vertical-align: middle; }
 
+.tell_how {
+  font-family: league-gothic, Arial, sans-serif;
+  font-size: 2em;
+  position: absolute;
+  right: 16px;
+  bottom: 10px;
+  color: #002b51; }
+
+.btn_take {
+  cursor: pointer; }
+
 .challenge {
-  margin-top: -25px;
-  margin-left: 380px; }
+  margin-top: 12px;
+  margin-left: 30px; }
+
+.take_txt {
+  font-size: 20px;
+  display: inline-block;
+  margin-right: 30px; }
+
+#thanks_for_playing {
+  margin-left: 20px; }
+
+#take_the_challenge {
+  background-color: white;
+  border-top: 3px solid #002b51;
+  height: 126px;
+  position: relative; }
 
 #addThisTools {
-  margin-left: 80px;
+  margin-left: 160px;
   margin-top: -25px;
   vertical-align: middle; }
 
@@ -79,12 +112,13 @@ a:visited {
 .yourScore {
   font-size: 30px;
   font-weight: bold;
-  color: #002b51; }
+  color: #002b51;
+  vertical-align: middle; }
 
-.your_friend {
+.banner {
   vertical-align: top; }
 
-.your_friend_title {
+.banner_title {
   font-family: league-gothic, Arial, sans-serif;
   font-size: 70px;
   padding: 10px 5px;
@@ -99,5 +133,50 @@ a:visited {
   background-position: left center;
   width: 299px;
   height: 75px;
+  display: inline-block;
   vertical-align: top;
   margin-top: 10px; }
+
+.my_vibrant_5 {
+  background-image: url("img/my_vibrant_5.png");
+  background-repeat: no-repeat;
+  background-position: left center;
+  width: 162px;
+  height: 39px;
+  display: inline-block;
+  vertical-align: middle;
+  margin: 6px 3px; }
+
+.bookmark {
+  background-image: url("img/bookmark.png");
+  background-repeat: no-repeat;
+  background-position: left center;
+  height: 36px;
+  font-size: 0.8em;
+  background-position: left top;
+  position: absolute;
+  padding-top: 10px;
+  top: -6px;
+  right: 10px; }
+
+.leadername {
+  background-color: #eee;
+  border: 1px solid #666;
+  font-size: 0.9em;
+  padding: 5px 8px;
+  margin-left: 3px; }
+
+.valid {
+  margin-left: 10px;
+  display: inline-block;
+  color: #b5c137; }
+
+.invalid {
+  margin-left: 10px;
+  display: inline-block;
+  font-weight: bold;
+  color: #e9790b; }
+
+.valid_loader {
+  margin-left: 10px;
+  display: inline-block; }
