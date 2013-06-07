@@ -127,8 +127,13 @@
                 })
                 .attr("d", arc);
 
+            var centerTrans = function (d) {
+                return "scale(" + 1.2 / getPartialScale() + ") ";//invert the parent element scale to use actual font size
+            };
+
             _centers = _locationCharts.append("g")
-                .attr("transform", "scale(0.1)");
+                .attr("transform", centerTrans);
+
             _centers.append("circle")
                 .attr("r", 6)
                 .attr("class", "centerCircle");
@@ -213,6 +218,9 @@
                         labels.attr("display", labelDisplay());
                         labels.attr("transform", labelTransform);
                     }
+                    if (_centers) {
+                        _centers.attr("transform", centerTrans);
+                    }
                     resizeGfx(zoom);
 
                     if (useFilter) {
@@ -246,7 +254,7 @@
 
             window.addEventListener("mouseup", function (e) {
                 var clickLoc = map.pointLocation(map.mouse(e));
-                console.log(clickLoc.lat + ", " + clickLoc.lon + " z: " + map.zoom());
+                //console.log(clickLoc.lat + ", " + clickLoc.lon + " z: " + map.zoom());
             }, false);
 
             function getPartialScale() {
@@ -272,7 +280,7 @@
             }
 
             function labelsVisible() {//--only show the labels when we're fully zoomed in...
-                return map.zoom() > 10;
+                return map.zoom() > 8;
             }
 
             function transform(d) {

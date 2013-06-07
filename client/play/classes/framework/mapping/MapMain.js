@@ -49,7 +49,6 @@
 
         var _setMode = function (mode) {
             _mode = mode;
-            console.log('set mode');
             _tryLoadData(_mode);
         };
 
@@ -339,18 +338,15 @@
         };
 
         var _tryLoadData = function (loadMode) {
-            console.log('try load data');
             if (!_locations) return;
             _resetCharts();
             if (_mode == MODE_MECH) {
                 if (loadMode == MODE_MECH && _mechanismsById && _mechCountsByZip) {
-                    console.log('MODE_MECH');
                     _loadData(_mechCountsByZip, _mechData, _mechanisms);
                 }
             }
             if (_mode == MODE_PRIORITY) {
                 if (loadMode == MODE_PRIORITY &&_prioritiesById && _priCountsByZip) {
-                    console.log('MODE_PRIORITY');
                     _loadData(_priCountsByZip, _priData, _priorities);
                 }
             }
