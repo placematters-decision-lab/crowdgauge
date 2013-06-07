@@ -343,11 +343,14 @@
             var percentage = displayWidth / preferredWidth;
             var newFontSize_introTxt = Math.max(14, Math.floor(fontsize_introTxt * percentage) - 1);
             var newFontSize_introTxtH1 =  Math.max(20, Math.floor(fontsize_introTxtH1 * percentage) - 1);
-            var newFontSize_priorityTxtH2 =  Math.max(20, Math.floor(fontsize_priorityTxtH2 * percentage) - 1);
 
             $(".introTxtH1").css("font-size", newFontSize_introTxtH1);
             $(".introTxt").css("font-size", newFontSize_introTxt);
-            $(".priorityTxtH2").css("font-size", newFontSize_priorityTxtH2);
+
+            if (_activePage == IMPACTS) {
+                var newFontSize_priorityTxtH2 =  Math.max(20, Math.floor(fontsize_priorityTxtH2 * percentage) - 1);
+                $(".priorityTxtH2").css("font-size", newFontSize_priorityTxtH2);
+            }
         };
 
         var _initialize = function () {
