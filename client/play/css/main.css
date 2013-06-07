@@ -336,7 +336,7 @@ body {
 .bigButtonNext {
   color: white;
   background-color: #24ccff;
-  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr=#11B6FF, endColorstr=#0099DD);
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr=#11B6FF, endColorstr=#0099DD, GradientType=0);
   background-image: linear-gradient(to bottom, #11b6ff, #0099dd);
   text-transform: capitalize;
   float: right; }
@@ -344,7 +344,7 @@ body {
 .bigButtonBack {
   color: white;
   background-color: #24ccff;
-  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr=#11B6FF, endColorstr=#0099DD);
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr=#11B6FF, endColorstr=#0099DD, GradientType=0);
   background-image: linear-gradient(to bottom, #11b6ff, #0099dd);
   text-transform: capitalize;
   float: right; }
@@ -448,6 +448,7 @@ body {
   top: 0; }
 
 .optBtn {
+  font-family: Arial, sans-serif;
   color: #dac8cb;
   cursor: pointer;
   display: inline-block;
