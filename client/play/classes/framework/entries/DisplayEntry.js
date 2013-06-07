@@ -179,11 +179,11 @@
             _sharing = SAS.utilsInstance.gup('sharing') === 'yes';
             $(".btnPlay").button().click(function (event) {
                 event.preventDefault();
-                window.location = "/client/play/index.html?prId=" + _responseId;
+                window.location = '/client/play/index.html?prId=' + _responseId;
             });
             $(".btnMap").button().click(function (event) {
                 event.preventDefault();
-                window.location = "/client/play/map.html";
+                window.open('/client/play/map.html', '_blank');
             });
             $(".btn_take").click(function (event) {
                 event.preventDefault();
