@@ -331,6 +331,8 @@
             $("#imaginemyneo_logo").click(function () {
                 window.open("http://imaginemyneo.crowdgauge.org/" || process.env.APP_URL); //TODO
             });
+
+            $('#itemList a').tipsy({gravity:$.fn.tipsy.autoNS, opacity: 0.85, live: true});
         };
 
         var _resetCharts = function () {
