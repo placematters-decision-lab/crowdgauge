@@ -164,14 +164,6 @@
             _showInstructionDialog(txt);
         };
 
-        this.showMapResultsDialog = function () {
-            _showAgainFn = null;// -- no space for show again button on map... _self.showMapResultsDialog;
-            var txt = "<p>What did people vote for in different communities? Use this map to find out.</p>";
-            txt += "<p>Click the projects and policies on the left to see where they are receiving the greatest percentage of the votes.</p>";
-            txt += "<p>Click a community's circle on the map to see how a they are voting.</p>";
-            _showInstructionDialog(txt);
-        };
-
         this.showMoneyDialog = function (numCoins, show) {
             _showAgainFn = function () {
                 _self.showMoneyDialog(numCoins, true);
@@ -244,6 +236,13 @@
         };
         //endregion
 
-        _initialize();
-    }
+        this.initialize = function () {
+            _initialize();
+        };
+    };
+    /**
+     @type SAS.Instructions
+     @const
+     */
+    SAS.instructionsInstance = new SAS.Instructions();
 })();

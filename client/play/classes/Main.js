@@ -73,6 +73,7 @@
             _mechanismList = new SAS.MechanismList(_filename, _bubbleChart);
             _pages = new SAS.Pages(_layout, _priorityList, _mechanismList, _bubbleChart, _map, _dataManager);
 
+            SAS.instructionsInstance.initialize();
 //            _addLangBtn($('#langSel'));
 
             _priorityList.onLoad(function () {

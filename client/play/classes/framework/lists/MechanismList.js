@@ -38,7 +38,7 @@
         var _usedCoins = 0;
 
         var _clickInstrShown = false;
-        var _instructions = new SAS.Instructions();
+        var _instructions = SAS.instructionsInstance;
 
         var _actionDefs = {};
 

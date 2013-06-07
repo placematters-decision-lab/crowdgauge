@@ -11,7 +11,7 @@
         var HLITE = "hlite";
         var DISABLED = "disabled";
         var _options = options || $.extend(options, {thumbState:null});
-        var _instructions = new SAS.Instructions();
+        var _instructions = SAS.instructionsInstance;
 
         //region private fields and methods
         var _mState = OFF;

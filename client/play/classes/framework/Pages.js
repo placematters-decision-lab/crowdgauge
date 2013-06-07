@@ -41,7 +41,7 @@
         var _dataManager = dataManager;
 
         var _pagesVisited = [];
-        var _instructions = new SAS.Instructions();
+        var _instructions = SAS.instructionsInstance;
         var _introPage = new SAS.IntroPage(dataManager);
 
         var _selectTab = function (pageId) {

@@ -21,7 +21,7 @@
             return '?filename=' + encodeURIComponent(SAS.configInstance.getFileName());
         };
 
-        var _instructions = new SAS.Instructions();
+        var _instructions = SAS.instructionsInstance;
         var _cacheVersion = SAS.mainInstance.getCacheVersion();
         var _zipLookup = {};
         var _onStartClick = function () {};
