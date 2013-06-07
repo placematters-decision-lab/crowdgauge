@@ -356,7 +356,7 @@
 
             _layout.addRightAligners([
 //                {sel:$("#btnNext"), leave:10},
-                {sel: $("#reshowInstr"), leave: 10},
+//                {sel: $("#reshowInstr"), leave: 10},
                 {sel: $("#moreInfo"), leave: 10},
                 {sel: $("#footer_sasaki"), leave: 5}
                 //{sel: $("#colorRampLegend"), leave: 10}

@@ -357,7 +357,8 @@ body {
   cursor: pointer;
   font-family: league-gothic, Arial, sans-serif;
   position: absolute;
-  top: 130px;
+  bottom: -20px;
+  right: 5px;
   letter-spacing: 1px; }
 
 #priorityList {

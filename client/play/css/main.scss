@@ -332,8 +332,9 @@ body {
   color: #00456a;
   cursor: pointer;
   @include titleFont(100%);
-  position: absolute;
-  top: $headerHt + 90px;
+  position: absolute;//within bigButtonHolder
+  bottom: -20px;//--down below the bigButtonHolder
+  right: 5px;
   letter-spacing: 1px;
 }
 
