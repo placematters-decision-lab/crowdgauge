@@ -305,8 +305,14 @@ body {
 
 @mixin bigButton() {
   color: white;
-  background-color: #24ccff;
+  //background-color: #24ccff;
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr=#11B6FF, endColorstr=#0099DD, GradientType=0);
+
   background-image: linear-gradient(to bottom, #11B6FF, #0099DD);
+  //background: -webkit-linear-gradient(to bottom, #11B6FF, #0099DD);
+  //background: -moz-linear-gradient(to bottom, #11B6FF, #0099DD);
+  //background: -o-linear-gradient(to bottom, #11B6FF, #0099DD);
+  //background: linear-gradient(to bottom, #11B6FF, #0099DD);
   text-transform: capitalize;
 }
 
@@ -428,6 +434,7 @@ body {
 }
 
 .optBtn {
+  font-family: Arial, sans-serif;
   color: #dac8cb;
   cursor: pointer;
   display: inline-block;
