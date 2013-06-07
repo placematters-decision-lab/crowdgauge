@@ -48,6 +48,7 @@
                 position: 'center',
                 dialogClass: ''
             });
+            $('.ui-dialog a').blur();//otherwise jQuery dialog will highlight first 'a' element
         };
 
         var _closeDialog = function () {
