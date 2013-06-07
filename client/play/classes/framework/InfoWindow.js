@@ -170,6 +170,7 @@
                 resize: resizeDlg
             });
             //$dialog.find("a").tipsy({gravity: 'n'});
+            $('.ui-dialog a').blur();//otherwise jQuery dialog will highlight first 'a' element
             resizeDlg();
         };
 
