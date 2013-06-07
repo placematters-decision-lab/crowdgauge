@@ -71,6 +71,18 @@
 #header {
   min-width: 913px; }
 
+/*override tipsy.css*/
+.tipsy-inner a {
+  color: #afbd21;
+  text-decoration: none; }
+
+.tipsy-inner {
+  background-color: #4d4048; }
+
+.tipsy {
+  font-family: Arial, sans-serif;
+  font-size: 14px; }
+
 body {
   overflow: hidden; }
 
@@ -211,3 +223,6 @@ svg {
 
 #tab_group {
   width: 425px; }
+
+#imaginemyneo_logo {
+  cursor: pointer; }
