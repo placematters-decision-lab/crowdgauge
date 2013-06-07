@@ -1,7 +1,6 @@
 @import "page";
 
 $headerHt: 40px;
-$bannerColor: #4d4048;
 
 body {
   normal: 100% Helvetica, Arial, sans-serif;
@@ -501,20 +500,6 @@ strong {
 
 .share_btns {
   clear: left;
-}
-
-/*override tipsy.css*/
-.tipsy-inner a {
-  color: #afbd21;
-  text-decoration: none;
-}
-
-.tipsy-inner {
-  background-color: $bannerColor;
-}
-
-.tipsy {
-  @include mainFont(14px);
 }
 
 .tabTitleActive {

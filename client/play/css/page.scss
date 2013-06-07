@@ -65,3 +65,17 @@
 #header {
   min-width: 913px;
 }
+
+/*override tipsy.css*/
+.tipsy-inner a {
+  color: #afbd21;
+  text-decoration: none;
+}
+
+.tipsy-inner {
+  background-color: $bannerColor;
+}
+
+.tipsy {
+  @include mainFont(14px);
+}

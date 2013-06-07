@@ -71,6 +71,18 @@
 #header {
   min-width: 913px; }
 
+/*override tipsy.css*/
+.tipsy-inner a {
+  color: #afbd21;
+  text-decoration: none; }
+
+.tipsy-inner {
+  background-color: #4d4048; }
+
+.tipsy {
+  font-family: Arial, sans-serif;
+  font-size: 14px; }
+
 body {
   normal: 100% Helvetica, Arial, sans-serif;
   overflow: hidden;
@@ -504,18 +516,6 @@ strong {
 
 .share_btns {
   clear: left; }
-
-/*override tipsy.css*/
-.tipsy-inner a {
-  color: #afbd21;
-  text-decoration: none; }
-
-.tipsy-inner {
-  background-color: #4d4048; }
-
-.tipsy {
-  font-family: Arial, sans-serif;
-  font-size: 14px; }
 
 .tabTitleActive {
   cursor: pointer; }
