@@ -147,7 +147,7 @@
             insTxt.html(SAS.localizr.get(topScorer.data.title));
 
             // tipsy
-            $('.mechText a').tipsy({gravity: 'n'});
+//            $('.mechText a').tipsy({gravity: 'n'});
 
             mechDivIns.click(function () {
                 _closeDialog();

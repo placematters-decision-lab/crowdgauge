@@ -93,6 +93,11 @@
                 _bubbleChart.updateLayout();
                 _pages.afterLayout();
             });
+
+            //--tipsy for any content created on a dialog
+            $('#dialog a').tipsy({gravity:'n', live: true});
+            $('#leftPanel a').tipsy({gravity:'n', live: true});
+
         };
 
         //endregion

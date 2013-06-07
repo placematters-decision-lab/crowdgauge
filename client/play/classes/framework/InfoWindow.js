@@ -44,7 +44,7 @@
             var rt_hdr = $("<div class='info_right_title'>").appendTo(titleDiv);
 
             // tipsy
-            $('.info_right_title a').tipsy({gravity: 'n'});
+           // $('.info_right_title a').tipsy({gravity: 'n'});
 
             rt_hdr.html(SAS.localizr.get(title));
             var rd_bdy = $("<div class='info_body'>").appendTo($priorityDiv);
@@ -169,6 +169,7 @@
                 dialogClass: 'noTitle',
                 resize: resizeDlg
             });
+            //$dialog.find("a").tipsy({gravity: 'n'});
             resizeDlg();
         };
 
