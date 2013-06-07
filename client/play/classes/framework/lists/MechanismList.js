@@ -255,7 +255,7 @@
 //            $("<div class='coins coins_off_4'></div>").appendTo(mechDiv);
 
             // tipsy
-            $('.mechText a').tipsy({gravity: 'n', live: true});
+            //$('.mechText a').tipsy({gravity: 'n', live: true});
 
             mechDiv.click(function () {
                 if (_mode == IMPACTS) {

@@ -81,7 +81,7 @@
                 var $titleTxt = $("<div class='sliderTitle'></div>").appendTo(div);
                 SAS.localizr.live(pDef.title, $titleTxt);
 
-                $('.sliderTitle a').tipsy({gravity: 'n'});
+                //$('.sliderTitle a').tipsy({gravity: 'n'});
 
                 ratingDiv.raty({
                     path: 'img/raty-img',

@@ -95,8 +95,8 @@
             });
 
             //--tipsy for any content created on a dialog
-            $('#dialog a').tipsy({gravity:'n', live: true});
-            $('#leftPanel a').tipsy({gravity:'n', live: true});
+            $('#dialog a').tipsy({gravity:$.fn.tipsy.autoNS, opacity: 0.9, live: true});//autoNS helps with elements going off page
+            $('#leftPanel a').tipsy({gravity:$.fn.tipsy.autoNS, opacity: 0.85, live: true});
 
         };
 

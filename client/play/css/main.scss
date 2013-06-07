@@ -1,6 +1,7 @@
 @import "page";
 
 $headerHt: 40px;
+$bannerColor: #4d4048;
 
 body {
   normal: 100% Helvetica, Arial, sans-serif;
@@ -231,7 +232,7 @@ body {
 }
 
 #footer {
-  background: #4d4048;
+  background: $bannerColor;
   width: 100%;
   //height: 50px;
   height: 10px;
@@ -261,7 +262,7 @@ body {
   bottom: 10px;
   width: 360px;
   @include titleFont(120%);
-  color: #4d4048;
+  color: $bannerColor;
   text-transform: uppercase;
 }
 
@@ -501,8 +502,12 @@ strong {
   text-decoration: none;
 }
 
+.tipsy-inner {
+  background-color: $bannerColor;
+}
+
 .tipsy {
-  font-size: 16px;
+  @include mainFont(14px);
 }
 
 .tabTitleActive {

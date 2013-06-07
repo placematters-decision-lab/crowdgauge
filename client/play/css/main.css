@@ -509,8 +509,12 @@ strong {
   color: #afbd21;
   text-decoration: none; }
 
+.tipsy-inner {
+  background-color: #4d4048; }
+
 .tipsy {
-  font-size: 16px; }
+  font-family: Arial, sans-serif;
+  font-size: 14px; }
 
 .tabTitleActive {
   cursor: pointer; }

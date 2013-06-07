@@ -302,18 +302,18 @@
                     return "/files/" + d.data.svgPath + "?color=white";
                 });
 
-            $('svg image').tipsy({
-                gravity: 'n',
-                html: true,
-                opacity: 0.95,
-                title: function () {
-                    var d = this.__data__;
-                    return SAS.localizr.get(d.data.title);
-                }
-            });
+//            $('svg image').tipsy({
+//                gravity: 'n',
+//                html: true,
+//                opacity: 0.95,
+//                title: function () {
+//                    var d = this.__data__;
+//                    return SAS.localizr.get(d.data.title);
+//                }
+//            });
 
             $('svg circle').tipsy({//--on 'clickable' screens images are not interactive so we need to use circles
-                gravity: 'n',
+                gravity: 'ne',
                 html: true,
                 opacity: 0.95,
                 title: function () {
