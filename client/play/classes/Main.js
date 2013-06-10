@@ -203,8 +203,7 @@
 //                        ($element)[i].tipsy("hide");
 //                    });
 //                });
-//
-//
+////
 
                 $(".node").bind('touchstart click', function(event){
                     event.stopPropagation();
