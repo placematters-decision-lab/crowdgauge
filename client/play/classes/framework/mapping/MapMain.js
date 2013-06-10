@@ -244,7 +244,7 @@
             //  priorities
             d3.json('/getPriorities' + _fileAndVersion(), function (data) {
                 if (!data) {
-                    console.log('missing data');
+                    console.log('missing priority data');
                     return;
                 }
                 var cnt = "A".charCodeAt(0);
@@ -260,7 +260,7 @@
                         priority.props.textColor = color.darker(2);
                     }
 
-                    if (priority.data.nickname && SAS.localizr.getProp(priority.data, 'nickname')  != "") {
+                    if (priority.data.nickname && SAS.localizr.getProp(priority.data, 'nickname') != "") {
                         priority.props.tooltipLabel = SAS.localizr.getProp(priority.data, 'nickname'); // TODO: nickname
                     } else if (priority.data.title) {
                         priority.props.tooltipLabel = SAS.localizr.getProp(priority.data, 'title');
@@ -283,6 +283,10 @@
             // mechanisms
             d3.json('/getMechanisms' + _fileAndVersion(), function (data) {
                 var cnt = "A".charCodeAt(0);
+                if (!data) {
+                    console.log('missing mechanism data');
+                    return;
+                }
                 _mechanisms = data;
                 _mechData = {};
                 $.each(_mechanisms, function (i, mech) {
@@ -329,7 +333,12 @@
             });
 
             $("#imaginemyneo_logo").click(function () {
-                window.open("http://imaginemyneo.crowdgauge.org/" || process.env.APP_URL); //TODO
+                var prId = SAS.utilsInstance.gup('prId');
+                if (prId) {
+                    window.open("/?prId=" + prId);
+                } else {
+                    window.open("/");
+                }
             });
         };
 
@@ -346,7 +355,7 @@
                 }
             }
             if (_mode == MODE_PRIORITY) {
-                if (loadMode == MODE_PRIORITY &&_prioritiesById && _priCountsByZip) {
+                if (loadMode == MODE_PRIORITY && _prioritiesById && _priCountsByZip) {
                     _loadData(_priCountsByZip, _priData, _priorities);
                 }
             }
