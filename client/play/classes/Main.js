@@ -171,7 +171,8 @@
 //                    alert("new version");
 //                    $element.tipsy('show');
 //                });
-                $element.tipsy(options);
+//                $element.tipsy(options);
+
                 if (typeof ($element) == 'object') {
                     Object.keys($(".node")).forEach(function (key, i, array) {
                                 $(".node").eq(key).tipsy(options);
