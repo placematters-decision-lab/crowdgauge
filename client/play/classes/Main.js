@@ -169,7 +169,7 @@
                                 $(".node").eq(key).tipsy(options);
                     });
 
-                    $("body").click( function(e){
+                    $("body").on('click touchstart', function(e){
                         console.log("touch started");
 
                         Object.keys($(".node")).forEach(function (key, i, array) {
@@ -179,7 +179,7 @@
                 } else {
                     ($element).tipsy(options);
 //
-                    $("body").click( function(e){
+                    $("body").on('click touchstart', function(e){
                         console.log("touch started");
 
                         ($element).tipsy("hide");
