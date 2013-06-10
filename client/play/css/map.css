@@ -225,4 +225,5 @@ svg {
   width: 425px; }
 
 #imaginemyneo_logo {
-  cursor: pointer; }
+  cursor: pointer;
+  background-image: url("img/play_imaginemyneo.png"); }
