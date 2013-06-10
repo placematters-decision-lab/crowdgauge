@@ -181,7 +181,7 @@
                     $("body").on('click touchstart', function(e){
                         console.log("touch started");
 
-                        if ($(".tipsy").length) {
+                        if ($(".tipsy:visible").length) {
                             Object.keys($(".node")).forEach(function (key, i, array) {
                                 $(".node").eq(key).tipsy("hide");
                             });
