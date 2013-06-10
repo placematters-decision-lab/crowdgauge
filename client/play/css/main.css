@@ -378,7 +378,8 @@ body {
   letter-spacing: 1px; }
 
 #priorityList {
-  overflow-y: auto; }
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch; }
 
 #mechanismList {
   overflow-y: auto; }

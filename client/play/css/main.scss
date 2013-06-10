@@ -347,6 +347,7 @@ body {
 
 #priorityList {
   overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
 }
 
 #mechanismList {
