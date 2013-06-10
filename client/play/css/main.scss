@@ -388,7 +388,7 @@ body {
 .mechPanel {
   border-bottom: 1px solid #E0D5D0;
   height: auto;
-  overflow-y: auto;
+  overflow-y: visible;
   -webkit-overflow-scrolling: touch;
 }
 
