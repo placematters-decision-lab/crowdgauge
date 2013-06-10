@@ -166,7 +166,7 @@
                 $("body").on('click touchstart', function(e){
                     $element.tipsy('hide');
                 });
-                $element.tipsy({trigger: 'manual'});
+                $element.tipsy($.extend(options, {trigger: 'manual'}));
                 $element.click(function () {
                     $element.tipsy('show');
                 });
