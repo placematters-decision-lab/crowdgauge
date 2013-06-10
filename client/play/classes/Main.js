@@ -101,8 +101,8 @@
             });
 
             //--tipsy for any content created on a dialog
-            _self.addTooltip($('#dialog a'), {gravity: $.fn.tipsy.autoNS, opacity: 0.9, live: true, trigger: 'manual'});
-            _self.addTooltip($('#leftPanel a'), {gravity: $.fn.tipsy.autoNS, opacity: 0.85, live: true, trigger: 'manual'});
+            _self.addTooltip($('#dialog a'), {gravity: $.fn.tipsy.autoNS, live: true, opacity: 0.9});
+            _self.addTooltip($('#leftPanel a'), {gravity: $.fn.tipsy.autoNS, live: true, opacity: 0.85});
         };
 
         //endregion
@@ -163,54 +163,26 @@
             if (!_detectiPad()) {
                 $element.tipsy(options);
             } else {
-                $element.tipsy(options);
-                Object.keys($element).forEach(function (key, i, array) {
-                    console.log("click" + typeof ($element)[key]);
-                    if (typeof (($element)[key]) == 'object') {
-                        $(".node").tipsy(options);
-                        $(".node").tipsy("show");
-                    }
-                });
+//                $element.tipsy(options);
+                if (typeof ($element) == 'object') {
+                    Object.keys($(".node")).forEach(function (key, i, array) {
+                            console.log("click" + typeof ($element)[key] + "option : " + JSON.stringify(options));
+                                $(".node").eq(key).tipsy(options);
+                    });
 
-//                $(".node").click( function () {
-//                    console.log("click" + typeof $element);
-//
-//                        $(".node").tipsy("show");
-////                        ($element).tipsy("hide");
-//                });
+                    ($element).click( function(e){
+                        console.log("touch started");
 
-//                $(window).live('touchstart click', function(event){
-//                    event.stopPropagation();
-//                    event.preventDefault();
-//                    if(event.handled !== true) {
-//                        // Do your magic
-//                        $element.tipsy("hide");
-//
-//                        event.handled = true;
-//                    } else {
-//                        $element.tipsy("show");
-//                        return false;
-//                    }
-//                });
-
-
-
-//                $element.bind('touchstart', function () {
-//                    $element.tipsy("hide");
-//                });
-//                ($element).forEach( function (value, i , array) {
-//                    ($element)[i].click( function () {
-//                        ($element)[i].tipsy("hide");
-//                    });
-//                });
-////
-
-                $(".node").bind('touchstart click', function(event){
-                    event.stopPropagation();
-                    event.preventDefault();
-                    console.log("touch started");
-                    ($element).tipsy("hide");
-                });
+                        Object.keys($(".node")).forEach(function (key, i, array) {
+                            console.log("click" + typeof ($element)[key] + "option : " + JSON.stringify(options));
+                            $(".node").eq(key).tipsy("hide");
+                        });
+                        ($element).tipsy("hide");
+                        return false;
+                    });
+                } else {
+                    $element.tipsy(options);
+                }
 //
 //                $(".node").bind('touchend click', function(event){
 //                    event.stopPropagation();
