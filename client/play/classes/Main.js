@@ -181,9 +181,15 @@
                     $("body").on('click touchstart', function(e){
                         console.log("touch started");
 
-                        Object.keys($(".node")).forEach(function (key, i, array) {
-                            $(".node").eq(key).tipsy("hide");
-                        });
+                        if ($(".tipsy").length) {
+                            Object.keys($(".node")).forEach(function (key, i, array) {
+                                $(".node").eq(key).tipsy("hide");
+                            });
+                        } else {
+                            Object.keys($(".node")).forEach(function (key, i, array) {
+                                $(".node").eq(key).tipsy(options);
+                            });
+                        }
                     });
                 } else {
                     ($element).tipsy(options);
