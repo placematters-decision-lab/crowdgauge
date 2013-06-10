@@ -164,6 +164,23 @@
                 $element.tipsy(options);
             } else {
                 $element.tipsy(options);
+
+                ($element).live('touchstart click', function(event){
+                    event.stopPropagation();
+                    event.preventDefault();
+                    if(event.handled !== true) {
+                        // Do your magic
+                        $element.tipsy("hide");
+
+                        event.handled = true;
+                    } else {
+                        $element.tipsy("show");
+                        return false;
+                    }
+                });
+
+
+
 //                $element.bind('touchstart', function () {
 //                    $element.tipsy("hide");
 //                });
@@ -174,20 +191,20 @@
 //                });
 //
 //
-                $($element).click( function () {
-                    console.log("click");
-                    ($element).tipsy("hide");
-                });
+//                ($element).click( function () {
+//                    console.log("click");
+//                    ($element).tipsy("hide");
+//                });
 
 //                $($element).bind('touchstart', function(){
 //                    console.log("touch started");
 //                    ($element).tipsy("hide");
 //                });
 
-                $($element).bind('touchend', function(){
-                    console.log("touch ended");
-                    ($element).tipsy("hide");
-                });
+//                $($element).bind('touchend', function(){
+//                    console.log("touch ended");
+//                    ($element).tipsy("hide");
+//                });
             }
         };
 
