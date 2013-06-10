@@ -130,11 +130,19 @@ a:visited {
   display: inline-block;
 }
 
-.imagine_my_neo {
-  @include bg_img(url('img/bottombar_imaginemyneologo.png'), 299px, 75px);
+@mixin imagine_logo($url) {
+  @include bg_img($url, 299px, 75px);
   display: inline-block;
   vertical-align: top;
   margin-top: 10px;
+}
+
+.imagine_my_neo {
+  @include imagine_logo(url('img/bottombar_imaginemyneologo.png'));
+}
+
+.play_imagine_my_neo {
+  @include imagine_logo(url('img/play_imaginemyneo.png'));
 }
 
 .my_vibrant_5 {

@@ -45,7 +45,7 @@
             $('<div class="take_txt btn_take">Take the <div class="my_vibrant_5"></div> challenge</div>').appendTo($dlg);
             $('<p>Share with at least 5 friends and <strong>get your name on our leaderboard</strong>.</p>').appendTo($dlg);
             $('<p>When you share this page by email or social media (e.g. Facebook) we give you points for how many referrals you make. You also get points for each person you friend refers and for each person your friend&#8216;s friend refers - and so on.</p>').appendTo($dlg);
-            $('<p>The challenge is completely optional, and you can still share with your friends even if you don&#8216;t want your name on the leaderboard.</p>').appendTo($dlg);
+            $('<p>We don&#8216;t keep any record of your email and the challenge is completely optional. You can still share with your friends even if you don&#8216;t want your name on the leaderboard.</p>').appendTo($dlg);
             var $showMe = $('<p>Show me on the leaderboard as:</p>').appendTo($dlg);
             var $leaderText = $('<input id="leaderboardName" type="text" size=16>').val(_leaderName).appendTo($showMe);
             var $warning = $('<div class="invalid">').appendTo($showMe).hide();
@@ -183,7 +183,7 @@
             });
             $(".btnMap").button().click(function (event) {
                 event.preventDefault();
-                window.open('/client/play/map.html', '_blank');
+                window.open('/client/play/map.html?prId=' + _responseId, '_blank');
             });
             $(".btn_take").click(function (event) {
                 event.preventDefault();

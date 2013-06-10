@@ -61,6 +61,9 @@ var _fixPath = function (req, res, pathname, callback) {//--convert invalid path
     }
     if (redirectPath) {
         //redirect browser to correct URL
+        var url_parts = url.parse(req.url, true);//make sure any URL parameters are passed on
+        var query = qs.stringify(url_parts.query);
+        if (query) redirectPath += '?' + query;
         res.writeHead(301, {'Location': redirectPath});
         res.end();
     } else {

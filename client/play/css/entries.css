@@ -200,6 +200,16 @@ a:visited {
   vertical-align: top;
   margin-top: 10px; }
 
+.play_imagine_my_neo {
+  background-image: url("img/play_imaginemyneo.png");
+  background-repeat: no-repeat;
+  background-position: left center;
+  width: 299px;
+  height: 75px;
+  display: inline-block;
+  vertical-align: top;
+  margin-top: 10px; }
+
 .my_vibrant_5 {
   background-image: url("img/my_vibrant_5.png");
   background-repeat: no-repeat;
