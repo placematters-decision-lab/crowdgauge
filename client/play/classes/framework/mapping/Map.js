@@ -153,7 +153,8 @@
                     var d = this.__data__;
                     var perc = 100 * d.data.score;
                     return perc.toFixed(1) + "% of the votes in " + d.data.location + " are for: " + d.data.item.props.tooltipLabel;
-                }
+                }//,
+//                trigger: 'manual'
             });
 
             SAS.mainInstance.addTooltip($('svg circle.arc'), {
@@ -164,7 +165,8 @@
                     var d = this.__data__;
                     var perc = 100 * _getLocationPerc(d);
                     return perc.toFixed(1) + "% of the votes in " + _getLocationName(d);
-                }
+                }//,
+//                trigger: 'manual'
             });
 
             if (useLabels) {

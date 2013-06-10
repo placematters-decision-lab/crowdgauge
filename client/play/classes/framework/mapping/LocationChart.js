@@ -189,7 +189,8 @@
                     if (!d) return "";//there are other non-data rectangles present!
                     var perc = 100 * d.m.perc;
                     return perc.toFixed(1) + "% of the votes are for: " + d.m.item.props.tooltipLabel;
-                }
+                }//,
+//                trigger: 'manual'
             });
 
             _updateLayout();

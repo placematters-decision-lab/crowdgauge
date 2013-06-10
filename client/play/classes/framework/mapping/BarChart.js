@@ -78,7 +78,8 @@
                     var d = this.__data__;
                     var perc = d.percent;
                     return _item.props.tooltipLabel + " gets " + perc.toFixed(1) + "% of the votes in " + d.location;
-                }
+                }//,
+//                trigger: 'manual'
             });
 
             _addNumbers();

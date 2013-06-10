@@ -26,7 +26,7 @@
         };
 
         var _detectiPad = function () {
-//            return true; //TODO: temp
+            return true; //TODO: temp
 
             return (navigator.userAgent.match(/iPad/i) != null);
         };
@@ -164,20 +164,34 @@
                 $element.tipsy(options);
             } else {
                 $element.tipsy(options);
-
-                ($element).live('touchstart click', function(event){
-                    event.stopPropagation();
-                    event.preventDefault();
-                    if(event.handled !== true) {
-                        // Do your magic
-                        $element.tipsy("hide");
-
-                        event.handled = true;
-                    } else {
-                        $element.tipsy("show");
-                        return false;
+                Object.keys($element).forEach(function (key, i, array) {
+                    console.log("click" + typeof ($element)[key]);
+                    if (typeof (($element)[key]) == 'object') {
+                        $(".node").tipsy(options);
+                        $(".node").tipsy("show");
                     }
                 });
+
+//                $(".node").click( function () {
+//                    console.log("click" + typeof $element);
+//
+//                        $(".node").tipsy("show");
+////                        ($element).tipsy("hide");
+//                });
+
+//                $(window).live('touchstart click', function(event){
+//                    event.stopPropagation();
+//                    event.preventDefault();
+//                    if(event.handled !== true) {
+//                        // Do your magic
+//                        $element.tipsy("hide");
+//
+//                        event.handled = true;
+//                    } else {
+//                        $element.tipsy("show");
+//                        return false;
+//                    }
+//                });
 
 
 
@@ -191,20 +205,16 @@
 //                });
 //
 //
-//                ($element).click( function () {
-//                    console.log("click");
-//                    ($element).tipsy("hide");
-//                });
 
-//                $($element).bind('touchstart', function(){
-//                    console.log("touch started");
-//                    ($element).tipsy("hide");
-//                });
+                $(".node").bind('touchstart', function(){
+                    console.log("touch started");
+                    ($element).tipsy("hide");
+                });
 
-//                $($element).bind('touchend', function(){
-//                    console.log("touch ended");
-//                    ($element).tipsy("hide");
-//                });
+                $(".node").bind('touchend', function(){
+                    console.log("touch ended");
+                    ($element).tipsy("hide");
+                });
             }
         };
 

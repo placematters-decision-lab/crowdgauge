@@ -341,7 +341,7 @@
                 }
             });
 
-            SAS.mainInstance.addTooltip($('#itemList a'), {gravity:$.fn.tipsy.autoNS, opacity: 0.85, live: true});
+            SAS.mainInstance.addTooltip($('#itemList a'), {gravity:$.fn.tipsy.autoNS, opacity: 0.85, live: true, trigger: 'manual'});
         };
 
         var _resetCharts = function () {

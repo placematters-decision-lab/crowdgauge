@@ -219,7 +219,7 @@
                 $('.yourScore').text(ans.count);
             });
 
-            SAS.mainInstance.addTooltip($('#leftPanel a'), {gravity:$.fn.tipsy.autoNS, opacity: 0.85, live: true});
+            SAS.mainInstance.addTooltip($('#leftPanel a'), {gravity:$.fn.tipsy.autoNS, opacity: 0.85, live: true, trigger: 'manual'});
         };
 
         var _setLeaderName = function (leadername) {
