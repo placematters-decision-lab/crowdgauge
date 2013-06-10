@@ -26,7 +26,7 @@
         };
 
         var _detectiPad = function () {
-            return true; //TODO: temp
+//            return true; //TODO: temp
 
             return (navigator.userAgent.match(/iPad/i) != null);
         };
@@ -179,12 +179,14 @@
                     ($element).tipsy("hide");
                 });
 
-                $($element).bind('touchstart', function(){
-                    console.log("touch started");
-                });
+//                $($element).bind('touchstart', function(){
+//                    console.log("touch started");
+//                    ($element).tipsy("hide");
+//                });
 
                 $($element).bind('touchend', function(){
                     console.log("touch ended");
+                    ($element).tipsy("hide");
                 });
             }
         };
