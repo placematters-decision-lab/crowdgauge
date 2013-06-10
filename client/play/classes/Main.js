@@ -26,7 +26,7 @@
         };
 
         var _detectiPad = function () {
-//            return true; //TODO: temp
+            return true; //TODO: temp
 
             return (navigator.userAgent.match(/iPad/i) != null);
         };
@@ -101,8 +101,8 @@
             });
 
             //--tipsy for any content created on a dialog
-            _self.addTooltip($('#dialog a'), {gravity: $.fn.tipsy.autoNS, opacity: 0.9, live: true});
-            _self.addTooltip($('#leftPanel a'), {gravity: $.fn.tipsy.autoNS, opacity: 0.85, live: true});
+            _self.addTooltip($('#dialog a'), {gravity: $.fn.tipsy.autoNS, opacity: 0.9, live: true, trigger: 'manual'});
+            _self.addTooltip($('#leftPanel a'), {gravity: $.fn.tipsy.autoNS, opacity: 0.85, live: true, trigger: 'manual'});
         };
 
         //endregion
@@ -162,6 +162,30 @@
         this.addTooltip = function ($element, options) {
             if (!_detectiPad()) {
                 $element.tipsy(options);
+            } else {
+                $element.tipsy(options);
+//                $element.bind('touchstart', function () {
+//                    $element.tipsy("hide");
+//                });
+//                ($element).forEach( function (value, i , array) {
+//                    ($element)[i].click( function () {
+//                        ($element)[i].tipsy("hide");
+//                    });
+//                });
+//
+//
+                $($element).click( function () {
+                    console.log("click");
+                    ($element).tipsy("hide");
+                });
+
+                $($element).bind('touchstart', function(){
+                    console.log("touch started");
+                });
+
+                $($element).bind('touchend', function(){
+                    console.log("touch ended");
+                });
             }
         };
 
