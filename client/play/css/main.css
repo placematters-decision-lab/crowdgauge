@@ -421,7 +421,7 @@ body {
   border-bottom: 1px solid #E0D5D0;
   height: auto;
   overflow-y: auto;
-  -webkit-overflow-scrolling: touch; }
+  -webkit-overflow-scrolling: auto; }
 
 .mechCatTitle {
   color: #00456A;
