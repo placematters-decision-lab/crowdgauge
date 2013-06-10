@@ -216,6 +216,7 @@
                 _onRatingChange();
                 _recalcCoinBalance(0);
             });
+//            $('.coinsReset').tipsy({title: "Put all your choice back."});
 
             $.each(_moneyIcons, function (mechId, micons) {
                 $.each(micons, function (i, micon) {

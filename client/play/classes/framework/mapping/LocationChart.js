@@ -180,7 +180,7 @@
                 .attr("transform", "rotate(-90)")
                 .text(_title);
 
-            $('svg rect.barrect').tipsy({//--or use IE friendly tooltip... http://svg-whiz.com/svg/Tooltip.svg
+            SAS.mainInstance.addTooltip($('svg rect.barrect'), {//--or use IE friendly tooltip... http://svg-whiz.com/svg/Tooltip.svg
                 gravity:'e',
                 html:true,
                 opacity:0.95,

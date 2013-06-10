@@ -348,6 +348,8 @@ body {
 .bigButtonNext {
   color: white;
   filter: progid:DXImageTransform.Microsoft.gradient(startColorstr=#11B6FF, endColorstr=#0099DD, GradientType=0);
+  background-image: -webkit-linear-gradient(top, #11b6ff 0%, #0099dd 100%);
+  /* Chrome10+,Safari5.1+ */
   background-image: linear-gradient(to bottom, #11b6ff, #0099dd);
   text-transform: capitalize;
   float: right; }
@@ -355,6 +357,8 @@ body {
 .bigButtonBack {
   color: white;
   filter: progid:DXImageTransform.Microsoft.gradient(startColorstr=#11B6FF, endColorstr=#0099DD, GradientType=0);
+  background-image: -webkit-linear-gradient(top, #11b6ff 0%, #0099dd 100%);
+  /* Chrome10+,Safari5.1+ */
   background-image: linear-gradient(to bottom, #11b6ff, #0099dd);
   text-transform: capitalize;
   float: right; }

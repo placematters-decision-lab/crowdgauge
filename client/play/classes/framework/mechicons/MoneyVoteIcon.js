@@ -63,14 +63,14 @@
             _moneyDiv.hover(
                 function () {
                     if (_enabled) {
-                        $(this).removeClass(_currentClass());
-                        $(this).addClass(_hoverClass());
+                        SAS.mainInstance.removeClass($(this), _currentClass());
+                        SAS.mainInstance.addClass($(this), _hoverClass());
                         SAS.mainInstance.getBubbleChart().previewMoney(_mechanism, _self, _thumbState);
                     }
                 },
                 function () {
-                    $(this).removeClass(_hoverClass());
-                    $(this).addClass(_currentClass());
+                    SAS.mainInstance.removeClass($(this), _hoverClass());
+                    SAS.mainInstance.addClass($(this), _currentClass());
                     SAS.mainInstance.getBubbleChart().previewMoney(null, null, null);
                 });
 

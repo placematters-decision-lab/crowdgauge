@@ -70,7 +70,7 @@
                 .attr("transform", "translate(" + (barWidth / 2) + " , -5) rotate(-90)")
                 .text(function (d, i) { return d.location;});
 
-            $('svg rect.bar_rect').tipsy({
+            SAS.mainInstance.addTooltip(('svg rect.bar_rect'), {
                 gravity:'w',
                 html:true,
                 opacity:0.85,

@@ -25,6 +25,12 @@
             return document.implementation.hasFeature("http://www.w3.org/TR/SVG11/feature#BasicStructure", "1.1");
         };
 
+        var _detectiPad = function () {
+//            return true; //TODO: temp
+
+            return (navigator.userAgent.match(/iPad/i) != null);
+        };
+
         var _reportIncompatibleBrowser = function () {
             window.location = "oldbrowser.html";
         };
@@ -95,9 +101,8 @@
             });
 
             //--tipsy for any content created on a dialog
-            $('#dialog a').tipsy({gravity:$.fn.tipsy.autoNS, opacity: 0.9, live: true});//autoNS helps with elements going off page
-            $('#leftPanel a').tipsy({gravity:$.fn.tipsy.autoNS, opacity: 0.85, live: true});
-
+            _self.addTooltip($('#dialog a'), {gravity: $.fn.tipsy.autoNS, opacity: 0.9, live: true});
+            _self.addTooltip($('#leftPanel a'), {gravity: $.fn.tipsy.autoNS, opacity: 0.85, live: true});
         };
 
         //endregion
@@ -154,6 +159,24 @@
             _preventAccidentalLeaving();
         };
 
+        this.addTooltip = function ($element, options) {
+            if (!_detectiPad()) {
+                $element.tipsy(options);
+            }
+        };
+
+        this.addClass = function ($element, options) {
+            if (!_detectiPad()) {
+                $element.addClass(options);
+            }
+        };
+
+        this.removeClass = function ($element, options) {
+            if (!_detectiPad()) {
+                $element.removeClass(options);
+            }
+        };
+
         //endregion
     };
     /**
@@ -162,4 +185,5 @@
      */
     SAS.mainInstance = new SAS.Main();
     SAS.mainInstance.initialize();
+//    SAS.mainInstance.detectiPad();
 })();
