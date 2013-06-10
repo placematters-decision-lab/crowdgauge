@@ -170,18 +170,21 @@
                                 $(".node").eq(key).tipsy(options);
                     });
 
-                    ($element).click( function(e){
+                    $(window).click( function(e){
                         console.log("touch started");
 
                         Object.keys($(".node")).forEach(function (key, i, array) {
-                            console.log("click" + typeof ($element)[key] + "option : " + JSON.stringify(options));
                             $(".node").eq(key).tipsy("hide");
                         });
-                        ($element).tipsy("hide");
-                        return false;
                     });
                 } else {
-                    $element.tipsy(options);
+                    $(window).tipsy(options);
+
+                    ($element).click( function(e){
+                        console.log("touch started");
+
+                        ($element).tipsy("hide");
+                    });
                 }
 //
 //                $(".node").bind('touchend click', function(event){
