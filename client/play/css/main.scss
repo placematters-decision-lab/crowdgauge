@@ -305,7 +305,8 @@ body {
 @mixin bigButton() {
   color: white;
   //background-color: #24ccff;
-  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr=#11B6FF, endColorstr=#0099DD, GradientType=0);
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr=#11B6FF, endColorstr=#0099DD, GradientType=0);  // For IE10-
+  background-image: -webkit-linear-gradient(top, #11B6FF 0%,#0099DD 100%); /* Chrome10+,Safari5.1+ */
 
   background-image: linear-gradient(to bottom, #11B6FF, #0099DD);
   //background: -webkit-linear-gradient(to bottom, #11B6FF, #0099DD);

@@ -218,6 +218,8 @@
             d3.json('/descendantCount' + _params({responseId: _responseId}), function (ans) {
                 $('.yourScore').text(ans.count);
             });
+
+            SAS.mainInstance.addTooltip($('#leftPanel a'), {gravity:$.fn.tipsy.autoNS, opacity: 0.85, live: true});
         };
 
         var _setLeaderName = function (leadername) {

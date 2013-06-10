@@ -145,7 +145,7 @@
                     return _getRank(d);
                 });
 
-            $('svg g.arc').tipsy({
+            SAS.mainInstance.addTooltip($('svg g.arc'), {
                 gravity: 'n',
                 html: true,
                 opacity: 0.85,
@@ -156,7 +156,7 @@
                 }
             });
 
-            $('svg circle.arc').tipsy({
+            SAS.mainInstance.addTooltip($('svg circle.arc'), {
                 gravity: 'n',
                 html: true,
                 opacity: 0.85,
