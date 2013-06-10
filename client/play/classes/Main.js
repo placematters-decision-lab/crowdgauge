@@ -168,6 +168,7 @@
                 });
                 $element.tipsy($.extend(options, {trigger: 'manual'}));
                 $element.click(function () {
+                    alert("new version");
                     $element.tipsy('show');
                 });
 //                $element.tipsy(options);
