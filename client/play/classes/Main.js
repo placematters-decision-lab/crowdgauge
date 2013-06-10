@@ -166,7 +166,6 @@
 //                $element.tipsy(options);
                 if (typeof ($element) == 'object') {
                     Object.keys($(".node")).forEach(function (key, i, array) {
-                            console.log("click" + typeof ($element)[key] + "option : " + JSON.stringify(options));
                                 $(".node").eq(key).tipsy(options);
                     });
 
@@ -178,9 +177,9 @@
                         });
                     });
                 } else {
-                    $(window).tipsy(options);
-
-                    ($element).click( function(e){
+                    ($element).tipsy(options);
+//
+                    $(window).click( function(e){
                         console.log("touch started");
 
                         ($element).tipsy("hide");
