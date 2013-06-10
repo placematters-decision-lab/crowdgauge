@@ -193,13 +193,6 @@
                         ($element).tipsy("hide");
                     });
                 }
-
-                $(".node").bind('touchend click', function(event){
-                    event.stopPropagation();
-                    event.preventDefault();
-                    console.log("touch ended");
-                    ($element).tipsy("hide");
-                });
             }
         };
 
