@@ -26,7 +26,7 @@
         };
 
         var _detectiPad = function () {
-            return true; //TODO: temp
+//            return true; //TODO: temp
 
             return (navigator.userAgent.match(/iPad/i) != null);
         };
@@ -163,43 +163,43 @@
             if (!_detectiPad()) {
                 $element.tipsy(options);
             } else {
-                $("body").on('click touchstart', function(e){
-                    $element.tipsy('hide');
-                });
-                $element.tipsy($.extend(options, {trigger: 'manual'}));
-                $element.click(function () {
-                    alert("new version");
-                    $element.tipsy('show');
-                });
-//                $element.tipsy(options);
-//                if (typeof ($element) == 'object') {
-//                    Object.keys($(".node")).forEach(function (key, i, array) {
-//                                $(".node").eq(key).tipsy(options);
-//                    });
-//
-//                    $("body").on('click touchstart', function(e){
-//                        console.log("touch started");
-//
-//                        Object.keys($(".node")).forEach(function (key, i, array) {
-//                            $(".node").eq(key).tipsy("hide");
-//                        });
-//                    });
-//                } else {
-//                    ($element).tipsy(options);
-////
-//                    $("body").on('click touchstart', function(e){
-//                        console.log("touch started");
-//
-//                        ($element).tipsy("hide");
-//                    });
-//                }
-//
-//                $(".node").bind('touchend click', function(event){
-//                    event.stopPropagation();
-//                    event.preventDefault();
-//                    console.log("touch ended");
-//                    ($element).tipsy("hide");
+//                $("body").on('click touchstart', function(e){
+//                    $element.tipsy('hide');
 //                });
+//                $element.tipsy($.extend(options, {trigger: 'manual'}));
+//                $element.click(function () {
+//                    alert("new version");
+//                    $element.tipsy('show');
+//                });
+                $element.tipsy(options);
+                if (typeof ($element) == 'object') {
+                    Object.keys($(".node")).forEach(function (key, i, array) {
+                                $(".node").eq(key).tipsy(options);
+                    });
+
+                    $("body").on('click touchstart', function(e){
+                        console.log("touch started");
+
+                        Object.keys($(".node")).forEach(function (key, i, array) {
+                            $(".node").eq(key).tipsy("hide");
+                        });
+                    });
+                } else {
+                    ($element).tipsy(options);
+//
+                    $("body").on('click touchstart', function(e){
+                        console.log("touch started");
+
+                        ($element).tipsy("hide");
+                    });
+                }
+
+                $(".node").bind('touchend click', function(event){
+                    event.stopPropagation();
+                    event.preventDefault();
+                    console.log("touch ended");
+                    ($element).tipsy("hide");
+                });
             }
         };
 
