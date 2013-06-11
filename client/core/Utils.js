@@ -39,7 +39,7 @@ if (typeof(SAS) === 'undefined') SAS = {};
                     this.title=document.title;
                     return true;
                 } else { // webkit - safari/chrome
-                    alert('Press ' + (navigator.userAgent.toLowerCase().indexOf('mac') != - 1 ? 'Command/Cmd' : 'CTRL') + ' + D to bookmark this page.');
+                    alert('Press ' + (SAS.tipsyInstance.detectiPad() ? 'the Action button at the top of the screen' : 'CTRL D') + ' to bookmark this page.');
                 }
             });
         };

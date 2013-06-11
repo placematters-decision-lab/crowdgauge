@@ -35,6 +35,10 @@
             _initialize();
         };
 
+        this.detectiPad = function () {
+            return _detectiPad();
+        };
+
         this.addTooltip = function (selector, options, ipadShow) {
             var $element = $(selector);
             if (!_detectiPad()) {
