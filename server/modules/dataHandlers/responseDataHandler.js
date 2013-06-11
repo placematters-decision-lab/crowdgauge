@@ -287,36 +287,43 @@ var ResponseDataHandler = function () {
     var _getLeaderboard = function (req, res) {
         var leaderboardMin = 5;
         var limit = _self.p_getQuery(req).limit;
-        _self.p_view('getLeaderName', {}, function (err, body) {
-            if (err) {
-                console.log('Error in getLeaderboard: ' + err);
-                _self.p_returnBasicFailure(res, err);
-                return;
-            }
+
+        var leadernamesByResponseId = null;
+        var descendentCounts = null;
+
+        var tryMakeLeaderboad = function () {
+            if (!leadernamesByResponseId || !descendentCounts) return;
             var ans = [];
-            if (body && body.rows && body.rows.length > 0) {
-                var total = body.rows.length;
-                var cnt = 0;
-                var done = function () {
-                    cnt++;
-                    if (cnt == total) {
-                        ans.sort(function (a, b) {return b.score - a.score});
-                        if (limit) ans = ans.slice(0, limit);
-                        _self.p_returnJsonObj(res, ans);
-                    }
-                };
+            descendentCounts.forEach(function (value, i) {
+                var leadername = leadernamesByResponseId[value.responseId];
+                if (!leadername || value.score < leaderboardMin) return;//continue
+
+                ans.push({leadername: leadername, score: value.score});
+            });
+            ans.sort(function (a, b) {return b.score - a.score});
+            if (limit) ans = ans.slice(0, limit);
+            _self.p_returnJsonObj(res, ans);
+        };
+        var p = {group:true};
+//        if (limit) p.limit = limit; cannot use limit because its the top n names where leadername has been specified...
+        _self.p_view('descendantCount', p, function (err, body) {
+            descendentCounts = [];
+            if (!err && body && body.rows && body.rows.length > 0) {
                 body.rows.forEach(function (row, i) {
-                    var leadername = row.value;
-                    _countDescendentsForResponse(row.key, function (count) {
-                        if (count >= leaderboardMin) ans.push({leadername: leadername, score: count});
-                        done();
-                    }, function () {
-                        done();
-                    });
+                    descendentCounts.push({responseId: row.key, score: row.value});
                 });
-            } else {
-                _self.p_returnJsonObj(res, ans);
             }
+            tryMakeLeaderboad();
+        });
+
+        _self.p_view('getLeaderName', {}, function (err, body) {
+            leadernamesByResponseId = {};
+            if (!err && body && body.rows && body.rows.length > 0) {
+                body.rows.forEach(function (row, i) {
+                    leadernamesByResponseId[row.key] = row.value;
+                });
+            }
+            tryMakeLeaderboad();
         });
     };
     //region public API
