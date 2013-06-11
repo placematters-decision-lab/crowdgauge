@@ -15,7 +15,7 @@
 
         var _getClickTouchEventName = function () {
             if (!_detectiPad()) throw 'not supported for non-iPad';
-//            return 'click'; //TODO: local test
+//            return 'click'; //TODO: temp local test
             return 'touchstart';
         };
 
