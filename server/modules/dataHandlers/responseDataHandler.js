@@ -285,7 +285,8 @@ var ResponseDataHandler = function () {
     };
 
     var _getLeaderboard = function (req, res) {
-        var leaderboardMin = 2;//TODO update to 5
+        var leaderboardMin = 5;
+        var limit = _self.p_getQuery(req).limit;
         _self.p_view('getLeaderName', {}, function (err, body) {
             if (err) {
                 console.log('Error in getLeaderboard: ' + err);
@@ -299,13 +300,15 @@ var ResponseDataHandler = function () {
                 var done = function () {
                     cnt++;
                     if (cnt == total) {
+                        ans.sort(function (a, b) {return b.score - a.score});
+                        if (limit) ans = ans.slice(0, limit);
                         _self.p_returnJsonObj(res, ans);
                     }
                 };
                 body.rows.forEach(function (row, i) {
                     var leadername = row.value;
                     _countDescendentsForResponse(row.key, function (count) {
-                        if (count >= leaderboardMin) ans.push({leadername:leadername, score:count});
+                        if (count >= leaderboardMin) ans.push({leadername: leadername, score: count});
                         done();
                     }, function () {
                         done();

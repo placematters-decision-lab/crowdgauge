@@ -3,6 +3,7 @@
  * Date: 5/31/13
  * Time: 5:24 PM
  */
+if (typeof(SAS) === 'undefined') SAS = {};
 (function () { // self-invoking function
     /**
      * @class SAS.Utils

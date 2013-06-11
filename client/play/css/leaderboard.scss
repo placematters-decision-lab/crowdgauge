@@ -1,0 +1,61 @@
+@import "core";
+
+body {
+  @include mainFont();
+}
+
+$darkVibrantBlue: #00446a;
+$vibrantGreen: #b0be1f;
+
+#leader_box {
+  border: 6px solid $darkVibrantBlue;
+}
+
+#header_bar {
+  @include bg_img(url('img/my_vibrant_5.png'), 100%, auto);
+  background-position: 10px 8px;
+  padding: 16px 182px;
+  font-size: 18px;
+}
+
+#leader_list {
+
+}
+
+.leader_item {
+  padding: 5px;
+  border-bottom: 1px solid #ddd;
+}
+
+.ldr_pos {
+  color: $vibrantGreen;
+  display: inline-block;
+  width: 10%;
+}
+
+.ldr_name {
+  display: inline-block;
+  width: 80%;
+}
+
+.ldr_score {
+  display: inline-block;
+  width: 10%;
+}
+
+.leader_shad {
+  @include gradient(#ddd, white);
+  height: 6px;
+}
+
+#link_to_full {
+  text-align: right;
+  margin: 10px;
+  font-weight: bold;
+  cursor: pointer;
+  color: $darkVibrantBlue;
+}
+
+#loader {
+  margin: 10px;
+}
