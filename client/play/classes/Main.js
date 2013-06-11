@@ -32,7 +32,7 @@
         };
 
         var _getClickTouchEventName = function () {
-//            if (!_detectiPad()) throw 'not supported for non-iPad';
+            if (!_detectiPad()) throw 'not supported for non-iPad';
 //            return 'click'; //TODO: temp
             return 'touchstart';
         };
@@ -107,12 +107,6 @@
             });
 
             //--tipsy for any content created on a dialog
-//            _self.addTooltip($('#dialog a'), {gravity: $.fn.tipsy.autoNS, opacity: 0.9});
-//            _self.addTooltip($('#leftPanel a'), {gravity: $.fn.tipsy.autoNS, opacity: 0.85});
-//            _self.addTooltip($('#dialog a'), {gravity: $.fn.tipsy.autoNS, opacity: 0.9, trigger: 'manual'});
-//            _self.addTooltip($('#leftPanel a'), {gravity: $.fn.tipsy.autoNS, opacity: 0.85, trigger: 'manual'});
-//            _self.addTooltip($('#dialog a'), {gravity: $.fn.tipsy.autoNS, live: true, opacity: 0.9, trigger: 'manual'});
-//            _self.addTooltip($('#leftPanel a'), {gravity: $.fn.tipsy.autoNS, live: true, opacity: 0.85, trigger: 'manual'});
             _self.addTooltip('#dialog a', {gravity: $.fn.tipsy.autoNS, live: true, opacity: 0.9});
             _self.addTooltip('#leftPanel a', {gravity: $.fn.tipsy.autoNS, live: true, opacity: 0.85});
 
@@ -195,8 +189,6 @@
                         setTimeout(function(){
                             $clickedElem.tipsy($.extend(options, {trigger: 'manual', live: false})).tipsy('show');
                         }, 100);
-
-                        //setTimeout(function () { $clickedElem.addClass('tipsy_ipad'); }, 100);
                     });
                 } else {
                     $element.tipsy($.extend(options, {trigger: 'manual'}));
@@ -207,50 +199,8 @@
                         setTimeout(function(){
                             $clickedElem.tipsy('show');
                         }, 100);
-
-                        //setTimeout(function () { $clickedElem.addClass('tipsy_ipad'); }, 100);  //otherwise the global click event will clearit
-                       // return false;
                     });
                 }
-
-//                if (($element).length == 30) {
-//                    Object.keys($(".node")).forEach(function (key, i, array) {
-//                                $(".node").eq(key).tipsy(options);
-//                    });
-//
-//                    $("body").on('click touchstart', function(event){
-//                        console.log("touch started");
-//
-//                       if ($(".tipsy").length != 0) {
-//                            Object.keys($(".node")).forEach(function (key, i, array) {
-////                                $(".tipsy")[0].setAttribute('original-title', '');
-////                                $(".node").eq(key).tipsy("hide");
-//                                $(".node").eq(key).tipsy("hide");
-//                            });
-//                           return false;
-//                       } else if ($(".tipsy").length == 0 && typeof ($(event.target)) == 'object') {
-////                           var kk;
-//                           Object.keys($(".node")).forEach(function (key, i, array) {
-////                               if (($(event.target))[0].__data__.data.uid == $(".node").eq(key)) {
-////                                   kk = key;
-////                                   return false;
-//                           $(".node").eq(key).tipsy("show");
-////                               }
-//                           });
-////                           $(".node").eq(kk).tipsy("show");
-//                           return false;
-//                        }
-//                    });
-//                } else if (($element).length == 0) {
-//                    ($element).tipsy(options);
-//
-//                    $("body").on('click touchstart', function(e){
-//                        console.log("touch started");
-//
-//                        ($element).tipsy("hide");
-//                    });
-//                } else {
-//                }
             }
         };
 
