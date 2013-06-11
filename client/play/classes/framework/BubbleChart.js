@@ -312,7 +312,8 @@
 //                }
 //            });
 
-            SAS.mainInstance.addTooltip($('svg circle'), {//--on 'clickable' screens images are not interactive so we need to use circles
+            SAS.mainInstance.addTooltip('svg circle', {//--on 'clickable' screens images are not interactive so we need to use circles
+//                gravity: $.fn.tipsy.autoWE,
                 gravity: 'ne',
                 html: true,
                 opacity: 0.95,
@@ -322,8 +323,9 @@
                     if (_colorMode == IMPACTS && !d3.select(this).classed("score_na")) tip += "<br/>(click for more)";
                     if (_colorMode == MONEY) tip += "<br/>(click to see components)";
                     return tip;
-                }//,
-//                trigger: 'manual'
+                }
+            }, function() {
+                return _colorMode == PRIORITY;
             });
 
             _nodes.on("click", function (d) {

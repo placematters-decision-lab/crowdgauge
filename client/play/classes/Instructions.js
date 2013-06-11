@@ -49,6 +49,7 @@
                 dialogClass: ''
             });
             $('.ui-dialog a').blur();//otherwise jQuery dialog will highlight first 'a' element
+            SAS.mainInstance.onShowDialog();
         };
 
         var _closeDialog = function () {
