@@ -22,10 +22,6 @@
         var _initialize = function () {
             if (_detectiPad()) {
                 $("html").on(_getClickTouchEventName(), function (e) {
-//                    $('.tipsy_ipad').each(function () {
-//                        $(this).removeClass('tipsy_ipad').tipsy('hide');
-//                    });
-//                    return false;
                     $('.tipsy').remove();   //--all ipad tipsy .show calls must use timeout
                 });
             }
