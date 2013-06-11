@@ -26,14 +26,14 @@
         };
 
         var _detectiPad = function () {
-            return true; //TODO: temp
+//            return true; //TODO: temp
 
             return (navigator.userAgent.match(/iPad/i) != null);
         };
 
         var _getClickTouchEventName = function () {
-            if (!_detectiPad()) throw 'not supported for non-iPad';
-            return 'click'; //TODO: temp
+//            if (!_detectiPad()) throw 'not supported for non-iPad';
+//            return 'click'; //TODO: temp
             return 'touchstart';
         };
 
