@@ -26,7 +26,7 @@
         };
 
         var _detectiPad = function () {
-//            return true; //TODO: temp
+            return true; //TODO: temp
 
             return (navigator.userAgent.match(/iPad/i) != null);
         };
@@ -173,23 +173,17 @@
 //                });
 //                $element.tipsy(options);
 
-                if (typeof ($element) == 'object') {
+                if (($element).length == 30) {
                     Object.keys($(".node")).forEach(function (key, i, array) {
                                 $(".node").eq(key).tipsy(options);
                     });
 
-                    $("body").on('click touchstart', function(e){
+                    $("body").on('click touchstart', function(event){
                         console.log("touch started");
 
-                        if ($(".tipsy:visible").length) {
-                            Object.keys($(".node")).forEach(function (key, i, array) {
-                                $(".node").eq(key).tipsy("hide");
-                            });
-                        } else {
-                            Object.keys($(".node")).forEach(function (key, i, array) {
-                                $(".node").eq(key).tipsy(options);
-                            });
-                        }
+                       Object.keys($(".node")).forEach(function (key, i, array) {
+                            $(".node").eq(key).tipsy("hide");
+                        });
                     });
                 } else {
                     ($element).tipsy(options);
