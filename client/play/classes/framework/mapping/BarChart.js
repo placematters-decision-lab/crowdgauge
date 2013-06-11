@@ -70,7 +70,7 @@
                 .attr("transform", "translate(" + (barWidth / 2) + " , -5) rotate(-90)")
                 .text(function (d, i) { return d.location;});
 
-            SAS.mainInstance.addTooltip(('svg rect.bar_rect'), {
+            SAS.tipsyInstance.addTooltip('svg rect.bar_rect', {
                 gravity:'w',
                 html:true,
                 opacity:0.85,
@@ -78,8 +78,7 @@
                     var d = this.__data__;
                     var perc = d.percent;
                     return _item.props.tooltipLabel + " gets " + perc.toFixed(1) + "% of the votes in " + d.location;
-                }//,
-//                trigger: 'manual'
+                }
             });
 
             _addNumbers();

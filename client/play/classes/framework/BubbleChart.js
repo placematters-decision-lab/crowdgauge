@@ -312,7 +312,7 @@
 //                }
 //            });
 
-            SAS.mainInstance.addTooltip('svg circle', {//--on 'clickable' screens images are not interactive so we need to use circles
+            SAS.tipsyInstance.addTooltip('svg circle', {//--on 'clickable' screens images are not interactive so we need to use circles
 //                gravity: $.fn.tipsy.autoWE,
                 gravity: 'ne',
                 html: true,

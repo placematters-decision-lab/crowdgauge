@@ -180,7 +180,7 @@
                 .attr("transform", "rotate(-90)")
                 .text(_title);
 
-            SAS.mainInstance.addTooltip($('svg rect.barrect'), {//--or use IE friendly tooltip... http://svg-whiz.com/svg/Tooltip.svg
+            SAS.tipsyInstance.addTooltip('svg rect.barrect', {//--or use IE friendly tooltip... http://svg-whiz.com/svg/Tooltip.svg
                 gravity:'e',
                 html:true,
                 opacity:0.95,
@@ -189,8 +189,7 @@
                     if (!d) return "";//there are other non-data rectangles present!
                     var perc = 100 * d.m.perc;
                     return perc.toFixed(1) + "% of the votes are for: " + d.m.item.props.tooltipLabel;
-                }//,
-//                trigger: 'manual'
+                }
             });
 
             _updateLayout();

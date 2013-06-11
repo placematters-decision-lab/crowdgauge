@@ -63,15 +63,15 @@
             _moneyDiv.hover(
                 function () {
                     if (_enabled) {
-                        SAS.mainInstance.removeClass($(this), _currentClass());
-                        SAS.mainInstance.addClass($(this), _hoverClass());
-                        SAS.mainInstance.getBubbleChart().previewMoney(_mechanism, _self, _thumbState);
+                        SAS.tipsyInstance.removeClass($(this), _currentClass());
+                        SAS.tipsyInstance.addClass($(this), _hoverClass());
+                        SAS.tipsyInstance.getBubbleChart().previewMoney(_mechanism, _self, _thumbState);
                     }
                 },
                 function () {
-                    SAS.mainInstance.removeClass($(this), _hoverClass());
-                    SAS.mainInstance.addClass($(this), _currentClass());
-                    SAS.mainInstance.getBubbleChart().previewMoney(null, null, null);
+                    SAS.tipsyInstance.removeClass($(this), _hoverClass());
+                    SAS.tipsyInstance.addClass($(this), _currentClass());
+                    SAS.tipsyInstance.getBubbleChart().previewMoney(null, null, null);
                 });
 
             _moneyDiv.click(function () {
