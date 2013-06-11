@@ -129,13 +129,10 @@
             $("#mechanisms").html('<h3>Actions ' + _heSheI() + ' would take:</h3>');
             var mlist = $("<ul>").appendTo("#mechanisms");
             $.each(_entry.data.mechanisms, function (id, coins) {
+                if (coins.length == 1 && coins[0].multiplier < 0) return;//continue (its a thumbs down vote)
                 var mechanism = _mechanisms[id];
-                var text = mechanism.title;
-                var action = mechanism.actions["c_" + coins];
-                if (action) {
-                    text += ": " + action;
-                }
-                $('<li>' + text + '</li>').appendTo(mlist);
+                if (!mechanism) return;//continue
+                $('<li>' + mechanism.title + '</li>').appendTo(mlist);
             });
         };
 
