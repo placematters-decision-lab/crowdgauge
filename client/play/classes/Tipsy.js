@@ -15,17 +15,13 @@
 
         var _getClickTouchEventName = function () {
             if (!_detectiPad()) throw 'not supported for non-iPad';
-//            return 'click'; //TODO: local test
+//            return 'click'; //TODO: temp local test
             return 'touchstart';
         };
 
         var _initialize = function () {
             if (_detectiPad()) {
                 $("html").on(_getClickTouchEventName(), function (e) {
-//                    $('.tipsy_ipad').each(function () {
-//                        $(this).removeClass('tipsy_ipad').tipsy('hide');
-//                    });
-//                    return false;
                     $('.tipsy').remove();   //--all ipad tipsy .show calls must use timeout
                 });
             }
@@ -33,6 +29,10 @@
 
         this.initialize = function () {
             _initialize();
+        };
+
+        this.detectiPad = function () {
+            return _detectiPad();
         };
 
         this.addTooltip = function (selector, options, ipadShow) {
