@@ -8,14 +8,14 @@
         var _self = this;
 
         var _detectiPad = function () {
-//            return true; //TODO: temp
+//            return true; //TODO: temp local test
 
             return (navigator.userAgent.match(/iPad/i) != null);
         };
 
         var _getClickTouchEventName = function () {
             if (!_detectiPad()) throw 'not supported for non-iPad';
-//            return 'click'; //TODO: temp
+//            return 'click'; //TODO: local test
             return 'touchstart';
         };
 

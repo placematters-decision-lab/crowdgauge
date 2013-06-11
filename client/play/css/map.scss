@@ -38,6 +38,7 @@ svg {
   height: 100%;
   top: 0;
   overflow-y: scroll;
+  -webkit-overflow-scrolling: touch;
 }
 #itemList {
   //background-color: white;

@@ -112,7 +112,8 @@ svg {
   position: absolute;
   height: 100%;
   top: 0;
-  overflow-y: scroll; }
+  overflow-y: scroll;
+  -webkit-overflow-scrolling: touch; }
 
 #itemList {
   padding: 10px; }
