@@ -1,0 +1,69 @@
+.ajax_loader_blue {
+  background-image: url("img/ajax-loader.gif");
+  background-repeat: no-repeat;
+  background-position: left center;
+  width: 54px;
+  height: 55px; }
+
+.ajax_loader_small {
+  background-image: url("img/ajax-loader-sm.gif");
+  background-repeat: no-repeat;
+  background-position: left center;
+  width: 16px;
+  height: 16px; }
+
+body {
+  font-family: Arial, sans-serif; }
+
+#leader_box {
+  border: 6px solid #00446a; }
+
+#header_bar {
+  background-image: url("img/my_vibrant_5.png");
+  background-repeat: no-repeat;
+  background-position: left center;
+  width: 100%;
+  height: auto;
+  background-position: 10px 8px;
+  padding: 16px 182px;
+  font-size: 18px; }
+
+.leader_item {
+  padding: 5px;
+  border-bottom: 1px solid #ddd; }
+
+.ldr_pos {
+  color: #b0be1f;
+  display: inline-block;
+  width: 10%; }
+
+.ldr_name {
+  display: inline-block;
+  width: 80%; }
+
+.ldr_score {
+  display: inline-block;
+  width: 10%; }
+
+.leader_shad {
+  /* fallback/image non-cover color */
+  background-color: #dddddd;
+  /* Firefox 3.6+ */
+  background-image: -moz-linear-gradient(#dddddd, white);
+  /* Safari 4+, Chrome 1+ */
+  background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#dddddd), to(white));
+  /* Safari 5.1+, Chrome 10+ */
+  background-image: -webkit-linear-gradient(#dddddd, white);
+  /* Opera 11.10+ */
+  background-image: -o-linear-gradient(#dddddd, white);
+  height: 6px; }
+
+#link_to_full {
+  text-align: right;
+  margin: 10px;
+  font-weight: bold;
+  cursor: pointer;
+  color: #00446a; }
+
+#loader {
+  margin: 10px; }
