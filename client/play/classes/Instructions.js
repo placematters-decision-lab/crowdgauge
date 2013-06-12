@@ -244,7 +244,7 @@
 
             var txt = "<p>What did people vote for in different counties? Use this map to find out.</p>";
             txt += "<p>Click the priorities or projects and policies on the left to see where they are receiving the greatest percentage of the votes.</p>";
-            txt += "<p>Click a county&#8216;s circle on the map to see how a they are voting.</p>";
+            txt += "<p>Click a county&#8216;s circle on the map to see how they are voting.</p>";
 
             if (show) {
                 _showInstructionDialog(txt);
