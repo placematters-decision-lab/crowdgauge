@@ -236,11 +236,26 @@
             txt += '<p>Please first uncheck one of your current selections.</p>';
             _showInstructionDialog(txt);
         };
-        //endregion
+
+        this.showMapResultsDialog = function (show) {
+            _showAgainFn = function () {
+                _self.showMapResultsDialog(true);
+            };
+
+            var txt = "<p>What did people vote for in different counties? Use this map to find out.</p>";
+            txt += "<p>Click the priorities or projects and policies on the left to see where they are receiving the greatest percentage of the votes.</p>";
+            txt += "<p>Click a county&#8216;s circle on the map to see how a they are voting.</p>";
+
+            if (show) {
+                _showInstructionDialog(txt);
+            }
+        };
 
         this.initialize = function () {
             _initialize();
         };
+        //endregion
+
     };
     /**
      @type SAS.Instructions
