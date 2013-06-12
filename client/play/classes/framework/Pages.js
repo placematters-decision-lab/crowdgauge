@@ -197,6 +197,8 @@
             var topScorer = _mechanismList.getTopScorer(priorities);
 
             if (_pagesVisited.indexOf(IMPACTS) < 0) {
+                //first time
+                SAS.mainInstance.preventAccidentalLeaving();//once user has 'submitted' their priorities, we want to warn before leaving the game
                 _pagesVisited.push(IMPACTS);
                 _instructions.showMechanismInstructions(priorities, _bubbleChart, topScorer, true);
             } else {

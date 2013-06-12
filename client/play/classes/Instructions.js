@@ -107,19 +107,6 @@
         //endregion
 
         //region public API
-        this.showInstructionDialog = function (html) {
-            _showInstructionDialog(html);
-        };
-
-        this.showIntroDialog = function () {
-            _showAgainFn = null;
-            var txt = "<p>This is the intro</p>";
-            _showInstructionDialog(txt, "Introduction", "Get Started", function () {
-                SAS.mainInstance.preventAccidentalLeaving();
-            });
-            $(".ui-button").focus();
-        };
-
         this.showStarsDialog = function (numStars, show) {
             _showAgainFn = function () {
                 _self.showStarsDialog(numStars, true);
