@@ -280,7 +280,7 @@
             }
 
             function labelsVisible() {//--only show the labels when we're fully zoomed in...
-                return map.zoom() > 8;
+                return map.zoom() > 9;
             }
 
             function transform(d) {

@@ -14,11 +14,13 @@ svg {
 .label {
   font: 10px Verdana, Arial, Helvetica, sans-serif;
   margin-left: 5px;
+  cursor: pointer;
 }
 
 .arc {
   stroke: #ffffff;
   stroke-opacity: 1;
+  cursor: pointer;
 }
 
 .shadow {
