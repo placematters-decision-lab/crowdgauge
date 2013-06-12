@@ -81,7 +81,7 @@
             var $relationship = $('<div class="demoInput">').appendTo($holder);
             $relationship.append('<label class="demoLabel" for="relationshipInput">Relationship to Northeast Ohio</label>');
             _$relationshipInput = $('<select id="relationshipInput"></select>').appendTo($relationship);
-            var relationships = ["Born and raised here", "Moved here from somewhere else", "From here, but moved away", "None of the above, but I'm interested in the region!"];
+            var relationships = ["Born and/or raised here", "Moved here from somewhere else", "From here, but moved away", "None of the above, but I'm interested in the region!"];
             SAS.controlUtilsInstance.populateSelectList(_$relationshipInput, "[Select Relationship to Northeast Ohio]", relationships);
 
             _$btnStart = $('<button class="start_button" data-localize="buttons.start">START</button>').appendTo($holder);
