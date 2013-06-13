@@ -107,19 +107,6 @@
         //endregion
 
         //region public API
-        this.showInstructionDialog = function (html) {
-            _showInstructionDialog(html);
-        };
-
-        this.showIntroDialog = function () {
-            _showAgainFn = null;
-            var txt = "<p>This is the intro</p>";
-            _showInstructionDialog(txt, "Introduction", "Get Started", function () {
-                SAS.mainInstance.preventAccidentalLeaving();
-            });
-            $(".ui-button").focus();
-        };
-
         this.showStarsDialog = function (numStars, show) {
             _showAgainFn = function () {
                 _self.showStarsDialog(numStars, true);
@@ -236,11 +223,26 @@
             txt += '<p>Please first uncheck one of your current selections.</p>';
             _showInstructionDialog(txt);
         };
-        //endregion
+
+        this.showMapResultsDialog = function (show) {
+            _showAgainFn = function () {
+                _self.showMapResultsDialog(true);
+            };
+
+            var txt = "<p>What did people vote for in different counties? Use this map to find out.</p>";
+            txt += "<p>Click the priorities or projects and policies on the left to see where they are receiving the greatest percentage of the votes.</p>";
+            txt += "<p>Click a county&#8216;s circle on the map to see how they are voting.</p>";
+
+            if (show) {
+                _showInstructionDialog(txt);
+            }
+        };
 
         this.initialize = function () {
             _initialize();
         };
+        //endregion
+
     };
     /**
      @type SAS.Instructions

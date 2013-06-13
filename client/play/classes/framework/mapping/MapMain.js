@@ -47,6 +47,8 @@
         var _layout;
         var _topNum = 5; // Modify
 
+        var _instructions = SAS.instructionsInstance;
+
         var _setMode = function (mode) {
             _mode = mode;
             _tryLoadData(_mode);
@@ -225,6 +227,9 @@
 
             _selectTab(MODE_PRIORITY);  // highlight tabs
             _addClickEvents(_pageIds);
+
+            SAS.instructionsInstance.initialize();
+            _instructions.showMapResultsDialog(true); // show instruction
 
             // display events
             _map.onSelectLocation(function (location) {

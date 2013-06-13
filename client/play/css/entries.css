@@ -83,6 +83,21 @@
   font-family: Arial, sans-serif;
   font-size: 14px; }
 
+#options {
+  position: absolute;
+  right: 0;
+  top: 0; }
+
+.optBtn {
+  font-family: Arial, sans-serif;
+  color: #dac8cb;
+  cursor: pointer;
+  display: inline-block;
+  font-size: 0.8em;
+  font-weight: bold;
+  margin-top: 8px;
+  margin-right: 8px; }
+
 body {
   background-color: #f2f2f2; }
 

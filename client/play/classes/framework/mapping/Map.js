@@ -35,8 +35,8 @@
                 // Create the map object, add it to #map…
                 map = po.map()
                     .container(_container)
-                    .center({lat: 40.8, lon: -81.2})// Modify: center lat, lon
-                    .zoom(8)
+                    .center({lat: 41.1, lon: -81.5})// Modify: center lat, lon (Summit)
+                    .zoom(9)
                     .add(po.interact());
 
                 var lightness = 45;
@@ -280,7 +280,7 @@
             }
 
             function labelsVisible() {//--only show the labels when we're fully zoomed in...
-                return map.zoom() > 8;
+                return map.zoom() > 9;
             }
 
             function transform(d) {

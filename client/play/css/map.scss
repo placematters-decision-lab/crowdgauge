@@ -1,6 +1,7 @@
 @import "page";
 
 $itenListWidth: 400px;
+$headerHt: 40px;
 
 body {
   overflow: hidden;
@@ -13,11 +14,13 @@ svg {
 .label {
   font: 10px Verdana, Arial, Helvetica, sans-serif;
   margin-left: 5px;
+  cursor: pointer;
 }
 
 .arc {
   stroke: #ffffff;
   stroke-opacity: 1;
+  cursor: pointer;
 }
 
 .shadow {
@@ -180,4 +183,20 @@ svg {
 #imaginemyneo_logo {
   cursor: pointer;
   background-image: url("img/play_imaginemyneo.png");//--override page.scss and use 'play' version of the logo
+}
+
+#reshowInstr {
+//  top: 10px;
+//  color: white;
+//  cursor: pointer;
+//  @include titleFont(100%);
+//  right: 5px;
+//  letter-spacing: 1px;
+//  margin-top: 8px;
+//  font-size: 1.1em;
+}
+
+p + p {
+  text-indent: 0;
+  margin-top: 0;
 }
