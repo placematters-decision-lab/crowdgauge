@@ -135,9 +135,6 @@
             var insTxt = $("<div class='mechText' style='font-size: 1em;'></div>").appendTo(mechDivIns);
             insTxt.html(SAS.localizr.get(topScorer.data.title));
 
-            // tipsy
-//            $('.mechText a').tipsy({gravity: 'n'});
-
             mechDivIns.click(function () {
                 _closeDialog();
             });

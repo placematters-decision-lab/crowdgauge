@@ -328,8 +328,14 @@ var ResponseDataHandler = function () {
     };
     //region public API
     this.saveResponse = function (req, res, postData) {
-        var dataObj = JSON.parse(postData.data);
-        _saveResponse(dataObj, req, res);
+        try {
+            var dataObj = JSON.parse(postData.data);
+            _saveResponse(dataObj, req, res);
+        }
+        catch (ex) {
+            console.log("ERROR in response: " + postData.data);
+            _self.p_returnBasicFailure(res, "could not save data");
+        }
     };
 
     this.getResponse = function (req, res, postData) {

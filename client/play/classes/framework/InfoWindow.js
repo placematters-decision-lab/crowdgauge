@@ -43,9 +43,6 @@
 
             var rt_hdr = $("<div class='info_right_title'>").appendTo(titleDiv);
 
-            // tipsy
-           // $('.info_right_title a').tipsy({gravity: 'n'});
-
             rt_hdr.html(SAS.localizr.get(title));
             var rd_bdy = $("<div class='info_body'>").appendTo($priorityDiv);
             var infoText = SAS.localizr.get(cell.description);
@@ -169,7 +166,6 @@
                 dialogClass: 'noTitle',
                 resize: resizeDlg
             });
-            //$dialog.find("a").tipsy({gravity: 'n'});
             $('.ui-dialog a').blur();//otherwise jQuery dialog will highlight first 'a' element
             resizeDlg();
             SAS.tipsyInstance.onShowDialog();
