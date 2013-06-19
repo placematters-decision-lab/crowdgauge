@@ -140,10 +140,13 @@ ADataHandler = function (dbName) {
                }
             });
         }
-        res.writeHeader(200, {"Content-Type": "text/csv"});
+        var date = new Date();
+        var today = date.getFullYear() + date.getDate() + date.getMonth();
+        res.writeHeader(200, {"Content-Type": "text/csv;charset=utf-8", 'Content-Disposition': 'attachment; filename=responses_'+ today +'.csv'});
         json2csv({data: obj, fields: columns}, function(err, csv) {
             if (err) console.log(err);
-            res.write(csv);
+            console.log(csv)
+            res.write(csv,'utf8');
         });
         res.end();
     }

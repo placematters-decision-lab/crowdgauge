@@ -297,7 +297,7 @@
 
             window.addEventListener("mouseup", function (e) {
                 var clickLoc = map.pointLocation(map.mouse(e));
-                //console.log(clickLoc);
+                //cconsole.log(clickLoc);
             }, false);
 
             function getPartialScale() {
