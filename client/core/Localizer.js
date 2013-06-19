@@ -82,6 +82,8 @@
 
         //region public API
         this.set = function (obj, props, lang) {
+            console.log('localizr:');
+            console.log(obj);
             lang = lang || _activeLang;
             $.each(props, function (k, value) {
                 if (!obj[k]) {
@@ -135,6 +137,9 @@
 
 
         this.setActiveLang = function (lang) {
+            if(!lang) {
+                lang = _activeLang;
+            }
             if (lang != _activeLang && _activeLang == DEFAULT_LANG) {
                 _defaultValues = _storeLocalizableValues();
             }

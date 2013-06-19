@@ -22,7 +22,11 @@
             description: "",
             nickname: "",
             category: "",
-            uid: "m"+_getUID()
+            uid: "m"+_getUID(),
+            color: {
+                background: "#FFFFFF",
+                textShift: null
+            }
         };
 
         var _settings = $.extend({}, _defaults, data);
@@ -53,8 +57,10 @@
         /** @type {String} unique id*/
         this.uid = _settings.uid;
 
-        /** @type {String} optional category name*/
+        /** @type {Object} optional category name* (lang object)*/
         this.category = _settings.category;
+
+        this.color = _settings.color;
         //endregion
     }
 })();

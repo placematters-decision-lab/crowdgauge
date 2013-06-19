@@ -114,7 +114,11 @@ ImageDataHandler = function () {
     var _saveAttachment = function (docId, version, contentType, path, callback) {
         logger.log("_saveAttachment for: " + docId);
         fs.readFile(path, function (err, data) {
-            if (!err) {
+            if (err) {
+                console.log('Error in _saveAttachment: '+err);
+                _self.p_returnBasicFailure(res, err);
+                return;
+            }else {
                 //console.log("get head for: " + docId);
                 _withLatestRev(docId, function (revId) {
                     console.log("insert: " + docId + " : " + revId + " : " + version);
@@ -183,7 +187,11 @@ ImageDataHandler = function () {
 
     var _listFiles = function (groupId, callback) {
         _self.p_view('byGroup', {"key": groupId}, function (err, body) {
-            if (!err) {
+            if (err) {
+                console.log('Error in byGroup: '+err);
+                _self.p_returnBasicFailure(res, err);
+                return;
+            } else {
                 var ans = [];
                 body.rows.forEach(function (row, i) {
                     var doc = row.value;

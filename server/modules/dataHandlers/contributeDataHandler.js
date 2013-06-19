@@ -118,13 +118,18 @@ ContributeDataHandler = function () {
                         }
                     }
                 }
+
             }
         });
     };
 
     var _withViewData = function (view, fn, callback) {
         _self.p_view(view, {"key": _filename}, function (err, body) {
-            if (!err) {
+            if (err) {
+                console.log('Error in ' + view + ': '+err);
+                _self.p_returnBasicFailure(res, err);
+                return;
+            } else {
                 var ans = [];
                 body.rows.forEach(function (row, i) {
                     fn(row.value);
@@ -229,6 +234,11 @@ ContributeDataHandler = function () {
     var _takeLock = function (user, force, structureId, res) {
         var secondKey = structureId.priority ? structureId.priority : structureId.action;
         _self.p_view('byFullStructureId', { key: [structureId.mechanism, secondKey] }, function (err, body) {
+            if (err) {
+                console.log('Error in byFullStructuredId: '+err);
+                _self.p_returnBasicFailure(res, err);
+                return;
+            }
             if (body && body.rows.length > 0) {
                 var doc = body.rows[0].value;
                 if (force || doc.lock === Enums.LOCK_NONE) {
@@ -249,6 +259,11 @@ ContributeDataHandler = function () {
     var _releaseLock = function (user, structureId, res) {
         var secondKey = structureId.priority ? structureId.priority : structureId.action;
         _self.p_view('byFullStructureId', { key: [structureId.mechanism, secondKey] }, function (err, body) {
+            if (err) {
+                console.log('Error in byFullStructuredId: '+err);
+                _self.p_returnBasicFailure(res, err);
+                return;
+            }
             if (body && body.rows.length > 0) {
                 var doc = body.rows[0].value;
                 doc.lock = Enums.LOCK_NONE;
@@ -256,9 +271,10 @@ ContributeDataHandler = function () {
                     _self.p_returnBasicSuccess(res);
                     _socketHandler.broadcastUpdate('lockStateChanged', {lock: doc.lock, structureId: structureId});
                 });
-            } else {
-                _self.p_returnBasicSuccess(res);
             }
+//            else {
+//                _self.p_returnBasicSuccess(res);
+//            }
         });
     };
 
@@ -284,6 +300,11 @@ ContributeDataHandler = function () {
     var _deletePriority = function (priorityId, req, res) {
         //--remove all content types with structureId.priority == id
         _self.p_view('byPriorityIds', { key: priorityId }, function (err, body) {
+            if (err) {
+                console.log('Error in byPriorityIds: '+err);
+                _self.p_returnBasicFailure(res, err);
+                return;
+            }
             _deleteAllResults(res, body);
         });
     };
@@ -291,6 +312,11 @@ ContributeDataHandler = function () {
     var _deleteAction = function (actionId, req, res) {
         //--remove all content types (cells and definitions) with structureId.priority == id
         _self.p_view('byActionIds', { key: actionId }, function (err, body) {
+            if (err) {
+                console.log('Error in byActionIds: '+err);
+                _self.p_returnBasicFailure(res, err);
+                return;
+            }
             _deleteAllResults(res, body);
         });
     };
@@ -298,6 +324,11 @@ ContributeDataHandler = function () {
     var _deleteMechanism = function (mechId, req, res) {
         //--remove all content types with structureId.mechanism == id
         _self.p_view('byMechanismIds', { key: mechId }, function (err, body) {
+            if (err) {
+                console.log('Error in byMechanismIds: '+err);
+                _self.p_returnBasicFailure(res, err);
+                return;
+            }
             _deleteAllResults(res, body);
         });
     };
@@ -306,6 +337,11 @@ ContributeDataHandler = function () {
         var url_parts = url.parse(req.url, true);
         var query = url_parts.query;
         _self.p_view(view, { key: query.filename }, function (err, body) {
+            if (err) {
+                console.log('Error in ' + view + ': '+err);
+                _self.p_returnBasicFailure(res, err);
+                return;
+            }
             _self.p_returnResults(res, body);
         });
     };
@@ -314,10 +350,34 @@ ContributeDataHandler = function () {
         _returnFilenameViewResults(req, res, 'files');
     };
 
+    var _getPriorityTitles = function (req, res) {
+        var url_parts = url.parse(req.url, true);
+        var query = url_parts.query;
+        _self.p_view('byContentType', { key: [query.filename, Enums.CTYPE_PRIORITY] }, function (err, body) {
+            if (err) {
+                console.log('Error in byContentType: '+err);
+                _self.p_returnBasicFailure(res, err);
+                return;
+            }
+            if (body) {
+                body.rows.forEach(function (row, i) {
+                    console.log(row.value.data.title.en);
+                    console.log(row.value.data.uid);
+                    _self.p_returnJsonObj(res, {});
+                });
+            }
+        });
+    }
+
     var _getPriorities = function (req, res) {
         var url_parts = url.parse(req.url, true);
         var query = url_parts.query;
         _self.p_view('byContentType', { key: [query.filename, Enums.CTYPE_PRIORITY] }, function (err, body) {
+            if (err) {
+                console.log('Error in byContentType: '+err);
+                _self.p_returnBasicFailure(res, err);
+                return;
+            }
             if (body) {
                 var pObjs = [];
                 var ans = [];
@@ -352,6 +412,11 @@ ContributeDataHandler = function () {
 
         //if priorityId is not specified, we need to get ALL priorities, so we can just use 'null'
         _self.p_view('byTypeAndMechId', { key: ['cell', 'action', mechId] }, function (err, body) {
+            if (err) {
+                console.log('Error in byTypeAndMechId: '+err);
+                _self.p_returnBasicFailure(res, err);
+                return;
+            }
             if (!(body && body.rows && body.rows.length > 0)) {
                 mObj.actions = [];
             } else {
@@ -366,6 +431,11 @@ ContributeDataHandler = function () {
     var _getActionsDefs = function (req, res) {
         var query = _getQuery(req);
         _self.p_view('byContentType', { key: [query.filename, Enums.CTYPE_ACTION] }, function (err, body) {
+            if (err) {
+                console.log('Error in byContentType: '+err);
+                _self.p_returnBasicFailure(res, err);
+                return;
+            }
             if (body && body.rows) {
                 var aObjs = [];
                 body.rows.forEach(function (row, i) {
@@ -424,6 +494,11 @@ ContributeDataHandler = function () {
         }
 
         _self.p_view(view, { key: keys }, function (err, body) {
+            if (err) {
+                console.log('Error in ' + view + ': '+err);
+                _self.p_returnBasicFailure(res, err);
+                return;
+            }
             if (!(body && body.rows)) {
                 mObj.priorities = [];
             } else {
@@ -450,6 +525,11 @@ ContributeDataHandler = function () {
         //TODO return error code if query.filename is null or no results found
         var query = _getQuery(req);
         _self.p_view('byContentType', { key: [query.filename, Enums.CTYPE_MECH] }, function (err, body) {
+            if (err) {
+                console.log('Error in byContentType: '+err);
+                _self.p_returnBasicFailure(res, err);
+                return;
+            }
             if (body && body.rows) {
                 var numRows = body.rows.length;
                 var mObjs = [];
@@ -469,6 +549,43 @@ ContributeDataHandler = function () {
             }
         });
     };
+
+    var _listActions = function (req, res) {
+        var query = _getQuery(req);
+        _self.p_view('byContentType', {key: [query.filename, Enums.CTYPE_MECH]}, function (err, body) {
+           if (err) {
+               console.log('Error in byContentType: ' +err);
+               _self.p_returnBasicFailure(res, err);
+               return;
+           }
+            if (body && body.rows) {
+                body.rows.forEach(function(row, i) {
+                    var doc = row.value;
+                    var mechId = doc.structureId.mechanism;
+                    _self.p_view('byTypeAndMechId', { key: ['cell', 'action', mechId] }, function (err, cellBody) {
+                        if (err) {
+                            console.log('Error in byTypeAndMechId: '+err);
+                            _self.p_returnBasicFailure(res, err);
+                            return;
+                        }
+                        if (!(cellBody && cellBody.rows && cellBody.rows.length > 0)) {
+                            console.log('');
+                        } else {
+                            cellBody.rows.forEach(function(cellRow, i){
+                                if(cellRow.value.data != undefined) {
+                                    console.log(cellRow.value.structureId.mechanism + "_" + cellRow.value.structureId.action);
+                                    console.log(cellRow.value.data.title.en);
+                                }
+
+                            });
+                        }
+                        _self.p_returnJsonObj(res, [{}]);
+                    });
+                })
+            }
+        });
+    }
+
 //endregion
 
 //region public API
@@ -530,6 +647,10 @@ ContributeDataHandler = function () {
         _getPriorities(req, res);
     };
 
+    this.getPriorityTitles = function (req, res, postData) {
+        _getPriorityTitles(req, res);
+    }
+
     this.getActions = function (req, res, postData) {
         _getActions(req, res);
     };
@@ -545,6 +666,10 @@ ContributeDataHandler = function () {
     this.getMechanismInfo = function (req, res, postData) {
         _getMechanismInfo(req, res);
     };
+
+    this.listActions = function (req, res, postData) {
+        _listActions(req, res);
+    }
 
 //====================================
     this.setHandlers = function (socketHandler, imageDataHandler) {

@@ -29,6 +29,7 @@
         var _$description;
         var _$nickname;
         var _$category;
+        var _$background;
 
         var _buildContent = function ($dlg) {
             var $inputsDiv = $("<div></div>").appendTo($dlg);
@@ -37,6 +38,7 @@
             _$nickname = _super.p_mkShortTextField('md_nickname', "Nickname (optional short version of title)", $inputsDiv, _mechanism.nickname);
             _$description = _super.p_mkLongTextField('md_description', 'Description', $inputsDiv, _mechanism.description);
             _$category =  _super.p_mkShortTextField('md_category', "Category", $inputsDiv, _mechanism.category);
+            _$background = _super.p_mkShortTextField('md_bgcolor', 'Color', $inputsDiv, _mechanism.color.background);
 
             new SAS.ImageList($('<div class="panel">').appendTo($inputsDiv), _mechanism.uid, true);
         };
@@ -49,6 +51,8 @@
             vals.nickname = _$nickname.val();
             vals.category = _$category.val();
             SAS.localizr.set(_mechanism, vals);
+            _mechanism.color.background = _$background.val();
+            _mechanism.color.textShift = "brighter";
         };
 
         var _showDialog = function (onAccept, onCancel) {

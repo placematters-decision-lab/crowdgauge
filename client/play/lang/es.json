@@ -1,0 +1,104 @@
+{
+    "buttons": {
+        "next": "Próximo",
+        "start": "Iniciar"
+    },
+
+    "tabs": {
+        "intro": "Introducción",
+        "priorities": "Prioridades",
+        "budget": "Presupuesto",
+        "policies": "Políticas"
+    },
+
+    "links": {
+        "map": "Mapear los Resultados",
+        "home": "NRV Livability Página Web"
+    },
+
+    "titles": {
+        "main": "Encuesta Mañana NRV",
+        "intro": "Imagine el New River Valley en el Futuro",
+        "priorities": "Me imagino a un New River Valley, donde ...",
+        "impacts": "",
+        "money": "¿En cuáles proyecto usted invertiría?",
+        "policies": "Cuéntanos cuáles son las políticas que le gustaría ver en el New River Valley",
+        "show": "Mostrar instrucciones de nuevo"
+    },
+
+    "instructions": {
+        "descriptions": {
+            "intro": "<p>Bienvenidos a la Encuesta Mañana NRV! Este ejercicio está diseñado para recibir sus comentarios sobre posibles proyectos y políticas, y para mostrar cómo los proyectos y políticas de impacto lo que son las más importantes en el New River Valley.</p><p>Puede obtener más información visitando <a href='http://www.nrvlivability.org' target='_blank'>la página web oficial</a>.</p>",
+            "priorities": "<p>Use las estrellas para puntuar qué tan importante es cada valor para usted. Puede utilizar hasta 35 estrellas.</p><p>Observe la gráfica de prioridades cambiar mientras indica sus prioridades más altas.</p>",
+            "money": "<p>Usted tiene hasta 20 monedas para invertir. Las monedas representan el costo relativo dentro de un presupuesto fijo. Para aprender más sobre cada proyecto navegue (o haga click si está en una tablet) sobre la description de cada proyecto a la izquierda de su pantalla.</p>",
+            "policies": "<p>Díganos qué usted opina sobre las siguientes políticas.</p><p>Esta es la última parte de la encuesta antes de enviarla! Por favor de el visto bueno o el visto malo a cada una de estas políticas. Si su respuesta es neutra o simplemente no tiene una opinión, no seleccione ninguna.</p><p>Los colores en su gráfica de burbujas de prioridades seguirá enseñando que tan bien las opciones que usted seleccionó ayudan a conseguir sus prioridades.</p>",
+            "sharing": "<p>Gracias por compartir su presentación usted! Su opinión es valiosa para el futuro del New River Valley. Por favor, visite <a href='http://www.nrvlivability.org' target='_blank'>el sitio web de la New River Valley Livability Initiative</a> para obtener más información sobre la iniciativa. También puede ver los resultados de este ejercicio hasta la fecha en un <a href='map.html'>mapa interactivo</a>.</p>"
+        },
+        "titles": {
+            "intro": "Instrucciones",
+            "priorities": "Instrucciones",
+            "money": "Instrucciones",
+            "policies": "Instrucciones",
+            "sharing": "Gracias por compartir!"
+        }
+    },
+    "tips": {
+        "policies": "Favor indicar si usted apoyaría estas políticas. Haga click en los pulgares para indicar su selección."
+    },
+
+    "starsleft": {
+        "first": "Le quedan",
+        "last": "estrellas por usar.",
+        "zero": "estrellas a la izquierda (para redistribuir, nominales de corriente inferiores)"
+    },
+
+    "coinsleft": {
+        "first": "Le quedan",
+        "last": "monedas por distribuir",
+        "zero": "monedas para gastar (para redistribuir, desmarque selecciones actuales)",
+        "hover": "Navegue o haga click sobre las acciones para más información. Haga click en las monedas para indicar dónde priorizaría los dólares públicos."
+    },
+
+    "intro": "Bienvenidos a la Encuesta Mañana NRV. Utilice esta encuesta interactiva para contarnos sus prioridades para el futuro y ver cómo los diferentes proyectos y políticas impactan al New River Valley.",
+
+    "demographics": {
+        "titles": {
+            "intro": "En primer lugar, por favor, proporciónenos algunos detalles básicos:",
+            "zip": "Código Postal",
+            "age": "Edad",
+            "income": "Salario Familiar",
+            "ethnicity": "Etnicidad",
+            "gender": "Género"
+        },
+        "options": {
+            "age": {
+                "0": "[Elige Rango de Edad]",
+                "1": "Menos que 19",
+                "9": "Prefiero no decir"
+            },
+            "income": {
+                "0": "[Elige Ingresos del Hogar]",
+                "1": "Menos que $24,9999",
+                "8": "$200,000 o más",
+                "9": "Prefiero no decir"
+            },
+            "ethnicity": {
+                "0": "[Elija Raza]",
+                "1": "Afroamericano",
+                "2": "Asiático",
+                "3": "Hispano/Latino",
+                "4": "Caucásico/Blanco",
+                "5": "Indígena de los EE.UU.",
+                "6": "Dos o más razas",
+                "7": "Otro",
+                "8": "Prefiero no decir"
+            },
+            "gender": {
+                "0": "[Elija Género]",
+                "1": "Macho",
+                "2": "Feminino",
+                "3": "Prefiero no decir"
+            }
+        }
+    }
+}

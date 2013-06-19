@@ -29,47 +29,47 @@
 
         var _checkZip = function () {
             var zip = $("#zipInput").val();
-            var zipCity = "";
+            var zipLocation = "";
             if (_zipLookup[zip]) {
-                zipCity = _zipLookup[zip][0].name;
+                zipLocation = _zipLookup[zip][0].name;
             } else {
                 if (_isValidZip(zip)) {
-                    zipCity = "Other City";
+                    zipLocation = "Other Location";
                 }
             }
-            if (zipCity != "") $('label[for="zipInput"]').removeClass("nonvalid");
-            $("#zipCity").html(zipCity);
+            if (zipLocation != "") $('label[for="zipInput"]').removeClass("nonvalid");
+            $("#zipLocation").html(zipLocation);
         };
 
         var _populateControls = function ($holder) {
-            $holder.append('<div id="promptTxt"><p>First, please provide us with some basic details:</p></div>');
+            $holder.append('<div id="promptTxt"><p data-localize="demographics.titles.intro">First, please provide us with some basic details:</p></div>');
             var $zip = $('<div class="demoInput">').appendTo($holder);
-            $zip.append('<label class="demoLabel" for="zipInput">Zip</label>');
+            $zip.append('<label class="demoLabel" for="zipInput" data-localize="demographics.titles.zip">Zip Code</label>');
             _$zipInput = $('<input id="zipInput" type="text" size="5">').appendTo($zip);
 
             var $age = $('<div class="demoInput">').appendTo($holder);
-            $age.append('<label class="demoLabel" for="ageInput">Age</label>');
+            $age.append('<label class="demoLabel" for="ageInput" data-localize="demographics.titles.age">Age</label>');
             _$ageInput = $('<select id="ageInput"></select>').appendTo($age);
             var ages = ["under 19", "19-24", "25-34", "35-44", "45-54", "55-64", "65-74", "75+", "Prefer not to say"];
-            SAS.controlUtilsInstance.populateSelectList(_$ageInput, "[Select Age Range]", ages);
+            SAS.controlUtilsInstance.populateSelectList(_$ageInput, "[Select Age Range]", ages, {name: 'age'});
 
             var $income = $('<div class="demoInput">').appendTo($holder);
-            $income.append('<label class="demoLabel" for="incomeInput">Household income</label>');
+            $income.append('<label class="demoLabel" for="incomeInput" data-localize="demographics.titles.income">Household income</label>');
             _$incomeInput = $('<select id="incomeInput"></select>').appendTo($income);
             var incomes = ["Less than $24,999", "$25,000 – 49,999", "$50,000 – 74,999", "$75,000 – 99,999", "$100,000 – 124,999", "$125,000 – 149,999", "$150,000 – 199,999", "$200,000 or greater", "Prefer not to say"];
-            SAS.controlUtilsInstance.populateSelectList(_$incomeInput, "[Select Household Income]", incomes);
+            SAS.controlUtilsInstance.populateSelectList(_$incomeInput, "[Select Household Income]", incomes, {name: 'income'});
 
             var $ethnicity = $('<div class="demoInput">').appendTo($holder);
-            $ethnicity.append('<label class="demoLabel" for="ethnicityInput">Ethnicity</label>');
+            $ethnicity.append('<label class="demoLabel" for="ethnicityInput" data-localize="demographics.titles.ethnicity">Ethnicity</label>');
             _$ethnicityInput = $('<select id="ethnicityInput"></select>').appendTo($ethnicity);
             var ethnicities = ["African American/Black", "Asian", "Hispanic/Latino", "White/Caucasian","American Indian", "Two or More Races", "Other", "Prefer not to say"];
-            SAS.controlUtilsInstance.populateSelectList(_$ethnicityInput, "[Select Ethnicity]", ethnicities);
+            SAS.controlUtilsInstance.populateSelectList(_$ethnicityInput, "[Select Ethnicity]", ethnicities, {name: 'ethnicity'});
 
             var $gender = $('<div class="demoInput">').appendTo($holder);
-            $gender.append('<label class="demoLabel" for="genderInput">Gender</label>');
+            $gender.append('<label class="demoLabel" for="genderInput" data-localize="demographics.titles.gender">Gender</label>');
             _$genderInput = $('<select id="genderInput"></select>').appendTo($gender);
             var genders = ["Male", "Female", "Prefer not to say"];
-            SAS.controlUtilsInstance.populateSelectList(_$genderInput, "[Select Gender]", genders);
+            SAS.controlUtilsInstance.populateSelectList(_$genderInput, "[Select Gender]", genders, {name: 'gender'});
 
 
             _$btnStart = $('<button class="btn-large btn-primary" data-localize="buttons.start">Start</button>').appendTo($holder);

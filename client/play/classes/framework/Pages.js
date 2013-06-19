@@ -67,7 +67,7 @@
                 $("#titleBar").removeClass("titleImg_" + _lastPage);
             }
             $("#titleBar").addClass("titleImg_" + pageId);
-            $("#titleBar").html("<h2>" + _pageTitles[pageId] + "</h2>");
+            $("#titleBar").html("<h2 data-localize='titles." + pageId + "'>" + _pageTitles[pageId] + "</h2>");
         };
 
         var _showNextButton = function (show, btnState) {
@@ -198,13 +198,13 @@
                 d3.json('/getMechanisms' + _fileAndVersion(), function (data) {
                     _mechanismList.load(data);
                     _mechanismList.ensureShowMoneyAndVotes(false);
-                    _layout.positionElements();
                     _mechanismList.showDivs(true);
+                    _layout.positionElements();
                 });
             } else {
                 _mechanismList.ensureShowMoneyAndVotes(false);
+                _mechanismList.showDivs(true);
                 _layout.positionElements();
-                _mechanismList.showDivs(true)
             }
             _bubbleChart.showDivs(true);
             _showMoreInfo(false);
@@ -293,6 +293,7 @@
                     _gotoPolicies();
                     break;
             }
+            SAS.localizr.setActiveLang();
         };
 
         var _showNext = function () {
@@ -336,11 +337,9 @@
                 {sel: $("#footer")}
             ]);
             _layout.addHeightFillers([
-                {sel: ".mechPanel", leave: 100},
-                {sel: ".mechPanelComp", leave: 80},
-                {sel: ".panel_money", leave: 80 },
-                {sel: "#priorityList", leave: 80},
-                {sel: $("#chart"), leave: 90}
+                {sel: ".mechPanel", leave: 140},
+                {sel: "#priorityList", leave: 120},
+                {sel: $("#chart"), leave: 110}
                 //40 for image + 24 for footer + 2
             ]);
             _layout.addWidthFillers([

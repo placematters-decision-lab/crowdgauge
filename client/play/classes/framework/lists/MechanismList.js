@@ -146,9 +146,9 @@
         var _recalcCoinBalance = function (coinsUsed) {
             var coinsLeft = (_totalCoins - coinsUsed);
             if (coinsLeft == 0) {
-                $("#coinsLeft").html("<span class='coinsLeftNum'>0</span> coins to spend <small>(to redistribute, uncheck current selections)</small>");
+                $("#coinsLeft").html("<span class='coinsLeftNum'>0</span> <span data-localize='coinsleft.zero'>coins to spend <small>(to redistribute, uncheck current selections)</small></span>");
             } else {
-                $("#coinsLeft").html("You have <span class='coinsLeftNum'>" + coinsLeft + "</span> coin" + (coinsLeft > 1 ? "s" : "") + " left to distribute");
+                $("#coinsLeft").html("<span data-localize='coinsleft.first'>You have</span> <span class='coinsLeftNum'>" + coinsLeft + "</span> <span data-localize='coinsleft.last'>coin" + (coinsLeft > 1 ? "s" : "") + " left to distribute</span>");
             }
 
             $.each(_moneyIcons, function (mechId, micons) {
@@ -156,6 +156,7 @@
                     micon.setEnabled(coinsLeft >= micon.getNetCoins());
                 });
             });
+            SAS.localizr.setActiveLang();
         };
 
         var _recalcMoney = function (mechanism, micon) {

@@ -25,13 +25,24 @@
 
         };
 
-        var _showInstructionDialog = function (html, title, buttonLabel, buttonFn) {
-            $("#dialog").html(html);
-            _showInstructionDialog2(600, title, buttonLabel, buttonFn);
+        var _showInstructionDialog = function (html, opts, buttonLabel, buttonFn) {
+            if(typeof(opts) == 'object') {
+                var title = opts.title;
+                var name = opts.name;
+            }  else {
+                var name = 'instructions';
+            }
+            var wrapper = $("<div data-localize='instructions.descriptions." + name + "'/>").html(html);
+            $("#dialog").html(wrapper);
+            _showInstructionDialog2(600, opts, buttonLabel, buttonFn);
         };
 
-        var _showInstructionDialog2 = function (w, title, buttonLabel, buttonFn) {
+        var _showInstructionDialog2 = function (w, opts, buttonLabel, buttonFn) {
             _showAgainButtonVisible(false);
+            if(typeof(opts) == 'object') {
+                var title = opts.title;
+                var name = opts.name;
+            }
             if (!w) w = 600;
             if (!title) title = 'Instructions';
             if (!buttonLabel) buttonLabel ='Ok';
@@ -51,6 +62,8 @@
                 position:'center',
                 dialogClass:''
             });
+            $('#ui-dialog-title-dialog').attr('data-localize','instructions.titles.' + name);
+            SAS.localizr.setActiveLang();
         };
 
         var _closeDialog = function () {
@@ -117,7 +130,7 @@
             var txt = "<p>Welcome to the NRV Tomorrow Survey! This exercise is designed to get your feedback on " +
             "possible projects and policies, and to show how those projects and policies impact what you value most in the New River Valley.</p>";
             txt += "<p>You can learn more by visiting the <a href='http://nrvlivability.org/' target='_blank'>official website.</a></p>";
-            _showInstructionDialog(txt, "Introduction", "Get Started", function() {
+            _showInstructionDialog(txt, {name: 'intro'}, "Get Started", function() {
                 SAS.mainInstance.preventAccidentalLeaving();
             });
             $(".ui-button").focus();
@@ -129,7 +142,7 @@
             };
             var txt = "<p>Use the stars to rate how important each value is to you. You can allocate <span style='text-decoration:underline'>up to</span> " + numStars + " stars.</p>";
             txt += "<p>Watch your priority chart change as you indicate your highest priorities.</p>";
-            _showInstructionDialog(txt);
+            _showInstructionDialog(txt, {name: 'priorities'});
         };
 
         this.showMechanismInstructions = function (mechanisms, priorities, bubblechart, topScorer) {
@@ -171,7 +184,7 @@
             txt += "<p>You have <span style='text-decoration:underline'>up to</span> " + numCoins + " coins to spend. The coins represent relative cost within a fixed budget. " +
                 "To learn more about each project, hover (or tap if on a tablet) on each project description on the left side of your screen." +
                 "<p>See how the colors change in your priority bubble chart to show how well the options you select help achieve your priorities.</p>";
-            _showInstructionDialog(txt);
+            _showInstructionDialog(txt, {name: 'money'});
         };
 
         this.showPoliciesDialog = function () {
@@ -181,7 +194,7 @@
             var txt = "<p>Tell us what you think of these policies</p>";
             txt += "<p>This is the last part of the survey before submitting! Please give the thumbs up or down to each of these policies.  If you are neutral or don't have an opinion, don't select either.</p>" +
                 "<p>The colors in your priority bubble chart will continue to show how well the options you select help achieve your priorities.</p>";
-            _showInstructionDialog(txt);
+            _showInstructionDialog(txt, {name: 'policies'});
         }
 
         this.showCredits = function () {
@@ -192,9 +205,8 @@
         this.showSharingDialog = function (entryId, header, pages, bubblechart, sortedPriorities) {
             //TODO
             var txt = "<p>Thank you for sharing your submission! Your input is valuable to the future of the " +
-                "New River Valley. Please visit <a href='http://www.nrvlivability.org'>the New River Valley Livability Initiative website</a> for more information and stay " +
-                "tuned for the results of this exercise.</p>";
-            _showInstructionDialog(txt,'Thank you for sharing!');
+                "New River Valley. Please visit <a href='http://www.nrvlivability.org'>the New River Valley Livability Initiative website</a> for more information on the initiative.  You can also view the results of this exercise to date on an <a href='map.html'>interactive map.</a></p>";
+            _showInstructionDialog(txt,{title: 'Thank you for sharing!', name: "sharing"});
         };
         //endregion
 

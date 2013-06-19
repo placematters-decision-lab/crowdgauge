@@ -15,6 +15,8 @@ var router = require("./server/http/router");
 var dataHandler = require("./server/modules/dataHandlers/contributeDataHandler");
 /** @type ResponseDataHandler */
 var responseDataHandler = require("./server/modules/dataHandlers/responseDataHandler");
+/** @type SettingDataHandler */
+var settingDataHandler = require("./server/modules/dataHandlers/settingDataHandler");
 /** @type ImageDataHandler */
 var imageDataHandler = require("./server/modules/dataHandlers/imageDataHandler");
 /** @type FileManager */
@@ -24,13 +26,16 @@ var socketHandler = require("./server/modules/socketHandler");
 var personaServer = require("./server/modules/personaServer");
 var persistentStore = require("./server/modules/persistentStore");
 
+
 var persist = new persistentStore.PersistentStore();
 var ps = new personaServer.PersonaServer(persist, {
     audience:config.appURL
 });
 
+// set Handlers
 fileManager.setHandlers(imageDataHandler);
 dataHandler.setHandlers(socketHandler, imageDataHandler);
+responseDataHandler.setHandlers(settingDataHandler, dataHandler);
 
 //var client = path.resolve(__dirname, "client");
 var file = new (nodeStatic.Server)(__dirname);
@@ -73,12 +78,19 @@ handle["/files"] = fileManager.serveFile;
 handle["/getImage"] = fileManager.getImage;
 
 handle["/getPriorities"] = dataHandler.getPriorities;
+handle["/getPriorityTitles"] = dataHandler.getPriorityTitles;
 handle["/getMechanisms"] = dataHandler.getMechanisms;
 handle["/getMechanismInfo"] = dataHandler.getMechanismInfo;
 handle["/getActionDefs"] = dataHandler.getActionDefs;
 handle["/getActions"] = dataHandler.getActions;
+handle["/listActions"] = dataHandler.listActions;
 
 handle["/saveResponse"] = responseDataHandler.saveResponse;
+handle["/getMechCountForZip"] = responseDataHandler.getMechCountForZip;
+handle["/getPriCountForZip"] = responseDataHandler.getPriCountForZip;
+handle["/getAllResponses"] = responseDataHandler.getAllResponses;
+
+handle["/getLocations"] = settingDataHandler.getLocations;
 
 handle["/persona_login"] = ps.login;
 handle["/persona_logout"] = ps.logout;
