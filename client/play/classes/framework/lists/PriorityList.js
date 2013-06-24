@@ -73,6 +73,8 @@
                 priority.id = uid;//alias for use as 'd.id' in d3 functions
                 priority.value = _starAsPerc(priority.score);
                 var div = $("<div class='sliderGrp'></div>").appendTo("#priorityList");
+                var iconDiv = $("<div class='sliderIcon'></div>").appendTo(div);
+                var img = $("<img src='/files/" + priority.data.svgPath + "?color=grey" + "' width='26' height='26'>").appendTo(iconDiv);
 //                var img = $("<img class='sliderIcon' src='" + priority.icon + ".png' width='26' height='26'>").appendTo(div);
                 var ratingDiv = $("<div class='sliderDiv span4' id='slider" + i + "'></div>").appendTo(div);
                 priority.ratingDiv = ratingDiv;

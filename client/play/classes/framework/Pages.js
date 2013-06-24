@@ -13,6 +13,7 @@
         var POLICIES = "policies";
 
         var BTN_NEXT = "next";
+        var BTN_BACK = "back";
         var BTN_SUBMIT = "submit";
         var BTN_SHARE = "share";
 
@@ -82,6 +83,18 @@
             $("#btnNext").toggle(show);
         };
 
+        var _showBackButton = function (show, btnState) {
+            $.each(_btnStates, function (i, btn) {
+                if (btn == btnState) {
+                    $("#btnBack").addClass("bigButton_" + btn);
+                } else {
+                    $("#btnBack").removeClass("bigButton_" + btn);
+                }
+            });
+            SAS.controlUtilsInstance.setButtonText($("#btnBack"), btnState);
+            $("#btnBack").toggle(show);
+        };
+
         var _setClickToInfoWin = function (acompList) {
             if (acompList) {
                 _bubbleChart.onBubbleClick(function (id) {
@@ -113,6 +126,7 @@
             _bubbleChart.showDivs(false);
             _showMoreInfo(false);
             _showNextButton(false, BTN_NEXT);
+            _showBackButton(false, BTN_BACK);
         };
 
         var _fileAndVersion = function () {
@@ -128,6 +142,7 @@
             _bubbleChart.showDivs(true);
             _showMoreInfo(true);//--will allow more info to be shown when bubbles are colored by a later option... will be empty otherwise
             _showNextButton(true, BTN_NEXT);
+            _showBackButton(true, BTN_BACK);
             if (!_priorityList.hasData()) {
 
                 d3.json('/getPriorities' + _fileAndVersion(), function (data) {
@@ -159,6 +174,7 @@
             //_map.showDivs(false);
             _showMoreInfo(true);
             _showNextButton(true, BTN_NEXT);
+            _showBackButton(true, BTN_BACK);
             if (!_mechanismList.hasData()) {
                 d3.json('/getMechanisms' + _fileAndVersion(), function (data) {
                     _mechanismData = data;
@@ -209,6 +225,7 @@
             _bubbleChart.showDivs(true);
             _showMoreInfo(false);
             _showNextButton(true, (_submitted) ? BTN_SHARE : BTN_SUBMIT ); //TODO: check for policies, go to policies if they exist, otherwise submit (_submitted) ? BTN_SHARE : BTN_SUBMIT
+            _showBackButton(true, BTN_BACK);
             _setClickToInfoWin();
             if (!_moneyShown) {
                 _moneyShown = true;
@@ -240,6 +257,7 @@
             _bubbleChart.showDivs(true);
             _showMoreInfo(false);
             _showNextButton(true, (_submitted) ? BTN_SHARE : BTN_SUBMIT);
+            _showBackButton(true, BTN_BACK);
             _setClickToInfoWin();
             if (!_policiesShown) {
                 _policiesShown = true;
@@ -300,6 +318,13 @@
             var activePos = _pageIds.indexOf(_activePage);
             if (activePos < 0 || activePos == _pageIds.length - 1) return;
             _gotoPage(_pageIds[activePos + 1]);
+            _selectTab(_activePage);
+        };
+
+        var _showBack = function () {
+            var activePos = _pageIds.indexOf(_activePage);
+            if (activePos < 1 || activePos == _pageIds.length) return;
+            _gotoPage(_pageIds[activePos - 1]);
             _selectTab(_activePage);
         };
 
@@ -387,6 +412,11 @@
                 } else {
                     _showNext();
                 }
+            });
+
+            $("#btnBack").button();
+            $("#btnBack").click(function () {
+                _showBack();
             });
 
             _gotoPage(INTRO);
