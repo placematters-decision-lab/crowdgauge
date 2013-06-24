@@ -51,7 +51,7 @@
 
         /** These are hard coded now, but could come from a config file or database record
          * TODO move these out of code **/
-        _pageTitles['intro'] = 'Imagine New River Valley in the Future';
+        _pageTitles['intro'] = '';
         _pageTitles['priorities'] = ' I imagine a New River Valley where... ';
         _pageTitles['impacts'] = 'Explore how different projects and policies affect your priorities...';
         _pageTitles['money'] = 'Put your money where your mouse is...';

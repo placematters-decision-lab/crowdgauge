@@ -11,7 +11,6 @@
         var _$zipInput;
         var _$ageInput;
         var _$incomeInput;
-        var _$ethnicityInput;
         var _$genderInput;
         var _$btnStart;
 
@@ -59,12 +58,6 @@
             var incomes = ["Less than $24,999", "$25,000 – 49,999", "$50,000 – 74,999", "$75,000 – 99,999", "$100,000 – 124,999", "$125,000 – 149,999", "$150,000 – 199,999", "$200,000 or greater", "Prefer not to say"];
             SAS.controlUtilsInstance.populateSelectList(_$incomeInput, "[Select Household Income]", incomes, {name: 'income'});
 
-            var $ethnicity = $('<div class="demoInput">').appendTo($holder);
-            $ethnicity.append('<label class="demoLabel" for="ethnicityInput" data-localize="demographics.titles.ethnicity">Ethnicity</label>');
-            _$ethnicityInput = $('<select id="ethnicityInput"></select>').appendTo($ethnicity);
-            var ethnicities = ["African American/Black", "Asian", "Hispanic/Latino", "White/Caucasian","American Indian", "Two or More Races", "Other", "Prefer not to say"];
-            SAS.controlUtilsInstance.populateSelectList(_$ethnicityInput, "[Select Ethnicity]", ethnicities, {name: 'ethnicity'});
-
             var $gender = $('<div class="demoInput">').appendTo($holder);
             $gender.append('<label class="demoLabel" for="genderInput" data-localize="demographics.titles.gender">Gender</label>');
             _$genderInput = $('<select id="genderInput"></select>').appendTo($gender);
@@ -81,7 +74,6 @@
                 zip:_$zipInput.val(),
                 age:_$ageInput.val(),
                 income:_$incomeInput.val(),
-                ethnicity:_$ethnicityInput.val(),
                 gender:_$genderInput.val()
             };
         };
