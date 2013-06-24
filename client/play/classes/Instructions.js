@@ -127,9 +127,9 @@
 
         this.showIntroDialog = function() {
             _showAgainFn = null;
-            var txt = "<p>Welcome to the NRV Tomorrow Survey! This exercise is designed to get your feedback on " +
-            "possible projects and policies, and to show how those projects and policies impact what you value most in the New River Valley.</p>";
-            txt += "<p>You can learn more by visiting the <a href='http://nrvlivability.org/' target='_blank'>official website.</a></p>";
+            var txt = "<p>Welcome to the planokc CrowdGauge Survey! This exercise is designed to get your feedback on " +
+                "possible policies for planokc and show how actions and investments related to those policies impact your priorities for Oklahoma City’s future.</p>";
+            txt += "<p>Your results will be used to help create the City’s new comprehensive plan, planokc. You can learn more by visiting <a href='http://www.planokc.org' target='_blank'>planokc.org</a></p>";
             _showInstructionDialog(txt, {name: 'intro'}, "Get Started", function() {
                 SAS.mainInstance.preventAccidentalLeaving();
             });
@@ -140,7 +140,7 @@
             _showAgainFn = function() {
                 _self.showStarsDialog(numStars);
             };
-            var txt = "<p>Use the stars to rate how important each value is to you. You can allocate <span style='text-decoration:underline'>up to</span> " + numStars + " stars.</p>";
+            var txt = "<p>Use the stars to rate how important each priority is to you. You can allocate up to <span style='text-decoration:underline'>up to</span> " + numStars + " stars.</p>";
             txt += "<p>Watch your priority chart change as you indicate your highest priorities.</p>";
             _showInstructionDialog(txt, {name: 'priorities'});
         };
@@ -204,8 +204,7 @@
 
         this.showSharingDialog = function (entryId, header, pages, bubblechart, sortedPriorities) {
             //TODO
-            var txt = "<p>Thank you for sharing your submission! Your input is valuable to the future of the " +
-                "New River Valley. Please visit <a href='http://www.nrvlivability.org'>the New River Valley Livability Initiative website</a> for more information on the initiative.  You can also view the results of this exercise to date on an <a href='map.html'>interactive map.</a></p>";
+            var txt = "<p>Thanks for taking this survey. For more information about planokc, visit <a href='http://www.planokc.org'>planokc.org</a>.</p>";
             _showInstructionDialog(txt,{title: 'Thank you for sharing!', name: "sharing"});
         };
         //endregion
