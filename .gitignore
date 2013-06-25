@@ -153,3 +153,6 @@ pip-log.txt
 
 #npm_modules
 node_modules
+
+#dotCloud
+.dotcloud/
