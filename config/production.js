@@ -5,6 +5,7 @@
  */
 var fs  = require('fs');
 var env = JSON.parse(fs.readFileSync('../environment.json', 'utf-8'));
+console.log(env);
 
 module.exports = {
     appURUL : env['DOTCLOUD_WWW_HTTP_URL'],
