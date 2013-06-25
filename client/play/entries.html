@@ -1,0 +1,148 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+        "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+    <meta http-equiv="x-ua-compatible" content="IE=9">
+    <meta property="og:title" content="I Imagined My NEO"/>
+    <meta property="og:description"
+          content="See what my priorities are for the future of Northeast Ohio and how I would allocate our limited resources and assign policies to achieve this future."/>
+    <meta property="og:url" content="http://{{host}}/client/play/entries.html?responseId={{responseId}}"/>
+    <meta property="og:image" content="http://{{host}}/png?responseId={{responseId}}"/>
+    <meta property="og:image:type" content="image/png"/>
+    <title>I Imagined My NEO</title>
+
+    <script>
+    </script>
+
+    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.1/jquery.js"></script>
+    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.23/jquery-ui.min.js"></script>
+    <script type="text/javascript" src="../lib/d3/d3.min.js"></script>
+    <script type="text/javascript" src="../core/SAS.js?v=13"></script>
+    <script type="text/javascript" src="../core/Localizer.js"></script>
+    <script type="text/javascript" src="../core/Utils.js"></script>
+    <script type="text/javascript" src="../core/Config.js"></script>
+    <script type="text/javascript" src="http://use.edgefonts.net/league-gothic.js"></script>
+    <script type="text/javascript" src="classes/framework/entries/DisplayEntry.js?v=13"></script>
+    <script type="text/javascript" src="../lib/jquery-tipsy/jquery.tipsy.js"></script>
+    <script type="text/javascript" src="classes/Tipsy.js"></script>
+
+    <link type="text/css" href="../lib/jquery-ui/jquery-ui-1.10.3.custom.min.css" rel="stylesheet"/>
+    <link type="text/css" href="../lib/jquery-tipsy/tipsy.css" rel="stylesheet"/>
+    <link rel='stylesheet' href='css/common.css?v=13'>
+    <link rel='stylesheet' href='css/entries.css?v=13'>
+    <style type="text/css" media="print">
+        @page {
+            size: landscape;
+        }
+
+        .button_bar {
+            display: none;
+        }
+
+        #share {
+            display: none;
+        }
+        #take_the_challenge {
+            display: none;
+        }
+        #thanks_for_playing {
+            display: none;
+        }
+    </style>
+    <script type="text/javascript">
+        var baseUrl = 'http://{{host}}/';
+        $(document).ready(function () {
+            var responseId = '{{responseId}}';
+            var shareMode = '{{sharing}}' === 'yes';
+            var $share = $('#share');
+            var $addThisTools = $('#addThisTools');
+            if (shareMode) {
+                var url = baseUrl + 'client/play/entries.html?responseId=' + responseId;
+                $addThisTools.attr('addthis:url', url);
+                $('.visiting').hide();
+            } else {
+                $share.hide();
+                $('.sharing').hide();
+            }
+            SAS.utilsInstance.addBookmarkMe('#bookmarkThisPage');
+            //addthis:title = "An Example Title"
+            //addthis:description = "An Example Description"
+        });
+    </script>
+</head>
+<body>
+<div id="thanks_for_playing" class="banner sharing">
+    <div class="banner_title">Thanks for playing</div>
+    <div class="imagine_my_neo"></div>
+</div>
+<div id="take_the_challenge" class="sharing">
+    <div class="challenge">
+        <div class="take_txt btn_take">Take the
+            <div class="my_vibrant_5"></div>
+            challenge
+        </div>
+        your score: <span class="yourScore">0</span> <span class="leadername btn_take"></span>
+    </div>
+    <div class="bookmark"><span id="bookmarkThisPage"><b>bookmark</b></span> this page to keep an eye on your score</div>
+    <div class="tell_how btn_take">How does it work?</div>
+    <div id="share">
+        <div class="share_title">Let your friends know:</div>
+        <!-- AddThis Button BEGIN -->
+        <div id="addThisTools" class="addthis_toolbox addthis_default_style addthis_32x32_style">
+            <a class="addthis_button_preferred_1"></a>
+            <a class="addthis_button_preferred_2"></a>
+            <a class="addthis_button_preferred_3"></a>
+            <a class="addthis_button_preferred_4"></a>
+            <a class="addthis_button_compact"></a>
+            <a class="addthis_counter addthis_bubble_style"></a>
+        </div>
+        <script type="text/javascript">var addthis_config = {"data_track_addressbar": true};</script>
+        <script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-51a7ab982e784862"></script>
+        <!-- AddThis Button END -->
+    </div>
+</div>
+
+
+<div id="mainGrp">
+    <div class="sharing">
+        <p>Share your priorities for the future of Northeast Ohio and let your friends know how you would allocate our
+            limited resources and assign policies to achieve this future.</p>
+    </div>
+    <div class="visiting">
+        <div class="banner">
+            <div class="banner_title">Your friend played</div>
+            <div class="play_imagine_my_neo btnPlay"></div>
+        </div>
+        <p>See what your friend's priorities are for the future of Northeast Ohio and how <span
+                class='gender'>he/she</span> would allocate our
+            limited resources and assign policies to achieve this future.</p>
+
+        <p></p>
+    </div>
+    <div class="button_bar visiting">
+        <button class="btnPlay" id="btnCreateYours" alt="Create Your Own ImagineMyNEO" class="bigButton">Imagine Your
+            Own NEO
+        </button>
+        <button class="btnMap" alt="Map" class="bigButton">See a Map of Results</button>
+    </div>
+    <div id="designProfileGrp">
+
+        <div id="rtPane">
+            <div id="bubbleChart"></div>
+            <div class="loader ajax_loader_blue"></div>
+        </div>
+        <div id="leftPanel">
+            <!--<div id="tab_logo" class="tabLogol"></div>-->
+            <div id="priorities"></div>
+            <div id="mechanisms"></div>
+        </div>
+    </div>
+    <div class="button_bar sharing">
+        <button class="btnPlay" id="btnPlayAgain" alt="Create Your Own ImagineMyNEO" class="bigButton">Back to
+            ImagineMyNEO
+        </button>
+        <button class="btnMap" alt="Map" class="bigButton">See a Map of Results</button>
+    </div>
+</div>
+</body>
+</html>

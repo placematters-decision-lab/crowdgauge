@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="x-ua-compatible" content="IE=10">
+    <!--<meta name="viewport" content="width=980" />-->
+    <title>ImagineMyNEO</title>
+
+    <!--<link type="text/css" href="../lib/jquery-ui/jquery-ui-1.9.1.custom.min.css" rel="stylesheet"/>-->
+    <link type="text/css" href="../lib/jquery-ui/jquery-ui-1.10.3.custom.min.css" rel="stylesheet"/>
+    <link type="text/css" href="../lib/jquery-tipsy/tipsy.css" rel="stylesheet"/>
+    <link type="text/css" href="css/main.css" rel="stylesheet"/>
+    <link type="text/css" href="css/theme.css" rel="stylesheet"/>
+    <link type="text/css" href="css/datacolors.css" rel="stylesheet"/>
+    <link type="text/css" href="css/coins.css" rel="stylesheet"/>
+    <link type="text/css" href="css/svgCSS/svg.css" rel="stylesheet"/>
+    <link rel='stylesheet' href='css/gfx.css?v=14'>
+
+    <script>
+    </script>
+
+    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.1/jquery.js"></script>
+    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.23/jquery-ui.min.js"></script>
+
+    <script type="text/javascript" src="../lib/d3/d3.min.js"></script>
+    <script type="text/javascript" src="../lib/d3/d3.layout.min.js"></script>
+    <script type="text/javascript" src="../lib/jquery-tipsy/jquery.tipsy.js"></script>
+    <script type="text/javascript" src="../lib/jquery-raty/jquery.raty.min.js"></script>
+
+    <script type="text/javascript" src="../core/SAS.js?v=1"></script>
+    <script type="text/javascript" src="../core/ControlUtils.js?v=1"></script>
+    <script type="text/javascript" src="../core/JsonRestWS.js?v=1"></script>
+    <script type="text/javascript" src="../core/Inheritance.js?v=1"></script>
+    <script type="text/javascript" src="../core/Localizer.js?v=1"></script>
+
+    <script type="text/javascript" src="classes/framework/DataManager.js"></script>
+    <script type="text/javascript" src="classes/framework/Layout.js"></script>
+    <script type="text/javascript" src="classes/framework/Pages.js"></script>
+    <script type="text/javascript" src="classes/framework/BubbleChart.js"></script>
+    <script type="text/javascript" src="classes/framework/InfoWindow.js"></script>
+    <script type="text/javascript" src="classes/framework/MechanismScorer.js"></script>
+    <script type="text/javascript" src="classes/framework/mechicons/MiniBubbleChart.js"></script>
+    <script type="text/javascript" src="classes/framework/mechicons/MoneyVoteIcon.js"></script>
+    <script type="text/javascript" src="classes/framework/lists/ACompareList.js"></script>
+    <script type="text/javascript" src="classes/framework/lists/MechanismList.js"></script>
+    <script type="text/javascript" src="classes/framework/lists/PriorityList.js"></script>
+
+    <script type="text/javascript" src="classes/Instructions.js"></script>
+    <script type="text/javascript" src="classes/IntroPage.js"></script>
+    <script type="text/javascript" src="../core/Utils.js"></script>
+    <script type="text/javascript" src="../core/Config.js"></script>
+    <script src="http://use.edgefonts.net/league-gothic.js"></script>
+    <script type="text/javascript" src="classes/Tipsy.js"></script>
+
+    <!--<script type='text/javascript'>-->
+        <!--$('#manual-example').tipsy({trigger: 'manual', title: "here!"});-->
+    <!--</script>-->
+</head>
+<body>
+<!--<p id='manual-example'>-->
+    <!--<a rel='tipsy' title='Well hello there'>My tooltip is manually triggered</a>-->
+    <!--<a href='#' onclick='$("#manual-example").tipsy("show"); return false;'>Show</a>-->
+    <!--<a href='#' onclick='$("#manual-example").tipsy("hide"); return false;'>Hide</a>-->
+<!--</p>-->
+
+<div id="header">
+    <div id="logos">
+        <div id="vibrantneo_logo" class="tabLogo"></div>
+        <div id="vibrantneo_cci" class="tabLogo"></div>
+        <div id="imaginemyneo_logo" class="tabLogo"></div>
+    </div>
+    <div id="tabs">
+        <div id="tab_group">
+            <div class="tabTitle_wrapper">
+                <div id="tab_intro" class="tabTitle">Introduction</div>
+            </div>
+            <div class="tabTitle_wrapper">
+                <div id="tab_priorities" class="tabTitle">Priorities</div>
+            </div>
+            <div class="tabTitle_wrapper">
+                <div id="tab_impacts" class="tabTitle">Impacts</div>
+            </div>
+            <div class="tabTitle_wrapper">
+                <div id="tab_money" class="tabTitle">You Decide</div>
+            </div>
+        </div>
+        <div id="options">
+            <div id="opt_credits" class="optBtn">More about ImagineMyNEO</div>
+        </div>
+    </div>
+</div>
+<div id="footer">
+    <div id="starsLeft"></div>
+    <div id="coinsLeft"></div>
+    <div id="coinsReset"></div>
+    <div id="clickInstr" class="clickTheIcon">Click on the bubbles to open an explanation of the impact.</div>
+    <div id="colorRampLegend"></div>
+    <!--<a href="http://www.sasaki.com" target="_blank" >-->
+    <!--<div id="footer_sasaki" class="footerImg"></div>-->
+    <!--</a>-->
+    <!--<a href="http://vibrantneo.org/" target="_blank">-->
+    <!--<div id="footer_ttp" class="footerImg"></div>-->
+    <!--</a>-->
+</div>
+<!--<div id="titleBar" class="titleImg"></div>-->
+<div id="titleBar"></div>
+<div id="introImage"></div>
+<div id="intro">
+    <div class="introTxtH1">
+        How can we make Northeast Ohio more Vibrant, Resilient and Sustainable?
+    </div>
+    <div id="introContent">
+        <div class="introTxt">
+            <p>Play Imagine MyNEO and plot our region&#39;s future&#8230;</p>
+
+            <p>Vibrant NEO 2040 is a regional effort to decide where we want Northeast Ohio to go in the future and what
+                steps we can take to get there. Vibrant NEO 2040 has to reflect Northeast Ohioans&#39; values and
+                aspirations and that requires the input of a diverse group of residents. LIKE YOU.</p>
+
+            <p>What Future Do YOU Want for Northeast Ohio? What do YOU think the region&#39;s future should look like?
+                Share
+                your priorities and show us the kind of choices YOU would make.</p>
+        </div>
+        <div id="introFrm" class="introFrm">
+        </div>
+    </div>
+
+</div>
+<div id="leftPanel" class="leftPanel">
+    <div id="mainTitle"></div>
+    <div id="priorityList"></div>
+    <div id="mechanismList"></div>
+    <div id="compareList"></div>
+</div>
+<div id="listLoadIcon" class="ajax_loader_blue"></div>
+<div id="chart"></div>
+<div id="moreInfo"></div>
+<div id="itemsLeft">
+    <!--<div id="starsLeft"></div>-->
+    <!--<div id="coinsLeft"></div>-->
+    <!--<div id="clickInstr" class="clickTheIcon">Click the icons for explanations</div>-->
+    <!--<div id="colorRampLegend"></div>-->
+</div>
+<div id="bigButtonHolder">
+    <button class="bigButtonNext" id="btnNext" data-localize="buttons.next">NEXT</button>
+    <button class="bigButtonBack" id="btnBack" data-localize="buttons.back">BACK</button>
+    <div id="reshowInstr">Show Instructions Again</div>
+</div>
+
+<div id="dialog"></div>
+<script type="text/javascript" src="classes/Main.js"></script>
+</body>
+</html>

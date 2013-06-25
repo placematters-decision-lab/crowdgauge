@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>MyVibrant5 Leaderboard</title>
+    <script>
+    </script>
+    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
+    <script type="text/javascript" src="../core/Utils.js"></script>
+
+    <link rel='stylesheet' href='css/leaderboard.css?v=12'>
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+            var fullBoard = SAS.utilsInstance.gup('full');
+            var leaderboardMin = SAS.utilsInstance.gup('leaderboardMin');
+            var fullPage = SAS.utilsInstance.gup('fullPage') || 'leaderboard.html?full=true';
+            var p = {};
+            if (!fullBoard) p.limit = 5;
+            if (leaderboardMin) p.leaderboardMin = leaderboardMin;
+            var $list = $('#leader_list');
+            $('#loader').show();
+            $.getJSON('/getLeaderboard?'+ $.param(p), function(data) {
+                $('#loader').hide();
+                $list.html('');
+                if (!data || data.success == false) {
+                    return;
+                }
+                var pos = 0;
+                var cpos = 0;
+                var lastScore = null;
+                $.each(data, function (i, leader) {pos++;
+                    if (lastScore != leader.score) {//golf style leaderboard
+                        cpos = pos;
+                    }
+                    var $row = $('<div class="leader_item">').appendTo($list);
+                    $('<div class="ldr_pos">').text(cpos).appendTo($row);
+                    $('<div class="ldr_name">').text(leader.leadername).appendTo($row);
+                    $('<div class="ldr_score">').text(leader.score).appendTo($row);
+
+                    lastScore =  leader.score;
+                });
+            });
+            $('#link_to_full').toggle(!fullBoard).click(function () {
+                window.open(fullPage);
+            });
+        });
+    </script>
+</head>
+<body>
+<div id="leader_box">
+    <div id="header_bar">
+        leaderboard
+    </div>
+    <div class="leader_shad"></div>
+    <div id="loader" class="ajax_loader_small"></div>
+    <div id="leader_list">
+
+    </div>
+    <div id="link_to_full">full leaderboard</div>
+</div>
+</body>
+</html>
