@@ -12,5 +12,7 @@ module.exports = {
         port : process.env.REDIS_PORT,
         key : process.env.REDIS_KEY
     },
-    loggly : null
+    loggly : null,
+    port : 8080,
+    cacheType : 1
 }

@@ -143,7 +143,7 @@ function start(route, securePaths, prehandle, handle, staticServer, persistentSt
     }
 
     app = http.createServer(onRequest);
-    app.listen(config.port);//, '127.0.0.1');      // TODO
+    app.listen(config.port);
     console.log('Server running at http://127.0.0.1:' + config.port);
 }
 

@@ -16,5 +16,7 @@ module.exports = {
         port : env['DOTCLOUD_DATA_REDIS_PORT'],
         key : env['DOTCLOUD_DATA_REDIS_PASSWORD']
     },
-    loggly : null
+    loggly : null,
+    port : 8080,
+    cacheType : 1
 }
