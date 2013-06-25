@@ -3,8 +3,8 @@
  * For debugging it may be helpful to provide a localhost URL.
  * If you're using DotCloud you can leave this as is unless you want to use a custom URL.
  */
-var fs  = require('fs');
-var env = JSON.parse(fs.readFileSync('../environment.json', 'utf-8'));
+var fs = require('fs');
+var env = JSON.parse(fs.readFileSync('/home/dotcloud/environment.json', 'utf-8'));
 console.log(env);
 
 module.exports = {
