@@ -1,9 +1,5 @@
 var loggly = require('loggly');
-if(process.env.NODE_ENV == 'production') {
-    var config = require("../config");
-} else {
-    var config = require("../config.development");
-}
+var config = require('config');
 
 var logglyClient = null;
 if (config.loggly) logglyClient = loggly.createClient(config.loggly.conf);

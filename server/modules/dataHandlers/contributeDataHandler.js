@@ -4,11 +4,7 @@
  * Time: 9:33 AM
  */
 //region includes
-if(process.env.NODE_ENV == 'production') {
-    var config = require("../../config");
-} else {
-    var config = require("../../config.development");
-}
+var config = require('config');
 
 var db_name = 'contribute_okc';
 var url = require('url');
