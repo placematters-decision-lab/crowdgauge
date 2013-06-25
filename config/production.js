@@ -18,5 +18,6 @@ module.exports = {
     },
     loggly : null,
     port : 8080,
-    cacheType : 1
+    cacheType : 1,
+    dev : 0
 }
