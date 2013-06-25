@@ -1,9 +1,10 @@
 var path = require('path');
 var nodeStatic = require('node-static');
-var fs = require('fs');
-var util = require('util');
 
-var config = require('config');
+var config = require("config");
+
+//var nano = require('nano')(config.couchURL);
+//var _db = nano.db.use('foo');
 
 var server = require("./server/http/server");
 var router = require("./server/http/router");
@@ -22,21 +23,24 @@ var socketHandler = require("./server/modules/socketHandler");
 var personaServer = require("./server/modules/personaServer");
 var persistentStore = require("./server/modules/persistentStore");
 
+require('http').globalAgent.maxSockets = 100000;//allow plenty of connections for long-running Couch calls
+require('https').globalAgent.maxSockets = 1000;//mostly for loggly
 
 var persist = new persistentStore.PersistentStore();
 var ps = new personaServer.PersonaServer(persist, {
-    audience:config.appURL
+    audience: config.appURL
 });
 
 // set Handlers
-fileManager.setHandlers(imageDataHandler);
+fileManager.setHandlers(imageDataHandler, persist);
 dataHandler.setHandlers(socketHandler, imageDataHandler);
-responseDataHandler.setHandlers(settingDataHandler, dataHandler);
+responseDataHandler.setHandlers(settingDataHandler);
 
 //var client = path.resolve(__dirname, "client");
 var file = new (nodeStatic.Server)(__dirname);
 fileManager.options({
-    uploadDir:__dirname + '/tmp'
+    uploadDir: __dirname + '/tmp',
+    cacheDir: __dirname + '/tmp/cache'
 });
 
 var prehandle = {};
@@ -65,6 +69,7 @@ handle["/releaseLock"] = dataHandler.releaseLock;
 handle["/deletePriority"] = dataHandler.deletePriority;
 handle["/deleteAction"] = dataHandler.deleteAction;
 handle["/deleteMechanism"] = dataHandler.deleteMechanism;
+handle["/deleteCell"] = dataHandler.deleteCell;
 handle["/getAllContent"] = dataHandler.getAllContent;
 handle["/updateContent"] = dataHandler.updateContent;
 
@@ -74,45 +79,39 @@ handle["/files"] = fileManager.serveFile;
 handle["/getImage"] = fileManager.getImage;
 
 handle["/getPriorities"] = dataHandler.getPriorities;
-handle["/getPriorityTitles"] = dataHandler.getPriorityTitles;
 handle["/getMechanisms"] = dataHandler.getMechanisms;
 handle["/getMechanismInfo"] = dataHandler.getMechanismInfo;
 handle["/getActionDefs"] = dataHandler.getActionDefs;
 handle["/getActions"] = dataHandler.getActions;
-handle["/listActions"] = dataHandler.listActions;
+handle["/getAllActions"] = dataHandler.getAllActions;
 
 handle["/saveResponse"] = responseDataHandler.saveResponse;
+handle["/getResponse"] = responseDataHandler.getResponse;
 handle["/getMechCountForZip"] = responseDataHandler.getMechCountForZip;
 handle["/getPriCountForZip"] = responseDataHandler.getPriCountForZip;
-handle["/getAllResponses"] = responseDataHandler.getAllResponses;
+handle["/saveLeadername"] = responseDataHandler.saveLeadername;
+handle["/validateLeadername"] = responseDataHandler.validateLeadername;
+handle["/getLeadername"] = responseDataHandler.getLeadername;
+handle["/descendantCount"] = responseDataHandler.descendantCount;
+handle["/getLeaderboard"] = responseDataHandler.getLeaderboard;
 
 handle["/getLocations"] = settingDataHandler.getLocations;
 
 handle["/persona_login"] = ps.login;
 handle["/persona_logout"] = ps.logout;
 
-handle["/"] = function(req, res, postData) {
-    /*fs.readFile('client/play/index.html',function(err, contents) {
-        if (!err) {
-            res.writeHead(200, {
-                "Content-Type": 'text/html',
-                "Content-Length": contents.length
-            });
-            res.end(contents);
-        } else {
-            res.writeHead(500);
-            res.end();
-        }
-    }); */
-    res.writeHead(302, {
-        'Location': '/client/play/index.html'
-        //add other headers here...
-    });
+handle["/png"] = responseDataHandler.png;
+
+handle["/health"] = function (req, res, postData) {
+    //--just a server health check for load balancer
+    res.writeHeader(200, {"Content-Type": "application/json"});
+    res.write(JSON.stringify({success:true}));
     res.end();
-}
+};
 
 //handle["/TEMP_fixLangs"] = dataHandler.TEMP_fixLangs();
 
 //handle["/upload"] = requestHandlers.upload;
+
 server.start(router.route, securePaths, prehandle, handle, file, persist);
 server.startSockets(socketHandler.onConnect);

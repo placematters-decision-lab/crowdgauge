@@ -2,10 +2,10 @@
 var util = require('util');
 //endregion
 //region npm modules
-var redis = require('redis');
 //endregion
 //region modules
 var config = require('config');
+var dc = require('./core/distCache');
 
 //redis.debug_mode = true;
 //endregion
@@ -13,20 +13,18 @@ var config = require('config');
  * @param {Function} [onReady]
  * @constructor
  */
-var PersistentStore = function (onReady) {
+var PersistentStore = function (prefix, onReady) {
     var _self = this;
 
     //region private fields and methods
+    var _distCache;
     var _client;
+    var _prefix = prefix || process.env.APP_URL;
     var _onReady = onReady;
 
     var _init = function () {
-        _client = redis.createClient(config.redis.port, config.redis.host);
-        _client.auth(config.redis.key, function (err) {
-            if (err) {
-                throw err;
-            }
-            // You are now connected to your redis.
+//        _distCache = new dc.DistCache(dc.cacheTypes.REDIS, function() {
+        _distCache = new dc.DistCache(config.cacheType, function() {
             if (_onReady) _onReady();
         });
     };
@@ -50,10 +48,7 @@ var PersistentStore = function (onReady) {
     };
 
     var _load = function (key, callback) {
-        _client.hgetall(key, function (err, obj) {
-            //console.dir(obj);
-            callback(obj);
-        });
+        _distCache.get(_prefix + key, callback);
     };
     //endregion
 
@@ -67,19 +62,19 @@ var PersistentStore = function (onReady) {
     };
     //================
     this.load = function (key, callback) {
+        console.log("INSIDE LOAD PUBLIC");
         _load(key, callback);
     };
 
     this.save = function (key, dict, callback) {
-        console.log("redis save: " + key + ": " + util.inspect(dict));
-        _client.hmset(key, dict, function () {
-            if (callback) callback();
-        });
+        console.log("persist save: " + _prefix + key + ": " + util.inspect(dict));
+        _distCache.set(_prefix + key, dict, callback);
     };
     //==============
     this.checkAuthorization = function (req, callback) {
         var cookies = _parseCookies(req);
-        if (cookies.email && cookies.auth) {
+        console.log("-------------cookies.email: " + cookies.email + " cookies.auth: " + cookies.auth + "---------------");
+        if (cookies.email && cookies.auth && cookies.email.indexOf("@placematters.org", cookies.email.length - "@placematters.org".length) !== -1) { // only admin inside Sasaki
             //check redis store for this auth and cookie combo
             _load(cookies.email, function (obj) {
                 if (obj && obj.auth == cookies.auth) {
@@ -87,8 +82,9 @@ var PersistentStore = function (onReady) {
                 } else {
                     callback(false);
                 }
-            })
+            });
         } else {
+            console.log('Authorization failed');
             callback(false);
         }
     };
@@ -98,4 +94,3 @@ var PersistentStore = function (onReady) {
 };
 
 module.exports.PersistentStore = PersistentStore;
-

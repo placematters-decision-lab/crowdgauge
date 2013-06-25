@@ -15,6 +15,7 @@ var config = require("config");
 var app;
 
 var _pathMatch = function (pathname, securePaths) {
+    //console.log('checkpaths');
     return securePaths.some(function (p, i) {//--use 'some' function to determine if *any* path matches
         return (pathname.indexOf(p) == 0);
     });
@@ -29,6 +30,7 @@ var _pathMatch = function (pathname, securePaths) {
  * @private
  */
 var _checkAuthorization = function (req, pathname, securePaths, persistentStore, callback) {
+    //console.log(_pathMatch(pathname, securePaths));
     if (_pathMatch(pathname, securePaths)) {
         persistentStore.checkAuthorization(req, function (success) {
             if (callback) callback(success);
@@ -95,7 +97,7 @@ var _serveFile = function (req, res, pathname, staticServer) {
             var stream = mu.compileAndRender(filePath, _getBasicTemplateObj(req));
             util.pump(stream, res);
         } else {
-            if(filePath.split('/')[0] == 'client')  {
+            if(filePath.split('/')[0] == 'client' || filePath.split('/')[0] == 'shared')  {
                 staticServer.serve(req, res);
             } else {
                 res.writeHead(403);

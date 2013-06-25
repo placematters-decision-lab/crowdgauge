@@ -4,7 +4,7 @@
  */
 
 module.exports = {
-    appURUL : 'http://localhost:8080',
+    appURL : 'http://localhost:8080',
     couchURL : process.env.COUCH_URL,
     verbosity : 0,
     redis : {
@@ -12,5 +12,7 @@ module.exports = {
         port : process.env.REDIS_PORT,
         key : process.env.REDIS_KEY
     },
-    loggly : null
+    loggly : null,
+    port : 8080,
+    cacheType : 1
 }
