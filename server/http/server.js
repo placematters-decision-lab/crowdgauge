@@ -99,6 +99,11 @@ var _serveFile = function (req, res, pathname, staticServer) {
     });
 };
 
+var _returnError = function (res, code) {
+    res.writeHeader(code);
+    res.end();
+};
+
 function start(route, securePaths, prehandle, handle, staticServer, persistentStore) {
     function onRequest(req, res) {
         var postDataStr = "";
@@ -122,7 +127,11 @@ function start(route, securePaths, prehandle, handle, staticServer, persistentSt
                 if (success) {
                     //TODO create test to ensure that all possible routes that resolve in 'route' function are checked by securePaths
                     if (!route(handle, pathname, req, res, postData)) {
-                        _serveFile(req, res, pathname, staticServer);
+                        if (pathname.indexOf('/server/') == 0) {
+                            _returnError(res, 403);//client should not be able to access server files. Security risk! 403 Forbidden
+                        } else {
+                            _serveFile(req, res, pathname, staticServer);
+                        }
                     }
                 } else {
                     _redirect(res, '/client/login/');

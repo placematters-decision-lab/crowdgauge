@@ -112,7 +112,7 @@ handle["/health"] = function (req, res, postData) {
 //handle["/TEMP_fixLangs"] = dataHandler.TEMP_fixLangs();
 
 //handle["/upload"] = requestHandlers.upload;
-config.ifLocal(null, function() {
+config.doIfLocal(null, function() {
     process.on('uncaughtException', function (err) {
         console.log('****************** uncaught exception:' + err);
     });
