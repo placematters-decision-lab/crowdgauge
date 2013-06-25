@@ -4,11 +4,8 @@
  * Time: 3:52 PM
  */
 //region nodejs core
-if(process.env.NODE_ENV == 'production') {
-    var config = require("../../config");
-} else {
-    var config = require("../../config.development");
-}
+var config = require('config');
+
 var db_name = 'settings_okc';
 var url = require('url');
 var util = require('util');

@@ -3,11 +3,7 @@ var nodeStatic = require('node-static');
 var fs = require('fs');
 var util = require('util');
 
-if(process.env.NODE_ENV == 'production') {
-    var config = require("./server/config");
-} else {
-    var config = require("./server/config.development");
-}
+var config = require('config');
 
 var server = require("./server/http/server");
 var router = require("./server/http/router");

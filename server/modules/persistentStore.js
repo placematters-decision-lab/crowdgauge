@@ -5,11 +5,7 @@ var util = require('util');
 var redis = require('redis');
 //endregion
 //region modules
-if(process.env.NODE_ENV == 'production') {
-    var config = require("../config");
-} else {
-    var config = require("../config.development");
-}
+var config = require('config');
 
 //redis.debug_mode = true;
 //endregion

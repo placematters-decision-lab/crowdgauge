@@ -3,6 +3,8 @@
 #################
 #ignore config.js because it may contain sensitive information. config.js.example is included instead.
 #server/config.js --commented out - sensitive information moved to environment vars
+#do not commit runtime.json files
+runtime.json
 
 #Coin_Illustrations - these are temp files that get renamed without the prefix...
 */Coin_Illustrations_*.png
