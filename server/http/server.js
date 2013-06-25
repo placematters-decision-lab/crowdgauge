@@ -85,8 +85,9 @@ var _getBasicTemplateObj = function (req) {
 var _serveFile = function (req, res, pathname, staticServer) {
     _fixPath(req, res, pathname, function (fixedPath) {
         var ext = fixedPath.split('.').pop();
+        var filePath = fixedPath.substr(1);
         if (ext == 'tttt') {  ///not ready to transfer mu templates quite yet
-            var filePath = fixedPath.substr(1);//strip off first '/'
+            //strip off first '/'
             var fileName = filePath.split('/').pop();
             config.doIfLocal(function () {
                 mu.clearCache();//--clear cache otherwise any updates to HTML files will not be reflected
@@ -94,7 +95,12 @@ var _serveFile = function (req, res, pathname, staticServer) {
             var stream = mu.compileAndRender(filePath, _getBasicTemplateObj(req));
             util.pump(stream, res);
         } else {
-            staticServer.serve(req, res);
+            if(filePath.split('/')[0] == 'client')  {
+                staticServer.serve(req, res);
+            } else {
+                res.writeHead(403);
+                res.end();
+            }
         }
     });
 };
