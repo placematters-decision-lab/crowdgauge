@@ -12,7 +12,15 @@ Jquery on the front-end, Node.js server and CouchDB as the database. You can obv
 CrowdGauge is not 100% complete, but it is ready for alpha testing. Please see the [installation instructions](https://github.com/placematters-decision-lab/crowdgauge/wiki/Installation-Instructions-on-NodeJitsu) for more information.
 
 ## Getting Started
-You can get started
+Getting started in a local environment is fairly easy
+### Install Redis
+### Install CouchDB
+### Install CrowdGauge
+Git Clone
+cd in to directory
+npm install
+make sure redis and couchDB are running
+npm start
 
 ## Documentation
 Documentation is currently being built and can be found in the ```doc``` directory.  Learn more about:
