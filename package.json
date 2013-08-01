@@ -1,23 +1,29 @@
 {
-    "name": "crowdgauge",
-    "subdomain": "crowdgaugemap",
-    "scripts": {
-        "start": "index.js"
-    },
-    "version": "0.0.1-21",
-    "dependencies": {
-        "socket.io": "0.9.x",
-        "imagemagick": "0.1.x",
-        "formidable": "1.0.x",
-        "nano": "3.x.x",
-        "node-static": "0.6.x",
-        "loggly": "0.3.x",
-        "redis": "0.8.x",
-        "json2csv": "2.0.x",
-        "config": "0.4.x",
-        "mu2": "0.5.x"
-    },
-    "engines": {
-        "node": "0.8.x"
-    }
+  "name": "crowdgauge",
+  "subdomain": "crowdgaugemap",
+  "scripts": {
+    "start": "NODE_ENV=development ./node_modules/.bin/nodemon index.js"
+  },
+  "version": "0.0.1-21",
+  "dependencies": {
+    "socket.io": "0.9.x",
+    "imagemagick": "0.1.x",
+    "formidable": "1.0.x",
+    "nano": "3.x.x",
+    "node-static": "0.6.x",
+    "loggly": "0.3.x",
+    "redis": "0.8.x",
+    "json2csv": "2.0.x",
+    "config": "0.4.x",
+    "mu2": "0.5.x"
+  },
+  "devDependencies": {
+    "supertest": "latest",
+    "should": "latest",
+    "mocha": "latest",
+    "nodemon": "latest"
+  },
+  "engines": {
+    "node": "0.8.x"
+  }
 }

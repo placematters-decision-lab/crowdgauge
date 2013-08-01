@@ -10,3 +10,13 @@ Jquery on the front-end, Node.js server and CouchDB as the database. You can obv
 
 ## Status
 CrowdGauge is not 100% complete, but it is ready for alpha testing. Please see the [installation instructions](https://github.com/placematters-decision-lab/crowdgauge/wiki/Installation-Instructions-on-NodeJitsu) for more information.
+
+## Getting Started
+You can get started
+
+## Documentation
+Documentation is currently being built and can be found in the ```doc``` directory.  Learn more about:
+- the architecture
+- local setup
+
+## Contributing
