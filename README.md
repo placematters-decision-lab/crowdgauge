@@ -16,11 +16,11 @@ Getting started in a local environment is fairly easy
 ### Install Redis
 ### Install CouchDB
 ### Install CrowdGauge
-Git Clone
-cd in to directory
-npm install
-make sure redis and couchDB are running
-npm start
+- Git Clone
+- cd in to directory
+- npm install
+- make sure redis and couchDB are running
+- npm start
 
 ## Documentation
 Documentation is currently being built and can be found in the ```doc``` directory.  Learn more about:
